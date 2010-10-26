@@ -3,17 +3,16 @@ function test() {
 	global $qwer;
 	print "qwer=$qwer\n";
 }
-function brender_sound($son){
-	# $query="insert into orders values('','soundplayer','sound','1','$son')";
-	# print "order query = $query\n";
-	# mysql_unbuffered_query($query);
+function output($msg,$type="info") {
+	# output can be customized in future for different types 
+	# currently type = info, warning, error
+	$when=date('Y/d/m H:i:s');
+	$msg= "$when : $type : $msg";
+	brender_log($msg);
+	print "$msg\n";
 }
-function brender_playsound($son) {
-	# pour player du son il faut demarrer un ordi windows avec la config soundplayer.conf
-	$cmd="sndrec32 /play /close \"R:\sounds\\".$son.".wav\"";
-	system($cmd);
-	print "new cmd=$cmd\n";
-	#brender_log("je play $son");
+function debug($msg) {
+	print "## DEBUG :: $msg\n";
 }
 function get_client_info($client,$info) {
 	send_order("$client","info","$info","80");	
@@ -35,8 +34,12 @@ function change_order_owner($id,$client) {
 	print "become order query $query\n";
 	# print "### $client deleted order $id\n";
 }
-function new_node($node) {
-	$query="insert into clients values ('','$node','2','node','0','not running','');";
+function new_node($node,$speed=2) {
+	$query="insert into clients values ('','$node','$speed','node','0','not running','');";
+	mysql_query($query);
+}
+function delete_node($node) {
+	$query="delete from clients where name='$node'";
 	mysql_query($query);
 }
 function remove_order($id) {
@@ -54,7 +57,7 @@ function server_stop($pid){
 function server_start($pid){
 	$query="update status set pid='$pid',status='running',started=now()";
 	# 	print "\n query = $query ----\n";
-	mysql_unbuffered_query($query);
+	mysql_query($query);
 	print "STARTED SERVER $status $rem\n";
 }
 function server_status(){
@@ -111,7 +114,7 @@ function brender_log($log){
 	global $computer_name;
 	$heure=date('Y/d/m H:i:s');
 	$log_koi = "$heure $computer_name: $log\n";
-	print "$log_koi";
+	#print "$log_koi";
 	$foo=fopen("logs/$computer_name.log",a);
             fwrite($foo,"$log_koi");
         fclose($foo);
