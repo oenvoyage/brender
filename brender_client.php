@@ -1,6 +1,7 @@
 #!/usr/bin/php -q
 <?php 
 require "functions.php";
+require_once "connect.php";
 output("---- brender client 0.1 ----");
 if (!$argv[1]) {
 	die("ERROR: no .conf file\n");
@@ -18,7 +19,6 @@ if ($argv[1]=="node") {
 else {
 	require "conf/$argv[1].conf";
 }
-require_once "connect.php";
 
 if (!$argv[1]) {
 	die("no computer_name, please use \n ./brender_client.php node <COMPUTER_NAME>\n");
@@ -92,7 +92,7 @@ while ($q=1) {
 	}
 	#  --- sleep(1) can be enabled to have the mysql not running too many queries per minute
 	# i do not know how to make it sleep less than one second...
-	#sleep(1);
+	sleep(1);
 
 	if($a++==10000){
 		$a=0;

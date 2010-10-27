@@ -7,6 +7,11 @@ function check_login($user,$pass) {
                  return 0;
          }
 }
+function init_user($user) {
+	$_SESSION['user']=$user;
+	$_SESSION['theme']="brender";
+	return 1;
+}
 function show_login_form() {
 		
 ?>

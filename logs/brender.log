@@ -6,3 +6,66 @@
 2010/24/10 20:11:30 server: SERVER STARTS 16063
 2010/24/10 20:15:26 server: SERVER STARTS 17857
 2010/24/10 20:31:47 server: SERVER STARTS 21269
+2010/27/10 14:08:01 : 2010/27/10 14:08:01 : info : ---- brender client 0.1 ----
+2010/27/10 14:08:08 : 2010/27/10 14:08:08 : info : ---- brender client 0.1 ----
+2010/27/10 14:08:21 : 2010/27/10 14:08:21 : info : ---- brender client 0.1 ----
+2010/27/10 14:08:21 ubuntu1: 2010/27/10 14:08:21 : info : computer name=ubuntu1
+2010/27/10 14:08:21 ubuntu1: 2010/27/10 14:08:21 : info : blenderpath=/home/o/blender/blender_2_49/blender
+2010/27/10 14:08:21 ubuntu1: 2010/27/10 14:08:21 : info : process id=12008
+
+2010/27/10 14:08:21 ubuntu1: START ubuntu1
+2010/27/10 14:12:53 : 2010/27/10 14:12:53 : info : ---- brender client 0.1 ----
+2010/27/10 14:12:58 : 2010/27/10 14:12:58 : info : ---- brender client 0.1 ----
+2010/27/10 14:12:58 ubuntu1: 2010/27/10 14:12:58 : info : computer name=ubuntu1
+2010/27/10 14:12:58 ubuntu1: 2010/27/10 14:12:58 : info : blenderpath=/home/o/blender/blender_2_49/blender
+2010/27/10 14:12:58 ubuntu1: 2010/27/10 14:12:58 : info : process id=12311
+
+2010/27/10 14:12:58 ubuntu1: START ubuntu1
+2010/27/10 14:13:36 : 2010/27/10 14:13:36 : info : ---- brender client 0.1 ----
+2010/27/10 14:13:36 ubuntu1: 2010/27/10 14:13:36 : info : computer name=ubuntu1
+2010/27/10 14:13:36 ubuntu1: 2010/27/10 14:13:36 : info : blenderpath=/home/o/blender/blender_2_49/blender
+2010/27/10 14:13:36 ubuntu1: 2010/27/10 14:13:36 : info : process id=12326
+
+2010/27/10 14:13:36 ubuntu1: START ubuntu1
+2010/27/10 14:13:50 : 2010/27/10 14:13:50 : info : ---- brender client 0.1 ----
+2010/27/10 14:13:50 macbook: 2010/27/10 14:13:50 : info : computer name=macbook
+2010/27/10 14:13:50 macbook: 2010/27/10 14:13:50 : info : blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender
+2010/27/10 14:13:50 macbook: 2010/27/10 14:13:50 : info : process id=12329
+
+2010/27/10 14:13:50 macbook: START macbook
+2010/27/10 14:15:08 : 2010/27/10 14:15:08 : info : ---- brender client 0.1 ----
+2010/27/10 14:15:08 macbook: 2010/27/10 14:15:08 : info : computer name=macbook
+2010/27/10 14:15:08 macbook: 2010/27/10 14:15:08 : info : blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender
+2010/27/10 14:15:08 macbook: 2010/27/10 14:15:08 : info : process id=12340
+
+2010/27/10 14:15:08 macbook: START macbook
+2010/27/10 14:17:47 : 2010/27/10 14:17:47 : info : ---- brender client 0.1 ----
+2010/27/10 14:17:47 macbook: 2010/27/10 14:17:47 : info : computer name=macbook
+2010/27/10 14:17:47 macbook: 2010/27/10 14:17:47 : info : blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender
+2010/27/10 14:17:47 macbook: 2010/27/10 14:17:47 : info : process id=12387
+
+2010/27/10 14:17:47 macbook: START macbook
+2010/27/10 14:18:55 : 2010/27/10 14:18:55 : info : ---- brender client 0.1 ----
+2010/27/10 14:18:55 macbook: 2010/27/10 14:18:55 : info : computer name=macbook
+2010/27/10 14:18:55 macbook: 2010/27/10 14:18:55 : info : blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender
+2010/27/10 14:18:55 macbook: 2010/27/10 14:18:55 : info : process id=12392
+
+2010/27/10 14:18:55 macbook: START macbook
+2010/27/10 14:20:05 : 2010/27/10 14:20:05 : info : ---- brender client 0.1 ----
+2010/27/10 14:20:05 macbook: 2010/27/10 14:20:05 : info : computer name=macbook
+2010/27/10 14:20:05 macbook: 2010/27/10 14:20:05 : info : blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender
+2010/27/10 14:20:05 macbook: 2010/27/10 14:20:05 : info : process id=12407
+
+2010/27/10 14:20:05 macbook: START macbook
+2010/27/10 14:20:44 : 2010/27/10 14:20:44 : info : ---- brender client 0.1 ----
+2010/27/10 14:20:44 macbook: 2010/27/10 14:20:44 : info : computer name=macbook
+2010/27/10 14:20:44 macbook: 2010/27/10 14:20:44 : info : blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender
+2010/27/10 14:20:44 macbook: 2010/27/10 14:20:44 : info : process id=12411
+
+2010/27/10 14:20:44 macbook: START macbook
+2010/27/10 14:21:36 : 2010/27/10 14:21:36 : info : ---- brender client 0.1 ----
+2010/27/10 14:21:36 macbook: 2010/27/10 14:21:36 : info : computer name=macbook
+2010/27/10 14:21:36 macbook: 2010/27/10 14:21:36 : info : blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender
+2010/27/10 14:21:36 macbook: 2010/27/10 14:21:36 : info : process id=12414
+
+2010/27/10 14:21:36 macbook: START macbook

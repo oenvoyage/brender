@@ -31,6 +31,7 @@ require "header.php";
                 }
                 else {
 			send_order($disable,"disable","","5");
+                        print "disable client : $disable<br/>";
 		}
 		$msg= "disabled $disable <a href=\"clients.php\">reload</a><br/>";
 		sleep(1);
@@ -86,7 +87,7 @@ if (isset($_GET['msg'])) {
 		$query="select * from clients order by $orderby";
 	}
 	$results=mysql_query($query);
-	print "<br>// <b>clients</b> <br/><br/>";
+	print "<br>// <b>clients</b> $query<br/><br/>";
 	print "<table border=0>";
 	print "<tr>
 		<td bgcolor=cccccc width=120 height=30 align=center><b><a href=\"clients.php?orderby=client\">client name</a></b></td>
@@ -105,11 +106,11 @@ if (isset($_GET['msg'])) {
 		$client_priority=$row->client_priority;
 		$speed=$row->speed;
 		if ($status<>"disabled") {
-			$dis="<a href=\"overview.php?disable=$client\">disable</a>";
+			$dis="<a href=\"clients.php?disable=$client\">disable</a>";
 			$bgcolor="#bcffa6";
 		}
 		if ($status=="disabled") {
-			$dis="<a href=\"overview.php?enable=$client\">enable</a>";
+			$dis="<a href=\"clients.php?enable=$client\">enable</a>";
 			$bgcolor="#ffaa99";
 		}
 		if ($status=="rendering") {
