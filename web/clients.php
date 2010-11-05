@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "header.php";
+require_once "header.php";
 ?>
 <div id="section">
 <?php	
@@ -85,9 +85,11 @@ if (isset($_GET['msg'])) {
 }
 
 #--------read---------
-	$query="select * from clients where status='not running' order by $orderby";
 	if ($_SERVER["SCRIPT_NAME"]=="/web/clients.php") {
 		$query="select * from clients order by $orderby";
+	}
+	else {
+		$query="select * from clients where status<>'not running' order by $orderby";
 	}
 	$results=mysql_query($query);
 	print "<h2>// <b>clients</b> $query</h2>";

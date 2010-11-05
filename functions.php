@@ -6,9 +6,9 @@ function test() {
 function output($msg,$type="info") {
 	# output can be customized in future for different types 
 	# currently type = info, warning, error
+	brender_log($msg);
 	$when=date('Y/d/m H:i:s');
 	$msg= "$when : $type : $msg";
-	brender_log($msg);
 	print "$msg\n";
 }
 function debug($msg) {
@@ -141,7 +141,6 @@ function checking_alive_clients() {
                 $client=$row->client;
                 print "$id = $client is dead\n";
                 set_status("$client","not running",'client not responding (PING)');
-		brender_sound("alarm");
 		brender_log("$client not responding (PING)");
                 remove_order($id);
         }

@@ -2,6 +2,7 @@
 session_start();
 require "header.php";	
 
+print "<div id=\"section\">";
 print "sid = $sid <br/>";
 
 if (isset($_GET['theme'])) {
@@ -20,7 +21,9 @@ if (isset($_GET['disable_sound'])) {
 }
 order_status();
 system_status();
+theme_chooser();
 print "<br/>";
+print "<a class=\"button grey\" href=\"projects.php\"><b>manage projects</a></b> - ";
 
 #------------------ server log-----------------
 function order_status() {
@@ -115,6 +118,7 @@ function client_status() {
 		print "</table>";
 }
 # ------------------------- theme chooser --------------------
+function theme_chooser() {
 	print "<table width=600>";
 	print " <tr>
 			<td bgcolor=cccccc width=120 align=center colspan=4 height=25><b> &nbsp; theme ($_SESSION[theme]) &nbsp; </b></td>
@@ -123,5 +127,8 @@ function client_status() {
 			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"settings.php?theme=brender\">brender</a> &nbsp; </b></td>
 			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"settings.php?theme=brender_dark\">brender_dark</a> &nbsp; </b></td>
 		</tr>
+	</table>
 	";
+}
+include "footer.php";
 ?>

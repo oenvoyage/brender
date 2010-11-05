@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "header.php";
+require_once "header.php";
 ?>
 <div id="section">
 <?php	

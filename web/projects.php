@@ -1,6 +1,6 @@
 <?php
-require "connect.php";
-print "<link href=\"brender.css\" rel=\"stylesheet\" type=\"text/css\">\n";
+session_start();
+include "header.php";
 if ($projectid=$_GET[del]) {
 	$queryqq="delete from projects where id=$projectid;";
 	mysql_query($queryqq);
@@ -39,14 +39,14 @@ if (!$order_by=$_GET[order_by]) {
 	print "<br>// <b>projects</b> <br/>\n";
 	print "<table>\n";
 	print "<tr>
-		<td bgcolor=cccccc width=12 align=center></td>
-		<td bgcolor=cccccc width=2 align=center> &nbsp; </td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"projects.php?order_by=name\">project</a></td>
-		<td bgcolor=cccccc width=32 align=center> &nbsp; mac path</td>
-		<td bgcolor=cccccc width=32 align=center> &nbsp; windows path</td>
-		<td bgcolor=cccccc width=32 align=center> &nbsp; <a href=\"projects.php?order_by=rem\">rem</a></td>
-		<td bgcolor=cccccc width=10 align=center> status </td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
+		<td bgcolor=cccccc align=center></td>
+		<td bgcolor=cccccc align=center> &nbsp; </td>
+		<td bgcolor=cccccc align=center> &nbsp; <a href=\"projects.php?order_by=name\">project</a></td>
+		<td bgcolor=cccccc align=center> &nbsp; mac path</td>
+		<td bgcolor=cccccc align=center> &nbsp; windows path</td>
+		<td bgcolor=cccccc align=center> &nbsp; <a href=\"projects.php?order_by=rem\">rem</a></td>
+		<td bgcolor=cccccc align=center> status </td>
+		<td bgcolor=cccccc align=center> &nbsp; </td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
@@ -90,4 +90,5 @@ if (!$order_by=$_GET[order_by]) {
 	print "</form>";
 	print "<hr>";
 	print "\n<a href=\"overview.php?overview=1\">back</a>\n";
+	include "footer.php";
 ?>

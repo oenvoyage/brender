@@ -21,7 +21,7 @@ checking_alive_clients();
 #-----------------------------------------------------
 while ($q=1) {
 	$query="select * from clients";
-	$results=mysql_query($query);
+	$results=mysql_query($query) or die(mysql_error());
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
 		$client=$row->client;
@@ -30,7 +30,7 @@ while ($q=1) {
 		$status=$row->status;
 		$rem=$row->rem;
 		if ($status=="idle") {
-			# print "$client is idle .... checking for a job\n";
+			 print "$client is idle .... checking for a job\n";
 			$query="select * from jobs where status='waiting' or status='rendering' order by priority limit 1;";
 			$results_job=mysql_query($query);
 			$row_job=mysql_fetch_object($results_job);

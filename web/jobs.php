@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "header.php";
+require_once "header.php";
 ?>
 <div id="section">
 <?php
@@ -168,7 +168,6 @@ if (isset($_GET['del'])) {
 	print "\n</table>\n";
 	print "<a href=\"upload.php\"><b class=\"ordre\">new job</a></b> - ";
 	print "<a href=\"jobs.php?x=$random_x\"><b class=\"ordre\">reload</a></b> - ";
-	print "<a href=\"projects.php\"><b class=\"ordre\">projects</a></b> - ";
 	print "<a href=\"jobs.php?restart_all=1\"><b class=\"ordre\">restart all</b></a>";
 	print "<p><hr><p>";
 	print "<p><p>";

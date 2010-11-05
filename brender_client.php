@@ -46,7 +46,7 @@ while ($q=1) {
 				# ---- RENDER ---
 				change_order_owner($id,$computer_name);
 				$render_query="$blender_path $rem";
-				brender_log("RENDER $rem");
+				output("RENDER $rem");
 				set_status("$computer_name","rendering","$rem");
 				output("render_query=$render_query\n");
 				#--- we are now rendering the scene/chunk ...
@@ -59,19 +59,19 @@ while ($q=1) {
 			else if ($orders=="enable") { 
 				# ---enabling the computer----
 				set_status("$computer_name","idle","");
-				brender_log("ENABLE");
+				output("ENABLE");
 				remove_order($id);
 			}
 			else if ($orders=="disable") { 
 				# ---disabling the computer----
 				set_status("$computer_name","disabled","");
-				brender_log("DISABLE");
+				output("DISABLE");
 				sleep(1);
 				remove_order($id);
 			}
 			else if ($orders=="declare_finished") { 
 				#--- a job is nearly finished (means the last chunk has been allocated) , so we declare it finished, to avoid other clients to render it
-				brender_log("DECLARE FINISHED job $rem");
+				output("DECLARE FINISHED job $rem");
 				$heure=date('Y/d/m H:i:s');
 				$query="update jobs set status='finished at $heure' where id='$rem'";
 				mysql_unbuffered_query($query);
@@ -84,7 +84,7 @@ while ($q=1) {
 			else if ($orders=="stop") { 
 				# --- stop and client exits
 				set_status("$computer_name","not running","");
-				brender_log("STOP");
+				output("STOP");
 				remove_order($id);
 				die("\n stop $id\n");
 			}
