@@ -1,6 +1,9 @@
 <?php
 session_start();
-require "header.php";	
+require "header.php";
+?>
+<div id="section">
+<?php	
 	if (isset($_GET['orderby'])) {
 		$orderby=$_GET['orderby'];
 	}
@@ -8,7 +11,7 @@ require "header.php";
 		$orderby="client";
 	}
 	if (isset($_GET['benchmark'])) {
-        	print "benchmark ALL idle<br/>";
+        	print "benchmark ALL idle<br /";
                 $query="select * from clients where status='idle'";
                 $results=mysql_query($query);
                 while ($row=mysql_fetch_object($results)){
@@ -82,12 +85,12 @@ if (isset($_GET['msg'])) {
 }
 
 #--------read---------
-	$query="select * from clients where status<>'not running' order by $orderby";
+	$query="select * from clients where status='not running' order by $orderby";
 	if ($_SERVER["SCRIPT_NAME"]=="/web/clients.php") {
 		$query="select * from clients order by $orderby";
 	}
 	$results=mysql_query($query);
-	print "<br>// <b>clients</b> $query<br/><br/>";
+	print "<h2>// <b>clients</b> $query</h2>";
 	print "<table border=0>";
 	print "<tr>
 		<td bgcolor=cccccc width=120 height=30 align=center><b><a href=\"clients.php?orderby=client\">client name</a></b></td>
@@ -137,4 +140,9 @@ print "<a href=\"clients.php?refresh=1\"><b class=\"ordre\">refresh</b></a> - ";
 print "<a href=\"clients.php?enable=force_all\"><b class=\"ordre\">force_all_enable</b></a>";
 print "<p><hr><p>";
 print "<p><p>";
+?>
+</div>
+<?php
+require "footer.php";
+
 ?>
