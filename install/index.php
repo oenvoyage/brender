@@ -197,14 +197,14 @@
     
     echo "Dropping tables if exist: ";
     
-    mysql_query("DROP TABLE `$_POST[pre]clients`, `$_POST[pre]jobs`, `$_POST[pre]orders`, `$_POST[pre]projects`, `$_POST[pre]scenes`, `$_POST[pre]status`");
+    mysql_query("DROP TABLE `clients`, `jobs`, `orders`, `projects`, `scenes`, `status`");
     
     echo "OK<br />";   
     
     echo "Creating tables<br/><ul><li>$_POST[pre]clients</li>";
     
     mysql_query("
-	    CREATE TABLE IF NOT EXISTS `$_POST[pre]clients` 
+	    CREATE TABLE IF NOT EXISTS `clients` 
 		(
 		  `id` int(11) NOT NULL auto_increment,
 		  `client` varchar(32) NOT NULL,
@@ -222,7 +222,7 @@
     echo "<li>$_POST[pre]jobs</li>";
     
 	mysql_query("
-		CREATE TABLE `$_POST[pre]jobs` 
+		CREATE TABLE `jobs` 
 		(
 		  	`id` int(11) NOT NULL auto_increment,
 		  	`name` varchar(32) NOT NULL,
@@ -248,7 +248,7 @@
 	echo "<li>$_POST[pre]orders</li>";
 	
 	mysql_query("
-		CREATE TABLE `$_POST[pre]orders` 
+		CREATE TABLE `orders` 
 		(
 		  	`id` int(11) NOT NULL auto_increment,
 		  	`client` varchar(32) NOT NULL,
@@ -263,7 +263,7 @@
    echo "<li>$_POST[pre]projects</li>";
    
    mysql_query("  
-		CREATE TABLE `$_POST[pre]projects` 
+		CREATE TABLE `projects` 
 		(
 			`id` int(11) NOT NULL auto_increment,
 			`name` varchar(64) NOT NULL,
@@ -280,7 +280,7 @@
     echo "<li>$_POST[pre]scenes</li>";
     
 	mysql_query("		
-		CREATE TABLE `$_POST[pre]scenes` 
+		CREATE TABLE `scenes` 
 		(
 			`id` int(11) NOT NULL auto_increment,
 		  	`project` varchar(24) default NULL,
@@ -293,7 +293,7 @@
 	echo "<li>$_POST[pre]status</li></ul>";
 			
 	mysql_query("		
-		CREATE TABLE `$_POST[pre]status` 
+		CREATE TABLE `status` 
 		(
 			`server` varchar(32) NOT NULL,
 			`status` varchar(32) NOT NULL,
@@ -386,10 +386,6 @@ error_reporting(0);
 		<tr>
 			<td class="label">Database Name:</td> 
 			<td><input type='text' name='database' value='brender' /></td>
-		</tr>
-		<tr>
-			<td class="label">Table Prefix:</td> 
-			<td><input type='text' name='pre' value='' /></td>
 		</tr>
 		<tr>
 			<td class="label">Database Username:</td> 

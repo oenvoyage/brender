@@ -1,6 +1,9 @@
 <?php
 session_start();
-require "header.php";	
+require "header.php";
+?>
+<div id="section">
+<?php	
 
 if (isset($_GET['delete_all'])) {
 	$qquery="delete from orders";
@@ -22,7 +25,7 @@ if (isset($_POST['query'])) {
 #--------read---------
 	$query="select * from orders";
 	$results=mysql_query($query);
-	print "<br>// <b>orders</b> <br/><br/>";
+	print "<h2>// <b>orders</b></h2>";
 	print "<table>";
 	print "<tr>
 		<td bgcolor=cccccc width=120 align=center><b> &nbsp; id &nbsp; </b></td>
@@ -57,4 +60,7 @@ print "sql query (<a href=\"#\" onclick=\"javascript:window.open('orders.php','w
         query:<input type="text" name="query" size="30"><br/>
         <input type="submit" value="send query"><br/>
 </form>
-
+</div>
+<?php
+	require "footer.php";
+?>

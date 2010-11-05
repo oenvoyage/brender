@@ -1,7 +1,9 @@
 <?php
 session_start();
 require "header.php";
-
+?>
+<div id="section">
+<?php
 $msg="";
 $queryqq="";
 if (isset($_GET['order_by'])) {
@@ -66,7 +68,7 @@ if (isset($_GET['del'])) {
 
 #--------read---------
 	$results=mysql_query($job_query);
-	print "<br/>// <b>jobs</b> $msg <br/> $queryqq\n";
+	print "<h2>// <b>jobs</b> $msg <br/> $queryqq </h2>";
 	print "<table>\n";
 	print "<tr>
 		<td bgcolor=cccccc width=10 align=center><a href=\"jobs.php?order_by=jobtype\">type</a></td>
@@ -170,5 +172,11 @@ if (isset($_GET['del'])) {
 	print "<a href=\"jobs.php?restart_all=1\"><b class=\"ordre\">restart all</b></a>";
 	print "<p><hr><p>";
 	print "<p><p>";
+
+?>
+
+</div>
+<?php
+require "footer.php";
 
 ?>
