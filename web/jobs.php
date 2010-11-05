@@ -1,9 +1,4 @@
 <?php
-session_start();
-require_once "header.php";
-?>
-<div id="section">
-<?php
 $msg="";
 $queryqq="";
 if (isset($_GET['order_by'])) {
@@ -171,11 +166,5 @@ if (isset($_GET['del'])) {
 	print "<a href=\"jobs.php?restart_all=1\"><b class=\"ordre\">restart all</b></a>";
 	print "<p><hr><p>";
 	print "<p><p>";
-
-?>
-
-</div>
-<?php
-require "footer.php";
 
 ?>

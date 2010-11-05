@@ -14,6 +14,8 @@ body {
 	background: url(../images/nav-bg.png) repeat-x #EEE;
 	color: #000000;
 	padding: 0 20px; 
+	width: 900px;
+	margin: 0 auto;
 }
 
 #header {
@@ -150,5 +152,32 @@ a:hover {
 
 #section {
 	clear: left;
-	margin-top: 45px;
+	/*margin-top: 45px;*/
 }
+
+
+#section h2 {
+	margin-top: 45px;
+	}
+
+#footer {
+	position: absolute;
+	bottom: 5px;
+	}
+	
+	#footer p {
+		font-size: 11px;		
+		}
+
+.dialog {
+	margin: 10px auto;
+	width: 450px;	
+	}
+	
+	.dialog div {
+		margin-bottom: 15px;
+		}
+	.dialog input {
+		float: right;		
+		}
+		

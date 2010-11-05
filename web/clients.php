@@ -1,8 +1,3 @@
-<?php
-session_start();
-require_once "header.php";
-?>
-<div id="section">
 <?php	
 	if (isset($_GET['orderby'])) {
 		$orderby=$_GET['orderby'];
@@ -143,8 +138,5 @@ print "<a href=\"clients.php?enable=force_all\"><b class=\"ordre\">force_all_ena
 print "<p><hr><p>";
 print "<p><p>";
 ?>
-</div>
-<?php
-require "footer.php";
 
-?>
+

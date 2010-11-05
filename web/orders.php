@@ -1,8 +1,3 @@
-<?php
-session_start();
-require_once "header.php";
-?>
-<div id="section">
 <?php	
 
 if (isset($_GET['delete_all'])) {
@@ -60,7 +55,3 @@ print "sql query (<a href=\"#\" onclick=\"javascript:window.open('orders.php','w
         query:<input type="text" name="query" size="30"><br/>
         <input type="submit" value="send query"><br/>
 </form>
-</div>
-<?php
-	require "footer.php";
-?>
