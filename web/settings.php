@@ -1,8 +1,4 @@
 <?php
-session_start();
-require "header.php";	
-
-print "<div id=\"section\">";
 print "sid = $sid <br/>";
 
 if (isset($_GET['theme'])) {
@@ -130,5 +126,4 @@ function theme_chooser() {
 	</table>
 	";
 }
-include "footer.php";
 ?>

@@ -42,6 +42,18 @@
 		if($view == "upload") { 
 			print("<h2>// <strong>not available</strong></h2>");
 		}
+		
+		if($view == "settings") { 
+			include "settings.php";
+		}
+		
+		if($view == "status") { 
+			include "status.php";
+		}
+
+		if($view == "logs") { 
+			include "logs.php";
+		}
 
 	}
 ?>

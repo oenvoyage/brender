@@ -1,6 +1,4 @@
 <?php
-session_start();
-include "header.php";
 $ticker=$_GET['ticker']+1;
 #--------------------------------------------------
 #-------- THIS PAGE NEED REWRITE-------------------

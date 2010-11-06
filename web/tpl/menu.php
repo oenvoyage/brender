@@ -12,9 +12,9 @@
 		<li><a class="button grey" href="?view=upload">new job</a></li>
 	</ul>
 	<ul class="right"> 
-		<li><a class="button grey" href="settings.php">settings</a></li>
-		<li><a class="button grey" href="status.php">status</a></li>
-		<li><a class="button grey" href="logs.php">logs</a></li>
+		<li><a class="button grey" href="?view=settings">settings</a></li>
+		<li><a class="button grey" href="?view=status">status</a></li>
+		<li><a class="button grey" href="?view=logs">logs</a></li>
 	</ul>
 </div>
 <div class="clear"></div>
