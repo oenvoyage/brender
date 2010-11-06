@@ -24,5 +24,5 @@
 			<p class="clock"><?php include "clock.php"?></p>
 			<p><?php print "logged in as : $_SESSION[user]";?></p>
 		</div>
-	
+
 
