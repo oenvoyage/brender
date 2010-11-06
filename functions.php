@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Zurich');
 function test() {
 	global $qwer;
 	print "qwer=$qwer\n";
@@ -28,6 +29,43 @@ function get_client_info($client,$info) {
 	return $rem;
 	
 }
+function check_client_exists($client) {
+	$query="select count(client) from clients where client='$client'";
+	$results=mysql_query($query);
+	$qq=mysql_result($results,0);
+	return $qq;
+}
+function get_client_os($client) {
+	$query="select machine_os from clients where client='$client'";
+	$results=mysql_query($query);
+	$qq=mysql_result($results,0);
+	return $qq;
+}
+function get_path($project,$what,$os="NONE") {
+	#$path=$what."_".$GLOBALS['os'];
+	if ($os=="NONE") {$os=$GLOBALS['os'];};
+	$path=$what."_".$os;
+	$query="select $path from projects where name='$project'";
+	$results=mysql_query($query);
+	$qq=mysql_result($results,0);
+	print "GETTING PATH $query \n path = $path\n";
+	return $qq;
+}
+function get_blender_path() {
+	switch($GLOBALS['os']) {
+		case "mac":
+			$path="blender/mac/blender.app/Contents/MacOS/blender";
+			break;
+		case "linux":
+			$path="blender/linux/blender";
+			break;
+		case "windows":
+			$path="blender/windows/blender.exe";
+			break;
+
+	}
+	return $path;
+}
 function change_order_owner($id,$client) {
 	$query="update orders set client=$client where id='$id'";
 	# mysql_unbuffered_query($query);
@@ -45,7 +83,9 @@ function delete_node($node) {
 function remove_order($id) {
 	$query="delete from orders where id='$id'";
 	mysql_unbuffered_query($query);
-	# print "### $client deleted order $id\n";
+	#$os=$GLOBALS['os'];
+	#$client=$GLOBALS['computer_name'];
+	 #print "### $client of $os deleted order $id\n";
 }
 function server_stop($pid){
 	$query="update status set pid='$pid',status='stopped',started=now()";
@@ -111,10 +151,10 @@ function send_order($client,$orders,$rem,$priority){
 	mysql_unbuffered_query($query);
 }
 function brender_log($log){
-	global $computer_name;
+	$computer_name=$GLOBALS['computer_name'];
 	$heure=date('Y/d/m H:i:s');
 	$log_koi = "$heure $computer_name: $log\n";
-	#print "$log_koi";
+	#print "\n---------------------- I AM LOGGING THIS ::: $log_koi-----end ----\n";
 	$foo=fopen("logs/$computer_name.log",a);
             fwrite($foo,"$log_koi");
         fclose($foo);
@@ -167,7 +207,8 @@ function seconds_to_hms($time_in_secs) {
 	}
 }
 function get_rendered_frames($job_id) {
-		$query="select name,project,start,end,output,filetype from jobs where id='$job_id'";
+		$query="select scene,shot,project,start,end,filetype from jobs where id='$job_id'";
+		#print "query === $query <br/>";
 		$results=mysql_query($query);
 		$row=mysql_fetch_object($results);
 		$output=$row->output;
@@ -192,6 +233,5 @@ function get_rendered_frames($job_id) {
               return $total;
 
 }
-
 
 ?>

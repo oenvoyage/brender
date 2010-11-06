@@ -1,6 +1,5 @@
 <?php
 session_start();
-include "header.php";
 if ($projectid=$_GET[del]) {
 	$queryqq="delete from projects where id=$projectid;";
 	mysql_query($queryqq);
@@ -24,7 +23,7 @@ if ($def=$_GET[def]) {
 }
 if ($new_project=$_GET[new_project]) {
 	print "new project $new_project created<br/>";
-	$queryqq="insert into projects values ('','$new_project','$_GET[mac_path]','$_GET[win_path]','$_GET[rem]','active','');";
+	$queryqq="insert into projects values ('','$new_project','$_GET[blend_mac]','$_GET[blend_win]','$_GET[blend_linux]','$_GET[output_mac]','$_GET[output_win]','$_GET[output_linux]','$_GET[rem]','active','');";
 	mysql_query($queryqq);
 }
 if (!$order_by=$_GET[order_by]) {
@@ -36,17 +35,18 @@ if (!$order_by=$_GET[order_by]) {
 #--------read---------
 	$query="select * from projects order by $order_by";
 	$results=mysql_query($query);
-	print "<br>// <b>projects</b> <br/>\n";
+	print "<h2>// <b>projects</b></h2>\n";
 	print "<table>\n";
+	print "<tbody>\n";
 	print "<tr>
-		<td bgcolor=cccccc align=center></td>
-		<td bgcolor=cccccc align=center> &nbsp; </td>
-		<td bgcolor=cccccc align=center> &nbsp; <a href=\"projects.php?order_by=name\">project</a></td>
-		<td bgcolor=cccccc align=center> &nbsp; mac path</td>
-		<td bgcolor=cccccc align=center> &nbsp; windows path</td>
-		<td bgcolor=cccccc align=center> &nbsp; <a href=\"projects.php?order_by=rem\">rem</a></td>
-		<td bgcolor=cccccc align=center> status </td>
-		<td bgcolor=cccccc align=center> &nbsp; </td>
+		<td></td>
+		<td> &nbsp; </td>
+		<td> &nbsp; <a href=\"index.php?view=projects&order_by=name\">project</a></td>
+		<td> &nbsp; mac path</td>
+		<td> &nbsp; windows path</td>
+		<td> &nbsp; <a href=\"index.php?view=projects&order_by=rem\">rem</a></td>
+		<td> status </td>
+		<td> &nbsp; </td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
@@ -56,10 +56,10 @@ if (!$order_by=$_GET[order_by]) {
 		$win_path=$row->win_path;
 		$status=$row->status;
 		if ($status=="active") {
-			$status_link='<a href="projects.php?deactivate=' . $id.'">active</a>';
+			$status_link='<a href="index.php?view=projects&deactivate=' . $id.'">active</a>';
 		}
 		else {
-			$status_link='<a href="projects.php?activate=' . $id.'">finished</a>';
+			$status_link='<a href="index.php?view=projects&activate=' . $id.'">finished</a>';
 		}
 		$def=$row->def;
 		$bgcolor="ddddcc";
@@ -67,28 +67,67 @@ if (!$order_by=$_GET[order_by]) {
 			$bgcolor="ccdddd";
 		}
 		print "<tr>
-			<td bgcolor=$bgcolor align=center>$id</td> 
-			<td bgcolor=$bgcolor align=center>$def</td> 
-			<td bgcolor=$bgcolor align=center><a href=\"projects.php?def=$id\">$name</a></td> 
-			<td bgcolor=$bgcolor align=center>$mac_path</td> 
-			<td bgcolor=$bgcolor align=center>$win_path</td> 
-			<td bgcolor=$bgcolor align=center>$rem</td> 
-			<td bgcolor=$bgcolor align=center>$status_link</td> 
-			<td bgcolor=dddddd align=center><a href=\"projects.php?del=$id\">x</a></td>
+			<td bgcolor=$bgcolor>$id</td> 
+			<td bgcolor=$bgcolor>$def</td> 
+			<td bgcolor=$bgcolor><a href=\"index.php?view=projects&def=$id\">$name</a></td> 
+			<td bgcolor=$bgcolor>$mac_path</td> 
+			<td bgcolor=$bgcolor>$win_path</td> 
+			<td bgcolor=$bgcolor>$rem</td> 
+			<td bgcolor=$bgcolor>$status_link</td> 
+			<td><a href=\"index.php?view=projects&del=$id\">x</a></td>
 		</tr>";
 	}
-	print "\n</table>\n";
-	print "<hr>";
-	print "<form action=\"projects.php\" method=\"get\">";
-		print "new project : ";
-		print "<input type=\"text\" name=\"new_project\" size=8>";
-		print " rem : ";
-		print "<input type=\"text\" name=\"rem\" size=18><br/>";
-		print "<input type=\"text\" name=\"mac_path\" size=128>";
-		print "<input type=\"text\" name=\"win_path\" size=128>";
-		print "<input type=\"submit\" value=\"create\">";
-	print "</form>";
-	print "<hr>";
-	print "\n<a href=\"overview.php?overview=1\">back</a>\n";
-	include "footer.php";
+
 ?>
+
+	</tbody>
+</table>
+
+<h2>// <strong>create new</strong> project</h2>
+
+<table>
+	<tbody>
+<form action="index.php" method="get">
+		<tr>
+			<td>project title</td>
+			<td><input type="text" name="new_project" value="new project" size=8></td>
+		</tr>
+		<tr>
+			<td>project root mac</td>
+			<td><input type="text" name="blend_mac" value="/blend" size=15></td>
+		</tr>
+		<tr>
+			<td>linux</td>
+			<td><input type="text" name="blend_linux" value="/blend" size=15></td>
+		</tr>
+		<tr>
+			<td>windows</td>		
+			<td><input type="text" name="blend_windows" value="\\blend" size=15></td>	
+		</tr>
+		<tr>
+			<td>output path mac</td>
+			<td><input type="text" name="output_mac" value="/render" size=15></td>
+		</tr>
+		<tr>
+			<td>linux</td>
+			<td><input type="text" name="output_linux" value="/render" size=15></td>
+		</tr>
+		<tr>
+			<td>windows</td>		
+			<td><input type="text" name="output_windows" value="\\render" size=15></td>	
+		</tr>
+		<tr>
+			<td>remarks</td>
+			<td><input type="text" name="rem" size=18></td>
+		</tr>
+		<tr>
+			<td><input type="hidden" value="projects" name="view"></td>
+			<td><input type="submit" value="create"></td>
+		</tr>
+</form>
+
+	</tbody>
+</table>
+<a href="index.php">back</a>
+
+

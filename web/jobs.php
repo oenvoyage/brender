@@ -5,7 +5,7 @@ if (isset($_GET['order_by'])) {
 	$order_by=$_GET['order_by'];
 }
 else {
-	$order_by="lastseen desc, name, id desc";
+	$order_by="lastseen desc, scene, shot, id desc";
 }
 
 if (isset($_GET['all_projects'])) {
@@ -63,38 +63,36 @@ if (isset($_GET['del'])) {
 
 #--------read---------
 	$results=mysql_query($job_query);
-	print "<h2>// <b>jobs</b> $msg <br/> $queryqq </h2>";
+	print "<h2>// <b>jobs</b> $msg <br/></h2>";
+	print "$job_query<br/>";
 	print "<table>\n";
 	print "<tr>
-		<td bgcolor=cccccc width=10 align=center><a href=\"jobs.php?order_by=jobtype\">type</a></td>
 		<td bgcolor=cccccc width=12 align=center></td>
 		<td bgcolor=cccccc width=12 align=center></td>
-		<td bgcolor=cccccc width=120 align=center><a href=\"jobs.php?order_by=name\">job name</a></td>
-		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"jobs.php?order_by=file\">file</a></td>
-		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"jobs.php?order_by=output\">output</a></td>
-		<td bgcolor=cccccc width=12 align=center> &nbsp; <a href=\"jobs.php?order_by=config\">config</a></td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"jobs.php?order_by=start\">start</a>-<a href=\"jobs.php?order_by=end\">end</a> &nbsp; </td>
-		<td bgcolor=cccccc width=6 align=center> &nbsp; <a href=\"jobs.php?order_by=chunks\">chunks</a> &nbsp; </td>
-		<td bgcolor=cccccc width=50 align=center> &nbsp; <a href=\"jobs.php?order_by=current\">current</a> </td>
+		<td bgcolor=cccccc width=120 align=center><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
+		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">shot</a></td>
+		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=output\">output</a></td>
+		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a> &nbsp; </td>
+		<td bgcolor=cccccc width=6 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=chunks\">chunks</a> &nbsp; </td>
+		<td bgcolor=cccccc width=50 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=current\">current</a> </td>
 		<td bgcolor=cccccc width=60 align=center> &nbsp; rendered</td>
-		<td bgcolor=cccccc width=12 align=center> &nbsp; <a href=\"jobs.php?order_by=status\">status</a> &nbsp; </td>
+		<td bgcolor=cccccc width=12 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=status\">status</a> &nbsp; </td>
 		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
 		<td bgcolor=cccccc width=60 align=center> &nbsp; </td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"jobs.php?order_by=priority\">priority</a></td>
+		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
 		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
 		<td bgcolor=cccccc width=10 align=center> lastseen </td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
 		$padded_id=str_pad((int) $id,3,"0",STR_PAD_LEFT);
-		$name=$row->name;
-		$jobtype=$row->jobtype;
+		$scene=$row->scene;
 		$project=$row->project;
-		$file=$row->file;
+		$scene=$row->scene;
+		$shot=$row->shot;
 		$start=$row->start;
 		$start_padded=str_pad((int) $start,4,"0",STR_PAD_LEFT);
 		$end=$row->end;
-		$output=$row->output;
 		$current=$row->current;
 		$chunks=$row->chunks;
 		$rem=$row->rem;
@@ -139,31 +137,29 @@ if (isset($_GET['del'])) {
 		}
 
 		print "<tr>
-			<td bgcolor=$bgcolor align=center><font size=1>$jobtype</font></td>
 			<td bgcolor=ddddcc align=center>$padded_id</td> 
-			<td bgcolor=ddddcc align=center><a href=\"view_job.php?id=$id&x=$x&visual=1\">$thumbnail</a></td> 
-			<td bgcolor=ddddcc align=center><a href=\"view_job.php?id=$id&x=$x\"><b>$name</b> <font size=1>($project)</font></a></td> 
-			<td bgcolor=$bgcolor align=center>$file</td>
-			<td bgcolor=$bgcolor align=center>$output.$filetype</td>
-			<td bgcolor=$bgcolor align=center>$config</td>
+			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
+			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$scene</b> <font size=1>($project)</font></a></td> 
+			<td bgcolor=$bgcolor align=center><b>$shot</b></td>
+			<td bgcolor=$bgcolor align=center>$config $filetype</td>
 			<td bgcolor=$bgcolor align=center>$start - $end</td>
 			<td bgcolor=$bgcolor align=center>$chunks</td>
-			<td bgcolor=$bgcolor align=center>$current</td>
+			<td bgcolor=$bgcolor align=center><b>$current</b></td>
 			<td bgcolor=$bgcolor align=center>$total_rendered / $total_frames</td>
 			<td bgcolor=$bgcolor align=center>$status</td>
-			<td bgcolor=$bgcolor align=center><a href=\"overview.php?reset=$id\">reset</a><br/>
-			<a href=\"overview.php?reset=$id&start=$id\">restart</a></td>
-			<td bgcolor=$bgcolor align=center><a href=\"overview.php?pause=$id\">pause</a><br/>
-			<a href=\"overview.php?start=$id\">start</a><br/><a href=\"overview.php?finish=$id\">finish</a></td>
+			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&reset=$id\">reset</a><br/>
+			<a href=\"index.php?view=jobs&reset=$id&start=$id\">restart</a></td>
+			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&pause=$id\">pause</a><br/>
+			<a href=\"index.php?view=jobs&start=$id\">start</a><br/><a href=\"index.php?view=jobs&finish=$id\">finish</a></td>
 			<td bgcolor=$bgcolorpriority align=center><a href=\"#\" onclick=\"javascript:window.open('jobs_priority_popup.php?id=$id&priority=$priority','winame','width=200,height=25')\">$priority</a></td>
-			<td bgcolor=$bgcolor align=center><a href=\"jobs.php?del=$id\">x</a></td>
+			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&del=$id\">x</a></td>
 			<td bgcolor=$bgcolor align=center>$lastseen</a><br/>
 		</tr>";
 	}
 	print "\n</table>\n";
-	print "<a href=\"upload.php\"><b class=\"ordre\">new job</a></b> - ";
-	print "<a href=\"jobs.php?x=$random_x\"><b class=\"ordre\">reload</a></b> - ";
-	print "<a href=\"jobs.php?restart_all=1\"><b class=\"ordre\">restart all</b></a>";
+	print "<a href=\"index.php?view=upload\"><b class=\"ordre\">new job</a></b> - ";
+	print "<a href=\"index.php?view=jobs&x=$random_x\"><b class=\"ordre\">reload</a></b> - ";
+	print "<a href=\"index.php?view=jobs&restart_all=1\"><b class=\"ordre\">restart all</b></a>";
 	print "<p><hr><p>";
 	print "<p><p>";
 

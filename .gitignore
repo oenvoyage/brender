@@ -1,0 +1,9 @@
+*.php~
+blender/
+render/
+blend/
+*.DS_Store
+*.log
+*.bak
+*.css~
+*.swp

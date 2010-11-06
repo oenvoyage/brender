@@ -48,10 +48,5 @@ if (isset($_POST['query'])) {
 	}
 	print "</table>";
 	print "<a href=\"orders.php?delete_all=1\"><div class=\"ordre\">delete_all</div></a>";
-print "<p><hr><p>";
-print "sql query (<a href=\"#\" onclick=\"javascript:window.open('orders.php','winaorferm','width=400,height=320')\">popup</a>)<br/>";
 ?>
-<form action="orders.php" method="post">
-        query:<input type="text" name="query" size="30"><br/>
-        <input type="submit" value="send query"><br/>
-</form>
+

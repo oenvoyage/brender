@@ -3,7 +3,8 @@
 	if ($_POST['do_login']) {
 		if (check_login($_POST['user'],$_POST['password'])) {
 			if (init_user($_POST['user'])) {
-				print "click here to continue to <a href=\"index.php\">brender</a>";
+				header( 'Location: index.php' );
+				#print "click here to continue to <a href=\"index.php\">brender</a>";
 			}
 			else {
 				print "something went wrong with initializing user... try again";

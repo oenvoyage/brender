@@ -19,7 +19,7 @@ order_status();
 system_status();
 theme_chooser();
 print "<br/>";
-print "<a class=\"button grey\" href=\"projects.php\"><b>manage projects</a></b> - ";
+print "<a class=\"button grey\" href=\"index.php?view=projects\">manage projects</a>";
 
 #------------------ server log-----------------
 function order_status() {

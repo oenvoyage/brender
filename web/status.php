@@ -12,15 +12,15 @@ $qwe="/home/o/blender/install/blender_trunk/blender -a /brender/render/test/test
 $qwe="/home/o/blender/install/blender_trunk/blender &";
 # system($qwe);
 
-print "<meta http-equiv=\"Refresh\" content=\"5;URL=status.php?ticker=$ticker\" />\n";
+print "<meta http-equiv=\"Refresh\" content=\"5;URL=index.php?view=status&ticker=$ticker\" />\n";
 #print "<link href=\"css/status.css\" rel=\"stylesheet\" type=\"text/css\">\n";
 print "</head><body>";
-print "<a href=\"status.php?server_stop=1\">stop</a>";
+print "<a href=\"index.php?view=status&server_stop=1\">stop</a>";
 $qq=exec('ps');
 # print "qq= $qq";
 
 print "<span class=\"clock\">";
-	include "clock.php";
+	include "tpl/clock.php";
 	$qw=0;
 	while ($qw++<$ticker){
 		print ".";
@@ -122,7 +122,7 @@ function order_status() {
 		    	$tdstyle="disable";
 		} 
 		 else if($orders=="ping") {
-		 	$text=$client;
+			$text=$client;
 		    	$tdstyle="ping";
 		} 
 		print "<td class=\"$tdstyle\" width=\"50\">$text</td>";

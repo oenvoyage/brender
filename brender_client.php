@@ -2,31 +2,22 @@
 <?php 
 require "functions.php";
 require_once "connect.php";
-output("---- brender client 0.1 ----");
+print "---- brender client 0.2 ----\n";
 if (!$argv[1]) {
-	die("ERROR: no .conf file\n");
-}
-if ($argv[1]=="node") {
-	require "conf/node.conf";
-	#$r=rand(1,100000);
-	$r=$argv[2];
-	#$r=md5($r);
-	$computer_name="node_$r";
-	debug("debug test node computer name=$computer_name");
-	require_once "connect.php";
-	new_node($computer_name);
+	die("ERROR :: no computer_name, please use \n ./brender_client.php node <COMPUTER_NAME>\n");
 }
 else {
-	require "conf/$argv[1].conf";
+	if (check_client_exists($argv[1])) {
+		$computer_name=$argv[1];
+	}
+	else {
+		die("ERROR :: computer not found in client list, please check name again or add it to the list\n");
+	}
 }
 
-if (!$argv[1]) {
-	die("no computer_name, please use \n ./brender_client.php node <COMPUTER_NAME>\n");
-}
-global $computer_name;
 set_status("$computer_name","idle",'');
-output("computer name=$computer_name");
-output("blenderpath=$blender_path");
+$os=get_client_os($computer_name);
+output("computer name=$computer_name os=$os");
 output("process id=".getmypid()."\n");
 brender_log("START $computer_name");
 
@@ -41,10 +32,12 @@ while ($q=1) {
 		$rem=$row->rem;
 		# --- we are checking if there is an order for this client name, or for any client.
 		if ($client==$computer_name || $client=="any") {
-			debug("wow its me...time to work!");
+			debug("wow its me...time to work! $orders ---");
 			if ($orders=="render") {
 				# ---- RENDER ---
+				debug("RENDER TIME");
 				change_order_owner($id,$computer_name);
+				$blender_path=get_blender_path();
 				$render_query="$blender_path $rem";
 				output("RENDER $rem");
 				set_status("$computer_name","rendering","$rem");

@@ -8,18 +8,40 @@
 	clear: both;
 }
 
+html, body {height: 100%;}
+
+#wrap {
+	min-height: 100%;
+	width: 1200px;
+	margin: 0 auto;
+	}
+
+#section {
+	overflow:auto;
+	padding-bottom: 15px; /* must be same height as the footer */
+	padding-top: 15px;	
+	}  
+
+#footer {position: relative;
+	margin-top: -15px; /* negative value of footer height */
+	height: 15px;
+	width: 1200px;
+	margin-right: auto;
+	margin-left: auto;
+	clear:both;} 
+
+
 body {	
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: small;
+	font-size: 12px;
 	background: url(../images/nav-bg.png) repeat-x #EEE;
 	color: #000000;
-	padding: 0 20px; 
-	width: 900px;
-	margin: 0 auto;
+	padding: 0;
+	margin: 0;
 }
 
 #header {
-	margin-top: 20px;
+	padding-top: 20px;
 	position: relative;
 }
 
@@ -157,11 +179,12 @@ a:hover {
 
 
 #section h2 {
-	margin-top: 45px;
+	margin-top: 30px;
+	margin-bottom: 12px;
 	}
 
 #footer {
-	position: absolute;
+	position: float;
 	bottom: 5px;
 	}
 	
@@ -177,7 +200,13 @@ a:hover {
 	.dialog div {
 		margin-bottom: 15px;
 		}
+		
 	.dialog input {
-		float: right;		
+		float: left;		
+		}
+	
+	.dialog table td {
+		padding: 2px 0;
+		font-size: 12px;	
 		}
 		
