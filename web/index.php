@@ -5,7 +5,7 @@
 	}
 	require_once ('tpl/header.php');
 
-	include_once("tpl/menu.php");
+	require_once('tpl/menu.php');
 	
 ?>
 

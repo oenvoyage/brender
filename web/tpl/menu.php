@@ -3,11 +3,7 @@
 	<ul>	
 		<li><a class="button grey" href="index.php">overview</a></li>
 		<li><a class="button grey" href="?view=clients">clients</a></li>
-		<li>
-			<a class="button grey" href="?view=jobs">jobs</a>
-			<a href="jobs.php?no_visual=1" target="main">*</a>
-			<a href="jobs.php?all_projects=1" target="main">+</a>
-		</li>
+		<li><a class="button grey" href="?view=jobs">jobs</a></li>
 		<li><a class="button grey" href="?view=orders">orders</a></li>
 		<li><a class="button grey" href="?view=upload">new job</a></li>
 	</ul>
