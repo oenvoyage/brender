@@ -72,11 +72,9 @@ if ($_GET[visual]=="1") {
 					<option value=\"tga\" $select_tga>tga</option>
                 		</select>
 				config
-        			<select name=\"config\">
-                        		<option $select_preview value=\"preview\">preview</option>
-                        		<option $select_1k value=\"1k\">1k</option>
-                        		<option $select_1k value=\"2k\">2k</option>
-                		</select>";	
+        			<select name=\"config\"> ";
+				output_config_select();
+				print " </select>";	
         		print "start:<input type=text name=start size=4 value=$start>";
         		print "end:<input type=text name=end size=4 value=$end>";
         		print "chunks:<input type=text name=chunks size=3 value=$chunks>";

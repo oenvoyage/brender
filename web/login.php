@@ -1,3 +1,4 @@
+<div id="dialog-modal" title="// please login">
 <h2>// <b>please</b> login</h2>
 <?php	
 	if ($_POST['do_login']) {
@@ -20,4 +21,4 @@
 		show_login_form();
 	}
 ?>
-
+</div>

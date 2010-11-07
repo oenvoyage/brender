@@ -66,18 +66,16 @@
 			</tr>
 				<td>file format</td>
 				<td><select name="filetype">
-						<option>tga</option>
-						<option>jpg</option>
-						<option>png</option>
+						<option>TGA</option>
+						<option>JPEG</option>
+						<option>PNG</option>
 					</select>
 				</td>
 			</tr>
 			</tr>
 				<td>config</td>
 				<td><select name="config">
-						<option value="preview">preview</option>
-						<option value="1k">1k</option>
-						<option value="2k">2k</option>
+					<?php output_config_select() ?>
 					</select>
 				</td>
 			</tr>
