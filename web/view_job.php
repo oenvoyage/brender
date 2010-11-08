@@ -19,6 +19,7 @@ if ($_GET[visual]=="1") {
 		$project=$row->project;
 		$id=$row->id;
 		$scene=$row->scene;
+		$shot=$row->shot;
 		$jobtype=$row->jobtype;
 		$file=$row->file;
 		$config=$row->config;
@@ -33,7 +34,9 @@ if ($_GET[visual]=="1") {
 		$priority=$row->priority;
 		$total=$end-$start;
 	#-------------------
-	print "<h2>// job $id : <b>$scene</b></h2> // $rem (project <b>$project</b>)<br/>";
+	print "<h2>// job $id : <b>$shot</b></h2>";
+	print "// project :: <b>$project</b><br/>";
+	print "// scene :: $scene $rem<br/>";
 	print "<table border=0>";
 	print "<tr>";
 	print "<td bgcolor=\"#bbbbbb\" colspan=2>";
@@ -42,7 +45,7 @@ if ($_GET[visual]=="1") {
 	print "<tr><td width=200>";
 		print "<a href=\"index.php\">back to overview</a><br/>";
 		print "<a href=\"index.php?view=jobs\">jobs</a><br/>";
-		print "<a href=\"view_job.php?id=$id&bgcolor=$option_couleur&visual=$visual\">$option_couleur</a><br/>";
+		print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$option_couleur&visual=$visual\">$option_couleur</a><br/>";
 		print "$total frames ($start-$end by $chunks)<br/>";
 		$total_rendered=get_rendered_frames($id);
 		print "$total_rendered rendered frames<br/>";
@@ -50,10 +53,10 @@ if ($_GET[visual]=="1") {
 	print "</td>";
 	print "<td>";
 	#------------------------------ option update job -----------------------
-		if ($filetype=="tga"){
+		if ($filetype=="TGA"){
 			$select_tga="selected";
 		}
-		else if ($filetype=="png"){
+		else if ($filetype=="PNG"){
 			$select_png="selected";
 		}
 		if ($config=="preview"){
@@ -65,11 +68,11 @@ if ($_GET[visual]=="1") {
 		else if ($config=="2k"){
 			$select_2k="selected";
 		}
-		print "<form action=\"overview.php\" method=\"post\">";
+		print "<form action=\"index.php\" method=\"post\">";
                 	print "type <select name=\"filetype\">
-                       		 	<option value=\"jpg\">jpg</option>
-                       		 	<option value=\"png\" $select_png>png</option>
-					<option value=\"tga\" $select_tga>tga</option>
+                       		 	<option value=\"JPEG\">JPEG</option>
+                       		 	<option value=\"PNG\" $select_png>PNG</option>
+					<option value=\"TGA\" $select_tga>TGA</option>
                 		</select>
 				config
         			<select name=\"config\"> ";
@@ -81,12 +84,12 @@ if ($_GET[visual]=="1") {
 	       		print "priority (1-99):<input type=text name=priority size=3 value=$priority>";
 			print "directstart:<input type=checkbox name=directstart value=yes>";
         		print "<input type=hidden name=updateid value=$id>";
-        		print "<input type=hidden name=nom value=$name>";
+        		print "<input type=hidden name=scene value=$scene>";
+        		print "<input type=hidden name=shot value=$shot>";
+        		print "<input type=hidden name=view value=jobs>";
         		print "<input type=hidden name=jobtype value=$jobtype>";
-        		print "<input type=hidden name=file value=$file>";
-        		print "<input type=hidden name=output value=$output>";
         		print "<input type=hidden name=project value=$project>";
-        		print "<input type=submit name=copy value=\"send job\"><br/>";
+        		print "<input type=submit name=copy value=\"update job\"><br/>";
         		print "<input type=submit name=copy value=\"copy job\"><br/>";
 		print "</form>";
 	print "</td>";
@@ -126,13 +129,13 @@ if ($_GET[visual]=="1") {
 		}
 	}
 	print "</tr></table><br>";
-	print "<a href=\"view_job.php?id=$id&bgcolor=$bgcolor&visual=1&renderpreview=1\">render preview</>";
+	print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$bgcolor&visual=1&renderpreview=1\">render preview</>";
 	print "<hr>";
 	}
 	#-------------------------------------------------------------------
 	if (!$visual) {
-		print "<a href=\"view_job.php?id=$id&visual=1&bgcolor=$bgcolor\"><img src=\"/Production/renders/$first_image\" width=\"200\" border=1></a><br/><hr>";
+		print "<a href=\"index.php?view=view_job&id=$id&visual=1&bgcolor=$bgcolor\"><img src=\"/Production/renders/$first_image\" width=\"200\" border=1></a><br/><hr>";
 	}
 #--------read---------
-	print "<a href=\"jobs.php\">back to job list</a>";
+	print "<a href=\"index.php?view=jobs\">back to job list</a>";
 ?>

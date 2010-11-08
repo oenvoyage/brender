@@ -110,7 +110,7 @@ while ($q=1) {
 	#----every 120 cycle (about every 2 minutes we check if clients are still alive
 	if($a++==120){
 		$a=0;
-		output("... checking alive clients :");
+		print ("... checking alive clients :");
 		checking_alive_clients();
 	}
 

@@ -48,7 +48,7 @@ function get_path($project,$what,$os="NONE") {
 	$query="select $path from projects where name='$project'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
-	print "GETTING PATH $query \n path = $path\n";
+	#print "GETTING PATH $query \n path = $path\n";
 	return $qq;
 }
 function get_blender_path() {
@@ -162,6 +162,14 @@ function brender_log($log){
             fwrite($foo,"$log_koi");
         fclose($foo);
 }
+function output_config_select() {
+	$list= `ls ../conf/`;
+	$list=preg_split("/\n/",$list);
+	foreach ($list as $item) {
+		$item=preg_replace("/\.py/","",$item);
+		print " <option value=\"$item\">$item </option>";
+	}
+}
 function checking_alive_clients() {
 	# print "i am checking alive clients ";
 	$query="select * from clients where status='idle' or status='disabled'";
@@ -211,16 +219,19 @@ function get_rendered_frames($job_id) {
 		#print "query === $query <br/>";
 		$results=mysql_query($query);
 		$row=mysql_fetch_object($results);
-		$output=$row->output;
+		$scene=$row->scene;
+		$shot=$row->shot;
 		$filetype=$row->filetype;
 		$project=$row->project;
+		$path=get_path($project,"blend","linux");
 		$end=$row->end;
 		$name=$row->name;
 		$a=$row->start-1;
                 # print " i check $a to $end $output###.$filetype<br/>";
                 while ($a<$end){
                         $a++;
-                        $filecheck="/brender/render/$project/$name/".$output.str_pad($a,4,0,STR_PAD_LEFT).".".$filetype;
+                        $filecheck="./$path/$scene/$shot/$shot".str_pad($a,4,0,STR_PAD_LEFT).".".$filetype;
+			#print "bla filecheck = $filecheck<br/>";
                         if (file_exists($filecheck)) {
                                 $ok="ok";
                                 $total++;

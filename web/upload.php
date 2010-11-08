@@ -26,7 +26,8 @@
 		
 		mysql_query($query);
 		print "$query<br/>";
-		print "<a href=\"index.php?view=jobs\">view jobs</a>";
+		print "<a href=\"index.php?view=jobs\">view jobs</a><br/>";
+		print "<a href=\"index.php?view=upload\">send another job</a>";
 		
 	}
 	else {
@@ -66,9 +67,9 @@
 			</tr>
 				<td>file format</td>
 				<td><select name="filetype">
-						<option>TGA</option>
-						<option>JPEG</option>
 						<option>PNG</option>
+						<option>JPEG</option>
+						<option>TGA</option>
 					</select>
 				</td>
 			</tr>

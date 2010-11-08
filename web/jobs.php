@@ -5,7 +5,7 @@ if (isset($_GET['order_by'])) {
 	$order_by=$_GET['order_by'];
 }
 else {
-	$order_by="lastseen desc, scene, shot, id desc";
+	$order_by="scene, shot, id desc";
 }
 
 if (isset($_GET['all_projects'])) {
@@ -28,7 +28,7 @@ if (isset($_POST['updateid'])) {
 		print "COPYPROCESS = $_POST[copy] and quesry = $query";
 	}
 	else {
-		#----update UPDATE so we jsut update the job-------
+		#----update UPDATE so we just update the job-------
 		$queryqq="update jobs set start='$_POST[start]',end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]', lastseen=NOW()  where id=$jobid;";
 		if (isset($_POST['directstart'])){
 			print "direct start...";
