@@ -5,15 +5,16 @@ if (isset($_GET['order_by'])) {
 	$order_by=$_GET['order_by'];
 }
 else {
-	$order_by="scene, shot, id desc";
+	$order_by="shot, id desc";
 }
 
 if (isset($_GET['all_projects'])) {
 	$job_query="select * from jobs order by jobtype desc ,$order_by";
 }
 else {
-	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by status, $order_by";
+	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $order_by";
 }
+#print "<h2>job query $job_query</h2>";
 #----------------------------
 if (isset($_GET['restart_all'])) {
 	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active'));";
@@ -108,7 +109,14 @@ if (isset($_GET['del'])) {
 			$bgcolor="#ffffff";
 		}
 		else if (preg_match("/^finished/",$status)) {
-			$bgcolor="#ddeedd";
+			$a+=1;
+			if ($a==2) {
+				$bgcolor="#ddeedd";
+				$a=0;
+			}
+			else {
+				$bgcolor="#dffddd";
+			}
 		}
 		if ($status=="rendering") {
 			$bgcolor="#99ccff";
@@ -126,14 +134,20 @@ if (isset($_GET['del'])) {
 			$bgcolorpriority="#ddddaa";
 		}
 		else {
-			$bgcolorpriority="#ddddcc";
+			$bgcolorpriority="#ddcccc";
 		}
 
 		if ($_GET[no_visual]) {
 			$thumbnail="";
 		}
 		else {
-			$thumbnail="<a href=\"view_job.php?id=$id&x=$x&visual=1\"><img src=\"/Production/renders/".$output."$start_padded.$filetype\" width=\"50\"></a>";
+			$ext=filetype_to_ext($filetype);
+			$thumbnail_image="../thumbnails/$scene/$shot/$shot$start_padded.$ext";
+			if (!file_exists($thumbnail_image)) {
+				#print "FILE DOESNT EXIST $thumbnail_image<br/>";
+				create_thumbnail($id,$start);
+			}
+			$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
 		}
 
 		print "<tr>

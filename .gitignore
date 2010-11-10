@@ -1,7 +1,9 @@
 *.php~
 blender/
 render/
+thumbnails/
 blend/
+connect.php
 *.DS_Store
 *.log
 *.bak

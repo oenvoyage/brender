@@ -162,12 +162,18 @@ function brender_log($log){
             fwrite($foo,"$log_koi");
         fclose($foo);
 }
-function output_config_select() {
+function output_config_select($default="NONE") {
 	$list= `ls ../conf/`;
 	$list=preg_split("/\n/",$list);
 	foreach ($list as $item) {
 		$item=preg_replace("/\.py/","",$item);
-		print " <option value=\"$item\">$item </option>";
+		print("check default=$default and item=$item");
+		if ($default==$item) {
+			print " <option value=\"$item\" selected>$item </option>";
+		}	
+		else {
+			print " <option value=\"$item\">$item </option>";
+		}
 	}
 }
 function checking_alive_clients() {
@@ -214,7 +220,67 @@ function seconds_to_hms($time_in_secs) {
 		return ($days." days ".str_pad($hours,2,'0',STR_PAD_LEFT) . ":" . str_pad($mins,2,'0',STR_PAD_LEFT) . ":" . str_pad($secs,2,'0',STR_PAD_LEFT));
 	}
 }
+function job_get($what,$id) {
+	$query="select $what from jobs where id='$id'";
+	$results=mysql_query($query);
+	$qq=mysql_result($results,0);
+	return $qq;
+}
+function check_create_path($path) {
+	#print "<br>DEBUG --- $path chmod<br/>"; 
+	if (!is_dir($path)) {
+		mkdir($path);
+	}
+	chmod($path,0777);
+}
+function filetype_to_ext($filetype) {
+	switch ($filetype) {
+		case "PNG":
+			return "png";
+		case "TGA":
+			return "tga";
+		case "JPEG":
+			return "jpg";
+	}
+	
+}
+function create_thumbnail($job_id,$image_number) {
+	
+	#print "creating thumbnail : for image number $image_number of job with id = $job_id<br/><br/>";
+	$thumbnail_path="../thumbnails/";
+	$scene=job_get("scene",$job_id);
+	$shot=job_get("shot",$job_id);
+	$filetype=filetype_to_ext(job_get("filetype",$job_id));
+	$project=job_get("project",$job_id);
+	$image_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	$input_path=get_path($project,"output","linux");
+
+	$input_image = "$input_path/$scene/$shot/$image_name";
+
+	if (!file_exists($input_image)) {
+		# if input file doesnt exists/rendered we just close the function
+		#print "file $input_image doesnt exists, we close function <br/>";
+		return 0;
+	}
+	check_create_path("$thumbnail_path/$scene");
+	check_create_path("$thumbnail_path/$scene/$shot");
+	$output_image="$thumbnail_path/$scene/$shot/$image_name";
+	$output_image_small="$thumbnail_path/$scene/$shot/small_$image_name";
+
+	#print "<br/>----- input = $input_image ---<br/>";
+	#print "----- output = $output_image ---<br/>";
+	$percent = 0.5;
+
+	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
+       	$commande=" convert -resize 1024 $input_image $output_image";
+	exec($commande);
+       	$commande=" convert -resize 200 $input_image $output_image_small";
+	exec($commande);
+	#print "################ $commande<br/>";
+}
+
 function get_rendered_frames($job_id) {
+
 		$query="select scene,shot,project,start,end,filetype from jobs where id='$job_id'";
 		#print "query === $query <br/>";
 		$results=mysql_query($query);

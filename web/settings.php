@@ -1,5 +1,5 @@
 <?php
-print "sid = $sid <br/>";
+#print "sid = $sid <br/>";
 
 if (isset($_GET['theme'])) {
 	$_SESSION['theme']=$_GET['theme'];
@@ -15,6 +15,11 @@ if (isset($_GET['disable_sound'])) {
 	mysql_unbuffered_query($query);
 	print "sound disabled<br/>";
 }
+if (isset($_GET['test'])) {
+}
+	print "TESTING THUMBNAIL<br/>";
+	create_thumbnail(103,2);
+	
 order_status();
 system_status();
 theme_chooser();

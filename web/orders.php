@@ -43,10 +43,10 @@ if (isset($_POST['query'])) {
 			<td bgcolor=ddddcc align=center>$orders</td> 
 			<td bgcolor=$bgcolor align=center>$rem</td>
 			<td bgcolor=$bgcolor align=center>$priority</td>
-			<td bgcolor=$bgcolor align=center><a href=\"orders.php?del=$id\">x</a></td>
+			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=orders&del=$id\">x</a></td>
 		</tr>";
 	}
 	print "</table>";
-	print "<a href=\"orders.php?delete_all=1\"><div class=\"ordre\">delete_all</div></a>";
+	print "<a href=\"index.php?view=orders&delete_all=1\"><div class=\"ordre\">delete_all</div></a>";
 ?>
 

@@ -9,11 +9,11 @@ r.pixel_aspect_x=1
 r.pixel_aspect_y=1
 
 r.use_antialiasing=True
-r.antialiasing_samples='8'
+r.antialiasing_samples='5'
 
 r.use_simplify=False
 #r.simplify_subdivision=0
 
 for ob in bpy.data.objects:
-	if ob.dupli_group==bpy.data.groups["bubbletime_lo"]:
-		ob.dupli_group=bpy.data.groups["bubbletime_hi"]
+	if ob.dupli_group==bpy.data.groups["bubbletime_hi"]:
+		ob.dupli_group=bpy.data.groups["bubbletime_lo"]

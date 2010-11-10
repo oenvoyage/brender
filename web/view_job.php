@@ -59,15 +59,6 @@ if ($_GET[visual]=="1") {
 		else if ($filetype=="PNG"){
 			$select_png="selected";
 		}
-		if ($config=="preview"){
-			$select_preview="selected";
-		}
-		else if ($config=="1k"){
-			$select_1k="selected";
-		}
-		else if ($config=="2k"){
-			$select_2k="selected";
-		}
 		print "<form action=\"index.php\" method=\"post\">";
                 	print "type <select name=\"filetype\">
                        		 	<option value=\"JPEG\">JPEG</option>
@@ -76,7 +67,8 @@ if ($_GET[visual]=="1") {
                 		</select>
 				config
         			<select name=\"config\"> ";
-				output_config_select();
+				output_config_select($config);
+			#print "DDDD";
 				print " </select>";	
         		print "start:<input type=text name=start size=4 value=$start>";
         		print "end:<input type=text name=end size=4 value=$end>";
@@ -96,29 +88,35 @@ if ($_GET[visual]=="1") {
 	print "<table border=0>";
 	print "<tr>";
 	#-------------------------------les images ------------------------------
-	$first_image=$output.str_pad($start,4,0,STR_PAD_LEFT).".".$filetype;
 	$a=$start;
+	$ext=filetype_to_ext($filetype);
+        $first_image="../thumbnails/$scene/$shot/small_$shot".str_pad($start,4,0,STR_PAD_LEFT).".$ext";
 
 	if ($visual) {
 		$img_chunks=round(($total)/20);
 		# print "a= $a --- start $start -- end $end -- totalframes $total img_chunks =$img_chunks </br>";
-		print "<td><a href=\"view_image.php?id=$id&name=$name&image=$first_image&bgcolor=$bgcolor&project=$project\"><img src=\"/Production/renders/$first_image\" width=\"200\"></a><br/>$first_image<br/></td>";
+		print "<td><a href=\"index.php?view=view_image&id=$id&name=$name&image=$first_image&bgcolor=$bgcolor&project=$project\"><img src=\"$first_image\" width=\"200\"></a><br/>$start</td>";
 		$rows=1;
 	while ($a++<($total+$start)){
 		$b++;
 		# print " a= $a ---- b=$b/$img_chunks <br/>";
 		if ($b==$img_chunks) {
 			#  print "je met image $a <br/>";
-			if ($_GET[renderpreview]) {
+			/*if ($_GET[renderpreview]) {
 					$render_order="-b \'/brender/blend/$file\' -o \'/brender/render/$project/$name/$output\' -P conf/$config.py -F JPEG -f $a";
                                         # ---------------------------------
                                         print "job_render for $client :\n $render_order\n-----------\n";
-                                        send_order("any","render",$render_order,"20");
+                                        #send_order("any","render",$render_order,"20");
 			}
+			*/
+                        $thumbnail_image="../thumbnails/$scene/$shot/small_$shot".str_pad($a,4,0,STR_PAD_LEFT).".$ext";
+                        if (!file_exists($thumbnail_image)) {
+                                #print "FILE DOESNT EXIST $thumbnail_image<br/>";
+                                create_thumbnail($id,$a);
+                        }
 
-			$image=$output.str_pad($a,4,0,STR_PAD_LEFT).".".$filetype;
 			print "<td bgcolor=\"$tdcolor\">";
-				print "<a href=\"view_image.php?id=$id&name=$name&image=$image&bgcolor=$bgcolor&project=$project\"><img src=\"/Production/renders/$image\" border=0 width=\"200\"></a><br/>$image<br/>";
+				print "<a href=\"index.php?view=view_image&id=$id&name=$name&image=$thumbnail_image&bgcolor=$bgcolor&project=$project\"><img src=\"$thumbnail_image\" border=0 width=\"200\"></a><br/>$a<br/>";
 			print "</td>";
 			$b=0;
 			#  print "row = $rows";
@@ -129,12 +127,12 @@ if ($_GET[visual]=="1") {
 		}
 	}
 	print "</tr></table><br>";
-	print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$bgcolor&visual=1&renderpreview=1\">render preview</>";
+	#print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$bgcolor&visual=1&renderpreview=1\">render preview</>";
 	print "<hr>";
 	}
 	#-------------------------------------------------------------------
 	if (!$visual) {
-		print "<a href=\"index.php?view=view_job&id=$id&visual=1&bgcolor=$bgcolor\"><img src=\"/Production/renders/$first_image\" width=\"200\" border=1></a><br/><hr>";
+		print "<a href=\"index.php?view=view_job&id=$id&visual=1&bgcolor=$bgcolor\"><img src=\"$first_image\" width=\"200\" border=1></a><br/><hr>";
 	}
 #--------read---------
 	print "<a href=\"index.php?view=jobs\">back to job list</a>";
