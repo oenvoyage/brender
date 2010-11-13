@@ -47,6 +47,7 @@ if ($log=$_GET[log]){
 		$_max=100;
 	}
 	print "<b>$log log</b><br/>";
+	#check_if_client_should_work($log);
 	print "<a href=\"index.php?view=logs&log=$log&max=400\">400 lines</a><br/>";
 	$lok = file("../logs/$log.log");
 	$lok=array_reverse($lok);

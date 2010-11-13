@@ -88,6 +88,7 @@ while ($q=1) {
 	sleep(1);
 
 	if($a++==10000){
+		#check_if_i_can_work();
 		$a=0;
 		print ".";
 	}

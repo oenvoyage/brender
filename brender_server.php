@@ -112,6 +112,7 @@ while ($q=1) {
 		$a=0;
 		print ("... checking alive clients :");
 		checking_alive_clients();
+		check_if_client_should_work();
 	}
 
 	#------we get and check if there are orders for the server------
