@@ -1,6 +1,7 @@
 // THIS IS OVERVIEW PAGE
 
 <?php
+check_if_client_should_work();
 show_last_log();
 show_client_list();
 show_job_list();

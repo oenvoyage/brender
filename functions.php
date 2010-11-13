@@ -43,7 +43,7 @@ function get_client_os($client) {
 }
 function check_if_client_should_work($client_name="default") {
 	#checking_alive_clients();
-	$query="SELECT DATE_FORMAT( NOW( ) , '%H:%m:%s' ) as now,working_hour_start as start,working_hour_end as end,client,status,machinetype,(DATE_FORMAT( NOW( ) , '%H:%m:%s' ) NOT BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machinetype='workstation' ";
+	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machinetype,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machinetype='workstation' ";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)) {
 		$client=$row->client;
@@ -53,10 +53,14 @@ function check_if_client_should_work($client_name="default") {
 		$end=$row->end;
 		$is_during_office_hours=$row->should_work;
 		print "$client is $status :: <br/>";
-		print "$now :: $start / $end ::::---- worktest $should_work<br/>";
-		if ($is_during_office_hours && $status=='disabled') {
-			# print "OHH $client should work, lets enable him<br/>";
+		print "$now :: $start / $end ::::---- is during work hours? = $is_during_office_hours<br/>";
+		if (!$is_during_office_hours && $status=='disabled') {
+			print "OHH $client should work, lets enable him<br/>";
 			send_order($client,"enable","","5");
+		}
+		if ($is_during_office_hours && $status=='idle') {
+			print "OHH $client should not work, lets disable him<br/>";
+			send_order($client,"disable","","5");
 		}
 	}
 	
