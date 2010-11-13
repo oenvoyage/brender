@@ -1,7 +1,7 @@
 <?php 
 
 	#-------brender alpha 0.01
-	if ($_POST[scene]) {	
+	if ($_POST[scene]&&$_POST['shot']) {	
 		$start=$_POST[start];
 		$end=$_POST[end];
 		$shot=$_POST[shot];
@@ -22,16 +22,17 @@
 			$status="pause";
 		}
 
-		$query="insert into jobs values('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$status','$priority',now())";
+		$query="insert into jobs values('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$status','new','$_SESSION[user]','$priority',now())";
 		
 		mysql_query($query);
+		$_SESSION['last_used_config']=$config;
 		print "$query<br/>";
 		print "<a href=\"index.php?view=jobs\">view jobs</a><br/>";
 		print "<a href=\"index.php?view=upload\">send another job</a>";
 		
 	}
 	else {
-		$error="no name<br/>";
+		$error="please enter new job infos<br/>";
 	}
 ?>
 

@@ -162,7 +162,20 @@ function brender_log($log){
             fwrite($foo,"$log_koi");
         fclose($foo);
 }
+function output_progress_status_select($default="NONE") {
+	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved");
+	foreach ($list as $item) {
+		print("check default=$default and item=$item");
+		if ($default==$item) {
+			print " <option value=\"$item\" selected>$item </option>";
+		}	
+		else if ($item<>""){
+			print " <option value=\"$item\">$item </option>";
+		}
+	}
+}
 function output_config_select($default="NONE") {
+	if ($default=="NONE") {$default=$_SESSION['last_used_config'];};
 	$list= `ls ../conf/`;
 	$list=preg_split("/\n/",$list);
 	foreach ($list as $item) {
@@ -171,7 +184,7 @@ function output_config_select($default="NONE") {
 		if ($default==$item) {
 			print " <option value=\"$item\" selected>$item </option>";
 		}	
-		else {
+		else if ($item<>""){
 			print " <option value=\"$item\">$item </option>";
 		}
 	}

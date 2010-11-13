@@ -3,6 +3,9 @@
 	if(isset($_GET['view'])) {
 		$view = $_GET['view'];
 	}
+	if(isset($_POST['view'])) {
+		$view = $_POST['view'];
+	}
 	require_once ('tpl/header.php');
 
 	require_once('tpl/menu.php');
@@ -18,9 +21,7 @@
 		} else {
 	 
 			if($view == "") { 
-				include "clients.php";
-				include "jobs.php";
-				include "orders.php";
+				include "overview.php";
 			}
 			
 			if($view == "login") { 
@@ -60,6 +61,11 @@
 			if($view == "projects") {
 				include "projects.php";
 			}
+
+			if($view == "render_configs") {
+				include "render_configs.php";
+			}
+			
 			
 			if($view == "view_job") {
 				include "view_job.php";

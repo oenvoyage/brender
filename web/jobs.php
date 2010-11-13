@@ -16,6 +16,11 @@ else {
 }
 #print "<h2>job query $job_query</h2>";
 #----------------------------
+if (isset($_GET['restart_all_paused'])) {
+	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active') and status='pause');";
+	#print "BLLLA";
+	mysql_query($queryqq);
+}
 if (isset($_GET['restart_all'])) {
 	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active'));";
 	mysql_query($queryqq);
@@ -24,19 +29,19 @@ if (isset($_POST['updateid'])) {
 	$jobid=$_POST['updateid'];
 	if ($_POST['copy']=="copy job") {
 		#----update COPY so we create a new job-------
-		$query="insert into jobs values('','$_POST[nom]','$_POST[jobtype]','$_POST[file]','$_POST[start]','$_POST[end]','$_POST[project]','$_POST[output]','$_POST[start]','$_POST[chunks]','','$_POST[filetype]','$_POST[config]','active','$_POST[priority]',now())";
+		$query="insert into jobs values('','$_POST[nom]','$_POST[jobtype]','$_POST[file]','$_POST[start]','$_POST[end]','$_POST[project]','$_POST[output]','$_POST[start]','$_POST[chunks]','','$_POST[filetype]','$_POST[config]','active','$_POST[progress_status]','$_SESSION[user]','$_POST[priority]',now())";
                 mysql_query($query);
-		print "COPYPROCESS = $_POST[copy] and quesry = $query";
+		print "COPYPROCESS = $_POST[copy] and query = $query";
 	}
 	else {
 		#----update UPDATE so we just update the job-------
-		$queryqq="update jobs set start='$_POST[start]',end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]', lastseen=NOW()  where id=$jobid;";
+		$queryqq="update jobs set start='$_POST[start]',end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',progress_status='$_POST[progress_status]', lastseen=NOW(),last_edited_by='$_SESSION[user]'  where id=$jobid;";
 		if (isset($_POST['directstart'])){
 			print "direct start...";
 			$queryqq="update jobs set start='$_POST[start]',current='$_POST[start]', end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',status='waiting', lastseen=NOW() where id=$jobid;";
 		}	
 		mysql_query($queryqq);
-		# $msg= "job $jobid updated<br/>";
+		#$msg= "job $jobid updated $queryqq<br/>";
 	}
 	
 }
@@ -71,6 +76,7 @@ if (isset($_GET['del'])) {
 		<td bgcolor=cccccc width=12 align=center></td>
 		<td bgcolor=cccccc width=12 align=center></td>
 		<td bgcolor=cccccc width=120 align=center><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
+		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">progress_status</a></td>
 		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">shot</a></td>
 		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=output\">output</a></td>
 		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a> &nbsp; </td>
@@ -83,6 +89,7 @@ if (isset($_GET['del'])) {
 		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
 		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
 		<td bgcolor=cccccc width=10 align=center> lastseen </td>
+		<td bgcolor=cccccc width=10 align=center> last edited by </td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
@@ -102,6 +109,8 @@ if (isset($_GET['del'])) {
 		$status=$row->status;
 		$priority=$row->priority;
 		$lastseen=$row->lastseen;
+		$last_edited_by=$row->last_edited_by;
+		$progress_status=$row->progress_status;
 		$total_frames=$end-$start+1;
 		$total_rendered=get_rendered_frames($id);
 		$bgcolor="#bcffa6";
@@ -154,6 +163,7 @@ if (isset($_GET['del'])) {
 			<td bgcolor=ddddcc align=center>$padded_id</td> 
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$scene</b> <font size=1>($project)</font></a></td> 
+			<td bgcolor=$bgcolor align=center>$progress_status</td>
 			<td bgcolor=$bgcolor align=center><b>$shot</b></td>
 			<td bgcolor=$bgcolor align=center>$config $filetype</td>
 			<td bgcolor=$bgcolor align=center>$start - $end</td>
@@ -168,10 +178,12 @@ if (isset($_GET['del'])) {
 			<td bgcolor=$bgcolorpriority align=center><a href=\"#\" onclick=\"javascript:window.open('jobs_priority_popup.php?id=$id&priority=$priority','winame','width=200,height=25')\">$priority</a></td>
 			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&del=$id\">x</a></td>
 			<td bgcolor=$bgcolor align=center>$lastseen</a><br/>
+			<td bgcolor=$bgcolor align=center>$last_edited_by</a><br/>
 		</tr>";
 	}
 	print "\n</table>\n";
 	print "<a href=\"index.php?view=upload\"><b class=\"ordre\">new job</a></b> - ";
+	print "<a href=\"index.php?view=jobs&restart_all_paused=1\"><b class=\"ordre\">restart all paused jobs</b></a> - ";
 	print "<a href=\"index.php?view=jobs&x=$random_x\"><b class=\"ordre\">reload</a></b> - ";
 	print "<a href=\"index.php?view=jobs&restart_all=1\"><b class=\"ordre\">restart all</b></a>";
 	print "<p><hr><p>";

@@ -1,5 +1,4 @@
 <?php
-session_start();
 if ($projectid=$_GET[del]) {
 	$queryqq="delete from projects where id=$projectid;";
 	mysql_query($queryqq);
