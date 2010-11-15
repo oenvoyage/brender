@@ -31,6 +31,7 @@ if ($_GET[visual]=="1") {
 		$rem=$row->rem;
 		$filetype=$row->filetype;
 		$progress_status=$row->progress_status;
+		$progress_remark=$row->progress_remark;
 		$last_edited_by=$row->last_edited_by;
 		$status=$row->status;
 		$priority=$row->priority;
@@ -39,7 +40,7 @@ if ($_GET[visual]=="1") {
 	print "<h2>// job $id : <b>$shot</b></h2>";
 	print "// project :: <b>$project</b><br/>";
 	print "// scene :: $scene $rem<br/>";
-	print "last changes by  :: $last_edited_by<br/>";
+	print "last changes made by  :: $last_edited_by<br/>";
 	print "<table border=0>";
 	print "<tr>";
 	print "<td bgcolor=\"#bbbbbb\" colspan=2>";
@@ -72,17 +73,17 @@ if ($_GET[visual]=="1") {
         			<select name=\"config\"> ";
 				output_config_select($config);
 			#print "DDDD";
-				print " </select>";	
+				print " </select><br/>";	
 
-        			print "progress status <select name=\"progress_status\"> ";
+        			print "<br/>progress status<br/> <select name=\"progress_status\"> ";
 				output_progress_status_select($progress_status);
-				print " </select><br/><br/>";	
+				print " </select> rem <input name=\"progress_remark\" type=\"text\" value=\"$progress_remark\"><br/><br/>";	
 
         		print "start:<input type=text name=start size=4 value=$start>";
         		print "end:<input type=text name=end size=4 value=$end>";
         		print "chunks:<input type=text name=chunks size=3 value=$chunks>";
 	       		print "priority (1-99):<input type=text name=priority size=3 value=$priority><br/><br/>";
-			print "directstart:<input type=checkbox name=directstart value=yes>";
+			print "directstart:<input type=checkbox name=directstart value=yes><br/>";
         		print "<input type=hidden name=updateid value=$id>";
         		print "<input type=hidden name=scene value=$scene>";
         		print "<input type=hidden name=shot value=$shot>";
