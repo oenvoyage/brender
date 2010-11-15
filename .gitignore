@@ -3,6 +3,7 @@ blender/
 render/
 thumbnails/
 blend/
+logs/
 connect.php
 *.DS_Store
 *.log
