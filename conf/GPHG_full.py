@@ -12,6 +12,7 @@ r.use_antialiasing=True
 r.antialiasing_samples='8'
 
 r.use_simplify=False
+r.color_mode='RGBA'
 #r.simplify_subdivision=0
 
 for ob in bpy.data.objects:

@@ -17,14 +17,13 @@ if (isset($_GET['disable_sound'])) {
 }
 if (isset($_GET['test'])) {
 }
-	print "TESTING THUMBNAIL<br/>";
-	create_thumbnail(103,2);
-	
+
 order_status();
 system_status();
 theme_chooser();
 print "<br/>";
-print "<a class=\"button grey\" href=\"index.php?view=projects\">manage projects</a>";
+print "<a class=\"button grey\" href=\"index.php?view=projects\">manage projects</a> ";
+print "<a class=\"button grey\" href=\"index.php?view=render_configs\">manage render configs</a>";
 
 #------------------ server log-----------------
 function order_status() {
@@ -85,8 +84,8 @@ function system_status() {
 			<td bgcolor=ddddcc align=center>$started</td> 
 			<td bgcolor=ddddcc align=center>
 				$sound<br/> 
-				<a href=\"settings.php?enable_sound=1\">yes</a>
-				<a href=\"settings.php?disable_sound=1\">no</a>
+				<a href=\"index.php?view=settings&enable_sound=1\">yes</a>
+				<a href=\"index.php?view=settings&disable_sound=1\">no</a>
 			</td>
 		</tr>";
 	}

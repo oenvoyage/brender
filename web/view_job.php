@@ -30,6 +30,8 @@ if ($_GET[visual]=="1") {
 		$chunks=$row->chunks;
 		$rem=$row->rem;
 		$filetype=$row->filetype;
+		$progress_status=$row->progress_status;
+		$last_edited_by=$row->last_edited_by;
 		$status=$row->status;
 		$priority=$row->priority;
 		$total=$end-$start;
@@ -37,6 +39,7 @@ if ($_GET[visual]=="1") {
 	print "<h2>// job $id : <b>$shot</b></h2>";
 	print "// project :: <b>$project</b><br/>";
 	print "// scene :: $scene $rem<br/>";
+	print "last changes by  :: $last_edited_by<br/>";
 	print "<table border=0>";
 	print "<tr>";
 	print "<td bgcolor=\"#bbbbbb\" colspan=2>";
@@ -70,10 +73,15 @@ if ($_GET[visual]=="1") {
 				output_config_select($config);
 			#print "DDDD";
 				print " </select>";	
+
+        			print "progress status <select name=\"progress_status\"> ";
+				output_progress_status_select($progress_status);
+				print " </select><br/><br/>";	
+
         		print "start:<input type=text name=start size=4 value=$start>";
         		print "end:<input type=text name=end size=4 value=$end>";
         		print "chunks:<input type=text name=chunks size=3 value=$chunks>";
-	       		print "priority (1-99):<input type=text name=priority size=3 value=$priority>";
+	       		print "priority (1-99):<input type=text name=priority size=3 value=$priority><br/><br/>";
 			print "directstart:<input type=checkbox name=directstart value=yes>";
         		print "<input type=hidden name=updateid value=$id>";
         		print "<input type=hidden name=scene value=$scene>";
@@ -81,7 +89,7 @@ if ($_GET[visual]=="1") {
         		print "<input type=hidden name=view value=jobs>";
         		print "<input type=hidden name=jobtype value=$jobtype>";
         		print "<input type=hidden name=project value=$project>";
-        		print "<input type=submit name=copy value=\"update job\"><br/>";
+        		print "<input type=submit name=copy value=\"update job\"> or ";
         		print "<input type=submit name=copy value=\"copy job\"><br/>";
 		print "</form>";
 	print "</td>";

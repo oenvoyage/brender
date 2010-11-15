@@ -41,6 +41,30 @@ function get_client_os($client) {
 	$qq=mysql_result($results,0);
 	return $qq;
 }
+function check_if_client_should_work($client_name="default") {
+	#checking_alive_clients();
+	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machinetype,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machinetype='workstation' ";
+	$results=mysql_query($query);
+	while ($row=mysql_fetch_object($results)) {
+		$client=$row->client;
+		$status=$row->status;
+		$start=$row->start;
+		$now=$row->now;
+		$end=$row->end;
+		$is_during_office_hours=$row->should_work;
+		print "$client is $status :: <br/>";
+		print "$now :: $start / $end ::::---- is during work hours? = $is_during_office_hours<br/>";
+		if (!$is_during_office_hours && $status=='disabled') {
+			print "OHH $client should work, lets enable him<br/>";
+			send_order($client,"enable","","5");
+		}
+		if ($is_during_office_hours && $status=='idle') {
+			print "OHH $client should not work, lets disable him<br/>";
+			send_order($client,"disable","","5");
+		}
+	}
+	
+}
 function get_path($project,$what,$os="NONE") {
 	#$path=$what."_".$GLOBALS['os'];
 	if ($os=="NONE") {$os=$GLOBALS['os'];};
@@ -162,7 +186,20 @@ function brender_log($log){
             fwrite($foo,"$log_koi");
         fclose($foo);
 }
+function output_progress_status_select($default="NONE") {
+	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved");
+	foreach ($list as $item) {
+		print("check default=$default and item=$item");
+		if ($default==$item) {
+			print " <option value=\"$item\" selected>$item </option>";
+		}	
+		else if ($item<>""){
+			print " <option value=\"$item\">$item </option>";
+		}
+	}
+}
 function output_config_select($default="NONE") {
+	if ($default=="NONE") {$default=$_SESSION['last_used_config'];};
 	$list= `ls ../conf/`;
 	$list=preg_split("/\n/",$list);
 	foreach ($list as $item) {
@@ -171,7 +208,7 @@ function output_config_select($default="NONE") {
 		if ($default==$item) {
 			print " <option value=\"$item\" selected>$item </option>";
 		}	
-		else {
+		else if ($item<>""){
 			print " <option value=\"$item\">$item </option>";
 		}
 	}

@@ -10,6 +10,7 @@ r.pixel_aspect_y=1
 
 r.use_antialiasing=True
 r.antialiasing_samples='5'
+r.color_mode='RGBA'
 
 r.use_simplify=False
 #r.simplify_subdivision=0

@@ -97,6 +97,8 @@ if (isset($_GET['msg'])) {
 		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=status\">status</a> &nbsp; </b></td>
 		<td bgcolor=cccccc width=500 align=center><b> &nbsp; rem &nbsp; </b></td>
 		<td bgcolor=cccccc width=120 align=center><b> &nbsp; &nbsp; </td>
+		<td bgcolor=cccccc width=120 align=center><b> workhour start </td>
+		<td bgcolor=cccccc width=120 align=center><b> workhour end </td>
 		<td bgcolor=cccccc align=center></td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
@@ -106,6 +108,8 @@ if (isset($_GET['msg'])) {
 		$speed=$row->speed;
 		$machinetype=$row->machinetype;
 		$client_priority=$row->client_priority;
+		$working_hour_start=$row->working_hour_start;
+		$working_hour_end=$row->working_hour_end;
 		$speed=$row->speed;
 		if ($status<>"disabled") {
 			$dis="<a href=\"index.php?view=clients&disable=$client\">disable</a>";
@@ -128,6 +132,8 @@ if (isset($_GET['msg'])) {
 			<td bgcolor=$bgcolor align=center>$status</td>
 			<td bgcolor=$bgcolor align=center>$rem</td>
 			<td bgcolor=$bgcolor align=center>$dis</td>
+			<td bgcolor=$bgcolor align=center>$working_hour_start</td>
+			<td bgcolor=$bgcolor align=center>$working_hour_end</td>
 			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=clients&stop=$client\">x</a></td>
 		</tr>";
 	}
