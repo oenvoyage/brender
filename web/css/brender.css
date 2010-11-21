@@ -200,7 +200,7 @@ a:hover {
 	.dialog div {
 		margin-bottom: 15px;
 		}
-		
+	
 	.dialog input {
 		float: left;		
 		}
@@ -210,3 +210,10 @@ a:hover {
 		font-size: 12px;	
 		}
 		
+.progress_bar {
+	position:relative;
+	border: solid 1px #adadad;
+	padding:0;
+	height:10px;
+	margin:0;
+	}
