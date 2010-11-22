@@ -43,7 +43,7 @@ function get_client_os($client) {
 }
 function check_if_client_should_work($client_name="default") {
 	#checking_alive_clients();
-	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machinetype,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machinetype='workstation' ";
+	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machinetype,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machinetype='workstation' and status<>'not running'";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)) {
 		$client=$row->client;
@@ -187,13 +187,13 @@ function brender_log($log){
         fclose($foo);
 }
 function output_progress_status_select($default="NONE") {
-	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved");
+	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved","");
 	foreach ($list as $item) {
 		print("check default=$default and item=$item");
 		if ($default==$item) {
 			print " <option value=\"$item\" selected>$item </option>";
 		}	
-		else if ($item<>""){
+		else {
 			print " <option value=\"$item\">$item </option>";
 		}
 	}

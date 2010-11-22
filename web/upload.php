@@ -22,7 +22,7 @@
 			$status="pause";
 		}
 
-		$query="insert into jobs values('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$status','new','$_SESSION[user]','$priority',now())";
+		$query="insert into jobs values('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$status','new','','$priority',now(),'$_SESSION[user]')";
 		
 		mysql_query($query);
 		$_SESSION['last_used_config']=$config;
