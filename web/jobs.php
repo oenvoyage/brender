@@ -41,7 +41,7 @@ if (isset($_POST['updateid'])) {
 			$queryqq="update jobs set start='$_POST[start]',current='$_POST[start]', end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',status='waiting', lastseen=NOW() where id=$jobid;";
 		}	
 		mysql_query($queryqq);
-		$msg= "job $jobid updated $queryqq<br/>";
+		#$msg= "job $jobid updated $queryqq<br/>";
 	}
 	
 }
