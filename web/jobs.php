@@ -164,13 +164,13 @@ if (isset($_GET['del'])) {
 			<td bgcolor=ddddcc align=center>$padded_id</td> 
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$scene</b> <font size=1>($project)</font></a></td> 
-			<td bgcolor=$bgcolor align=center>$progress_status<br/><small>$progress_remark</small></td>
+			<td bgcolor=$bgcolor align=center>$progress_status<br/><small>$progress_remark</small>".output_progress_bar($start,$end,$current)."</td>
 			<td bgcolor=$bgcolor align=center><b>$shot</b></td>
 			<td bgcolor=$bgcolor align=center>$config $filetype</td>
 			<td bgcolor=$bgcolor align=center>$start - $end</td>
 			<td bgcolor=$bgcolor align=center>$chunks</td>
 			<td bgcolor=$bgcolor align=center><b>$current</b></td>
-			<td bgcolor=$bgcolor align=center>$total_rendered / $total_frames</td>
+			<td bgcolor=$bgcolor align=center>$total_rendered / $total_frames<br></td>
 			<td bgcolor=$bgcolor align=center>$status</td>
 			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&reset=$id\">reset</a><br/>
 			<a href=\"index.php?view=jobs&reset=$id&start=$id\">restart</a></td>

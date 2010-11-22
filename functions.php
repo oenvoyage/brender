@@ -316,6 +316,24 @@ function create_thumbnail($job_id,$image_number) {
 	#print "################ $commande<br/>";
 }
 
+function output_progress_bar($start,$end,$current,$style="normal") {
+	$total=$end-$start;
+	if ($current==$start) {
+		$percent=0;
+	}
+	else if ($current>=$end) {
+		$percent=100;
+	}
+	else {
+		$percent=round(($current-$start)/$total*100);
+	}
+	$done=$percent/2;
+	$remaining=(100-$percent)/2;
+	$output= "<img src=\"images/cube_green.png\" style=\"width:".$done."px;\" class=\"progress_bar\"/>";
+	$output.="<img src=\"images/cube_red.png\" style=\"width:".$remaining."px;\" class=\"progress_bar\"/>";
+	#$output.= "<br/>$done / $remaining";
+	return $output;
+}
 function get_rendered_frames($job_id) {
 
 		$query="select scene,shot,project,start,end,filetype from jobs where id='$job_id'";

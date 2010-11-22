@@ -49,6 +49,24 @@ while ($q=1) {
 				# and finally set client to idle, ready to get some new work
 				set_status("$computer_name","idle","");
 			}
+			else if ($orders=="benchmark") { 
+				debug("BENCHMARK RENDER TIME");
+				change_order_owner($id,$computer_name);
+				$blender_path=get_blender_path();
+				$start_time= microtime(true); 
+				$render_query="$blender_path -b 'blend/benchmark.blend' -o 'render/benchmark/$computer_name' -F PNG  -f 1";
+				debug("BENCHMARK START $start_time");
+				set_status("$computer_name","rendering benchmark","$rem");
+				#--- we are now rendering the scene benchmark ...
+				print "------------------- benchmark renderquery = $render_query\n";
+				system($render_query);
+				$end_time=microtime(true);
+				$benchmark_time= $end_time-$start_time; 
+				# ---enabling the computer----
+				set_status("$computer_name","idle","BENCHMARK RESULT TIME= $benchmark_time");
+				output("BENCHMARK result $end_time");
+				remove_order($id);
+			}
 			else if ($orders=="enable") { 
 				# ---enabling the computer----
 				set_status("$computer_name","idle","");
