@@ -64,10 +64,11 @@ function check_if_client_should_work($client_name="check all") {
 		if (!$is_during_office_hours && $status=='disabled') {
 			print "OHH $client should work, lets enable him<br/>";
 			send_order($client,"enable","","5");
+
 		}
 		if ($is_during_office_hours && $status=='idle') {
 			print "OHH $client should not work, lets disable him<br/>";
-			send_order($client,"disable","","5");
+			send_order($client,"disable","artist@work","5");
 		}
 	}
 	
@@ -171,14 +172,13 @@ function set_server_status($key,$value){
 function set_status($client,$status,$rem){
 	$rem=str_replace("'","\'",$rem);
 	$query="update clients set status='$status',rem='$rem' where client='$client'";
-	# print "COOOL DEBUG___________ $query\n";
 	mysql_unbuffered_query($query);
 	#	print "### $client status : $status $rem\n";
 }
 function send_order($client,$orders,$rem,$priority){
 	#print "------send_order var = $client, $orders, $rem, $priority----\n";
 	$query="insert into orders values('','$client','$orders','$priority','$rem')";
-	# print "order query = $query\n";
+	 #print "order query = $query\n";
 	mysql_unbuffered_query($query);
 }
 function brender_log($log){

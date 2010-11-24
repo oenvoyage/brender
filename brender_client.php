@@ -30,6 +30,7 @@ while ($q=1) {
 		$client=$row->client;
 		$orders=$row->orders; # please notice i am using orderS instead of order as to not interfere with ORDER syntax from mysql
 		$rem=$row->rem;
+		#print "----------- rem Â£=$rem \n";
 		# --- we are checking if there is an order for this client name, or for any client.
 		if ($client==$computer_name || $client=="any") {
 			debug("wow its me...time to work! $orders ---");
@@ -69,13 +70,14 @@ while ($q=1) {
 			}
 			else if ($orders=="enable") { 
 				# ---enabling the computer----
-				set_status("$computer_name","idle","");
+				set_status("$computer_name","idle","$rem");
 				output("ENABLE");
 				remove_order($id);
 			}
 			else if ($orders=="disable") { 
 				# ---disabling the computer----
-				set_status("$computer_name","disabled","");
+				#print "enabling debug rem $rem\n";
+				set_status("$computer_name","disabled","$rem");
 				output("DISABLE");
 				sleep(1);
 				remove_order($id);
