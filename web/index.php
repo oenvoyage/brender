@@ -71,6 +71,10 @@
 				include "view_job.php";
 			}			
 
+			if($view == "view_client") {
+				include "view_client.php";
+			}			
+	
 			if($view == "view_image") {
 				include "view_image.php";
 			}			

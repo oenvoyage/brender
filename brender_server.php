@@ -87,7 +87,7 @@ while ($q=1) {
 						$render_order.=" -s $where_to_start -e $where_to_end -a"; 
 					}
 					output("job_render for $client :::: $render_order-----------");
-					#output(" HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!");
+					# sending the render order to the client. the render_order contains everything used after the commandline blender -b
 					send_order($client,"render","$render_order","20");
 					$query="update jobs set current='$new_start',status='rendering' where id='$id'";
 				}
