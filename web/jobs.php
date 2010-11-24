@@ -29,7 +29,7 @@ if (isset($_POST['updateid'])) {
 	$jobid=$_POST['updateid'];
 	if ($_POST['copy']=="copy job") {
 		#----update COPY so we create a new job-------
-		$query="insert into jobs values('','$_POST[nom]','$_POST[jobtype]','$_POST[file]','$_POST[start]','$_POST[end]','$_POST[project]','$_POST[output]','$_POST[start]','$_POST[chunks]','','$_POST[filetype]','$_POST[config]','active','$_POST[progress_status]','$_POST[progress_remark]','$_SESSION[user]','$_POST[priority]',now())";
+		$query="insert into jobs values('','$_POST[scene]','$_POST[shot]','$_POST[start]','$_POST[end]','$_POST[project]','$_POST[start]','$_POST[chunks]','$_POST[filetype]','$_POST[rem]','$_POST[config]','active','$_POST[progress_status]','$_POST[progress_remark]','$_POST[priority]',now(),'$_SESSION[user]')";
                 mysql_query($query);
 		print "COPYPROCESS = $_POST[copy] and query = $query";
 	}
@@ -164,7 +164,10 @@ if (isset($_GET['del'])) {
 			<td bgcolor=ddddcc align=center>$padded_id</td> 
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$scene</b> <font size=1>($project)</font></a></td> 
-			<td bgcolor=$bgcolor align=center>$progress_status<br/><small>$progress_remark</small>".output_progress_bar($start,$end,$current)."</td>
+			<td bgcolor=$bgcolor align=center>
+				".output_progress_bar($start,$end,$current)."<br/>
+				$progress_status <small>$progress_remark</small>
+			</td>
 			<td bgcolor=$bgcolor align=center><b>$shot</b></td>
 			<td bgcolor=$bgcolor align=center>$config $filetype</td>
 			<td bgcolor=$bgcolor align=center>$start - $end</td>

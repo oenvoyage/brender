@@ -41,7 +41,14 @@ function get_client_os($client) {
 	$qq=mysql_result($results,0);
 	return $qq;
 }
-function check_if_client_should_work($client_name="default") {
+function check_if_client_should_work($client_name="check all") {
+	if ($client_name <> "check all") {
+		$query="SELECT (DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE client='$client_name'";
+		$results=mysql_query($query);
+		$qq=mysql_result($results,0);
+		return($qq);
+		
+	}
 	#checking_alive_clients();
 	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machinetype,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machinetype='workstation' and status<>'not running'";
 	$results=mysql_query($query);
@@ -316,7 +323,7 @@ function create_thumbnail($job_id,$image_number) {
 	#print "################ $commande<br/>";
 }
 
-function output_progress_bar($start,$end,$current,$style="normal") {
+function output_progress_bar($start,$end,$current,$style="progress_bar") {
 	$total=$end-$start;
 	if ($current==$start) {
 		$percent=0;
@@ -329,8 +336,8 @@ function output_progress_bar($start,$end,$current,$style="normal") {
 	}
 	$done=$percent/2;
 	$remaining=(100-$percent)/2;
-	$output= "<img src=\"images/cube_green.png\" style=\"width:".$done."px;\" class=\"progress_bar\"/>";
-	$output.="<img src=\"images/cube_red.png\" style=\"width:".$remaining."px;\" class=\"progress_bar\"/>";
+	$output= "<img src=\"images/cube_green.png\" style=\"width:".$done."px;\" class=\"$style\"/>";
+	$output.="<img src=\"images/cube_red.png\" style=\"width:".$remaining."px;\" class=\"$style\"/>";
 	#$output.= "<br/>$done / $remaining";
 	return $output;
 }

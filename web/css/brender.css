@@ -146,6 +146,24 @@ a:hover {
 	top: 1px;
 }
 
+.client {
+	background:#ffcc99;
+	color:#000;
+	padding:10px;
+	font-size:12px;
+}
+.idle {
+	background:#bcffa6;
+}
+.disabled {
+        background:#ffaa99;
+}
+.rendering {
+	background:#99ccff;
+}
+.not running {
+	background:#ffcc99;
+}
 .grey {
 	color: #666;
 	border: solid 1px #adadad;
@@ -216,4 +234,7 @@ a:hover {
 	padding:0;
 	height:10px;
 	margin:0;
+	}
+.big {
+	height:20px;
 	}

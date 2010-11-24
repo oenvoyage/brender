@@ -8,6 +8,7 @@ show_job_list();
 
 function show_last_log() {
 	#print "<h2>// last logs</h2>";
+	print "<br/>";
 	$lok = file("../logs/brender.log");
         $lok=array_reverse($lok);
         foreach ($lok as $line){
