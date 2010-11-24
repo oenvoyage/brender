@@ -24,6 +24,8 @@ theme_chooser();
 print "<br/>";
 print "<a class=\"button grey\" href=\"index.php?view=projects\">manage projects</a> ";
 print "<a class=\"button grey\" href=\"index.php?view=render_configs\">manage render configs</a>";
+print "<h2>Session settings</h2>";
+print_r($_SESSION);
 
 #------------------ server log-----------------
 function order_status() {

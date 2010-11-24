@@ -2,17 +2,14 @@
 $msg="";
 $queryqq="";
 if (isset($_GET['order_by'])) {
-	$order_by=$_GET['order_by'];
-}
-else {
-	$order_by="shot, id desc";
+	$_SESSION[orderby_jobs]=$_GET['order_by'];
 }
 
 if (isset($_GET['all_projects'])) {
-	$job_query="select * from jobs order by jobtype desc ,$order_by";
+	$job_query="select * from jobs order by jobtype desc ,$_SESSION[orderby_jobs]";
 }
 else {
-	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $order_by";
+	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
 }
 #print "<h2>job query $job_query</h2>";
 #----------------------------
@@ -76,9 +73,9 @@ if (isset($_GET['del'])) {
 		<td bgcolor=cccccc width=12 align=center></td>
 		<td bgcolor=cccccc width=12 align=center></td>
 		<td bgcolor=cccccc width=120 align=center><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
-		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">progress_status</a></td>
+		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
 		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">shot</a></td>
-		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=output\">output</a></td>
+		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=config\">output</a></td>
 		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a> &nbsp; </td>
 		<td bgcolor=cccccc width=6 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=chunks\">chunks</a> &nbsp; </td>
 		<td bgcolor=cccccc width=50 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=current\">current</a> </td>

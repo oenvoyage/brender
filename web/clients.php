@@ -1,9 +1,6 @@
 <?php	
 	if (isset($_GET['orderby'])) {
-		$orderby=$_GET['orderby'];
-	}
-	else {
-		$orderby="client";
+		$_SESSION[orderby_client]=$_GET['orderby'];
 	}
 	if (isset($_GET['benchmark'])) {
         	print "benchmark ALL idle";
@@ -103,7 +100,7 @@ if (isset($msg)) {
 }
 
 #--------read---------
-	$query="select * from clients order by $orderby";
+	$query="select * from clients order by $_SESSION[orderby_client]";
 	$results=mysql_query($query);
 	print "<h2>// <b>clients</b></h2>";
 	print "$query<br/>";
@@ -112,10 +109,10 @@ if (isset($msg)) {
 		<td bgcolor=cccccc width=120 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client\">client name</a></b></td>
 		<td bgcolor=cccccc width=12 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client_priority\">rp</a></b></td>
 		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=status\">status</a> &nbsp; </b></td>
-		<td bgcolor=cccccc width=500 align=center><b> &nbsp; rem &nbsp; </b></td>
+		<td bgcolor=ccccce width=500 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=rem\">rem</a> &nbsp; </b></td>
 		<td bgcolor=cccccc width=120 align=center><b> &nbsp; &nbsp; </td>
-		<td bgcolor=cccccc width=120 align=center><b> workhour start </td>
-		<td bgcolor=cccccc width=120 align=center><b> workhour end </td>
+		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=working_hour_start\">workhour start</a> &nbsp; </b></td>
+		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=working_hour_end\">workhour end</a> &nbsp; </b></td>
 		<td bgcolor=cccccc align=center></td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){

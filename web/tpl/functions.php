@@ -10,6 +10,8 @@ function check_login($user,$pass) {
 function init_user($user) {
 	$_SESSION['user']=$user;
 	$_SESSION['theme']="brender";
+	$_SESSION['orderby_client']="client";
+	$_SESSION['orderby_jobs']="shot";
 	return 1;
 }
 function show_login_form() {
