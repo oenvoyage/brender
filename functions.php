@@ -41,7 +41,14 @@ function get_client_os($client) {
 	$qq=mysql_result($results,0);
 	return $qq;
 }
-function check_if_client_should_work($client_name="default") {
+function check_if_client_should_work($client_name="check all") {
+	if ($client_name <> "check all") {
+		$query="SELECT (DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE client='$client_name'";
+		$results=mysql_query($query);
+		$qq=mysql_result($results,0);
+		return($qq);
+		
+	}
 	#checking_alive_clients();
 	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machinetype,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machinetype='workstation' and status<>'not running'";
 	$results=mysql_query($query);
