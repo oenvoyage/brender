@@ -186,6 +186,7 @@ if (isset($msg)) {
 		 client priority (1-100) <input type="text" name="client_priority" size="3" value="1"><br>
 
 		<input type="submit" name="action" value="add client"><br/>
+	</form>
 <?php } ?>
 
 
