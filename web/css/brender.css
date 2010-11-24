@@ -114,6 +114,14 @@ a:hover {
 	list-style-type: none;
 }
 
+form {
+	padding:5px;
+	background:#ddd;
+	border : solid 1px #bbb;
+	-webkit-border-radius: .5em;
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+}
 .ordre {
 	font-weight: 100;
 	font-size: 9px;

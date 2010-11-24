@@ -88,9 +88,9 @@ if (!$order_by=$_GET[order_by]) {
 
 <h2>// <strong>create new</strong> project</h2>
 
+<form action="index.php" method="get">
 <table>
 	<tbody>
-<form action="index.php" method="get">
 		<tr>
 			<td>project title</td>
 			<td><input type="text" name="new_project" value="new project" size=18></td>
@@ -133,10 +133,10 @@ if (!$order_by=$_GET[order_by]) {
 			<td><input type="hidden" value="projects" name="view"></td>
 			<td><input type="submit" value="create"></td>
 		</tr>
-</form>
 
 	</tbody>
 </table>
+</form>
 <a href="index.php">back</a>
 
 
