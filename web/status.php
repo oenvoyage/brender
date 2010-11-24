@@ -8,24 +8,17 @@ $ticker=$_GET['ticker']+1;
 if ($ticker>4) {
 	$ticker=0;
 }
-$qwe="/home/o/blender/install/blender_trunk/blender -a /brender/render/test/test/cathe_test00*";
-$qwe="/home/o/blender/install/blender_trunk/blender &";
-# system($qwe);
 
 print "<meta http-equiv=\"Refresh\" content=\"5;URL=index.php?view=status&ticker=$ticker\" />\n";
-#print "<link href=\"css/status.css\" rel=\"stylesheet\" type=\"text/css\">\n";
-print "</head><body>";
 print "<a href=\"index.php?view=status&server_stop=1\">stop</a>";
 $qq=exec('ps');
 # print "qq= $qq";
 
 print "<span class=\"clock\">";
 	include "tpl/clock.php";
-	$qw=0;
-	while ($qw++<$ticker){
-		print ".";
-	}
 print "</span><br/>";
+
+decimal_time();
 
 order_status();
 client_status();
@@ -36,6 +29,15 @@ pourcents();
 logs();
 
 #------------------ server log-----------------
+function decimal_time() {
+	$full=date('Y-m-d H:i:s');
+	$hour=date('H');
+	$min=date('i');
+	$hour_dec=round(10/(24/$hour),0,PHP_ROUND_HALF_DOWN);
+	$min_dec=round(100/(60/$min),0,PHP_ROUND_HALF_DOWN);
+	print "full time : $full<br/>";
+	print "decimal time : $hour_dec h $min_dec min<br/>";
+}
 function logs() {
        $lok = file("../logs/brender.log");
         $lok=array_reverse($lok);
@@ -79,14 +81,18 @@ function pourcents() {
 }
 function pourcent_total() {
 	#  $query="select sum(end-start+1) as total,sum(end-current) as reste, sum(end-current)/sum(end-start+1)*100 as pourcent from jobs where status='rendering' or status='pause' or status='waiting';";
-	$query="select sum(end-current)/sum(end-start+1)*100 as pourcent from jobs where status='rendering' or status='pause' or status='waiting';";
+	$query="select sum(end-current)/sum(end-start+1)*100 as percent from jobs where status='rendering' or status='pause' or status='waiting';";
 	$results=mysql_query($query);
-	$pourcent=mysql_result($results,0);
-		$longueur_rouge=$pourcent*5;
-		$longueur_vert=(100-$pourcent)*5;
-		if ($pourcent>0){
+	$percent=mysql_result($results,0);
+	$percent_done=100-$percent;
+		$length_red=$percent*5;
+		$length_green=(100-$percent)*5;
+		if ($percent>0){
 			print "<table border=0><tr>";
-				print "<td width=\"100\" align=\"right\" class=\"pourcent\">$pourcent</td><td width=\"$longueur_vert\" bgcolor=\"#006600\" height=\"30\"></td><td width=\"$longueur_rouge\" bgcolor=\"#660000\"></td>";
+				#print "<td width=\"100\" align=\"right\" class=\"pourcent\">$pourcent</td><td width=\"$longueur_vert\" bgcolor=\"#006600\" height=\"30\"></td><td width=\"$longueur_rouge\" bgcolor=\"#660000\"></td>";
+				print "<img class=\"progress_bar big\"  style=\"width:".$length_green."px;\" src=\"images/cube_green.png\">";
+				print "<img class=\"progress_bar big\"  style=\"width:".$length_red."px;\" src=\"images/cube_red.png\">";
+				print ":  $percent_done%";
 			print "</tr></table>";
 			# print "pourcent = $pourcent";
 		}
@@ -180,7 +186,8 @@ function client_status() {
 			if ($status=="not running") {
 			      $bgcolor="#ffcc99";
 			}
-			print "<td class=\"tdclient\"><font color=$bgcolor>$client</font></td>";
+			#print "<td class=\"client $status\"><font color=$bgcolor>$client</font></td>";
+			print "<td class=\"client $status\">$client</td>";
 		}
 		print "</tr>";
 		print "</table>";

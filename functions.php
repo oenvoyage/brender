@@ -316,7 +316,7 @@ function create_thumbnail($job_id,$image_number) {
 	#print "################ $commande<br/>";
 }
 
-function output_progress_bar($start,$end,$current,$style="normal") {
+function output_progress_bar($start,$end,$current,$style="progress_bar") {
 	$total=$end-$start;
 	if ($current==$start) {
 		$percent=0;
@@ -329,8 +329,8 @@ function output_progress_bar($start,$end,$current,$style="normal") {
 	}
 	$done=$percent/2;
 	$remaining=(100-$percent)/2;
-	$output= "<img src=\"images/cube_green.png\" style=\"width:".$done."px;\" class=\"progress_bar\"/>";
-	$output.="<img src=\"images/cube_red.png\" style=\"width:".$remaining."px;\" class=\"progress_bar\"/>";
+	$output= "<img src=\"images/cube_green.png\" style=\"width:".$done."px;\" class=\"$style\"/>";
+	$output.="<img src=\"images/cube_red.png\" style=\"width:".$remaining."px;\" class=\"$style\"/>";
 	#$output.= "<br/>$done / $remaining";
 	return $output;
 }
