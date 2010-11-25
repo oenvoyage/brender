@@ -1,12 +1,13 @@
 <?php
-date_default_timezone_set('Europe/Zurich');
+date_default_timezone_set('Europe/Zurich'); # ----needed by php
 function test() {
 	global $qwer;
 	print "qwer=$qwer\n";
 }
 function output($msg,$type="info") {
+	# function used in the command line scripts (brender_server.php and brender_client.php) for outputing and logging things
 	# output can be customized in future for different types 
-	# currently type = info, warning, error
+	# currently used type = info, warning, error
 	brender_log($msg);
 	$when=date('Y/d/m H:i:s');
 	$msg= "$when : $type : $msg";
@@ -14,20 +15,6 @@ function output($msg,$type="info") {
 }
 function debug($msg) {
 	print "## DEBUG :: $msg\n";
-}
-function get_client_info($client,$info) {
-	send_order("$client","info","$info","80");	
-	sleep(2);
-	$query="select * from orders where client='server' and orders='info' limit 1";
-        $results=mysql_query($query);
-        $row=mysql_fetch_object($results);
-        $id=$row->id;
-        $client=$row->client;
-	$rem=$row->rem;
-        # print "$id = $client $rem\n";
-        remove_order($id);
-	return $rem;
-	
 }
 function check_client_exists($client) {
 	$query="select count(client) from clients where client='$client'";
@@ -42,6 +29,7 @@ function get_client_os($client) {
 	return $qq;
 }
 function check_if_client_should_work($client_name="check all") {
+	# function used for checking if a client is during his "working hours", these are set in the database for each client.
 	if ($client_name <> "check all") {
 		$query="SELECT (DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE client='$client_name'";
 		$results=mysql_query($query);
@@ -74,6 +62,7 @@ function check_if_client_should_work($client_name="check all") {
 	
 }
 function get_path($project,$what,$os="NONE") {
+	# get the output/blend path for a specific project and specific OS
 	#$path=$what."_".$GLOBALS['os'];
 	if ($os=="NONE") {$os=$GLOBALS['os'];};
 	$path=$what."_".$os;
