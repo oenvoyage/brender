@@ -2,7 +2,12 @@
 $msg="";
 $queryqq="";
 if (isset($_GET['order_by'])) {
-	$_SESSION[orderby_jobs]=$_GET['order_by'];
+	if ($_SESSION[orderby_jobs]==$_GET[order_by]) {
+		$_SESSION[orderby_jobs]=$_GET['order_by']." desc";
+	}
+	else {
+		$_SESSION[orderby_jobs]=$_GET['order_by'];
+	}
 }
 
 if (isset($_GET['all_projects'])) {

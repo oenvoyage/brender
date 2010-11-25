@@ -1,6 +1,11 @@
 <?php	
 	if (isset($_GET['orderby'])) {
-		$_SESSION[orderby_client]=$_GET['orderby'];
+		if ($_SESSION[orderby_client]==$_GET[orderby]) {
+			$_SESSION[orderby_client]=$_GET['orderby']." desc";
+		}
+		else {
+			$_SESSION[orderby_client]=$_GET['orderby'];
+		}
 	}
 	if (isset($_GET['benchmark'])) {
         	print "benchmark ALL idle";
