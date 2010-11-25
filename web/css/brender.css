@@ -195,6 +195,30 @@ form {
 }
 
 
+.black {
+	color: #AAA;
+	border: solid 1px #444444;
+	background: #f78d1d;
+	background: -webkit-gradient(linear, left top, left bottom, from(#616161), to(#000000));
+	background: -moz-linear-gradient(top,  #616161,  #000000);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#616161', endColorstr='#000000');
+}
+.black:hover {
+	color: #EEE;
+	background: #444444;
+	background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#333));
+	background: -moz-linear-gradient(top,  #666666,  #333333);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#333333');
+}
+.black:active {
+	color: #CCC;
+	background: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#666666));
+	background: -moz-linear-gradient(top,  #333333,  #666666);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#666666');
+}
+
+
+
 /* -- Buttons end -- */
 
 
@@ -246,3 +270,7 @@ form {
 .big {
 	height:20px;
 	}
+
+table {
+	width: 100%;
+}
