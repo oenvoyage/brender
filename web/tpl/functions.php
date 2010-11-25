@@ -1,12 +1,12 @@
 <?php
 function check_login($user,$pass) {
-         if ($user==$pass) {
-                 return 1;
-         }
-         else {
-                 return 0;
-         }
+	if ($user==$pass) {
+		return 1;
+	} else {
+		return 0;
+	}
 }
+
 function init_user($user) {
 	$_SESSION['user']=$user;
 	$_SESSION['theme']="brender";
@@ -14,8 +14,8 @@ function init_user($user) {
 	$_SESSION['orderby_jobs']="shot";
 	return 1;
 }
+
 function show_login_form() {
-		
 ?>
 		<form action='index.php?view=login' method='post'> 
 			<fieldset>

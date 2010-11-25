@@ -6,6 +6,10 @@
 	include_once("connect.php");
 	include_once("functions.php");
 	include_once("../functions.php");
+	
+	if (isset($_GET['theme'])) {
+	$_SESSION['theme']=$_GET['theme'];
+}
 ?>
 <!doctype html>
 <html>
@@ -45,7 +49,10 @@
 	<body>
 		<div id="wrap">
 			<div id="header">
-			<a href="index.php"><img src="images/logo.png" class="logo" /></a>
+			<a href="index.php"><img src="images/<?php if (!$_SESSION[user]) { 
+			print "brender";
+			} else { print($_SESSION[theme]);
+			} ?>_logo.png" class="logo" /></a>
 			<div class="metadata">
 				<p><?php print "connected to server <a href=\"/phpmyadmin/index.php?db=brender\" target=\"_blank\"> $my_server </a> as: $my_user<br/>";?></p>
 				<p class="clock"><?php include "clock.php"?></p>

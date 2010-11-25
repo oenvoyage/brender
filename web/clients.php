@@ -166,32 +166,35 @@ if (isset($msg)) {
 <p><hr><p>
 <p><p>
 
-<h2>// <b>add new client</b></h2>
+
 <?php show_new_client_form(); ?>
 
 <?php function show_new_client_form() { ?>
-	<form action="index.php" method="post">
-		<input type="hidden" name="view" value="clients">
-		name <input type="text" name="new_client_name" size="20"> (must be unique)<br>
-		<h3>machine description</h3>
-		operating system <select name="machine_os">
-			<option>linux</option>
-			<option>mac</option>
-			<option>windows</option>
-		</select><br/>
-		machine type <select name="machinetype">
-			<option>rendernode</option>
-			<option>workstation</option>
-		</select><br/>
-		speed (number of processors) <input type="text" name="speed" size="2" value="2"><br>
-		<h3>working hours / priority</h3>
-		working hours are hours during which the workstation will be disabled<br/>
-		 Start: <input type="text" name="working_hour_start" size="10" value="07:00:00"><br/>
-		 End: <input type="text" name="working_hour_end" size="10" value="19:00:00"><br>
-		 client priority (1-100) <input type="text" name="client_priority" size="3" value="1"><br>
-
-		<input type="submit" name="action" value="add client"><br/>
-	</form>
+	<div class="dialog">
+		<h2>// <b>add new client</b></h2>
+		<form action="index.php" method="post">
+			<input type="hidden" name="view" value="clients">
+			name <input type="text" name="new_client_name" size="20"> (must be unique)<br>
+			<h3>machine description</h3>
+			operating system <select name="machine_os">
+				<option>linux</option>
+				<option>mac</option>
+				<option>windows</option>
+			</select><br/>
+			machine type <select name="machinetype">
+				<option>rendernode</option>
+				<option>workstation</option>
+			</select><br/>
+			speed (number of processors) <input type="text" name="speed" size="2" value="2"><br>
+			<h3>working hours / priority</h3>
+			working hours are hours during which the workstation will be disabled<br/>
+			 Start: <input type="text" name="working_hour_start" size="10" value="07:00:00"><br/>
+			 End: <input type="text" name="working_hour_end" size="10" value="19:00:00"><br>
+			 client priority (1-100) <input type="text" name="client_priority" size="3" value="1"><br>
+	
+			<input type="submit" name="action" value="add client"><br/>
+		</form>
+	</div>
 <?php } ?>
 
 

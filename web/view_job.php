@@ -83,7 +83,7 @@ if ($_GET[visual]=="1") {
         		print "end:<input type=text name=end size=4 value=$end>";
         		print "chunks:<input type=text name=chunks size=3 value=$chunks>";
 	       		print "priority (1-99):<input type=text name=priority size=3 value=$priority><br/><br/>";
-			print "directstart:<input type=checkbox name=directstart value=yes><br/>";
+				print "directstart:<input type=checkbox name=directstart value=yes><br/>";
         		print "<input type=hidden name=updateid value=$id>";
         		print "<input type=hidden name=scene value=$scene>";
         		print "<input type=hidden name=shot value=$shot>";
@@ -94,6 +94,7 @@ if ($_GET[visual]=="1") {
         		print "<input type=submit name=copy value=\"copy job\"><br/>";
 		print "</form>";
 	print "</td>";
+	print "</table>";
 	print "<table border=0>";
 	print "<tr>";
 	#-------------------------------les images ------------------------------

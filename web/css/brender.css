@@ -175,14 +175,14 @@ form {
 .grey {
 	color: #666;
 	border: solid 1px #adadad;
-	background: #f78d1d;
+	background: #9d9d9d;
 	background: -webkit-gradient(linear, left top, left bottom, from(#bdbdbd), to(#9d9d9d));
 	background: -moz-linear-gradient(top,  #bdbdbd,  #9d9d9d);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#bdbdbd', endColorstr='#9d9d9d');
 }
 .grey:hover {
 	color: #EEE;
-	background: #f47c20;
+	background: #797979;
 	background: -webkit-gradient(linear, left top, left bottom, from(#929292), to(#797979));
 	background: -moz-linear-gradient(top,  #929292,  #797979);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#929292', endColorstr='#797979');
@@ -196,17 +196,17 @@ form {
 
 
 .black {
-	color: #AAA;
+	color: #DDD;
 	border: solid 1px #444444;
-	background: #f78d1d;
+	background: #616161;
 	background: -webkit-gradient(linear, left top, left bottom, from(#616161), to(#000000));
 	background: -moz-linear-gradient(top,  #616161,  #000000);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#616161', endColorstr='#000000');
 }
 .black:hover {
 	color: #EEE;
-	background: #444444;
-	background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#333));
+	background: #616161;
+	background: -webkit-gradient(linear, left top, left bottom, from(#616161), to(#333));
 	background: -moz-linear-gradient(top,  #666666,  #333333);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#333333');
 }
@@ -251,9 +251,19 @@ form {
 		margin-bottom: 15px;
 		}
 	
+	.dialog p {
+		margin-bottom: 5px;
+	}
+	
 	.dialog input {
 		float: left;		
-		}
+	}
+	
+	.dialog input.submit {
+		padding: 10px;
+		float: right;
+		margin-bottom: 5px;
+	}
 	
 	.dialog table td {
 		padding: 2px 0;
@@ -273,4 +283,8 @@ form {
 
 table {
 	width: 100%;
+}
+
+table tr {
+	background-color: #DDD; 
 }

@@ -38,9 +38,11 @@
 
 <?php if ($error) { ?>
 <h2>// <strong>start</strong> new job</h2>
-<font color=red><?php echo $error?></font>
+
+
 
 <form action="index.php?view=upload" method="post">
+	<p><?php echo $error?></p>
 	<table summary="" >
 		<tbody>
 			<tr>
@@ -63,7 +65,7 @@
 			</tr>
 			</tr>
 				<td>shot</td>
-				<td><input type="text" name="shot" size="16"></td>
+				<td><input type="text" name="shot" size="30"></td>
 			</tr>
 			</tr>
 				<td>file format</td>
@@ -107,6 +109,7 @@
 			</tr>       
 		</tbody>
 	</table>
-	<input type="submit" value="send job"><br/>
+	<div class="clear"></div>
+	<input class="submit" type="submit" value="send job"><br/>
 </form>
 <?php }?>
