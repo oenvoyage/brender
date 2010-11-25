@@ -121,37 +121,34 @@ function server_start($pid){
 	mysql_query($query);
 	print "STARTED SERVER $status $rem\n";
 }
-function server_status(){
+function check_server_is_dead() {
+	#---to check if server is running, we send him a ping order. If he is alive, it will remove the order. If not the order will still be there after 3 sconds, meaning the server is ko
+	send_order("server","ping","","1");
+	sleep(3);
+        $query="select count(orders) from orders where orders='ping' and client='server'";
+        $results=mysql_query($query);
+        $ping_result=mysql_result($results,0);
+	return $ping_result;
+}
+function check_server_status(){
 	# print "<br/>get server status<br/>";
 
-	$query="select * from status";
-        $results=mysql_query($query);
-        while ($row=mysql_fetch_object($results)){
-		$status=$row->status;
-		$pid=$row->pid;
-	}
-        if ($status=="running"){
-		$color="green";
-		send_order("server","ping","","1");
-		sleep(3);
-        	$query="select * from orders where orders='ping' and client='server'";
-        	$results=mysql_query($query);
-        	while ($row=mysql_fetch_object($results)){
-			set_server_status("status","died");
-			set_server_status("pid","0");
-			set_server_status("started","now()");
-                	$id=$row->id;
-			brender_log("server not responding (PING)");
-			brender_log("SERVER DIED");
-                	remove_order($id);
-			print "SERVER DEAD!!!!!!!!<br/>";
-			$color="red";
-        	}
-	}
-        else {
+        if (check_server_is_dead()){
+		$GLOBALS['computer_name']="web_interface";
+		set_server_status("status","died");
+		set_server_status("pid","0");
+		set_server_status("started","now()");
+		brender_log("server not responding (PING)");
+		brender_log("SERVER DIED");
+		print "SERVER DEAD!!!!!!!!<br/>";
 		$color="red";
+       	}
+	else {
+		set_server_status("status","running");
+		$color="green";
+		$status="server is running";
 	}
-		print "<font color=$color>$status $pid</font>\n";
+	print "<font color=$color>$status $pid</font>\n";
 }
 function set_server_status($key,$value){
 	$query="update status set $key='$value'";

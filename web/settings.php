@@ -5,6 +5,10 @@ if (isset($_GET['theme'])) {
 	$_SESSION['theme']=$_GET['theme'];
 }
 
+if (isset($_GET['check_server_status'])) {
+	print "checking server status<br/>";
+	check_server_status();
+}
 if (isset($_GET['enable_sound'])) {
 	$query="update status set sound='yes'";
 	mysql_unbuffered_query($query);
@@ -18,44 +22,17 @@ if (isset($_GET['disable_sound'])) {
 if (isset($_GET['test'])) {
 }
 
-order_status();
+print "<h2>// server settings</h2>";
 system_status();
 theme_chooser();
 print "<br/>";
 print "<a class=\"button grey\" href=\"index.php?view=projects\">manage projects</a> ";
-print "<a class=\"button grey\" href=\"index.php?view=render_configs\">manage render configs</a>";
+print "<a class=\"button grey\" href=\"index.php?view=render_configs\">manage render configs</a> ";
+print "<br/>";
+print "<br/>";
+print "<a class=\"button grey\" href=\"index.php?view=settings&check_server_status=1\">check server status</a> ";
 print "<h2>Session settings</h2>";
 print_r($_SESSION);
-
-#------------------ server log-----------------
-function order_status() {
-	$query="select * from orders order by orders";
-	$results=mysql_query($query);
-	print "<table border=0><tr>";
-	while ($row=mysql_fetch_object($results)){
-                $client=$row->client;
-                $priority=$row->priority;
-                $id=$row->id;
-                $rem=$row->rem;
-	        $orders=$row->orders;
-		$status=$row->status;
-		 $tdstyle="none";
-		 $text="";
-		 if ($orders=="render") {
-		    	$tdstyle="render";
-		 }
-		 else if($orders=="disable" or $orders=="enable") {
-		 	$text="($client $orders)";
-		    	$tdstyle="disable";
-		} 
-		 else if($orders=="ping") {
-		 	$text=$client;
-		    	$tdstyle="ping";
-		} 
-		print "<td class=\"$tdstyle\" width=\"50\">$text</td>";
-	}
-	print "</tr></table>";
-}
 
 #---------------system status ---------
 function system_status() {
