@@ -1,8 +1,6 @@
 <?php
 #print "sid = $sid <br/>";
 
-
-
 if (isset($_GET['enable_sound'])) {
 	$query="update status set sound='yes'";
 	mysql_unbuffered_query($query);
