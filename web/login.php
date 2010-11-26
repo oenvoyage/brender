@@ -5,6 +5,7 @@
 		if (check_login($_POST['user'],$_POST['password'])) {
 			if (init_user($_POST['user'])) {
 				#header( 'Location: index.php' );
+				check_server_status();
 				print "click here to continue to <a href=\"index.php\">brender</a>";
 			}
 			else {
