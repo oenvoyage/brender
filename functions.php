@@ -150,6 +150,12 @@ function check_server_status(){
 	}
 	print "<font color=$color>$status $pid</font>\n";
 }
+function get_server_status(){
+	$query="select status from status;";
+	$results=mysql_query($query);
+	$status=mysql_result($results,0);
+	return $status;
+}
 function set_server_status($key,$value){
 	$query="update status set $key='$value'";
 	mysql_unbuffered_query($query);

@@ -8,7 +8,7 @@
 		<li><a class="button grey" href="?view=upload">new job</a></li>
 	</ul>
 	<ul class="right"> 
-		<li><a class="button black" href="?view=settings">settings</a></li>
+		<li><?php display_dead_server_warning() ?><a class="button black" href="?view=settings">settings</a></li>
 		<li><a class="button black" href="?view=status">status</a></li>
 		<li><a class="button black" href="?view=logs">logs</a></li>
 	</ul>

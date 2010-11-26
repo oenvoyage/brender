@@ -4,8 +4,8 @@
 	global $random_x;
 	$random_x=rand(0,9999);
 	include_once("connect.php");
-	include_once("functions.php");
 	include_once("../functions.php");
+	include_once("functions.php");
 	
 	if (isset($_GET['theme'])) {
 	$_SESSION['theme']=$_GET['theme'];

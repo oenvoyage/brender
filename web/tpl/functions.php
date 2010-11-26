@@ -15,6 +15,12 @@ function init_user($user) {
 	return 1;
 }
 
+function display_dead_server_warning() {
+	if(get_server_status()<>"running") {
+		print "<b><font color=red>WARNING</font></b> server looks dead ";
+	}
+}
+
 function show_login_form() {
 ?>
 		<form action='index.php?view=login' method='post'> 

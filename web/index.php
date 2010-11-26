@@ -7,7 +7,7 @@
 		$view = $_POST['view'];
 	}
 	
-	require_once ('tpl/header.php');
+	require_once('tpl/header.php');
 
 	require_once('tpl/menu.php');
 	
