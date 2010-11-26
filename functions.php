@@ -140,8 +140,8 @@ function check_server_status(){
 		set_server_status("started","now()");
 		brender_log("server not responding (PING)");
 		brender_log("SERVER DIED");
-		print "SERVER DEAD!!!!!!!!<br/>";
 		$color="red";
+		$status="SERVER DIED !!!!!!!!<br/>";
        	}
 	else {
 		set_server_status("status","running");

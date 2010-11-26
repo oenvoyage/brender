@@ -1,6 +1,10 @@
 <?php
 #print "sid = $sid <br/>";
 
+if (isset($_GET['check_server_status'])) {
+	print "checking server status<br/>";
+	check_server_status();
+}
 if (isset($_GET['enable_sound'])) {
 	$query="update status set sound='yes'";
 	mysql_unbuffered_query($query);
@@ -23,40 +27,10 @@ print "<a class=\"button grey\" href=\"index.php?view=render_configs\">manage re
 print "<br/>";
 print "<br/>";
 print "<a class=\"button grey\" href=\"index.php?view=settings&check_server_status=1\">check server status</a> ";
-print "<h2>Session settings</h2>";
+print "<h2><b>Session</b> settings</h2>";
 print_r($_SESSION);
 
-#------------------ server log-----------------
-function order_status() {
-	$query="select * from orders order by orders";
-	$results=mysql_query($query);
-	print "<table border=0><tr>";
-	while ($row=mysql_fetch_object($results)){
-                $client=$row->client;
-                $priority=$row->priority;
-                $id=$row->id;
-                $rem=$row->rem;
-	        $orders=$row->orders;
-		$status=$row->status;
-		 $tdstyle="none";
-		 $text="";
-		 if ($orders=="render") {
-		    	$tdstyle="render";
-		 }
-		 else if($orders=="disable" or $orders=="enable") {
-		 	$text="($client $orders)";
-		    	$tdstyle="disable";
-		} 
-		 else if($orders=="ping") {
-		 	$text=$client;
-		    	$tdstyle="ping";
-		} 
-		print "<td class=\"$tdstyle\" width=\"50\">$text</td>";
-	}
-	print "</tr></table>";
-}
-
-#---------------system status ---------
+#------------------ system status -----------------
 function system_status() {
 	$query="select server,status,pid,started,timediff(now(),started) as uptime,sound from status;";
 	$results=mysql_query($query);
@@ -91,32 +65,6 @@ function system_status() {
 		</tr>";
 	}
 	print "</table>";
-}
-#------------------- client status----------
-function client_status() {
-	$query="select * from clients order by status";
-	        $results=mysql_query($query);
-		print "<table border=0>";
-		print"<tr>";
-		while ($row=mysql_fetch_object($results)){
-			$client=$row->client;
-			$status=$row->status;
-			if ($status<>"disabled") {
-			   $bgcolor="#bcffa6";
-			}
-			if ($status=="disabled") {
-			    $bgcolor="#ffaa99";
-			}	
-			if ($status=="rendering") {
-			    $bgcolor="#99ccff";
-			}
-			if ($status=="not running") {
-			      $bgcolor="#ffcc99";
-			}
-			print "<td class=\"tdclient\"><font color=$bgcolor>$client</font></td>";
-		}
-		print "</tr>";
-		print "</table>";
 }
 # ------------------------- theme chooser --------------------
 function theme_chooser() {
