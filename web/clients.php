@@ -28,10 +28,10 @@
                                 send_order("$client","disable","","5");
                                 print "disable $client<br/>";
                         }
-        }
-        else {
+        	}
+        	else {
 			send_order($disable,"disable","","5");
-            print "disable client : $disable";
+        		print "disable client : $disable";
 		}
 		$msg= "disabled $disable <a href=\"clients.php\">reload</a><br/>";
 		sleep(1);
@@ -89,9 +89,12 @@
 		sleep(2);
 		$refresh="0;URL=index.php?view=clients&msg=stopped $stop";
 	}
-	if ($_POST['action'] == "add client" || isset($_POST[new_client_name])) {
-		if (check_client_exists($_POST[client])) {
-			$msg="error client already exists";
+	if ($_POST['action'] == "add client") {
+		if (check_client_exists($_POST[new_client_name])) {
+			$msg="<span class=\"error\">error client already exists</span>";
+		}
+		else if ($_POST[new_client_name] == "" ) {
+			$msg="<span class=\"error\">error, please enter a client name</span>";
 		}
 		else {
 			$add_query="insert into clients values('','$_POST[new_client_name]','$_POST[speed]','$_POST[machinetype]','$_POST[machine_os]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','')";
@@ -115,7 +118,8 @@ if (isset($msg)) {
 		<td bgcolor=cccccc width=12 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client_priority\">rp</a></b></td>
 		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=status\">status</a> &nbsp; </b></td>
 		<td bgcolor=ccccce width=500 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=rem\">rem</a> &nbsp; </b></td>
-		<td bgcolor=cccccc width=120 align=center><b> &nbsp; &nbsp; </td>
+		<td bgcolor=ccccce width=200 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=info\">info</a> &nbsp; </b></td>
+		<td bgcolor=cccccc width=120 align=center><b> &nbsp; cmd &nbsp; </td>
 		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=working_hour_start\">workhour start</a> &nbsp; </b></td>
 		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=working_hour_end\">workhour end</a> &nbsp; </b></td>
 		<td bgcolor=cccccc align=center></td>
@@ -150,6 +154,7 @@ if (isset($msg)) {
 			<td bgcolor=$bgcolor align=center><font size=1>$speed /</font> <a href=\"#\" onclick=\"javascript:window.open('clients_priority_popup.php?client=$client&client_priority=$client_priority','winam','width=200,height=25')\"><font size=1>$client_priority</font></a></td>
 			<td bgcolor=$bgcolor align=center>$status</td>
 			<td bgcolor=$bgcolor align=center>$rem</td>
+			<td bgcolor=$bgcolor align=center>$info</td>
 			<td bgcolor=$bgcolor align=center>$dis</td>
 			<td bgcolor=$bgcolor align=center>$working_hour_start</td>
 			<td bgcolor=$bgcolor align=center>$working_hour_end</td>

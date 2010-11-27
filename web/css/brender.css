@@ -169,6 +169,9 @@ form {
 .rendering {
 	background:#99ccff;
 }
+.error {
+	color:#ff2222;
+}
 .not running {
 	background:#ffcc99;
 }
@@ -193,7 +196,6 @@ form {
 	background: -moz-linear-gradient(top,  #9d9d9d,  #bdbdbd);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#9d9d9d', endColorstr='#bdbdbd');
 }
-
 
 .black {
 	color: #DDD;
