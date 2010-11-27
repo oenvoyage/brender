@@ -29,16 +29,6 @@
 		$msg="$client updated :: ok <br/>";
 		$msg.="<a href=\"index.php?view=clients\">back to clients list</a>";
 	}
-	if (isset($_GET['benchmark'])) {
-        	print "benchmark ALL idle";
-                $query="select * from clients where status='idle'";
-                $results=mysql_query($query);
-                while ($row=mysql_fetch_object($results)){
-                        $client=$row->client;
-                	send_order("$client","benchmark","","75");
-                        print "benchmark $client<br/>";
-                	}
-		}
 	if (isset($_GET['stop'])) {
 		$stop=$_GET['stop'];
 		$msg= "stopped $stop <a href=\"clients.php\">reload clients list</a><br/>";
@@ -67,26 +57,32 @@
 		$working_hour_end=$row->working_hour_end;
 		$speed=$row->speed;
 		if ($status<>"disabled") {
-			$dis="<a href=\"index.php?view=clients&disable=$client\">disable</a>";
+			$disable_enable_button="<a class=\"grey\" href=\"index.php?view=clients&disable=$client\">disable</a>";
 			$bgcolor="#bcffa6";
 		}
 		if ($status=="disabled") {
-			$dis="<a href=\"index.php?view=clients&enable=$client\">enable</a>";
+			$disable_enable_button="<a class=\"grey\" href=\"index.php?view=clients&enable=$client\">enable</a>";
 			$bgcolor="#ffaa99";
 		}
 		if ($status=="rendering") {
 			$bgcolor="#99ccff";
 		}
 		if ($status=="not running") {
-			$dis="";
+			$disable_enable_button="";
+			$benchmark_button= "";
 			$bgcolor="#ffcc99";
+		}
+		else {
+			$benchmark_button= " <a class=\"grey\" href=\"index.php?view=clients&benchmark=$client\">benchmark </a>";
 		}
 		if ($machinetype=='rendernode') {
 			$rendernode_selected="selected";
 		}
 		?>
 	<form action="index.php" method="post">
-		<?php print $dis?><br/>
+		<?php 
+			print "$disable_enable_button $benchmark_button";
+		?><br/>
 		<input type="hidden" name="view" value="view_client">
 		<input type="hidden" name="client" value="<?php print $client?>">
 		<input type="hidden" name="action" value="update">

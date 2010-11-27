@@ -173,6 +173,12 @@ function set_status($client,$status,$rem){
 	mysql_unbuffered_query($query);
 	#print "### $client status : $status $rem\n$query\n";
 }
+function get_status($client) {
+	$query="select status from clients where client='$client'";
+	$results=mysql_query($query);
+	$qq=mysql_result($results,0);
+	return $qq;
+}
 function send_order($client,$orders,$rem,$priority){
 	#print "------send_order var = $client, $orders, $rem, $priority----\n";
 	$query="insert into orders values('','$client','$orders','$priority','$rem')";

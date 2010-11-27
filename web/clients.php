@@ -8,14 +8,22 @@
 		}
 	}
 	if (isset($_GET['benchmark'])) {
-        	print "benchmark ALL idle<br/>";
-                $query="select * from clients where status='idle'";
-                $results=mysql_query($query);
-                while ($row=mysql_fetch_object($results)){
-                        $client=$row->client;
-                	send_order("$client","benchmark","","75");
-                        print "benchmark $client<br/>";
-                }
+		$benchmark=$_GET['benchmark'];
+		if ($benchmark=="all") {
+			print "benchmark ALL idle<br/>";
+			$query="select * from clients where status='idle'";
+			$results=mysql_query($query);
+			while ($row=mysql_fetch_object($results)){
+				$client=$row->client;
+				send_order("$client","benchmark","","99");
+				print "benchmark $client<br/>";
+			}
+		}
+		else {
+			print "benchmark $benchmark<br/>";
+			send_order($benchmark,"benchmark","","99");
+		}
+		sleep(1); #...we sleep 1 sec for letting time to client to start benchmarking
 	}
 	if (isset($_GET['disable'])) {
 		$disable=$_GET['disable'];
@@ -116,7 +124,7 @@ if (isset($msg)) {
 	print "<table border=0>";
 	print "<tr>
 		<td bgcolor=cccccc width=120 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client\">client name</a></b></td>
-		<td bgcolor=cccccc width=12 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client_priority\">rp</a></b></td>
+		<td bgcolor=cccccc width=32 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client_priority\">stats</a></b></td>
 		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=status\">status</a> &nbsp; </b></td>
 		<td bgcolor=ccccce width=500 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=rem\">rem</a> &nbsp; </b></td>
 		<td bgcolor=ccccce width=200 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=info\">info</a> &nbsp; </b></td>
@@ -132,6 +140,7 @@ if (isset($msg)) {
 		$info=$row->info;
 		$speed=$row->speed;
 		$machinetype=$row->machinetype;
+		$machine_os=$row->machine_os;
 		$client_priority=$row->client_priority;
 		$working_hour_start=$row->working_hour_start;
 		$working_hour_end=$row->working_hour_end;
@@ -150,17 +159,21 @@ if (isset($msg)) {
 		if ($status=="not running") {
 			$dis="";
 			$bgcolor="#ffcc99";
+			$shutdown_button="";
+		}
+		else {
+			$shutdown_button="<a href=\"index.php?view=clients&stop=$client\">x</a>";
 		}
 		print "<tr>
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
-			<td bgcolor=$bgcolor align=center><font size=1>$speed /</font> <a href=\"#\" onclick=\"javascript:window.open('clients_priority_popup.php?client=$client&client_priority=$client_priority','winam','width=200,height=25')\"><font size=1>$client_priority</font></a></td>
+			<td bgcolor=$bgcolor align=center>$machine_os<br/><font size=1>$speed / $client_priority</font></a></td>
 			<td bgcolor=$bgcolor align=center>$status</td>
 			<td bgcolor=$bgcolor align=center>$rem</td>
 			<td bgcolor=$bgcolor align=center>$info</td>
 			<td bgcolor=$bgcolor align=center>$dis</td>
 			<td bgcolor=$bgcolor align=center>$working_hour_start</td>
 			<td bgcolor=$bgcolor align=center>$working_hour_end</td>
-			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=clients&stop=$client\">x</a></td>
+			<td bgcolor=$bgcolor align=center>$shutdown_button</td>
 		</tr>";
 	}
 	print "</table>";

@@ -56,20 +56,24 @@ while ($q=1) {
 			else if ($orders=="benchmark") { 
 				debug("BENCHMARK RENDER TIME");
 				change_order_owner($id,$computer_name);
+				#---- we get the actualy status for restoring after the end of benchmark
+				$old_status=get_status($computer_name);
+				set_info($computer_name,"waiting benchmark results");
+				set_status("$computer_name","rendering benchmark","$rem");
+
 				$blender_path=get_blender_path();
-				$start_time= microtime(true); 
 				$render_query="$blender_path -b 'blend/benchmark.blend' -o 'render/benchmark/$computer_name' -F PNG  -f 1";
 				debug("BENCHMARK START $start_time");
-				set_status("$computer_name","rendering benchmark","$rem");
-				#--- we are now rendering the scene benchmark ...
 				print "------------------- benchmark renderquery = $render_query\n";
+				#--- we are now rendering the scene benchmark ...
+				$start_time= microtime(true); 
 				system($render_query);
 				$end_time=microtime(true);
-				$benchmark_time= $end_time-$start_time; 
-				# ---enabling the computer----
-				set_status("$computer_name","idle","BENCHMARK RESULT TIME= $benchmark_time");
-				set_info($computer_name,'');
-				output("BENCHMARK result $end_time");
+				$benchmark_time=round($end_time-$start_time,2) ; 
+				# ---enabling the computer or putting back to old status----
+				set_status("$computer_name","$old_status","BENCHMARK RESULT TIME= $benchmark_time sec.");
+				set_info($computer_name,"BENCHMARK RESULT $benchmark_time sec.");
+				output("BENCHMARK result $benchmark_time sec.");
 				remove_order($id);
 			}
 			else if ($orders=="enable") { 
