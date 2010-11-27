@@ -161,11 +161,17 @@ function set_server_status($key,$value){
 	mysql_unbuffered_query($query);
 	#	print "### $client status : $status $rem\n";
 }
+function set_info($client,$info){
+	#$rem=str_replace("'","\'",$rem);
+	$query="update clients set info='$info' where client='$client'";
+	mysql_unbuffered_query($query);
+	print "### INFO $client status : $info\n";
+}
 function set_status($client,$status,$rem){
 	$rem=str_replace("'","\'",$rem);
 	$query="update clients set status='$status',rem='$rem' where client='$client'";
 	mysql_unbuffered_query($query);
-	#	print "### $client status : $status $rem\n";
+	#print "### $client status : $status $rem\n$query\n";
 }
 function send_order($client,$orders,$rem,$priority){
 	#print "------send_order var = $client, $orders, $rem, $priority----\n";
@@ -175,7 +181,7 @@ function send_order($client,$orders,$rem,$priority){
 }
 function brender_log($log){
 	$computer_name=$GLOBALS['computer_name'];
-	if ($computer_name="web_interface") {
+	if ($computer_name=="web_interface") {
 		$prefix="../";
 	}
 	$heure=date('Y/d/m H:i:s');
@@ -187,7 +193,7 @@ function brender_log($log){
 	$foo=fopen($prefix."logs/brender.log",a);
             fwrite($foo,"$log_koi");
         fclose($foo);
-	print "$prefix/logs/brender.log";
+	#print "$prefix/logs/brender.log";
 }
 function output_progress_status_select($default="NONE") {
 	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved","");
@@ -259,6 +265,13 @@ function seconds_to_hms($time_in_secs) {
 	else {
 		return ($days." days ".str_pad($hours,2,'0',STR_PAD_LEFT) . ":" . str_pad($mins,2,'0',STR_PAD_LEFT) . ":" . str_pad($secs,2,'0',STR_PAD_LEFT));
 	}
+}
+function clean_name($name) {
+	#print " I WILL CLEAN $name<br/>";
+	$name=strtolower($name);
+	$name=str_replace(" ","_",$name);
+	#print " I CLEANED $name<br/>";
+	return $name;
 }
 function job_get($what,$id) {
 	$query="select $what from jobs where id='$id'";

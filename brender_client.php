@@ -9,6 +9,7 @@ if (!$argv[1]) {
 else {
 	if (check_client_exists($argv[1])) {
 		$computer_name=$argv[1];
+		$_GLOBALS[computer_name]=$computer_name;
 	}
 	else {
 		die("ERROR :: computer not found in client list, please check name again or add it to the list\n");
@@ -16,6 +17,7 @@ else {
 }
 
 set_status("$computer_name","idle",'');
+set_info($computer_name,'');
 $os=get_client_os($computer_name);
 output("computer name=$computer_name os=$os");
 output("process id=".getmypid()."\n");
@@ -49,6 +51,7 @@ while ($q=1) {
 				remove_order($id);
 				# and finally set client to idle, ready to get some new work
 				set_status("$computer_name","idle","");
+				set_info($computer_name,'');
 			}
 			else if ($orders=="benchmark") { 
 				debug("BENCHMARK RENDER TIME");
@@ -65,12 +68,14 @@ while ($q=1) {
 				$benchmark_time= $end_time-$start_time; 
 				# ---enabling the computer----
 				set_status("$computer_name","idle","BENCHMARK RESULT TIME= $benchmark_time");
+				set_info($computer_name,'');
 				output("BENCHMARK result $end_time");
 				remove_order($id);
 			}
 			else if ($orders=="enable") { 
 				# ---enabling the computer----
 				set_status("$computer_name","idle","$rem");
+				set_info($computer_name,'');
 				output("ENABLE");
 				remove_order($id);
 			}
@@ -78,6 +83,7 @@ while ($q=1) {
 				# ---disabling the computer----
 				#print "enabling debug rem $rem\n";
 				set_status("$computer_name","disabled","$rem");
+				set_info($computer_name,'');
 				output("DISABLE");
 				sleep(1);
 				remove_order($id);

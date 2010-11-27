@@ -128,23 +128,24 @@ if (isset($msg)) {
 	print "$msg<br/> <a href=\"index.php?view=clients\">reload</a><br/>";
 }
 
-#--------read---------
-	$query="select * from clients order by $_SESSION[orderby_client]";
+#-----------------read------------------
+#------------ CLIENTS LIST -------------
+#---------------------------------------
+	$query="select * from clients where status<>'not running' order by $_SESSION[orderby_client]";
 	$results=mysql_query($query);
 	print "<h2>// <b>clients</b></h2>";
 	print "<table border=0>";
 	print "<tr>
 		<td bgcolor=cccccc width=120 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client\">client name</a></b></td>
-		<td bgcolor=cccccc width=12 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client_priority\">rp</a></b></td>
 		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=status\">status</a> &nbsp; </b></td>
-		<td bgcolor=ccccce width=500 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=rem\">rem</a> &nbsp; </b></td>
+		<td bgcolor=ccccce width=500 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=info\">info</a> &nbsp; </b></td>
 		<td bgcolor=cccccc width=120 align=center><b> &nbsp; &nbsp; </td>
 
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
 		$status=$row->status;
-		$rem=$row->rem;
+		$info=$row->info;
 		$speed=$row->speed;
 		$machinetype=$row->machinetype;
 		$client_priority=$row->client_priority;
@@ -168,9 +169,8 @@ if (isset($msg)) {
 		}
 		print "<tr>
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
-			<td bgcolor=$bgcolor align=center><font size=1>$speed /</font> <a href=\"#\" onclick=\"javascript:window.open('clients_priority_popup.php?client=$client&client_priority=$client_priority','winam','width=200,height=25')\"><font size=1>$client_priority</font></a></td>
 			<td bgcolor=$bgcolor align=center>$status</td>
-			<td bgcolor=$bgcolor align=center>$rem</td>
+			<td bgcolor=$bgcolor align=center>$info</td>
 			<td bgcolor=$bgcolor align=center>$dis</td>
 
 		</tr>";

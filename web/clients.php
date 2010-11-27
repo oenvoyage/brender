@@ -8,7 +8,7 @@
 		}
 	}
 	if (isset($_GET['benchmark'])) {
-        	print "benchmark ALL idle";
+        	print "benchmark ALL idle<br/>";
                 $query="select * from clients where status='idle'";
                 $results=mysql_query($query);
                 while ($row=mysql_fetch_object($results)){
@@ -20,33 +20,33 @@
 	if (isset($_GET['disable'])) {
 		$disable=$_GET['disable'];
 		if ($disable=="all") {
-                        print "disable ALL";
+                        print "disable ALL<br/>";
                         $query="select * from clients where status='idle' or status='rendering'";
                         $results=mysql_query($query);
                         while ($row=mysql_fetch_object($results)){
                                 $client=$row->client;
                                 send_order("$client","disable","","5");
-                                print "disable $client<br/>";
+                                $msg.= "disabled $client<br/>";
                         }
         	}
         	else {
 			send_order($disable,"disable","","5");
         		print "disable client : $disable";
 		}
-		$msg= "disabled $disable <a href=\"clients.php\">reload</a><br/>";
+		$msg= "disabled $disable <a href=\"index.php?view=clients\">reload</a><br/>";
 		sleep(1);
 		$refresh="0;URL=index.php?view=clients&msg=disabled $disable";
 	}
 	if (isset($_GET['enable'])) {
 		$enable=$_GET['enable'];
 		if ($enable=="all") {
-			print "enable ALL";
+			print "enable ALL<br/>";
 			$query="select * from clients where status='disabled'";
         		$results=mysql_query($query);
 			while ($row=mysql_fetch_object($results)){
 				$client=$row->client;
 				send_order($client,"enable","","5");
-				$msg= "enable $client<br/>";
+				$msg.= "enabled $client<br/>";
 			}
 		}
 		else if ($enable=="force_all"){
@@ -90,14 +90,15 @@
 		$refresh="0;URL=index.php?view=clients&msg=stopped $stop";
 	}
 	if ($_POST['action'] == "add client") {
-		if (check_client_exists($_POST[new_client_name])) {
+		$new_client_name=clean_name($_POST[new_client_name]);
+		if (check_client_exists($new_client_name)) {
 			$msg="<span class=\"error\">error client already exists</span>";
 		}
-		else if ($_POST[new_client_name] == "" ) {
+		else if ($new_client_name == "" ) {
 			$msg="<span class=\"error\">error, please enter a client name</span>";
 		}
 		else {
-			$add_query="insert into clients values('','$_POST[new_client_name]','$_POST[speed]','$_POST[machinetype]','$_POST[machine_os]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','')";
+			$add_query="insert into clients values('','$new_client_name','$_POST[speed]','$_POST[machinetype]','$_POST[machine_os]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
 			mysql_query($add_query);
 			$msg="created new client $_POST[client] $add_query";
 		}
@@ -128,6 +129,7 @@ if (isset($msg)) {
 		$client=$row->client;
 		$status=$row->status;
 		$rem=$row->rem;
+		$info=$row->info;
 		$speed=$row->speed;
 		$machinetype=$row->machinetype;
 		$client_priority=$row->client_priority;

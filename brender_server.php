@@ -79,16 +79,19 @@ while ($q=1) {
 					if (($where_to_start+$number_of_chunks)>$end) {
 						#---last chunk of job, its the end, we only need to render frames from CURRENT to END---
 						$render_order.=" -s $where_to_start -e $end -a"; 
+						$info_string="<b>$scene/$shot</b> $where_to_start-$end (last chunk)";
 						output("===last chunk=== job $name $file finished soon====");
 						send_order($client,"declare_finished","$id","30");
 					}
 					else {
 						#---normal job...we render frames from CURRENT to DO_END
 						$render_order.=" -s $where_to_start -e $where_to_end -a"; 
+						$info_string="rendering shot $shot $where_to_start-$where_to_end";
 					}
 					output("job_render for $client :::: $render_order-----------");
 					# sending the render order to the client. the render_order contains everything used after the commandline blender -b
 					send_order($client,"render","$render_order","20");
+					set_info($client,$info_string);
 					$query="update jobs set current='$new_start',status='rendering' where id='$id'";
 				}
 				else {

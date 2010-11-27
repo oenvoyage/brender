@@ -4,6 +4,7 @@ render/
 thumbnails/
 blend/
 logs/
+conf/
 connect.php
 *.DS_Store
 *.log

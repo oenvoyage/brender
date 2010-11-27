@@ -21,6 +21,7 @@ if ($def=$_GET[def]) {
 	# sleep(1);
 }
 if ($new_project=$_GET[new_project]) {
+	$new_project=clean_name($project);
 	print "new project $new_project created<br/>";
 	$queryqq="insert into projects values ('','$new_project','$_GET[blend_mac]','$_GET[blend_win]','$_GET[blend_linux]','$_GET[output_mac]','$_GET[output_win]','$_GET[output_linux]','$_GET[rem]','active','');";
 	mysql_query($queryqq);
