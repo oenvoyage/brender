@@ -167,6 +167,14 @@ function set_info($client,$info){
 	mysql_unbuffered_query($query);
 	print "### INFO $client status : $info\n";
 }
+function get_info($client){
+	$query="select info from clients where client='$client';";
+	#print "*************** infoquery $query\n";
+	$results=mysql_query($query);
+	$info=mysql_result($results,0);
+	#print "*************** info $info\n";
+	return $info;
+}
 function set_status($client,$status,$rem){
 	$rem=str_replace("'","\'",$rem);
 	$query="update clients set status='$status',rem='$rem' where client='$client'";
@@ -286,6 +294,7 @@ function job_get($what,$id) {
 	return $qq;
 }
 function check_create_path($path) {
+	# - function to check if a path exists, if not then create it";
 	#print "<br>DEBUG --- $path chmod<br/>"; 
 	if (!is_dir($path)) {
 		mkdir($path);
@@ -293,6 +302,7 @@ function check_create_path($path) {
 	chmod($path,0777);
 }
 function filetype_to_ext($filetype) {
+	# transform filetype to the ofrmat that blender understands
 	switch ($filetype) {
 		case "PNG":
 			return "png";
@@ -302,6 +312,35 @@ function filetype_to_ext($filetype) {
 			return "jpg";
 	}
 	
+}
+function parse_and_order_thumbnail_creation($client,$rem) {
+	#print "\n---client = $client----\n";
+	#print "\nPARSING --------\n $rem \n------------------------------\n";
+
+	#--- we get REM and parse it go get the start and end of job
+	preg_match("/b (.*) \-s\ (\d*)\ \-e\ (\d*) \-a/",$rem,$preg_matches);
+	#print_r($preg_matches);
+	$start=$preg_matches[2];
+	$end=$preg_matches[3];
+
+	# we get info from client ot get the 
+	$info=get_info($client);	
+	preg_match("/job\ (\d*)\ /",$info,$preg_matches);
+	#print_r($preg_matches);
+	$job_id=$preg_matches[1];
+
+	#print "this is $client infos ::: $info ---- \n";
+	#print "\n =============================\n";
+	#print "====== job $job_id start=$start end=$end=======";
+	#print "\n =============================\n";
+	create_thumbnail_sequence($job_id,$start,$end);
+
+}
+function create_thumbnail_sequence($job_id,$start,$end) {
+	for ($i=$start;$i<$end+1;$i++) {
+		print "\n generating thumbnail $i\n";
+		#create_thumbnail($job_id,$i);
+	}
 }
 function create_thumbnail($job_id,$image_number) {
 	
@@ -317,7 +356,7 @@ function create_thumbnail($job_id,$image_number) {
 	$input_image = "$input_path/$scene/$shot/$image_name";
 
 	if (!file_exists($input_image)) {
-		# if input file doesnt exists/rendered we just close the function
+		# if input file doesnt exists/rendered we just close the function, dont need to make thumbnail
 		#print "file $input_image doesnt exists, we close function <br/>";
 		return 0;
 	}
@@ -328,8 +367,6 @@ function create_thumbnail($job_id,$image_number) {
 
 	#print "<br/>----- input = $input_image ---<br/>";
 	#print "----- output = $output_image ---<br/>";
-	$percent = 0.5;
-
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
        	$commande=" convert -resize 1024 $input_image $output_image";
 	exec($commande);

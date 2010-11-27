@@ -50,6 +50,7 @@ while ($q=1) {
 				#--- once rendering is finished we erase the order
 				remove_order($id);
 				# and finally set client to idle, ready to get some new work
+				parse_and_order_thumbnail_creation($computer_name,$rem);
 				set_status("$computer_name","idle","");
 				set_info($computer_name,'');
 			}

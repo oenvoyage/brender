@@ -43,15 +43,6 @@ while ($q=1) {
 				$file=$row_job->file;
 				$start=$row_job->start;
 				$filetype=$row_job->filetype;
-				/* if ($filetype=="jpg") {
-					$filetype="JPEG";
-				}
-				elseif ($filetype=="png"){
-					$filetype="PNG";
-				}
-				else {
-					$filetype="TGA";
-				} */
 				#debug("-------------------- $id proj=$project scene=$scene shot=$shot----------");
 				$end=$row_job->end;
 				$current=$row_job->current;
@@ -73,25 +64,29 @@ while ($q=1) {
 				$new_start=$current+$number_of_chunks; 
 				output("$client speed $speed : render $number_of_chunks chunks = ($do_start - $do_end)");
 				if ($current<$end) {
+					# -----------------------------------------
 					# --------- MAIN RENDER ORDERS  -----------
+					# -----------------------------------------
+
 					$render_order="-b \'$blend_path/$scene/$shot.blend\' -o \'$output_path/$scene/$shot/$shot\' -P $config -F $filetype ";
-					
+					$info_string="job $id <b>$scene/$shot</b>";
+
 					if (($where_to_start+$number_of_chunks)>$end) {
 						#---last chunk of job, its the end, we only need to render frames from CURRENT to END---
 						$render_order.=" -s $where_to_start -e $end -a"; 
-						$info_string="<b>$scene/$shot</b> $where_to_start-$end (last chunk)";
+ 						$info_string.=" $where_to_start-$end (last chunk)";
 						output("===last chunk=== job $name $file finished soon====");
 						send_order($client,"declare_finished","$id","30");
 					}
 					else {
 						#---normal job...we render frames from CURRENT to DO_END
 						$render_order.=" -s $where_to_start -e $where_to_end -a"; 
-						$info_string="rendering shot $shot $where_to_start-$where_to_end";
+						$info_string.=" $where_to_start-$where_to_end";
 					}
 					output("job_render for $client :::: $render_order-----------");
 					# sending the render order to the client. the render_order contains everything used after the commandline blender -b
-					send_order($client,"render","$render_order","20");
 					set_info($client,$info_string);
+					send_order($client,"render","$render_order","20");
 					$query="update jobs set current='$new_start',status='rendering' where id='$id'";
 				}
 				else {
