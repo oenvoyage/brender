@@ -175,15 +175,19 @@ function send_order($client,$orders,$rem,$priority){
 }
 function brender_log($log){
 	$computer_name=$GLOBALS['computer_name'];
+	if ($computer_name="web_interface") {
+		$prefix="../";
+	}
 	$heure=date('Y/d/m H:i:s');
 	$log_koi = "$heure $computer_name: $log\n";
 	#print "\n---------------------- I AM LOGGING THIS ::: $log_koi-----end ----\n";
-	$foo=fopen("logs/$computer_name.log",a);
+	$foo=fopen($prefix."logs/$computer_name.log",a);
             fwrite($foo,"$log_koi");
         fclose($foo);
-	$foo=fopen("logs/brender.log",a);
+	$foo=fopen($prefix."logs/brender.log",a);
             fwrite($foo,"$log_koi");
         fclose($foo);
+	print "$prefix/logs/brender.log";
 }
 function output_progress_status_select($default="NONE") {
 	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved","");
