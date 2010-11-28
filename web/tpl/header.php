@@ -55,7 +55,14 @@
 			} else { print($_SESSION[theme]);
 			} ?>_logo.png" class="logo" /></a>
 			<div class="metadata">
-				<p><?php print "connected to server <a href=\"/phpmyadmin/index.php?db=brender\" target=\"_blank\"> $my_server </a> as: $my_user<br/>";?></p>
+				<p>
+					<?php print "connected to server <a href=\"/phpmyadmin/index.php?db=brender\" target=\"_blank\">$my_server</a>";
+						if ($_SESSION[debug]) {
+							print "<span class=\"warning\">debug</span>";
+						}
+						display_dead_server_warning(); 
+					print " as: $my_user<br/>";?>
+				</p>
 				<p class="clock"><?php include "clock.php"?></p>
 				<p><?php print "logged in as: $_SESSION[user]";?> <a href="logout.php">[logout]</a></p>
 			</div>

@@ -1,5 +1,3 @@
-// THIS IS OVERVIEW PAGE
-
 <?php
 #check_if_client_should_work();
 show_last_log();
