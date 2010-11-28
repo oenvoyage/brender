@@ -5,6 +5,9 @@ if (isset($_GET['do_the_test'])) {
 	print "doing a test<br/>";
 	create_thumbnail(139,3);
 }
+if (isset($_GET[debug])) {
+	$_SESSION[debug]=!$_SESSION[debug];
+}
 if (isset($_GET['check_server_status'])) {
 	print "checking server status<br/>";
 	check_server_status();
@@ -26,6 +29,7 @@ print "<h2>// <strong>server</strong> settings</h2>";
 system_status();
 theme_chooser();
 print "<br/>";
+print "<a class=\"grey\" href=\"index.php?view=settings&debug=1\">switch debug</a> <br/>";
 print "<a class=\"grey\" href=\"index.php?view=settings&do_the_test=1\">do a test</a> <br/>";
 print "<a class=\"button grey\" href=\"index.php?view=projects\">manage projects</a> ";
 print "<a class=\"button grey\" href=\"index.php?view=render_configs\">manage render configs</a> ";

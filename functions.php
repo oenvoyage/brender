@@ -14,7 +14,13 @@ function output($msg,$type="info") {
 	print "$msg\n";
 }
 function debug($msg) {
-	print "## DEBUG :: $msg\n";
+	if ($GLOBALS[computer_name]=="web_interface" && $_SESSION[debug]) { 
+		# only display debug message on web interface when _SESSION debug is enabled
+		print "## DEBUG :: $msg\n";
+	}
+	else {
+		print "## DEBUG :: $msg<br/>";
+	}
 }
 function check_client_exists($client) {
 	$query="select count(client) from clients where client='$client'";
