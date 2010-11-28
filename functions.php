@@ -16,10 +16,10 @@ function output($msg,$type="info") {
 function debug($msg) {
 	if ($GLOBALS[computer_name]=="web_interface" && $_SESSION[debug]) { 
 		# only display debug message on web interface when _SESSION debug is enabled
-		print "## DEBUG :: $msg\n";
+		print "## DEBUG :: $msg<br/>";
 	}
 	else {
-		print "## DEBUG :: $msg<br/>";
+		print "## DEBUG :: $msg\n";
 	}
 }
 function check_client_exists($client) {
