@@ -344,7 +344,7 @@ function create_thumbnail_sequence($job_id,$start,$end) {
 }
 function create_thumbnail($job_id,$image_number) {
 	
-	#print "creating thumbnail : for image number $image_number of job with id = $job_id<br/><br/>";
+	print "creating thumbnail : for image number $image_number of job with id = $job_id<br/><br/>";
 	$thumbnail_path="../thumbnails/";
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
@@ -354,10 +354,11 @@ function create_thumbnail($job_id,$image_number) {
 	$input_path=get_path($project,"output","linux");
 
 	$input_image = "$input_path/$scene/$shot/$image_name";
+	#print "<br/>----- input = $input_image ---<br/>";
 
 	if (!file_exists($input_image)) {
 		# if input file doesnt exists/rendered we just close the function, dont need to make thumbnail
-		#print "file $input_image doesnt exists, we close function <br/>";
+		print "file $input_image doesnt exists, we close function <br/>";
 		return 0;
 	}
 	check_create_path("$thumbnail_path/$scene");
@@ -365,12 +366,12 @@ function create_thumbnail($job_id,$image_number) {
 	$output_image="$thumbnail_path/$scene/$shot/$image_name";
 	$output_image_small="$thumbnail_path/$scene/$shot/small_$image_name";
 
-	#print "<br/>----- input = $input_image ---<br/>";
-	#print "----- output = $output_image ---<br/>";
+	print "----- output = $output_image ---<br/>";
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
-       	$commande=" convert -resize 1024 $input_image $output_image";
+	$image_magick_home="/Users/o/Documents/ImageMagick-6.6.5/bin/";
+       	$commande=$image_magick_home."convert -resize 1024 $input_image $output_image";
 	exec($commande);
-       	$commande=" convert -resize 200 $input_image $output_image_small";
+       	$commande=$image_magick_home."convert -resize 200 $input_image $output_image_small";
 	exec($commande);
 	#print "################ $commande<br/>";
 }
