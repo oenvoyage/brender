@@ -18,7 +18,7 @@ if (isset($_GET['disable_sound'])) {
 if (isset($_GET['test'])) {
 }
 
-print "<h2>// server settings</h2>";
+print "<h2>// <strong>server</strong> settings</h2>";
 system_status();
 theme_chooser();
 print "<br/>";
@@ -27,7 +27,7 @@ print "<a class=\"button grey\" href=\"index.php?view=render_configs\">manage re
 print "<br/>";
 print "<br/>";
 print "<a class=\"button grey\" href=\"index.php?view=settings&check_server_status=1\">check server status</a> ";
-print "<h2><b>Session</b> settings</h2>";
+print "<h2>// <strong>session</strong> settings</h2>";
 print_r($_SESSION);
 
 #------------------ system status -----------------
@@ -73,8 +73,8 @@ function theme_chooser() {
 			<td bgcolor=cccccc width=120 align=center colspan=4 height=25><b> &nbsp; theme ($_SESSION[theme]) &nbsp; </b></td>
 		</tr>
 		<tr>
-			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"settings.php?theme=brender\">brender</a> &nbsp; </b></td>
-			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"settings.php?theme=brender_dark\">brender_dark</a> &nbsp; </b></td>
+			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"index.php?view=settings&theme=brender\">brender</a> &nbsp; </b></td>
+			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"index.php?view=settings&theme=brender_dark\">brender_dark</a> &nbsp; </b></td>
 		</tr>
 	</table>
 	";
