@@ -71,10 +71,11 @@ while ($q=1) {
 				system($render_query);
 				$end_time=microtime(true);
 				$benchmark_time=round($end_time-$start_time,2) ; 
+				$benchmark_result=seconds_to_hms($benchmark_time);
 				# ---enabling the computer or putting back to old status----
-				set_status("$computer_name","$old_status","BENCHMARK RESULT TIME= $benchmark_time sec.");
-				set_info($computer_name,"BENCHMARK RESULT $benchmark_time sec.");
-				output("BENCHMARK result $benchmark_time sec.");
+				set_status("$computer_name","$old_status","BENCHMARK RESULT TIME= $benchmark_result");
+				set_info($computer_name,"BENCHMARK RESULT $benchmark_result");
+				output("BENCHMARK result $benchmark_result");
 				remove_order($id);
 			}
 			else if ($orders=="enable") { 

@@ -10,13 +10,6 @@ if (isset($_GET['order_by'])) {
 	}
 }
 
-if (isset($_GET['all_projects'])) {
-	$job_query="select * from jobs order by jobtype desc ,$_SESSION[orderby_jobs]";
-}
-else {
-	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
-}
-#print "<h2>job query $job_query</h2>";
 #----------------------------
 if (isset($_GET['restart_all_paused'])) {
 	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active') and status='pause');";
@@ -69,10 +62,14 @@ if (isset($_GET['del'])) {
 	# sleep(1);
 }
 
-#--------read---------
+# ---------------------------------------------
+#-------- Display Table with all jobs ---------
+# ---------------------------------------------
+	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
+	#print "<h2>job query $job_query</h2>";
 	$results=mysql_query($job_query);
 	print "<h2>// <b>jobs</b> $msg <br/></h2>";
-	print "$job_query<br/>";
+	debug("$job_query<br/>");
 	print "<table>\n";
 	print "<tr>
 		<td bgcolor=cccccc width=12 align=center></td>

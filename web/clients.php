@@ -84,8 +84,7 @@
 			$msg="error : client $client not found";
 		}
 		else {
-                	$dquery="delete from clients where client='$client'";
-			mysql_query($dquery);
+			delete_node($client);
                 	$msg="client $client deleted :: ok ";
 			# print "query =$dquery";
 		}
@@ -120,7 +119,7 @@ if (isset($msg)) {
 	$query="select * from clients order by $_SESSION[orderby_client]";
 	$results=mysql_query($query);
 	print "<h2>// <b>clients</b></h2>";
-	print "$query<br/>";
+	debug("$query<br/>");
 	print "<table border=0>";
 	print "<tr>
 		<td bgcolor=cccccc width=120 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client\">client name</a></b></td>
@@ -205,12 +204,12 @@ if (isset($msg)) {
 				<option>rendernode</option>
 				<option>workstation</option>
 			</select><br/>
-			speed (number of processors) <input type="text" name="speed" size="2" value="2"><br>
+			speed (number of processors (multiplicator for number of chunks)) <input type="text" name="speed" size="2" value="2"><br>
 			<h3>working hours / priority</h3>
 			working hours are hours during which the workstation will be disabled<br/>
 			 Start: <input type="text" name="working_hour_start" size="10" value="07:00:00"><br/>
 			 End: <input type="text" name="working_hour_end" size="10" value="19:00:00"><br>
-			 client priority (1-100) <input type="text" name="client_priority" size="3" value="1"><br>
+			 client priority (1-100) (will only render jobs whith priority higher than this value)<input type="text" name="client_priority" size="3" value="1"><br>
 	
 			<input type="submit" name="action" value="add client"><br/>
 		</form>

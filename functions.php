@@ -14,11 +14,14 @@ function output($msg,$type="info") {
 	print "$msg\n";
 }
 function debug($msg) {
-	if ($GLOBALS[computer_name]=="web_interface" && $_SESSION[debug]) { 
+	if ($GLOBALS[computer_name]=="web_interface") {
+		if ($_SESSION[debug]) { 
 		# only display debug message on web interface when _SESSION debug is enabled
-		print "## DEBUG :: $msg<br/>";
+			print "## DEBUG :: $msg<br/>";
+		}
 	}
 	else {
+		# --- for command_line we always display debug messages
 		print "## DEBUG :: $msg\n";
 	}
 }
@@ -94,14 +97,12 @@ function get_blender_path() {
 	return $path;
 }
 function change_order_owner($id,$client) {
+	#function allowing a client to self-assign himself to an order
+	# used in case an order's client value is set to ANY, so this value becomes CLIENT and no other client will execute the order
 	$query="update orders set client=$client where id='$id'";
 	# mysql_unbuffered_query($query);
 	print "become order query $query\n";
 	# print "### $client deleted order $id\n";
-}
-function new_node($node,$speed=2) {
-	$query="insert into clients values ('','$node','$speed','node','0','not running','');";
-	mysql_query($query);
 }
 function delete_node($node) {
 	$query="delete from clients where name='$node'";
@@ -138,7 +139,7 @@ function check_server_is_dead() {
 }
 function check_server_status(){
 	# print "<br/>get server status<br/>";
-
+	# command to see if the server is running or dead
         if (check_server_is_dead()){
 		$GLOBALS['computer_name']="web_interface";
 		set_server_status("status","died");
@@ -207,9 +208,11 @@ function brender_log($log){
 	$heure=date('Y/d/m H:i:s');
 	$log_koi = "$heure $computer_name: $log\n";
 	#print "\n---------------------- I AM LOGGING THIS ::: $log_koi-----end ----\n";
+	# --- we log 2 times, first time for the computer itself, and ....
 	$foo=fopen($prefix."logs/$computer_name.log",a);
             fwrite($foo,"$log_koi");
         fclose($foo);
+	# .... second time for the brender.log that includes all logs
 	$foo=fopen($prefix."logs/brender.log",a);
             fwrite($foo,"$log_koi");
         fclose($foo);
@@ -278,15 +281,18 @@ function seconds_to_hms($time_in_secs) {
    $time_in_secs -= $hours;
    $time_in_secs /= 24;
 
-   $days= $time_in_secs;
-	if (!$days) {
-		return str_pad($hours,2,'0',STR_PAD_LEFT) . ":" . str_pad($mins,2,'0',STR_PAD_LEFT) . ":" . str_pad($secs,2,'0',STR_PAD_LEFT);
+   return str_pad($hours,2,'0',STR_PAD_LEFT) . ":" . str_pad($mins,2,'0',STR_PAD_LEFT) . ":" . str_pad($secs,2,'0',STR_PAD_LEFT);
+
+   #$days= $time_in_secs;
+	/*if (!$days) {
 	}
 	else {
 		return ($days." days ".str_pad($hours,2,'0',STR_PAD_LEFT) . ":" . str_pad($mins,2,'0',STR_PAD_LEFT) . ":" . str_pad($secs,2,'0',STR_PAD_LEFT));
 	}
+	*/
 }
 function clean_name($name) {
+	# cleaning name : spaces tranformed to _ and only lowercase
 	#print " I WILL CLEAN $name<br/>";
 	$name=strtolower($name);
 	$name=str_replace(" ","_",$name);
@@ -344,13 +350,13 @@ function parse_and_order_thumbnail_creation($client,$rem) {
 }
 function create_thumbnail_sequence($job_id,$start,$end) {
 	for ($i=$start;$i<$end+1;$i++) {
-		print "\n generating thumbnail $i\n";
+		debug("\n generating thumbnail $i\n");
 		#create_thumbnail($job_id,$i);
 	}
 }
 function create_thumbnail($job_id,$image_number) {
 	
-	print "creating thumbnail : for image number $image_number of job with id = $job_id<br/><br/>";
+	debug ("creating thumbnail : for image number $image_number of job with id = $job_id<br/>");
 	$thumbnail_path="../thumbnails/";
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
@@ -364,7 +370,7 @@ function create_thumbnail($job_id,$image_number) {
 
 	if (!file_exists($input_image)) {
 		# if input file doesnt exists/rendered we just close the function, dont need to make thumbnail
-		print "file $input_image doesnt exists, we close function <br/>";
+		debug("file $input_image doesnt exists, we close function <br/>");
 		return 0;
 	}
 	check_create_path("$thumbnail_path/$scene");
@@ -372,17 +378,18 @@ function create_thumbnail($job_id,$image_number) {
 	$output_image="$thumbnail_path/$scene/$shot/$image_name";
 	$output_image_small="$thumbnail_path/$scene/$shot/small_$image_name";
 
-	print "----- output = $output_image ---<br/>";
+	#print "----- output = $output_image ---<br/>";
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
 	$image_magick_home="/Users/o/Documents/ImageMagick-6.6.5/bin/";
        	$commande=$image_magick_home."convert -resize 1024 $input_image $output_image";
 	exec($commande);
        	$commande=$image_magick_home."convert -resize 200 $input_image $output_image_small";
 	exec($commande);
-	#print "################ $commande<br/>";
+	debug("################ $commande");
 }
 
 function output_progress_bar($start,$end,$current,$style="progress_bar") {
+	# --- little display of progress_bars
 	$total=$end-$start;
 	if ($current==$start) {
 		$percent=0;
