@@ -289,7 +289,7 @@ span.progress-bar {
 	-moz-box-shadow: inset 0 0 5px #888;
 	-webkit-box-shadow: inset 0 0 5px#888;
 	box-shadow: inner 0 0 5px #888;
-	margin-top: 13px; 
+	margin: 13px auto 0; 
 }
 
 span.progress-bar img {
@@ -315,4 +315,5 @@ table {
 
 table tr {
 	background-color: #DDD; 
+	text-align: center;
 }
