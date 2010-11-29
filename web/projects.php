@@ -20,10 +20,10 @@ if ($def=$_GET[def]) {
 	print "default project = $def";
 	# sleep(1);
 }
-if ($new_project=$_GET[new_project]) {
-	$new_project=clean_name($project);
+if (isset($_GET[new_project])) {
+	$new_project=clean_name($_GET[new_project]);
 	print "new project $new_project created<br/>";
-	$queryqq="insert into projects values ('','$new_project','$_GET[blend_mac]','$_GET[blend_win]','$_GET[blend_linux]','$_GET[output_mac]','$_GET[output_win]','$_GET[output_linux]','$_GET[rem]','active','');";
+	$queryqq="insert into projects values ('','$new_project','$_GET[blend_mac]','$_GET[blend_linux]','$_GET[blend_win]','$_GET[output_mac]','$_GET[output_win]','$_GET[output_linux]','$_GET[rem]','active','');";
 	mysql_query($queryqq);
 }
 if (!$order_by=$_GET[order_by]) {
@@ -113,7 +113,7 @@ if (!$order_by=$_GET[order_by]) {
 		</tr>
 		<tr>
 			<td>blend_windows</td>		
-			<td><input type="text" name="blend_windows" value="\\blend" size=15></td>	
+			<td><input type="text" name="blend_win" value="\\blend" size=15></td>	
 		</tr>
 		<tr>
 			<td colspan=2><b>output path</b></td>
@@ -128,7 +128,7 @@ if (!$order_by=$_GET[order_by]) {
 		</tr>
 		<tr>
 			<td>output_windows</td>		
-			<td><input type="text" name="output_windows" value="\\render" size=15></td>	
+			<td><input type="text" name="output_win" value="\\render" size=15></td>	
 		</tr>
 		<tr>
 			<td><input type="hidden" value="projects" name="view"></td>
