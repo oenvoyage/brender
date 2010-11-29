@@ -73,14 +73,14 @@ while ($q=1) {
 
 					if (($where_to_start+$number_of_chunks)>$end) {
 						#---last chunk of job, its the end, we only need to render frames from CURRENT to END---
-						$render_order.=" -s $where_to_start -e $end -a"; 
+						$render_order.=" -s $where_to_start -e $end -a -JOB $id"; 
  						$info_string.=" $where_to_start-$end (last chunk)";
 						output("===last chunk=== job $name $file finished soon====");
 						send_order($client,"declare_finished","$id","30");
 					}
 					else {
 						#---normal job...we render frames from CURRENT to DO_END
-						$render_order.=" -s $where_to_start -e $where_to_end -a"; 
+						$render_order.=" -s $where_to_start -e $where_to_end -a -JOB $id"; 
 						$info_string.=" $where_to_start-$where_to_end";
 					}
 					output("job_render for $client :::: $render_order-----------");
@@ -119,9 +119,20 @@ while ($q=1) {
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
 		$orders=$row->orders;
+		$rem=$row->rem;
 		if ($orders=='ping'){
 			output("...ping reply from $id...");
 			remove_order($id);
+		}
+		elseif ($orders=='create_thumbnails'){
+			output("i must create thumbnails :: $rem","warning");
+			preg_match("/JOB=(\d*) START=(\d*) END=(\d*)/",$rem,$numbers);
+			$job_id=$numbers[1];
+			$start=$numbers[2];
+			$end=$numbers[3];
+			create_thumbnail_sequence($job_id,$start,$end);
+			remove_order($id);
+			#sleep(5);
 		}
 		elseif ($orders=='stop'){
 			output("i shutdown server","warning");

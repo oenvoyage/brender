@@ -39,11 +39,10 @@
         	}
         	else {
 			send_order($disable,"disable","","5");
-        		print "disable client : $disable";
+        		print "disable client : $disable<br/>";
 		}
 		$msg= "disabled $disable <a href=\"index.php?view=clients\">reload</a><br/>";
 		sleep(1);
-		$refresh="0;URL=index.php?view=clients&msg=disabled $disable";
 	}
 	if (isset($_GET['enable'])) {
 		$enable=$_GET['enable'];
@@ -72,11 +71,11 @@
 			#header( 'Location: index.php' );
 		}
 		sleep(2);
-		$refresh="0;URL=index.php?view=clients&msg=enabled $enable";
-		$msg= "enabled $enable <a href=\"clients.php\">reload</a><br/>";
+		$msg= "enabled $enable <a href=\"index.php?view=clients\">reload</a><br/>";
 	}
 	if (isset($_GET['refresh'])) {	
 		checking_alive_clients();
+		check_if_client_should_work();	
 	}
 	if (isset($_GET['delete'])) {
 		$client=$_GET['delete'];
@@ -91,10 +90,9 @@
         }
 	if (isset($_GET['stop'])) {
 		$stop=$_GET['stop'];
-		$msg= "stopped $stop <a href=\"clients.php\">reload</a><br/>";
+		$msg= "stopped $stop <a href=\"index.php?view=clients\">reload</a><br/>";
 		send_order($stop,"stop","","1");
 		sleep(2);
-		$refresh="0;URL=index.php?view=clients&msg=stopped $stop";
 	}
 	if ($_POST['action'] == "add client") {
 		$new_client_name=clean_name($_POST[new_client_name]);

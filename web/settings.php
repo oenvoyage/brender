@@ -3,7 +3,21 @@
 
 if (isset($_GET['do_the_test'])) {
 	print "doing a test<br/>";
-	create_thumbnail(139,3);
+	#create_thumbnail(139,3);
+	$rem="blender/mac/blender.app/Contents/MacOS/blender -b '/Volumes/rgb_noel/01_3D/SCENES/99_tests/brender_test.blend' -o '/Volumes/rgb_noel/01_3D/RENDER/99_tests/brender_test/brender_test' -P conf/pal_widescreen.py -F PNG  -s 25 -e 26 -a JOB 143";
+	$parsed=parse_render_command($rem);
+	print "job_id = ".$parsed["job_id"];
+	/*
+	$parsed_rem=array();
+	preg_match("/(.*)\-s (.\d) \-e (.\d)\ -a JOB (\d*)/",$rem,$preg_matches);
+	$start=$preg_matches[3];
+	$end=$preg_matches[2];
+	$job_id=$preg_matches[4];
+	$parsed_rem["start"]=$preg_matches[3];
+	$parsed_rem["job_id"]=$preg_matches[4];
+	#$job_id=$preg_matches[2];
+	print "JOB ID = $job_id start=".$parsed_rem["start"]." end=$end<br/>";
+	*/
 }
 if (isset($_GET[debug])) {
 	$_SESSION[debug]=!$_SESSION[debug];

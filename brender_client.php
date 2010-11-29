@@ -41,16 +41,25 @@ while ($q=1) {
 				debug("RENDER TIME");
 				change_order_owner($id,$computer_name);
 				$blender_path=get_blender_path();
-				$render_query="$blender_path $rem";
-				output("RENDER $rem");
-				set_status("$computer_name","rendering","$rem");
-				output("render_query=$render_query\n");
+				$parsed=parse_render_command($rem); # parsing  the rendering command to get an array used later for generating thumbnails
+				$rendering_command=preg_replace("/(.*) -JOB (\d*)/","$1",$rem);  #parsing $rem to get the rendering command for blender (without the - JOB xx)
+				output("RENDER command $rendering_command");
+
 				#--- we are now rendering the scene/chunk ...
+				set_status("$computer_name","rendering","$rendering_command");
+				$render_query="$blender_path $rendering_command";
+				output("render_query=$render_query\n");
 				system($render_query);
+
 				#--- once rendering is finished we erase the order
 				remove_order($id);
+
+				# --- now we send an order to server to generate the thumbnails
+				$thumbnail_creation_order="JOB=$parsed[job_id] START=$parsed[start] END=$parsed[end]";
+				debug(" HHHHHHHHHHHHHHHHHHHHHH- $thumbnail_creation_order");
+				send_order("server","create_thumbnails",$thumbnail_creation_order,"20");
+
 				# and finally set client to idle, ready to get some new work
-				parse_and_order_thumbnail_creation($computer_name,$rem);
 				set_status("$computer_name","idle","");
 				set_info($computer_name,'');
 			}

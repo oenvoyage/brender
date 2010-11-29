@@ -151,7 +151,7 @@ if (isset($_GET['del'])) {
 		}
 		else {
 			$ext=filetype_to_ext($filetype);
-			$thumbnail_image="../thumbnails/$scene/$shot/$shot$start_padded.$ext";
+			$thumbnail_image="../thumbnails/$project/$scene/$shot/$shot$start_padded.$ext";
 			if (!file_exists($thumbnail_image)) {
 				#print "FILE DOESNT EXIST $thumbnail_image<br/>";
 				create_thumbnail($id,$start);

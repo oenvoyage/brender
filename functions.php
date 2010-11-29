@@ -303,6 +303,7 @@ function job_get($what,$id) {
 	$query="select $what from jobs where id='$id'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
+	#debug ("******************************************$query*****************************************");
 	return $qq;
 }
 function check_create_path($path) {
@@ -325,39 +326,33 @@ function filetype_to_ext($filetype) {
 	}
 	
 }
-function parse_and_order_thumbnail_creation($client,$rem) {
-	#print "\n---client = $client----\n";
-	#print "\nPARSING --------\n $rem \n------------------------------\n";
-
-	#--- we get REM and parse it go get the start and end of job
-	preg_match("/b (.*) \-s\ (\d*)\ \-e\ (\d*) \-a/",$rem,$preg_matches);
-	#print_r($preg_matches);
-	$start=$preg_matches[2];
-	$end=$preg_matches[3];
-
-	# we get info from client ot get the 
-	$info=get_info($client);	
-	preg_match("/job\ (\d*)\ /",$info,$preg_matches);
-	#print_r($preg_matches);
-	$job_id=$preg_matches[1];
-
-	#print "this is $client infos ::: $info ---- \n";
-	#print "\n =============================\n";
-	#print "====== job $job_id start=$start end=$end=======";
-	#print "\n =============================\n";
-	create_thumbnail_sequence($job_id,$start,$end);
-
+function parse_render_command($render_command) {
+	print "parsing $render_command<br/>";
+	$parsed=array();
+        preg_match("/(.*)\-s (.\d) \-e (.\d)\ -a \-JOB (\d*)/",$render_command,$preg_matches);
+        $parsed["start"]=$preg_matches[2];
+        $parsed["end"]=$preg_matches[3];
+        $parsed["job_id"]=$preg_matches[4];
+        #$job_id=$preg_matches[2];
+        #print "JOB ID = $job_id start=".$parsed["start"]." end=$end<br/>";
+	return $parsed;
 }
 function create_thumbnail_sequence($job_id,$start,$end) {
 	for ($i=$start;$i<$end+1;$i++) {
-		debug("\n generating thumbnail $i\n");
-		#create_thumbnail($job_id,$i);
+		debug("\n THUMBNAIL SEQUENCE generating thumbnail $i for job $job_id\n");
+		create_thumbnail($job_id,$i);
 	}
 }
 function create_thumbnail($job_id,$image_number) {
 	
-	debug ("creating thumbnail : for image number $image_number of job with id = $job_id<br/>");
-	$thumbnail_path="../thumbnails/";
+	debug("----------------------------------");
+	debug ("creating A COOL thumbnail : for image number $image_number of job with id = $job_id");
+	if (preg_match("/brender_server/",$_SERVER[PHP_SELF])) {
+		$thumbnail_path="thumbnails/";
+	}
+	else {
+		$thumbnail_path="../thumbnails/";
+	}
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
@@ -373,14 +368,15 @@ function create_thumbnail($job_id,$image_number) {
 		debug("file $input_image doesnt exists, we close function <br/>");
 		return 0;
 	}
-	check_create_path("$thumbnail_path/$scene");
-	check_create_path("$thumbnail_path/$scene/$shot");
-	$output_image="$thumbnail_path/$scene/$shot/$image_name";
-	$output_image_small="$thumbnail_path/$scene/$shot/small_$image_name";
+	check_create_path("$thumbnail_path/$project");
+	check_create_path("$thumbnail_path/$project/$scene");
+	check_create_path("$thumbnail_path/$project/$scene/$shot");
+	$output_image="$thumbnail_path/$project/$scene/$shot/$image_name";
+	$output_image_small="$thumbnail_path/$project/$scene/$shot/small_$image_name";
 
-	#print "----- output = $output_image ---<br/>";
+	debug("----- output = $output_image ---<br/>");
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
-	$image_magick_home="/Users/o/Documents/ImageMagick-6.6.5/bin/";
+	#$image_magick_home="/Users/o/Documents/ImageMagick-6.6.5/bin/";
        	$commande=$image_magick_home."convert -resize 1024 $input_image $output_image";
 	exec($commande);
        	$commande=$image_magick_home."convert -resize 200 $input_image $output_image_small";

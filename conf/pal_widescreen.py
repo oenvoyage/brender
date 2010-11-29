@@ -13,7 +13,3 @@ r.antialiasing_samples='8'
 
 r.use_simplify=False
 #r.simplify_subdivision=0
-
-for ob in bpy.data.objects:
-	if ob.dupli_group==bpy.data.groups["bubbletime_hi"]:
-		ob.dupli_group=bpy.data.groups["bubbletime_lo"]

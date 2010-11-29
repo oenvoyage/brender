@@ -100,7 +100,7 @@ if ($_GET[visual]=="1") {
 	#-------------------------------les images ------------------------------
 	$a=$start;
 	$ext=filetype_to_ext($filetype);
-        $first_image="../thumbnails/$scene/$shot/small_$shot".str_pad($start,4,0,STR_PAD_LEFT).".$ext";
+        $first_image="../thumbnails/$project/$scene/$shot/small_$shot".str_pad($start,4,0,STR_PAD_LEFT).".$ext";
 
 	if ($visual) {
 		$img_chunks=round(($total)/20);
@@ -119,7 +119,7 @@ if ($_GET[visual]=="1") {
                                         #send_order("any","render",$render_order,"20");
 			}
 			*/
-                        $thumbnail_image="../thumbnails/$scene/$shot/small_$shot".str_pad($a,4,0,STR_PAD_LEFT).".$ext";
+                        $thumbnail_image="../thumbnails/$project/$scene/$shot/small_$shot".str_pad($a,4,0,STR_PAD_LEFT).".$ext";
                         if (!file_exists($thumbnail_image)) {
                                 #print "FILE DOESNT EXIST $thumbnail_image<br/>";
                                 create_thumbnail($id,$a);
