@@ -18,27 +18,9 @@ function show_last_log() {
 
 }
 function show_client_list() {
-	#print "<h2>// clients</h2>";
-	//include "clients.php";
-	
-	if (isset($_GET['orderby'])) {
-		if ($_SESSION[orderby_client]==$_GET[orderby]) {
-			$_SESSION[orderby_client]=$_GET['orderby']." desc";
-		}
-		else {
-			$_SESSION[orderby_client]=$_GET['orderby'];
-		}
-	}
-	if (isset($_GET['benchmark'])) {
-        	print "benchmark ALL idle";
-                $query="select * from clients where status='idle'";
-                $results=mysql_query($query);
-                while ($row=mysql_fetch_object($results)){
-                        $client=$row->client;
-                	send_order("$client","benchmark","","75");
-                        print "benchmark $client<br/>";
-                }
-	}
+#---------------------------------------
+#------------ CLIENTS LIST -------------
+#---------------------------------------
 	if (isset($_GET['disable'])) {
 		$disable=$_GET['disable'];
 		if ($disable=="all") {
@@ -89,46 +71,6 @@ function show_client_list() {
 		$refresh="0;URL=index.php?view=clients&msg=enabled $enable";
 		$msg= "enabled $enable <a href=\"clients.php\">reload</a><br/>";
 	}
-	if (isset($_GET['refresh'])) {	
-		checking_alive_clients();
-	}
-	if (isset($_GET['delete'])) {
-		$client=$_GET['delete'];
-		if (!check_client_exists($client)) {
-			$msg="error : client $client not found";
-		}
-		else {
-                	$dquery="delete from clients where client='$client'";
-			mysql_query($dquery);
-                	$msg="client $client deleted :: ok ";
-			# print "query =$dquery";
-		}
-        }
-	if (isset($_GET['stop'])) {
-		$stop=$_GET['stop'];
-		$msg= "stopped $stop <a href=\"clients.php\">reload</a><br/>";
-		send_order($stop,"stop","","1");
-		sleep(2);
-		$refresh="0;URL=index.php?view=clients&msg=stopped $stop";
-	}
-	if ($_POST['action'] == "add client" || isset($_POST[new_client_name])) {
-		if (check_client_exists($_POST[client])) {
-			$msg="error client already exists";
-		}
-		else {
-			$add_query="insert into clients values('','$_POST[new_client_name]','$_POST[speed]','$_POST[machinetype]','$_POST[machine_os]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','')";
-			mysql_query($add_query);
-			$msg="created new client $_POST[client] $add_query";
-		}
-	}
-
-if (isset($msg)) {
-	print "$msg<br/> <a href=\"index.php?view=clients\">reload</a><br/>";
-}
-
-#-----------------read------------------
-#------------ CLIENTS LIST -------------
-#---------------------------------------
 	$query="select * from clients where status<>'not running' order by $_SESSION[orderby_client]";
 	$results=mysql_query($query);
 	print "<h2>// <b>clients</b></h2>";
@@ -180,48 +122,9 @@ if (isset($msg)) {
 	
 }
 function show_job_list() {
-	#print "<h2>// jobs</h2>";
-	#include "jobs.php";
-	$msg="";
-	$queryqq="";
-	if (isset($_GET['order_by'])) {
-		if ($_SESSION[orderby_jobs]==$_GET[order_by]) {
-			$_SESSION[orderby_jobs]=$_GET['order_by']." desc";
-		}
-		else {
-			$_SESSION[orderby_jobs]=$_GET['order_by'];
-		}
-	}
-	
 	#----------------------------
-	if (isset($_GET['restart_all_paused'])) {
-		$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active') and status='pause');";
-		mysql_query($queryqq);
-	}
-	if (isset($_GET['restart_all'])) {
-		$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active'));";
-		mysql_query($queryqq);
-	}
-	if (isset($_POST['updateid'])) {
-		$jobid=$_POST['updateid'];
-		if ($_POST['copy']=="copy job") {
-			#----update COPY so we create a new job-------
-			$query="insert into jobs values('','$_POST[scene]','$_POST[shot]','$_POST[start]','$_POST[end]','$_POST[project]','$_POST[start]','$_POST[chunks]','$_POST[filetype]','$_POST[rem]','$_POST[config]','active','$_POST[progress_status]','$_POST[progress_remark]','$_POST[priority]',now(),'$_SESSION[user]')";
-	                mysql_query($query);
-			print "COPYPROCESS = $_POST[copy] and query = $query";
-		}
-		else {
-			#----update UPDATE so we just update the job-------
-			$queryqq="update jobs set start='$_POST[start]',end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',progress_status='$_POST[progress_status]',progress_remark='$_POST[progress_remark]', lastseen=NOW(),last_edited_by='$_SESSION[user]'  where id=$jobid;";
-			if (isset($_POST['directstart'])){
-				print "direct start...";
-				$queryqq="update jobs set start='$_POST[start]',current='$_POST[start]', end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',status='waiting', lastseen=NOW() where id=$jobid;";
-			}	
-			mysql_query($queryqq);
-			#$msg= "job $jobid updated $queryqq<br/>";
-		}
-		
-	}
+	#-------JOB LIST-------------
+	#----------------------------
 	if (isset($_GET['pause'])) {
 		$queryqq="update jobs set status='pause' where id=$_GET[pause];";
 		mysql_query($queryqq);
@@ -237,11 +140,6 @@ function show_job_list() {
 	if (isset($_GET['start'])) {
 		$queryqq="update jobs set status='waiting' where id=$_GET[start];";
 		mysql_query($queryqq);
-	}
-	if (isset($_GET['del'])) {
-		$queryqq="delete from jobs where id=$_GET[del];";
-		mysql_query($queryqq);
-		# sleep(1);
 	}
 	
 	# ---------------------------------------------
@@ -264,7 +162,6 @@ function show_job_list() {
 			<td width=12> &nbsp; <a href=\"index.php?view=jobs&order_by=status\">status</a> &nbsp; </td>
 			<td width=60> &nbsp; </td>
 			<td width=10> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
-			<td width=10> &nbsp; </td>
 		</tr>";
 		while ($row=mysql_fetch_object($results)){
 			$id=$row->id;
@@ -357,10 +254,7 @@ function show_job_list() {
 					<a href=\"index.php?view=jobs&pause=$id\"><img src=\"images/icons/$icon.png\" /></a>
 					<a href=\"index.php?view=jobs&finish=$id\"><img src=\"images/icons/stop.png\" /></a>
 				</td>
-				<td bgcolor=$bgcolorpriority><a href=\"#\" onclick=\"javascript:window.open('jobs_priority_popup.php?id=$id&priority=$priority','winame','width=200,height=25')\">$priority</a></td>
-				<td bgcolor=$bgcolor>
-					<a href=\"index.php?view=jobs&del=$id\"><img src=\"images/icons/close.png\" /></a>
-					</td>
+				<td bgcolor=$bgcolorpriority>$priority</td>
 			</tr>";
 		}?>
 		</table>

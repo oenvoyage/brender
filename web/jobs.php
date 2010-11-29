@@ -85,10 +85,10 @@ if (isset($_GET['del'])) {
 		<td bgcolor=cccccc width=12 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=status\">status</a> &nbsp; </td>
 		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
 		<td bgcolor=cccccc width=60 align=center> &nbsp; </td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
 		<td bgcolor=cccccc width=10 align=center> lastseen </td>
 		<td bgcolor=cccccc width=10 align=center> last edited by </td>
+		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
+		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
@@ -178,10 +178,10 @@ if (isset($_GET['del'])) {
 			<a href=\"index.php?view=jobs&reset=$id&start=$id\">restart</a></td>
 			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&pause=$id\">pause</a><br/>
 			<a href=\"index.php?view=jobs&start=$id\">start</a><br/><a href=\"index.php?view=jobs&finish=$id\">finish</a></td>
-			<td bgcolor=$bgcolorpriority align=center><a href=\"#\" onclick=\"javascript:window.open('jobs_priority_popup.php?id=$id&priority=$priority','winame','width=200,height=25')\">$priority</a></td>
-			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&del=$id\">x</a></td>
 			<td bgcolor=$bgcolor align=center>$lastseen</a><br/>
 			<td bgcolor=$bgcolor align=center>$last_edited_by</a><br/>
+			<td bgcolor=$bgcolorpriority align=center><a href=\"#\" onclick=\"javascript:window.open('jobs_priority_popup.php?id=$id&priority=$priority','winame','width=200,height=25')\">$priority</a></td>
+			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&del=$id\"><img src=\"images/icons/close.png\"></a></td>
 		</tr>";
 	}
 	print "\n</table>\n";
