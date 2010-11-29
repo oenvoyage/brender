@@ -317,3 +317,7 @@ table tr {
 	background-color: #DDD; 
 	text-align: center;
 }
+
+.table-controls {
+	margin-bottom: 15px;
+}

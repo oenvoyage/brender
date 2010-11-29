@@ -265,7 +265,6 @@ function show_job_list() {
 			<td width=60> &nbsp; </td>
 			<td width=10> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
 			<td width=10> &nbsp; </td>
-			<td width=10> last edited by </td>
 		</tr>";
 		while ($row=mysql_fetch_object($results)){
 			$id=$row->id;
@@ -362,17 +361,15 @@ function show_job_list() {
 				<td bgcolor=$bgcolor>
 					<a href=\"index.php?view=jobs&del=$id\"><img src=\"images/icons/close.png\" /></a>
 					</td>
-				<td bgcolor=$bgcolor>$last_edited_by</a><br/>
 			</tr>";
-		}
-		print "\n</table>\n";
-		print "<a href=\"index.php?view=upload\"><b class=\"ordre\">new job</a></b> - ";
-		print "<a href=\"index.php?view=jobs&restart_all_paused=1\"><b class=\"ordre\">restart all paused jobs</b></a> - ";
-		print "<a href=\"index.php?view=jobs&x=$random_x\"><b class=\"ordre\">reload</a></b> - ";
-		print "<a href=\"index.php?view=jobs&restart_all=1\"><b class=\"ordre\">restart all</b></a>";
-		print "<p><hr><p>";
-		print "<p><p>";
-	
-
-}
+		}?>
+		</table>
+		<div class="table-controls">
+			<a href="index.php?view=upload"><b class="ordre">new job</a></b> -
+			<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> -
+			<a href="index.php?view=jobs&x=$random_x"><b class="ordre">reload</a></b> -
+			<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>
+		</div>
+		<?php
+	}
 ?>
