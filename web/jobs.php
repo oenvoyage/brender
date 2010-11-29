@@ -164,7 +164,7 @@ if (isset($_GET['del'])) {
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$scene</b> <font size=1>($project)</font></a></td> 
 			<td bgcolor=$bgcolor align=center>
-				".output_progress_bar($start,$end,$current)."<br/>
+				<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>
 				$progress_status <small>$progress_remark</small>
 			</td>
 			<td bgcolor=$bgcolor align=center><b>$shot</b></td>

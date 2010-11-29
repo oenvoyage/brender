@@ -25,8 +25,7 @@
 			print "brender";
 			} else { print($_SESSION[theme]);
 			} ?>.css" rel="stylesheet" type="text/css">
-<?php if(!$view == "upload") { ?> <meta http-equiv="Refresh" content="60;URL=index.php" /> <?php } ?>
-
+<?php if(!$view == "upload") { ?> <meta http-equiv="Refresh" content="60;URL=index.php" /> <?php } ?>	
 		<script>
 		$(function() {
 			$( "#dialog-modal" ).dialog({
@@ -66,5 +65,3 @@
 				<p class="clock"><?php include "clock.php"?></p>
 				<p><?php print "logged in as: $_SESSION[user]";?> <a href="logout.php">[logout]</a></p>
 			</div>
-
-
