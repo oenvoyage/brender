@@ -93,11 +93,11 @@
 			<option>workstation</option>
 			<option <?print $rendernode_selected?>>rendernode</option>
 		</select><br/>
-		speed (number of processors) <input type="text" name="speed" size="2" value="<?php print $speed?>"><br>
+		speed (number of processors = number of chunks multiplier) <input type="text" name="speed" size="2" value="<?php print $speed?>"><br>
 		<h3>working hours / priority</h3>
 		 Start: <input type="text" name="working_hour_start" size="10" value="<?php print $working_hour_start?>"><br/>
 		 End: <input type="text" name="working_hour_end" size="10" value="<?php print $working_hour_end?>"><br>
-		 priority (1-100) <input type="text" name="client_priority" size="3" value="<?php print $client_priority?>"><br>
+		 priority (1-100) (will only render jobs with priority higher than this value)<input type="text" name="client_priority" size="3" value="<?php print $client_priority?>"><br>
 
 		<input type="submit" value="update <?php print $client?>"><br/>&nbsp;<br/>
 	</form>

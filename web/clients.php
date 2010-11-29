@@ -209,7 +209,7 @@ if (isset($msg)) {
 			working hours are hours during which the workstation will be disabled<br/>
 			 Start: <input type="text" name="working_hour_start" size="10" value="07:00:00"><br/>
 			 End: <input type="text" name="working_hour_end" size="10" value="19:00:00"><br>
-			 client priority (1-100) (will only render jobs whith priority higher than this value)<input type="text" name="client_priority" size="3" value="1"><br>
+			 client priority (1-100) (will only render jobs with priority higher than this value)<input type="text" name="client_priority" size="3" value="1"><br>
 	
 			<input type="submit" name="action" value="add client"><br/>
 		</form>
