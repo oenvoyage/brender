@@ -114,6 +114,7 @@ if (isset($_GET['del'])) {
 		$total_frames=$end-$start+1;
 		$total_rendered=get_rendered_frames($id);
 		$bgcolor="#bcffa6";
+		$status_class=get_css_class($status);
 		if ($priority == 99 ) {
 			$bgcolor="#ffffff";
 		}

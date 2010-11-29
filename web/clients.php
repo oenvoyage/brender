@@ -142,6 +142,7 @@ if (isset($msg)) {
 		$working_hour_start=$row->working_hour_start;
 		$working_hour_end=$row->working_hour_end;
 		$speed=$row->speed;
+		$status_class=get_css_class($status);
 		if ($status<>"disabled") {
 			$dis="<a href=\"index.php?view=clients&disable=$client\">disable</a>";
 			$bgcolor="#bcffa6";

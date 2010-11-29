@@ -37,6 +37,33 @@ function get_client_os($client) {
 	$qq=mysql_result($results,0);
 	return $qq;
 }
+function get_css_class($status) {
+	if (preg_match("/rendering/",$status)) {
+		return "color_rendering";
+	}
+	else if (preg_match("/idle/",$status)) {
+		return "color_idle";
+	}
+	else if (preg_match("/disabled/",$status)) {
+		return "color_disabled";
+	}
+	else if (preg_match("/enabled/",$status)) {
+		return "color_enabled";
+	}
+	else if (preg_match("/not running/",$status)) {
+		return "color_not_running";
+	}
+	else if (preg_match("/pause/",$status)) {
+		return "color_pause";
+	}
+	else if (preg_match("/finished/",$status)) {
+		return "color_finished";
+	}
+	else if (preg_match("/waiting/",$status)) {
+		return "color_waiting";
+	}
+	
+}
 function check_if_client_should_work($client_name="check all") {
 	# function used for checking if a client is during his "working hours", these are set in the database for each client.
 	if ($client_name <> "check all") {
@@ -346,7 +373,7 @@ function create_thumbnail_sequence($job_id,$start,$end) {
 function create_thumbnail($job_id,$image_number) {
 	
 	debug("----------------------------------");
-	debug ("creating A COOL thumbnail : for image number $image_number of job with id = $job_id");
+	debug ("creating a cool thumbnail : for image number $image_number of job with id = $job_id");
 	if (preg_match("/brender_server/",$_SERVER[PHP_SELF])) {
 		$thumbnail_path="thumbnails/";
 	}
@@ -368,6 +395,7 @@ function create_thumbnail($job_id,$image_number) {
 		debug("file $input_image doesnt exists, we close function <br/>");
 		return 0;
 	}
+	# create and check that all path are existing
 	check_create_path("$thumbnail_path/$project");
 	check_create_path("$thumbnail_path/$project/$scene");
 	check_create_path("$thumbnail_path/$project/$scene/$shot");
