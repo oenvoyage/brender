@@ -152,7 +152,7 @@ function show_job_list() {
 		print "<table>\n";
 		print "<tr>
 			<td width=12></td>
-			<td width=120><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
+			<td width=120><a href=\"index.php?view=jobs&order_by=shot\">shot name</a></td>
 			<td width=120> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
 			<td width=120> &nbsp; <a href=\"index.php?view=jobs&order_by=config\">output</a></td>
 			<td width=10> &nbsp; <a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a> &nbsp; </td>
@@ -238,7 +238,7 @@ function show_job_list() {
 	
 			print "<tr>
 				<td bgcolor=ddddcc><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
-				<td bgcolor=ddddcc><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$scene</b> <br /><font size=1>($project)</font></a></td> 
+				<td bgcolor=ddddcc><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot</b> <br /><font size=1>($project)</font></a></td> 
 				<td bgcolor=$bgcolor>
 					<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>
 					$progress_status <small>$progress_remark</small>

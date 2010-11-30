@@ -335,7 +335,7 @@ function job_get($what,$id) {
 }
 function check_create_path($path) {
 	# - function to check if a path exists, if not then create it";
-	print "<br>DEBUG --- $path chmod<br/>"; 
+	debug("DEBUG --- $path chmod"); 
 	if (!is_dir($path)) {
 		mkdir($path);
 	}

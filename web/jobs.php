@@ -74,9 +74,9 @@ if (isset($_GET['del'])) {
 	print "<tr>
 		<td bgcolor=cccccc width=12 align=center></td>
 		<td bgcolor=cccccc width=12 align=center></td>
-		<td bgcolor=cccccc width=120 align=center><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
-		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
 		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">shot</a></td>
+		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
+		<td bgcolor=cccccc width=120 align=center><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
 		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=config\">output</a></td>
 		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a> &nbsp; </td>
 		<td bgcolor=cccccc width=6 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=chunks\">chunks</a> &nbsp; </td>
@@ -163,12 +163,12 @@ if (isset($_GET['del'])) {
 		print "<tr>
 			<td bgcolor=ddddcc align=center>$padded_id</td> 
 			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
-			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$scene</b> <font size=1>($project)</font></a></td> 
+			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot <font size=1>($project)</b></a></td>
 			<td bgcolor=$bgcolor align=center>
 				<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>
 				$progress_status <small>$progress_remark</small>
 			</td>
-			<td bgcolor=$bgcolor align=center><b>$shot</b></td>
+			<td bgcolor=$bgcolor align=center><b>$scene</b></td> 
 			<td bgcolor=$bgcolor align=center>$config $filetype</td>
 			<td bgcolor=$bgcolor align=center>$start - $end</td>
 			<td bgcolor=$bgcolor align=center>$chunks</td>
