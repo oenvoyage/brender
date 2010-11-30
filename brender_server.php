@@ -27,6 +27,7 @@ while ($q=1) {
 	$query="select * from clients";
 	$results=mysql_query($query) or die(mysql_error());
 	while ($row=mysql_fetch_object($results)){
+		check_and_execute_server_orders();
 		$id=$row->id;
 		$client=$row->client;
 		$speed=$row->speed;
@@ -116,7 +117,12 @@ while ($q=1) {
 		checking_alive_clients();
 		check_if_client_should_work();
 	}
+	check_and_execute_server_orders();
+#----------------------------------end main loop -----------------
+}
 
+
+function check_and_execute_server_orders() {
 	#------we get and check if there are orders for the server------
 	$query="select * from orders where client='server'";
 	$results=mysql_query($query);
@@ -146,8 +152,6 @@ while ($q=1) {
 		
 	}
 
-#----------------------------------end main loop -----------------
 }
-
 
 ?>
