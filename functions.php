@@ -335,7 +335,7 @@ function job_get($what,$id) {
 }
 function check_create_path($path) {
 	# - function to check if a path exists, if not then create it";
-	#print "<br>DEBUG --- $path chmod<br/>"; 
+	print "<br>DEBUG --- $path chmod<br/>"; 
 	if (!is_dir($path)) {
 		mkdir($path);
 	}
@@ -371,22 +371,24 @@ function create_thumbnail_sequence($job_id,$start,$end) {
 	}
 }
 function create_thumbnail($job_id,$image_number) {
+	if ($GLOBALS[computer_name]=="web_interface") {
+		#print "WEBBBBBB<br/>";
+		$thumbnail_path="../thumbnails/";
+		#$input_prefix="../";
+	}
+	else {
+		$thumbnail_path="thumbnails/";
+	}
 	
 	debug("----------------------------------");
 	debug ("creating a cool thumbnail : for image number $image_number of job with id = $job_id");
-	if (preg_match("/brender_server/",$_SERVER[PHP_SELF])) {
-		$thumbnail_path="thumbnails/";
-	}
-	else {
-		$thumbnail_path="../thumbnails/";
-	}
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
 	$image_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
-	$input_path=get_path($project,"output","linux");
 
+	$input_path=get_path($project,"output","linux");
 	$input_image = "$input_path/$scene/$shot/$image_name";
 	#print "<br/>----- input = $input_image ---<br/>";
 
@@ -405,9 +407,9 @@ function create_thumbnail($job_id,$image_number) {
 	debug("----- output = $output_image ---<br/>");
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
 	#$image_magick_home="/Users/o/Documents/ImageMagick-6.6.5/bin/";
-       	$commande=$image_magick_home."convert -resize 1024 $input_image $output_image";
+       	$commande=$GLOBALS['imagemagick_root']."convert -resize 1024 $input_image $output_image";
 	exec($commande);
-       	$commande=$image_magick_home."convert -resize 200 $input_image $output_image_small";
+       	$commande=$GLOBALS['imagemagick_root']."convert -resize 200 $input_image $output_image_small";
 	exec($commande);
 	debug("################ $commande");
 }

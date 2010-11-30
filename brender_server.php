@@ -4,10 +4,14 @@ require "functions.php";
 require "connect.php";
 
 output("---- brender server 0.5 ----");
-	#-----some server settings------
+#-----------------------------------------------------
+#-----some server settings------
+#-----------------------------------------------------
     $server_speed=2; # server speed is the number of second that tha main loop will sleep(), check at the end of brender_server.php file
     $computer_name="server";
     $pid=getmypid();
+    $imagemagick_root=""; # keep empty if $IMAGEMAGICK_HOME is set 
+#-----------------------------------------------------
 
 output("process id=$pid");
 brender_log("SERVER STARTS $pid");
