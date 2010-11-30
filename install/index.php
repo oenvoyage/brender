@@ -1,131 +1,7 @@
 <html>
 	<head>
-	<style type="text/css" media="all">
-
-		body { 
-			margin:0; 
-			padding:0; 
-			font-size:15px; 
-			font-family:Helvetica, Arial, sans-serif;
-		}
-		p { 
-			margin:0; 
-			padding:0;
-		}
-		h1 { 
-			color:white; 
-			font-size:24pt; 
-			margin:60px 0; 
-		}
-		h2 { 
-			color:#606060; 
-			font-size:12pt; 
-			margin:0;
-		}
-		hr {
-			border:0; 
-			height:1px; 
-			margin:20px 20px; 
-			background:#CCC;
-		}
-		a {
-			color:#555; 
-			font-weight:bold; 
-			text-decoration:none;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-		#container { 
-			width: 450px; 
-			position: relative; 
-			margin: 0 auto;
-			text-align: justify;
-			background: url("../web/images/inst-body-grad.png") repeat-x scroll left top white;
-		}
-
-		#header { 
-			height:121px; 
-			margin-bottom:20px;
-		}
-		.blurb { 
-			color:#606060; 
-			margin-top:5px; 
-			font-size:11pt; 
-			line-height:16pt;
-			padding: 10px;
-		}
-		#body { 
-			margin-top:15px; 
-			width:100%; 
-			padding-top:12px; 
-			padding-bottom: 1px;
-		}
-		#body ul { 
-			margin:0 0 0 10px; 
-			padding:10px; 
-		}
-		#body li { 
-			padding:3px 0; 
-			font-size:14pt; 
-			color:#707b65; 
-		}
-		.left {float:left; width:320px; padding:0 5px 5px; margin-left:10px; }
-		.right { float:right; width:254px; }
-		#footer { float:left; width:100%; margin-top:100px; text-align:center;}
-		#footer p {color:#bbb; }
-
-		td {font-size:9pt;  color:#333;}
-		td.note {
-			color:#999;
-			padding-bottom:15px;
-			padding-left:15px;
-		}
-		td h2 {
-			
-			margin-top:20px;
-		}
-		.label {
-			text-align:right;
-			vertical-align:top;
-			padding-top:3px;
-			 
-		}
-		
-		input {
-			font-family:helvetica, arial, sans-serif;
-			font-size:10pt;
-			padding:3px;
-			background:white;
-			margin:0 10px 5px;
-			border-left:1px solid #83a5c7; 
-			border-top:1px solid #83a5c7; 
-			border-bottom:1px solid #d3e1ee;  
-			border-right:1px solid #d3e1ee; 
-		}
-		
-		.radio{
-			margin:4px 4px 0 0px;
-			padding:2px;
-		}
-		.warning {
-			border:1px solid red;
-			background: #fff6f6;
-			padding:10px;
-			margin:0 0 15px 0;
-		}
-		#installform { 
-			margin:0 auto;
-			width:450px;
-			 }
-		#installform td img {margin-bottom:5px; }
-		.submit {
-			border:auto;
-			float: left;
-			margin: 0 0 0 20px;
-		}
-	</style>
 	
+	<link rel="stylesheet" href="install.css">	
 	</head>
 	<body>
 <div id="header"></div>	
@@ -182,141 +58,48 @@
     
     echo "<div class=\"blurb\">";
         
-    $database = mysql_connect($_POST['host'],$_POST['brenderUser'],$_POST['brenderPassword']) || die("Bad database information, press back and try again");
-    echo "Connecting to database: ";
-    /*
-    echo "Deleting relay database...<br/>";
-    mysql_query("drop database relay");
     
-    echo "Creating database relay...";
-    
-    mysql_query("create database relay");
-    */
-    
-    mysql_select_db($_POST['database'])||die("could not connect to the database $_POST[database]"); echo "OK<br/>";
-    
-    echo "Dropping tables if exist: ";
-    
-    mysql_query("DROP TABLE `clients`, `jobs`, `orders`, `projects`, `scenes`, `status`");
-    
-    echo "OK<br />";   
-    
-    echo "Creating tables<br/><ul><li>$_POST[pre]clients</li>";
-    
-    mysql_query("
-	    CREATE TABLE IF NOT EXISTS `clients` 
-		(
-		  `id` int(11) NOT NULL auto_increment,
-		  `client` varchar(32) NOT NULL,
-		  `speed` tinyint(4) NOT NULL,
-		  `machinetype` varchar(24) NOT NULL default 'node',
-		  `client_priority` tinyint(4) NOT NULL,
-		  `status` varchar(128) NOT NULL default 'not running',
-		  `rem` varchar(255) NOT NULL,
-		  PRIMARY KEY  (`id`)
-		)
-		ENGINE=MyISAM COMMENT='les clients' AUTO_INCREMENT=11 ;
-	") || die(mysql_error() . " could not create the table filesystem");
+	// Name of the file
+	$filename = 'brender.sql';
+	// MySQL host (needs to be localhost - later to be changed according to MAMP)
+	$mysql_host = $_POST[host].':8889';
+	// MySQL username
+	$mysql_username = $_POST[brenderUser];
+	// MySQL password
+	$mysql_password = $_POST[brenderPassword];
+	// Database name
+	$mysql_database = 'installer';
 	
-    
-    echo "<li>$_POST[pre]jobs</li>";
-    
-	mysql_query("
-		CREATE TABLE `jobs` 
-		(
-		  	`id` int(11) NOT NULL auto_increment,
-		  	`name` varchar(32) NOT NULL,
-		  	`jobtype` varchar(32) NOT NULL,
-		  	`file` varchar(64) NOT NULL,
-		 	`start` int(11) NOT NULL default '1',
-		  	`end` int(11) NOT NULL default '100',
-		  	`project` varchar(32) NOT NULL,
-		  	`output` varchar(64) NOT NULL,
-		  	`current` int(11) NOT NULL default '0',
-		  	`chunks` tinyint(4) NOT NULL default '0',
-		  	`rem` varchar(255) NOT NULL,
-		  	`filetype` varchar(12) NOT NULL,
-		  	`config` varchar(64) NOT NULL,
-		  	`status` varchar(65) NOT NULL,
-		  	`priority` smallint(6) NOT NULL default '0',
-		  	`lastseen` timestamp NOT NULL default '0000-00-00 00:00:00' on update CURRENT_TIMESTAMP,
-		  	PRIMARY KEY  (`id`)
-		)
-		ENGINE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=98;	
-	")||die(mysql_error() . " could not create the table jobs");
-
-	echo "<li>$_POST[pre]orders</li>";
+	//////////////////////////////////////////////////////////////////////////////////////////////
 	
-	mysql_query("
-		CREATE TABLE `orders` 
-		(
-		  	`id` int(11) NOT NULL auto_increment,
-		  	`client` varchar(32) NOT NULL,
-		  	`orders` varchar(64) NOT NULL,
-		  	`priority` smallint(6) NOT NULL,
-		  	`rem` varchar(255) NOT NULL,
-		  	PRIMARY KEY  (`id`)
-		) 
-		ENGINE=MyISAM AUTO_INCREMENT=31156 ;
-	")||die(mysql_error() . " could not create the table orders");
-
-   echo "<li>$_POST[pre]projects</li>";
-   
-   mysql_query("  
-		CREATE TABLE `projects` 
-		(
-			`id` int(11) NOT NULL auto_increment,
-			`name` varchar(64) NOT NULL,
-			`mac_path` varchar(128) NOT NULL,
-			`win_path` varchar(128) NOT NULL,
-			`rem` varchar(255) NOT NULL,
-			`status` varchar(24) NOT NULL default 'active',
-			`def` smallint(6) NOT NULL,
-			PRIMARY KEY  (`id`)
-		) 
-		ENGINE=MyISAM AUTO_INCREMENT=19 ;
-	")||die(mysql_error() . " could not create the table projects");
-    
-    echo "<li>$_POST[pre]scenes</li>";
-    
-	mysql_query("		
-		CREATE TABLE `scenes` 
-		(
-			`id` int(11) NOT NULL auto_increment,
-		  	`project` varchar(24) default NULL,
-		  	`scene` varchar(24) default NULL,
-		  	PRIMARY KEY  (`id`)
-		) 
-		ENGINE=MyISAM AUTO_INCREMENT=1 ;
-	")||die(mysql_error() . " could not create the table scenes");
+	// Connect to MySQL server
+	mysql_connect($mysql_host, $mysql_username, $mysql_password) or die('Error connecting to MySQL server: ' . mysql_error());
+	// Select database
+	mysql_select_db($mysql_database) or die('Error selecting MySQL database: ' . mysql_error());
 	
-	echo "<li>$_POST[pre]status</li></ul>";
-			
-	mysql_query("		
-		CREATE TABLE `status` 
-		(
-			`server` varchar(32) NOT NULL,
-			`status` varchar(32) NOT NULL,
-			`pid` int(11) NOT NULL,
-			`started` timestamp NULL default CURRENT_TIMESTAMP,
-			`sound` varchar(12) NOT NULL,
-			`last_rendered` varchar(128) NOT NULL,
-			`rem` varchar(255) NOT NULL
-		) 
-		ENGINE=MyISAM;
-	")||die(mysql_error() . " could not create the table status");
-	    
-    
-    echo "Done creating tables<br/>";
-    
-    echo "Filling up tables: ";	
-    
-	mysql_query("
-		INSERT INTO `$_POST[pre]clients`
-		VALUES (1, 'macbook', 1, 'node', 0, 'not running', 'client not responding (PING)');
-	") || die(mysql_error());
-
-
+	// Temporary variable, used to store current query
+	$templine = '';
+	// Read in entire file
+	$lines = file($filename);
+	// Loop through each line
+	foreach ($lines as $line_num => $line) {
+		// Only continue if it's not a comment
+		if (substr($line, 0, 2) != '--' && $line != '') {
+			// Add this line to the current segment
+			$templine .= $line;
+			// If it has a semicolon at the end, it's the end of the query
+			if (substr(trim($line), -1, 1) == ';') {
+				// Perform the query
+				mysql_query($templine) or print('Error performing query \'<b>' . $templine . '</b>\': ' . mysql_error() . '<br /><br />');
+				// Reset temp variable to empty
+				$templine = '';
+			}
+		}
+	} 
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
     echo "OK<br/>";
     
 
@@ -389,11 +172,11 @@ error_reporting(0);
 		</tr>
 		<tr>
 			<td class="label">Database Username:</td> 
-			<td><input type='text' name='brenderUser' value='root' /></td>
+			<td><input type='text' name='brenderUser' value='brender' /></td>
 		</tr>
 		<tr>
 			<td class="label">Database Password:</td> 
-			<td><input type='password' name='brenderPassword' /></td>
+			<td><input type='password' name='brenderPassword' value="brender" /></td>
 		</tr>
 		<!-- <tr><td></td><td class="note">* password not masked</td></tr> -->
 		<tr>
