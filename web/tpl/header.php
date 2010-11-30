@@ -18,8 +18,8 @@
 		<title>brender 0.5</title>
 		
 		<link rel="stylesheet" href="css/jquery-ui-1.8.6.custom.css">
-		<script src="js/jquery-1.4.3.min.js_off"></script>
-		<script src="js/jquery-ui-1.8.6.custom.min.js_off"></script>	
+		<script src="js/jquery-1.4.3.min.js"></script>
+		<script src="js/jquery-ui-1.8.6.custom.min.js"></script>	
 		
 		<link href="css/<?php if (!$_SESSION[user]) { 
 			print "brender";
