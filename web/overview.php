@@ -1,9 +1,29 @@
 <?php
-#check_if_client_should_work();
-show_last_log();
-show_client_list();
-show_job_list();
+if (isset($_GET['orderby_job'])) {
+	if ($_SESSION[orderby_job]==$_GET[orderby_job]) {
+		$_SESSION[orderby_job]=$_GET['orderby_job']." desc";
+	}
+	else {
+		$_SESSION[orderby_job]=$_GET['orderby_job'];
+	}
+}
+if (isset($_GET['orderby_client'])) {
+	if ($_SESSION[orderby_client]==$_GET[orderby_client]) {
+		$_SESSION[orderby_client]=$_GET['orderby_client']." desc";
+	}
+	else {
+		$_SESSION[orderby_client]=$_GET['orderby_client'];
+	}
+}
 
+#check_if_client_should_work();
+?>
+<table>
+	<tr><td><?php show_client_list();?></td><td> <?php show_last_log();?></td></tr>
+	<tr><td colspan=2><?php show_job_list(); ?></td></tr>
+</table>
+
+<?php
 function show_last_log() {
 	#print "<h2>// last logs</h2>";
 	print "<br/>";
@@ -21,105 +41,45 @@ function show_client_list() {
 #---------------------------------------
 #------------ CLIENTS LIST -------------
 #---------------------------------------
-	if (isset($_GET['disable'])) {
-		$disable=$_GET['disable'];
-		if ($disable=="all") {
-                        print "disable ALL";
-                        $query="select * from clients where status='idle' or status='rendering'";
-                        $results=mysql_query($query);
-                        while ($row=mysql_fetch_object($results)){
-                                $client=$row->client;
-                                send_order("$client","disable","","5");
-                                print "disable $client<br/>";
-                        }
-        }
-        else {
-			send_order($disable,"disable","","5");
-            print "disable client : $disable";
-		}
-		$msg= "disabled $disable <a href=\"clients.php\">reload</a><br/>";
-		sleep(1);
-		$refresh="0;URL=index.php?view=clients&msg=disabled $disable";
-	}
-	if (isset($_GET['enable'])) {
-		$enable=$_GET['enable'];
-		if ($enable=="all") {
-			print "enable ALL";
-			$query="select * from clients where status='disabled'";
-        		$results=mysql_query($query);
-			while ($row=mysql_fetch_object($results)){
-				$client=$row->client;
-				send_order($client,"enable","","5");
-				$msg= "enable $client<br/>";
-			}
-		}
-		else if ($enable=="force_all"){
-			print "force enable ALL<br/>";
-			$query="select * from clients";
-        		$results=mysql_query($query);
-			while ($row=mysql_fetch_object($results)){
-				$client=$row->client;
-				send_order($client,"enable","","5");
-				$msg.= "enabled $client<br/>";
-			}
-		}
-		else {
-			send_order($enable,"enable","","5");
-			#header( 'Location: index.php' );
-		}
-		sleep(2);
-		$refresh="0;URL=index.php?view=clients&msg=enabled $enable";
-		$msg= "enabled $enable <a href=\"clients.php\">reload</a><br/>";
-	}
 	$query="select * from clients where status<>'not running' order by $_SESSION[orderby_client]";
 	$results=mysql_query($query);
-	print "<h2>// <b>clients</b></h2>";
-	print "<table border=0>";
-	print "<tr>
-		<td width=120 height=30><b><a href=\"index.php?view=clients&orderby=client\">client name</a></b></td>
-		<td bgcolor=ccccce width=120><b> &nbsp; <a href=\"index.php?view=clients&orderby=status\">status</a> &nbsp; </b></td>
-		<td bgcolor=ccccce width=500><b> &nbsp; <a href=\"index.php?view=clients&orderby=info\">info</a> &nbsp; </b></td>
+		?>
+	<h2>// <b>clients</b></h2>
+	<table border=0>
+	<tr class="header_row">
+		<td class="header_td" width=200> <a href="index.php?orderby_client=client">client name</a> </td>
+ 		<td><a href="index.php?orderby_client=status">status</a></td>
+		<td> &nbsp; <a href="index.php?orderby_client=info">info</a></td>
 		<td width=120><b> &nbsp; &nbsp; </td>
-
-	</tr>";
+	</tr>
+	<?php
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
 		$status=$row->status;
 		$info=$row->info;
 		$speed=$row->speed;
 		$machinetype=$row->machinetype;
-		$client_priority=$row->client_priority;
-		$working_hour_start=$row->working_hour_start;
-		$working_hour_end=$row->working_hour_end;
 		$speed=$row->speed;
+		$status_class=get_css_class($status);
 		if ($status<>"disabled") {
 			$dis="<a href=\"index.php?view=clients&disable=$client\">disable</a>";
-			$bgcolor="#bcffa6";
-			$icon="play";
 		}
 		if ($status=="disabled") {
 			$dis="<a href=\"index.php?view=clients&enable=$client\">enable</a>";
-			$bgcolor="#ffaa99";
 		}
-		if ($status=="rendering") {
-			$bgcolor="#99ccff";
-		}
-		if ($status=="not running") {
+		else if ($status=="notrunning") {
 			$dis="";
-			$bgcolor="#ffcc99";
 		}
-		print "<tr>
-			<td bgcolor=ddddcc><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
-			<td bgcolor=$bgcolor>$status</td>
-			<td bgcolor=$bgcolor>$info</td>
-			<td bgcolor=$bgcolor>$dis</td>
+		print "<tr class=$status_class>
+			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
+			<td>$status</td>
+			<td>$info</td>
+			<td>$dis</td>
 
 		</tr>";
 	}
 	print "</table>";
 
-	
-	
 }
 function show_job_list() {
 	#----------------------------
@@ -188,6 +148,7 @@ function show_job_list() {
 			$total_rendered=get_rendered_frames($id);
 			$bgcolor="#bcffa6";
 			$icon="play";
+			$status_class=get_css_class($status);
 			if ($priority == 99 ) {
 				$bgcolor="#ffffff";
 			}
@@ -203,11 +164,9 @@ function show_job_list() {
 				}
 			}
 			if ($status=="rendering") {
-				$bgcolor="#99ccff";
 				$icon="pause";
 			}
 			if ($status=="pause") {
-				$bgcolor="#ffff99";
 				$icon="play";
 			}
 			if ($priority<10) {
@@ -236,20 +195,20 @@ function show_job_list() {
 				$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
 			}
 	
-			print "<tr>
-				<td bgcolor=ddddcc><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
-				<td bgcolor=ddddcc><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot</b> <br /><font size=1>($project)</font></a></td> 
-				<td bgcolor=$bgcolor>
+			print "<tr class=$status_class>
+				<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
+				<td class=neutral<a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot</b> <br /><font size=1>($project)</font></a></td> 
+				<td>
 					<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>
 					$progress_status <small>$progress_remark</small>
 				</td>
-				<td bgcolor=$bgcolor>$config $filetype</td>
-				<td bgcolor=$bgcolor>$start - $end</td>
-				<td bgcolor=$bgcolor>$chunks</td>
-				<td bgcolor=$bgcolor><b>$current</b></td>
-				<td bgcolor=$bgcolor>$total_rendered/$total_frames<br></td>
-				<td bgcolor=$bgcolor>$status</td>
-				<td bgcolor=$bgcolor>
+				<td>$config $filetype</td>
+				<td>$start - $end</td>
+				<td>$chunks</td>
+				<td><b>$current</b></td>
+				<td>$total_rendered/$total_frames<br></td>
+				<td>$status</td>
+				<td>
 					<a href=\"index.php?view=jobs&reset=$id&start=$id\"><img src=\"images/icons/restart.png\" /></a>
 					<a href=\"index.php?view=jobs&pause=$id\"><img src=\"images/icons/$icon.png\" /></a>
 					<a href=\"index.php?view=jobs&finish=$id\"><img src=\"images/icons/stop.png\" /></a>

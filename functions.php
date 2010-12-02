@@ -38,29 +38,30 @@ function get_client_os($client) {
 	return $qq;
 }
 function get_css_class($status) {
+	# we do some regex preg_match to get the status class 
 	if (preg_match("/rendering/",$status)) {
-		return "color_rendering";
+		return "rendering";
 	}
 	else if (preg_match("/idle/",$status)) {
-		return "color_idle";
+		return "idle";
 	}
 	else if (preg_match("/disabled/",$status)) {
-		return "color_disabled";
+		return "disabled";
 	}
 	else if (preg_match("/enabled/",$status)) {
-		return "color_enabled";
+		return "enabled";
 	}
 	else if (preg_match("/not running/",$status)) {
-		return "color_not_running";
+		return "not_running";
 	}
 	else if (preg_match("/pause/",$status)) {
-		return "color_pause";
+		return "pause";
 	}
 	else if (preg_match("/finished/",$status)) {
-		return "color_finished";
+		return "finished";
 	}
 	else if (preg_match("/waiting/",$status)) {
-		return "color_waiting";
+		return "waiting";
 	}
 	
 }

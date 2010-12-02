@@ -71,24 +71,24 @@ if (isset($_GET['del'])) {
 	print "<h2>// <b>jobs</b> $msg <br/></h2>";
 	debug("$job_query<br/>");
 	print "<table>\n";
-	print "<tr>
-		<td bgcolor=cccccc width=12 align=center></td>
-		<td bgcolor=cccccc width=12 align=center></td>
-		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">shot</a></td>
-		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
-		<td bgcolor=cccccc width=120 align=center><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
-		<td bgcolor=cccccc width=120 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=config\">output</a></td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a> &nbsp; </td>
-		<td bgcolor=cccccc width=6 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=chunks\">chunks</a> &nbsp; </td>
-		<td bgcolor=cccccc width=50 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=current\">current</a> </td>
-		<td bgcolor=cccccc width=60 align=center> &nbsp; rendered</td>
-		<td bgcolor=cccccc width=12 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=status\">status</a> &nbsp; </td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
-		<td bgcolor=cccccc width=60 align=center> &nbsp; </td>
-		<td bgcolor=cccccc width=10 align=center> lastseen </td>
-		<td bgcolor=cccccc width=10 align=center> last edited by </td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
-		<td bgcolor=cccccc width=10 align=center> &nbsp; </td>
+	print "<tr class=header_row>
+		<td></td>
+		<td></td>
+		<td> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">shot</a></td>
+		<td> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
+		<td><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
+		<td><a href=\"index.php?view=jobs&order_by=config\">output</a></td>
+		<td><a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a></td>
+		<td><a href=\"index.php?view=jobs&order_by=chunks\">chunks</a></td>
+		<td><a href=\"index.php?view=jobs&order_by=current\">current</a> </td>
+		<td>rendered</td>
+		<td width=10><a href=\"index.php?view=jobs&order_by=status\">status</a> &nbsp; </td>
+		<td width=10></td>
+		<td width=60 align=center> &nbsp; </td>
+		<td width=10 align=center> lastseen </td>
+		<td> last edited by </td>
+		<td> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
+		<td> &nbsp; </td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
@@ -128,12 +128,6 @@ if (isset($_GET['del'])) {
 				$bgcolor="#dffddd";
 			}
 		}
-		if ($status=="rendering") {
-			$bgcolor="#99ccff";
-		}
-		if ($status=="pause") {
-			$bgcolor="#ffff99";
-		}
 		if ($priority<10) {
 			$bgcolorpriority="#ff1111";
 		}
@@ -160,22 +154,22 @@ if (isset($_GET['del'])) {
 			$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
 		}
 
-		print "<tr>
-			<td bgcolor=ddddcc align=center>$padded_id</td> 
-			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
-			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot <font size=1>($project)</b></a></td>
-			<td bgcolor=$bgcolor align=center>
+		print "<tr class=$status_class>
+			<td>$padded_id</td> 
+			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
+			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot <font size=1>($project)</b></a></td>
+			<td>
 				<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>
 				$progress_status <small>$progress_remark</small>
 			</td>
-			<td bgcolor=$bgcolor align=center><b>$scene</b></td> 
-			<td bgcolor=$bgcolor align=center>$config $filetype</td>
-			<td bgcolor=$bgcolor align=center>$start - $end</td>
-			<td bgcolor=$bgcolor align=center>$chunks</td>
-			<td bgcolor=$bgcolor align=center><b>$current</b></td>
-			<td bgcolor=$bgcolor align=center>$total_rendered / $total_frames<br></td>
-			<td bgcolor=$bgcolor align=center>$status</td>
-			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&reset=$id\">reset</a><br/>
+			<td><b>$scene</b></td> 
+			<td>$config $filetype</td>
+			<td>$start - $end</td>
+			<td>$chunks</td>
+			<td><b>$current</b></td>
+			<td>$total_rendered / $total_frames<br></td>
+			<td>$status</td>
+			<td><a href=\"index.php?view=jobs&reset=$id\">reset</a><br/>
 			<a href=\"index.php?view=jobs&reset=$id&start=$id\">restart</a></td>
 			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=jobs&pause=$id\">pause</a><br/>
 			<a href=\"index.php?view=jobs&start=$id\">start</a><br/><a href=\"index.php?view=jobs&finish=$id\">finish</a></td>

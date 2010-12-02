@@ -176,6 +176,16 @@ form {
 	padding:10px;
 	font-size:12px;
 }
+.header_row {
+	padding:10px;
+	margin:10px;
+	text-align:center;
+	font-weight:bold;
+}
+/* ------------------status colors -------------------*/
+.neutral {
+	background:#ddddcc;
+}
 .idle {
 	background:#bcffa6;
 }
@@ -188,9 +198,19 @@ form {
 .error {
 	color:#ff2222;
 }
-.not running {
+.not_running {
 	background:#ffcc99;
 }
+.finished {
+	background:#ddfddd;
+}
+.pause{
+	background:#ffff99;
+}
+.waiting {
+	background:#bcffa6;
+}
+/*--------------------------------------------------------*/
 .grey {
 	color: #666;
 	border: solid 1px #adadad;

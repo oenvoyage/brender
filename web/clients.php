@@ -145,33 +145,27 @@ if (isset($msg)) {
 		$status_class=get_css_class($status);
 		if ($status<>"disabled") {
 			$dis="<a href=\"index.php?view=clients&disable=$client\">disable</a>";
-			$bgcolor="#bcffa6";
 		}
-		if ($status=="disabled") {
+		else if ($status=="disabled") {
 			$dis="<a href=\"index.php?view=clients&enable=$client\">enable</a>";
-			$bgcolor="#ffaa99";
-		}
-		if ($status=="rendering") {
-			$bgcolor="#99ccff";
 		}
 		if ($status=="not running") {
 			$dis="";
-			$bgcolor="#ffcc99";
 			$shutdown_button="";
 		}
 		else {
 			$shutdown_button="<a href=\"index.php?view=clients&stop=$client\">x</a>";
 		}
-		print "<tr>
-			<td bgcolor=ddddcc align=center><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
-			<td bgcolor=$bgcolor align=center>$machine_os<br/><font size=1>$speed / $client_priority</font></a></td>
-			<td bgcolor=$bgcolor align=center>$status</td>
-			<td bgcolor=$bgcolor align=center>$rem</td>
-			<td bgcolor=$bgcolor align=center>$info</td>
-			<td bgcolor=$bgcolor align=center>$dis</td>
-			<td bgcolor=$bgcolor align=center>$working_hour_start</td>
-			<td bgcolor=$bgcolor align=center>$working_hour_end</td>
-			<td bgcolor=$bgcolor align=center>$shutdown_button</td>
+		print "<tr class=$status_class>
+			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
+			<td>$machine_os<br/><font size=1>$speed / $client_priority</font></a></td>
+			<td>$status</td>
+			<td>$rem</td>
+			<td>$info</td>
+			<td>$dis</td>
+			<td>$working_hour_start</td>
+			<td>$working_hour_end</td>
+			<td>$shutdown_button</td>
 		</tr>";
 	}
 	print "</table>";
