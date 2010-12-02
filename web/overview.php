@@ -160,51 +160,22 @@ function show_job_list() {
 			$bgcolor="#bcffa6";
 			$icon="play";
 			$status_class=get_css_class($status);
-			if ($priority == 99 ) {
-				$bgcolor="#ffffff";
-			}
-			else if (preg_match("/^finished/",$status)) {
-				$icon="reload";
-				$a+=1;
-				if ($a==2) {
-					$bgcolor="#ddeedd";
-					$a=0;
-				}
-				else {
-					$bgcolor="#dffddd";
-				}
-			}
+			$priority_color=get_priority_color($priority);
+
 			if ($status=="rendering") {
 				$icon="pause";
 			}
 			if ($status=="pause") {
 				$icon="play";
 			}
-			if ($priority<10) {
-				$bgcolorpriority="#ff1111";
-			}
-			else if ($priority<20) {
-				$bgcolorpriority="#ffaaaa";
-			}
-			else if ($priority<60) {
-				$bgcolorpriority="#ddddaa";
-			}
-			else {
-				$bgcolorpriority="#ddcccc";
-			}
-	
-			if ($_GET[no_visual]) {
-				$thumbnail="";
-			}
-			else {
-				$ext=filetype_to_ext($filetype);
-				$thumbnail_image="../thumbnails/$project/$scene/$shot/$shot$start_padded.$ext";
-				if (!file_exists($thumbnail_image)) {
-					#print "FILE DOESNT EXIST $thumbnail_image<br/>";
-					create_thumbnail($id,$start);
+
+			$ext=filetype_to_ext($filetype);
+			$thumbnail_image="../thumbnails/$project/$scene/$shot/$shot$start_padded.$ext";
+			if (!file_exists($thumbnail_image)) {
+				#print "FILE DOESNT EXIST $thumbnail_image<br/>";
+				create_thumbnail($id,$start);
 				}
-				$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
-			}
+			$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
 	
 			print "<tr class=$status_class>
 				<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
@@ -224,7 +195,7 @@ function show_job_list() {
 					<a href=\"index.php?view=jobs&pause=$id\"><img src=\"images/icons/$icon.png\" /></a>
 					<a href=\"index.php?view=jobs&finish=$id\"><img src=\"images/icons/stop.png\" /></a>
 				</td>
-				<td bgcolor=$bgcolorpriority>$priority</td>
+				<td bgcolor=$priority_color>$priority</td>
 			</tr>";
 		}?>
 		</table>

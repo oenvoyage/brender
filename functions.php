@@ -37,6 +37,34 @@ function get_client_os($client) {
 	$qq=mysql_result($results,0);
 	return $qq;
 }
+function get_priority_color($priority) {
+	if (preg_match("/^(\d+)$/",$priority)) {
+		if ($priority<10) {
+			return "#ff1111";
+		}
+		else if ($priority<20) {
+			return "#ffaaaa";
+		}
+		else if ($priority<60) {
+			return "#ddddaa";
+		}
+		else if ($priority<95) {
+			return "#ddcccc";
+		}
+		else {
+			return "#ffffff";
+		}
+		/*  experimental code to color HEX according to priority value
+		$hex=dechex($priority*2.5);
+		$color="ff".$hex.$hex;
+		#print("number $color <br/>");
+		return $color;
+		*/
+	}
+	else {
+		print "error : not a number";
+	}
+}
 function get_css_class($status) {
 	# we do some regex preg_match to get the status class 
 	if (preg_match("/rendering/",$status)) {
