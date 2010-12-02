@@ -1,10 +1,10 @@
 <?php
 if (isset($_GET['orderby_job'])) {
-	if ($_SESSION[orderby_job]==$_GET[orderby_job]) {
-		$_SESSION[orderby_job]=$_GET['orderby_job']." desc";
+	if ($_SESSION[orderby_jobs]==$_GET[orderby_job]) {
+		$_SESSION[orderby_jobs]=$_GET['orderby_job']." desc";
 	}
 	else {
-		$_SESSION[orderby_job]=$_GET['orderby_job'];
+		$_SESSION[orderby_jobs]=$_GET['orderby_job'];
 	}
 }
 if (isset($_GET['orderby_client'])) {
@@ -123,16 +123,16 @@ function show_job_list() {
 		print "<table>\n";
 		print "<tr class=header_row>
 			<td width=12></td>
-			<td width=120><a href=\"index.php?view=jobs&order_by=shot\">shot name</a></td>
-			<td width=120> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
-			<td width=120> &nbsp; <a href=\"index.php?view=jobs&order_by=config\">output</a></td>
-			<td width=10> &nbsp; <a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a> &nbsp; </td>
-			<td width=10> &nbsp; <a href=\"index.php?view=jobs&order_by=chunks\">chunks</a> &nbsp; </td>
-			<td width=50> &nbsp; <a href=\"index.php?view=jobs&order_by=current\">current</a> </td>
+			<td width=120><a href=\"index.php?orderby_job=shot\">shot name</a></td>
+			<td width=120> &nbsp; <a href=\"index.php?orderby_job=progress_status\">progress status</a></td>
+			<td width=120> &nbsp; <a href=\"index.php?orderby_job=config\">output</a></td>
+			<td width=10> &nbsp; <a href=\"index.php?orderby_job=start\">start</a>-<a href=\"index.php?orderby_job=end\">end</a> &nbsp; </td>
+			<td width=10> &nbsp; <a href=\"index.php?orderby_job=chunks\">chunks</a> &nbsp; </td>
+			<td width=50> &nbsp; <a href=\"index.php?orderby_job=current\">current</a> </td>
 			<td width=60> &nbsp; rendered</td>
-			<td width=12> &nbsp; <a href=\"index.php?view=jobs&order_by=status\">status</a> &nbsp; </td>
+			<td width=12> &nbsp; <a href=\"index.php?orderby_job=status\">status</a> &nbsp; </td>
 			<td width=60> &nbsp; </td>
-			<td width=10> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
+			<td width=10> &nbsp; <a href=\"index.php?orderby_job=priority\">priority</a></td>
 		</tr>";
 		while ($row=mysql_fetch_object($results)){
 			$id=$row->id;
