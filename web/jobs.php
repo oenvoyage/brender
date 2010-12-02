@@ -116,17 +116,6 @@ if (isset($_GET['del'])) {
 		$bgcolor="#bcffa6";
 		$status_class=get_css_class($status);
 		$priority_color=get_priority_color($priority);
-		if (preg_match("/^finished/",$status)) {
-			# --- i think this is to color the last finished job a bit differently, to be verified
-			$a+=1;
-			if ($a==2) {
-				$bgcolor="#ddeedd";
-				$a=0;
-			}
-			else {
-				$bgcolor="#dffddd";
-			}
-		}
 
 		$ext=filetype_to_ext($filetype);
 		$thumbnail_image="../thumbnails/$project/$scene/$shot/$shot$start_padded.$ext";

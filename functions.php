@@ -86,7 +86,15 @@ function get_css_class($status) {
 		return "pause";
 	}
 	else if (preg_match("/finished/",$status)) {
-		return "finished";
+		#print "GLOAB : ".$GLOBALs[last_finished];
+		if ($GLOBALS[last_finished]) {
+			$GLOBALS[last_finished]=0;
+			return "finished";
+		}
+		else {
+			$GLOBALS[last_finished]=1;
+			return "finished2";
+		}
 	}
 	else if (preg_match("/waiting/",$status)) {
 		return "waiting";
