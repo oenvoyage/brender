@@ -16,9 +16,9 @@
 	<?php
 	
 		if (!$_SESSION['user']) {
-				print('<div class="dialog">');
+				//print('<div id="dialog">');
 				include "login.php";
-				print('</div>');					
+				//print('</div>');					
 		} else {
 	 
 			if($view == "") { 

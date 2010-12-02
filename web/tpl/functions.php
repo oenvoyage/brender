@@ -26,7 +26,7 @@ function show_login_form() {
 		<form action='index.php?view=login' method='post'> 
 			<fieldset>
 				<div class="line">
-					<label for="user">Username</label>
+					<label for="user">Usernamee</label>
 		            <input type='text' name='user' value='username' />
 				</div>
 				<div class="line">
