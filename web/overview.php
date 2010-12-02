@@ -19,14 +19,24 @@ if (isset($_GET['orderby_client'])) {
 #check_if_client_should_work();
 ?>
 <table>
-	<tr><td><?php show_client_list();?></td><td> <?php show_last_log();?></td></tr>
-	<tr><td colspan=2><?php show_job_list(); ?></td></tr>
+	<tr><td>
+	<tr class=header_row><td>// clients </td><td>// last log</td></tr>
+	<tr><td>
+		<?php show_client_list();?>
+	</td><td>
+		 <?php show_last_log();?>
+	</td></tr>
+	<tr class=header_row><td colspan=2>
+		//<b>current jobs</b>
+	</td></tr>
+	<tr><td colspan=2>
+		<?php show_job_list(); ?>
+	</td></tr>
 </table>
 
 <?php
 function show_last_log() {
 	#print "<h2>// last logs</h2>";
-	print "<br/>";
 	$lok = file("../logs/brender.log");
         $lok=array_reverse($lok);
         foreach ($lok as $line){
@@ -44,7 +54,6 @@ function show_client_list() {
 	$query="select * from clients where status<>'not running' order by $_SESSION[orderby_client]";
 	$results=mysql_query($query);
 		?>
-	<h2>// <b>clients</b></h2>
 	<table border=0>
 	<tr class="header_row">
 		<td class="header_td" width=200> <a href="index.php?orderby_client=client">client name</a> </td>
@@ -107,10 +116,12 @@ function show_job_list() {
 	# ---------------------------------------------
 		$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
 		$results=mysql_query($job_query);
-		print "<h2>// <b>jobs</b> $msg</h2>";
+		if (isset($msg)) {
+			print "// $msg";
+		}
 		debug("$job_query<br/>");
 		print "<table>\n";
-		print "<tr>
+		print "<tr class=header_row>
 			<td width=12></td>
 			<td width=120><a href=\"index.php?view=jobs&order_by=shot\">shot name</a></td>
 			<td width=120> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
