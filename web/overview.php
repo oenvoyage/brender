@@ -160,14 +160,15 @@ function show_job_list() {
 			$total_rendered=get_rendered_frames($id);
 			$bgcolor="#bcffa6";
 			$icon="play";
+			$play_pause_button="";
 			$status_class=get_css_class($status);
 			$priority_color=get_priority_color($priority);
 
-			if ($status=="rendering") {
-				$icon="pause";
+			if (preg_match("/(rendering|waiting)/",$status)) {
+				$play_pause_button="<a href=\"index.php?pause=$id\"><img src=\"images/icons/pause.png\" /></a>";
 			}
-			if ($status=="pause") {
-				$icon="play";
+			else {
+				$play_pause_button="<a href=\"index.php?start=$id\"><img src=\"images/icons/play.png\" /></a>";
 			}
 
 			$ext=filetype_to_ext($filetype);
@@ -192,9 +193,9 @@ function show_job_list() {
 				<td>$total_rendered/$total_frames<br></td>
 				<td>$status</td>
 				<td>
-					<a href=\"index.php?view=jobs&reset=$id&start=$id\"><img src=\"images/icons/restart.png\" /></a>
-					<a href=\"index.php?view=jobs&pause=$id\"><img src=\"images/icons/$icon.png\" /></a>
-					<a href=\"index.php?view=jobs&finish=$id\"><img src=\"images/icons/stop.png\" /></a>
+					<a href=\"index.php?reset=$id&pause=$id\"><img src=\"images/icons/restart.png\" /></a>
+					$play_pause_button
+					<a href=\"index.php?finish=$id\"><img src=\"images/icons/stop.png\" /></a>
 				</td>
 				<td bgcolor=$priority_color>$priority</td>
 			</tr>";

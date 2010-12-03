@@ -83,7 +83,7 @@ if (isset($_GET['del'])) {
 		<td><a href=\"index.php?view=jobs&order_by=current\">current</a> </td>
 		<td>rendered</td>
 		<td width=10><a href=\"index.php?view=jobs&order_by=status\">status</a> &nbsp; </td>
-		<td width=10></td>
+		<td width=70></td>
 		<td width=60 align=center> &nbsp; </td>
 		<td width=10 align=center> lastseen </td>
 		<td> last edited by </td>
@@ -113,11 +113,19 @@ if (isset($_GET['del'])) {
 		$progress_remark=$row->progress_remark;
 		$total_frames=$end-$start+1;
 		$total_rendered=get_rendered_frames($id);
-		$bgcolor="#bcffa6";
 		$status_class=get_css_class($status);
 		$priority_color=get_priority_color($priority);
+		
+		if (preg_match("/(rendering|waiting)/",$status)) {
+                	$play_pause_button="<a href=\"index.php?view=jobs&pause=$id\"><img src=\"images/icons/pause.png\" /></a>";
+		}
+		else {
+	                $play_pause_button="<a href=\"index.php?view=jobs&start=$id\"><img src=\"images/icons/play.png\" /></a>";
+		}
+
 
 		$ext=filetype_to_ext($filetype);
+
 		$thumbnail_image="../thumbnails/$project/$scene/$shot/$shot$start_padded.$ext";
 		if (!file_exists($thumbnail_image)) {
 			#print "FILE DOESNT EXIST $thumbnail_image<br/>";
@@ -140,10 +148,11 @@ if (isset($_GET['del'])) {
 			<td><b>$current</b></td>
 			<td>$total_rendered / $total_frames<br></td>
 			<td>$status</td>
-			<td><a href=\"index.php?view=jobs&reset=$id\">reset</a><br/>
-			<a href=\"index.php?view=jobs&reset=$id&start=$id\">restart</a></td>
-			<td><a href=\"index.php?view=jobs&pause=$id\">pause</a><br/>
-			<a href=\"index.php?view=jobs&start=$id\">start</a><br/><a href=\"index.php?view=jobs&finish=$id\">finish</a></td>
+			<td>
+				 <a href=\"index.php?view=jobs&reset=$id&pause=$id\"><img src=\"images/icons/restart.png\" /></a>
+				 $play_pause_button
+				 <a href=\"index.php?view=jobs&finish=$id\"><img src=\"images/icons/stop.png\" /></a>
+			</td>
 			<td>$lastseen</a><br/>
 			<td>$last_edited_by</a><br/>
 			<td bgcolor=$priority_color>$priority</a></td>
