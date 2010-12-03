@@ -115,7 +115,7 @@ function show_job_list() {
 	# ---------------------------------------------
 	#-------- Display Table with all jobs ---------
 	# ---------------------------------------------
-		$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
+		$job_query="select * from jobs where (project in (select name from projects where status='active')) and status NOT like '%finish%' order by $_SESSION[orderby_jobs]";
 		$results=mysql_query($job_query);
 		if (isset($msg)) {
 			print "// $msg";
