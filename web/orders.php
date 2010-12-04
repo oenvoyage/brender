@@ -10,26 +10,21 @@ if (isset($_GET['del'])) {
 	mysql_unbuffered_query($qquery);
 	print "$qquery";
 }
-if (isset($_POST['query'])) {
-	# print "execute query ($_POST[query])<br/>";
-	$query=str_replace("\\","",$_POST[query]);   # remplace / par rien...
-	mysql_query($query);
-	print "execute query ($query)<br/>";
-}
-
-#--------read---------
+?>
+	
+<h2>// <b>orders</b></h2>
+<table>
+	<tr class="header_row">
+		<td width=120><b> &nbsp; id &nbsp; </b></td>
+		<td width=120><b>client name</b></td>
+		<td width=120><b>orders</b></td>
+		<td width=500 align=center><b> &nbsp; rem &nbsp; </b></td>
+		<td width=120 align=center><b> &nbsp; priority &nbsp; </td>
+		<td width=10></td>
+	</tr>
+	<?php
 	$query="select * from orders";
 	$results=mysql_query($query);
-	print "<h2>// <b>orders</b></h2>";
-	print "<table>";
-	print "<tr>
-		<td bgcolor=cccccc width=120 align=center><b> &nbsp; id &nbsp; </b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>client name</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>orders</b></td>
-		<td bgcolor=cccccc width=500 align=center><b> &nbsp; rem &nbsp; </b></td>
-		<td bgcolor=cccccc width=120 align=center><b> &nbsp; priority &nbsp; </td>
-		<td bgcolor=cccccc align=center></td>
-	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
 		$priority=$row->priority;
@@ -39,14 +34,14 @@ if (isset($_POST['query'])) {
 		$bgcolor="#cccccc";
 		print "<tr>
 			<td bgcolor=$bgcolor align=center>$id</td>
-			<td bgcolor=ddddcc align=center>$client</td> 
-			<td bgcolor=ddddcc align=center>$orders</td> 
+			<td class=neutral align=center><a href=\"index.php?view=view_client&client=$client\">$client</a></td> 
+			<td class=neutral align=center>$orders</td> 
 			<td bgcolor=$bgcolor align=center>$rem</td>
 			<td bgcolor=$bgcolor align=center>$priority</td>
 			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=orders&del=$id\">x</a></td>
 		</tr>";
 	}
-	print "</table>";
-	print "<a href=\"index.php?view=orders&delete_all=1\"><div class=\"ordre\">delete_all</div></a>";
-?>
+	?>
+</table>
+<a href="index.php?view=orders&delete_all=1"><div class="ordre">delete_all</div></a>
 
