@@ -3,10 +3,14 @@
 
 if (isset($_GET['do_the_test'])) {
 	print "doing a test<br/>";
+	#add_rendered_frame(145,2);
+	show_last_rendered_frame();
 	#create_thumbnail(139,3);
-	$rem="blender/mac/blender.app/Contents/MacOS/blender -b '/Volumes/rgb_noel/01_3D/SCENES/99_tests/brender_test.blend' -o '/Volumes/rgb_noel/01_3D/RENDER/99_tests/brender_test/brender_test' -P conf/pal_widescreen.py -F PNG  -s 25 -e 26 -a JOB 143";
-	$parsed=parse_render_command($rem);
-	print "job_id = ".$parsed["job_id"];
+	#$rem="blender/mac/blender.app/Contents/MacOS/blender -b '/Volumes/rgb_noel/01_3D/SCENES/99_tests/brender_test.blend' -o '/Volumes/rgb_noel/01_3D/RENDER/99_tests/brender_test/brender_test' -P conf/pal_widescreen.py -F PNG  -s 25 -e 26 -a JOB 143";
+	#$parsed=parse_render_command($rem);
+	#print "job_id = ".$parsed["job_id"];
+	
+	
 	/*
 	$parsed_rem=array();
 	preg_match("/(.*)\-s (.\d) \-e (.\d)\ -a JOB (\d*)/",$rem,$preg_matches);

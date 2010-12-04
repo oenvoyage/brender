@@ -118,10 +118,23 @@ while ($q=1) {
 		check_if_client_should_work();
 	}
 	check_and_execute_server_orders();
+	check_and_create_thumbnails();
 #----------------------------------end main loop -----------------
 }
 
 
+function check_and_create_thumbnails() {
+	$query="select * from rendered_frames where is_thumbnailed=0";
+	$results=mysql_query($query);
+	while ($row=mysql_fetch_object($results)){
+		$id=$row->id;
+		$job_id=$row->job_id;
+		$frame=$row->frame;
+		create_thumbnail($job_id,$frame);
+		$query="update rendered_frames set is_thumbnailed=1 where id='$id'";
+		mysql_query($query);
+	}
+}
 function check_and_execute_server_orders() {
 	#------we get and check if there are orders for the server------
 	$query="select * from orders where client='server'";
@@ -133,16 +146,6 @@ function check_and_execute_server_orders() {
 		if ($orders=='ping'){
 			output("...ping reply from $id...");
 			remove_order($id);
-		}
-		elseif ($orders=='create_thumbnails'){
-			output("i must create thumbnails :: $rem","warning");
-			preg_match("/JOB=(\d*) START=(\d*) END=(\d*)/",$rem,$numbers);
-			$job_id=$numbers[1];
-			$start=$numbers[2];
-			$end=$numbers[3];
-			create_thumbnail_sequence($job_id,$start,$end);
-			remove_order($id);
-			#sleep(5);
 		}
 		elseif ($orders=='stop'){
 			output("i shutdown server","warning");

@@ -390,8 +390,17 @@ function filetype_to_ext($filetype) {
 	}
 	
 }
+function add_rendered_frames($job_id,$start,$end){
+	#will add a rendered frame to the table, usually it is a client that invoke this function just after finishing a render job
+	$client=$GLOBALS[computer_name];
+	for ($i=$start;$i<$end+1;$i++) {
+		$query="insert into rendered_frames values('','$job_id','$i','$client',now(),'0')";
+		debug("ADD RENDER FRAME QUERY = $query");
+		mysql_query($query);
+	}
+}
 function parse_render_command($render_command) {
-	print "parsing $render_command<br/>";
+	#print "parsing $render_command<br/>";
 	$parsed=array();
         preg_match("/(.*)\-s (.\d) \-e (.\d)\ -a \-JOB (\d*)/",$render_command,$preg_matches);
         $parsed["start"]=$preg_matches[2];
@@ -401,11 +410,15 @@ function parse_render_command($render_command) {
         #print "JOB ID = $job_id start=".$parsed["start"]." end=$end<br/>";
 	return $parsed;
 }
-function create_thumbnail_sequence($job_id,$start,$end) {
-	for ($i=$start;$i<$end+1;$i++) {
-		debug("\n THUMBNAIL SEQUENCE generating thumbnail $i for job $job_id\n");
-		create_thumbnail($job_id,$i);
-	}
+function get_thumbnail_image($job_id,$image_number) {
+	# function will output the <img src> of the thumbnail of a specific job_id and frame
+	$thumbnail_path="thumbnails/";
+	$scene=job_get("scene",$job_id);
+	$shot=job_get("shot",$job_id);
+	$filetype=filetype_to_ext(job_get("filetype",$job_id));
+	$project=job_get("project",$job_id);
+	$thumbnail_location="/thumbnails/$project/$scene/$shot/$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	return '<img src="'.$thumbnail_location.'">';
 }
 function create_thumbnail($job_id,$image_number) {
 	if ($GLOBALS[computer_name]=="web_interface") {
@@ -469,6 +482,16 @@ function output_progress_bar($start,$end,$current,$style="progress_bar") {
 	#$output.="<img src=\"images/cube_red.png\" style=\"width:".$remaining."px;\" class=\"$style\"/>";
 	#$output.= "<br/>$done / $remaining";
 	return $output;
+}
+function show_last_rendered_frame() {
+	 $query="SELECT * FROM rendered_frames WHERE is_thumbnailed='1' ORDER BY finished_time DESC LIMIT 1";
+         $results=mysql_query($query);
+         $row=mysql_fetch_object($results);
+         $job_id=$row->job_id;
+         $rendered_by=$row->rendered_by;
+         $frame=$row->frame;
+         $finished_time=$row->finished_time;
+         print get_thumbnail_image($job_id,$frame);
 }
 function get_rendered_frames($job_id) {
 

@@ -199,3 +199,20 @@ CREATE TABLE IF NOT EXISTS `status` (
 -- Dumping data for table `status`
 --
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rendered_frames`
+--
+
+CREATE TABLE `rendered_frames` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `job_id` int(11) NOT NULL,
+  `frame` int(11) NOT NULL,
+  `rendered_by` varchar(32) NOT NULL,
+  `finished_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_thumbnailed` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+

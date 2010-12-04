@@ -21,17 +21,23 @@ if (isset($_GET['orderby_client'])) {
 ?>
 <table>
 	<tr><td>
-	<tr class=header_row><td>// clients </td><td>// last log</td></tr>
+	<tr class=header_row><td>// clients </td><td>// last rendered frame</td></tr>
 	<tr><td>
 		<?php show_client_list();?>
 	</td><td>
-		 <?php show_last_log();?>
+		 <?php show_last_rendered_frame();?>
 	</td></tr>
 	<tr class=header_row><td colspan=2>
 		//<b>current jobs</b>
 	</td></tr>
 	<tr><td colspan=2>
 		<?php show_job_list(); ?>
+	</td></tr>
+	<tr class=header_row><td colspan=2>
+		//<b>last logs</b>
+	</td></tr>
+	<tr><td colspan=2>
+		 <?php show_last_log();?>
 	</td></tr>
 </table>
 
@@ -91,6 +97,18 @@ function show_client_list() {
 	print "</table>";
 
 }
+function last_rendered_frame() {
+	$query="select * from rendered_frames where is_thumbnailed=1 order by finished_time";
+	$results=mysql_query($query);
+	$row=mysql_fetch_object($results);
+	$job_id=$row->job_id;
+	$rendered_by=$row->rendered_by;
+	$frame=$row->frame;
+	$finished_time=$row->finished_time;
+	$thumbnail_img=get_thumbnail_image($job_id,$frame);
+	return "<img src=\"$thumbnail_img\">";
+	
+}
 function show_job_list() {
 	#----------------------------
 	#-------JOB LIST-------------
@@ -136,17 +154,20 @@ function show_job_list() {
 			<td width=10> &nbsp; <a href=\"index.php?orderby_job=priority\">priority</a></td>
 		</tr>";
 		while ($row=mysql_fetch_object($results)){
+
 			$id=$row->id;
 			$padded_id=str_pad((int) $id,3,"0",STR_PAD_LEFT);
 			$scene=$row->scene;
 			$project=$row->project;
 			$scene=$row->scene;
+
 			$shot=$row->shot;
 			$start=$row->start;
 			$start_padded=str_pad((int) $start,4,"0",STR_PAD_LEFT);
 			$end=$row->end;
 			$current=$row->current;
 			$chunks=$row->chunks;
+
 			$rem=$row->rem;
 			$filetype=$row->filetype;
 			$config=$row->config;
@@ -156,13 +177,15 @@ function show_job_list() {
 			$last_edited_by=$row->last_edited_by;
 			$progress_status=$row->progress_status;
 			$progress_remark=$row->progress_remark;
+
 			$total_frames=$end-$start+1;
 			$total_rendered=get_rendered_frames($id);
-			$bgcolor="#bcffa6";
 			$icon="play";
 			$play_pause_button="";
 			$status_class=get_css_class($status);
 			$priority_color=get_priority_color($priority);
+			$thumbnail_img=get_thumbnail_image($id,$frame);
+			$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail_img</a>";
 
 			if (preg_match("/(rendering|waiting)/",$status)) {
 				$play_pause_button="<a href=\"index.php?pause=$id\"><img src=\"images/icons/pause.png\" /></a>";
@@ -170,14 +193,6 @@ function show_job_list() {
 			else {
 				$play_pause_button="<a href=\"index.php?start=$id\"><img src=\"images/icons/play.png\" /></a>";
 			}
-
-			$ext=filetype_to_ext($filetype);
-			$thumbnail_image="../thumbnails/$project/$scene/$shot/$shot$start_padded.$ext";
-			if (!file_exists($thumbnail_image)) {
-				#print "FILE DOESNT EXIST $thumbnail_image<br/>";
-				create_thumbnail($id,$start);
-				}
-			$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
 	
 			print "<tr class=$status_class>
 				<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 

@@ -1,7 +1,7 @@
 <?php 
 
 	#-------brender alpha 0.01
-	if ($_POST[scene]&&$_POST['shot']) {	
+	if ($_POST[scene] && $_POST['shot']) {	
 		$start=$_POST[start];
 		$end=$_POST[end];
 		$shot=$_POST[shot];
@@ -36,7 +36,6 @@
 	}
 ?>
 
-<?php if ($error) { ?>
 <h2>// <strong>start</strong> new job</h2>
 
 
@@ -112,4 +111,3 @@
 	<div class="clear"></div>
 	<input class="submit" type="submit" value="send job"><br/>
 </form>
-<?php }?>

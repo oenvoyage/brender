@@ -91,17 +91,20 @@ if (isset($_GET['del'])) {
 		<td> &nbsp; </td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
+
 		$id=$row->id;
 		$padded_id=str_pad((int) $id,3,"0",STR_PAD_LEFT);
 		$scene=$row->scene;
 		$project=$row->project;
 		$scene=$row->scene;
 		$shot=$row->shot;
+
 		$start=$row->start;
 		$start_padded=str_pad((int) $start,4,"0",STR_PAD_LEFT);
 		$end=$row->end;
 		$current=$row->current;
 		$chunks=$row->chunks;
+
 		$rem=$row->rem;
 		$filetype=$row->filetype;
 		$config=$row->config;
@@ -111,10 +114,13 @@ if (isset($_GET['del'])) {
 		$last_edited_by=$row->last_edited_by;
 		$progress_status=$row->progress_status;
 		$progress_remark=$row->progress_remark;
+
 		$total_frames=$end-$start+1;
 		$total_rendered=get_rendered_frames($id);
 		$status_class=get_css_class($status);
 		$priority_color=get_priority_color($priority);
+		$thumbnail_img=get_thumbnail_image($id,$start);;
+		$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
 		
 		if (preg_match("/(rendering|waiting)/",$status)) {
                 	$play_pause_button="<a href=\"index.php?view=jobs&pause=$id\"><img src=\"images/icons/pause.png\" /></a>";
@@ -122,16 +128,6 @@ if (isset($_GET['del'])) {
 		else {
 	                $play_pause_button="<a href=\"index.php?view=jobs&start=$id\"><img src=\"images/icons/play.png\" /></a>";
 		}
-
-
-		$ext=filetype_to_ext($filetype);
-
-		$thumbnail_image="../thumbnails/$project/$scene/$shot/$shot$start_padded.$ext";
-		if (!file_exists($thumbnail_image)) {
-			#print "FILE DOESNT EXIST $thumbnail_image<br/>";
-			create_thumbnail($id,$start);
-		}
-		$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
 
 		print "<tr class=$status_class>
 			<td>$padded_id</td> 

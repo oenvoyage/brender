@@ -9,7 +9,7 @@ if (!$argv[1]) {
 else {
 	if (check_client_exists($argv[1])) {
 		$computer_name=$argv[1];
-		$_GLOBALS[computer_name]=$computer_name;
+		$GLOBALS[computer_name]=$computer_name;
 	}
 	else {
 		die("ERROR :: computer not found in client list, please check name again or add it to the list\n");
@@ -55,9 +55,11 @@ while ($q=1) {
 				remove_order($id);
 
 				# --- now we send an order to server to generate the thumbnails
-				$thumbnail_creation_order="JOB=$parsed[job_id] START=$parsed[start] END=$parsed[end]";
-				debug(" HHHHHHHHHHHHHHHHHHHHHH- $thumbnail_creation_order");
-				send_order("server","create_thumbnails",$thumbnail_creation_order,"20");
+				add_rendered_frames($parsed['job_id'],$parsed['start'],$parsed['end']);
+				//$thumbnail_creation_order="JOB=$parsed[job_id] START=$parsed[start] END=$parsed[end]";
+				//debug(" HHHHHHHHHHHHHHHHHHHHHH- $thumbnail_creation_order");
+				// send_order("server","create_thumbnails",$thumbnail_creation_order,"20");
+				
 
 				# and finally set client to idle, ready to get some new work
 				set_status("$computer_name","idle","");
