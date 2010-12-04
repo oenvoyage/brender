@@ -120,10 +120,11 @@ if ($_GET[visual]=="1") {
 			}
 			*/
                         $thumbnail_image="../thumbnails/$project/$scene/$shot/small_$shot".str_pad($a,4,0,STR_PAD_LEFT).".$ext";
-                        if (!file_exists($thumbnail_image)) {
+                        /*if (!file_exists($thumbnail_image)) {
                                 #print "FILE DOESNT EXIST $thumbnail_image<br/>";
                                 create_thumbnail($id,$a);
                         }
+			*/
 
 			print "<td bgcolor=\"$tdcolor\">";
 				print "<a href=\"index.php?view=view_image&id=$id&name=$name&image=$thumbnail_image&bgcolor=$bgcolor&project=$project\"><img src=\"$thumbnail_image\" border=0 width=\"200\"></a><br/>$a<br/>";

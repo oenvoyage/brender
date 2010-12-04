@@ -102,3 +102,26 @@
 		<input type="submit" value="update <?php print $client?>"><br/>&nbsp;<br/>
 	</form>
 	<a href="index.php?view=clients&delete=<?php print $client?>">delete <?php print $client ?></a>
+	<?php show_last_rendered_frame_by_client($client); ?>
+	
+
+<?php
+#------------------------------ functions -----------------
+function show_last_rendered_frame_by_client($client) {
+	print "<table><tr>";
+        $query="SELECT * FROM rendered_frames WHERE is_thumbnailed='1' AND rendered_by='$client'  ORDER BY finished_time DESC limit 5";
+	debug("RENDER FRAME LAST BY CLIENT $query");
+        $results=mysql_query($query);
+        while ($row=mysql_fetch_object($results)) {
+        	$job_id=$row->job_id;
+        	$rendered_by=$row->rendered_by;
+		$frame=$row->frame;
+        	$finished_time=$row->finished_time;
+		print "<td>";
+		print get_thumbnail_image($job_id,$frame)."<br/>";
+                print "finished @ $finished_time<br/>";
+                print "job_id <a href=\"index.php?view=view_job&id=$job_id\">$job_id</a><br/>";
+		print "</td>";
+	}
+	print "</tr></table>";
+}
