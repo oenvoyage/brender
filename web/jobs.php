@@ -13,7 +13,6 @@ if (isset($_GET['order_by'])) {
 #----------------------------
 if (isset($_GET['restart_all_paused'])) {
 	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active') and status='pause');";
-	#print "BLLLA";
 	mysql_query($queryqq);
 }
 if (isset($_GET['restart_all'])) {
@@ -67,29 +66,32 @@ if (isset($_GET['del'])) {
 # ---------------------------------------------
 	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
 	#print "<h2>job query $job_query</h2>";
-	$results=mysql_query($job_query);
-	print "<h2>// <b>jobs</b> $msg <br/></h2>";
 	debug("$job_query<br/>");
-	print "<table>\n";
-	print "<tr class=header_row>
+	$results=mysql_query($job_query);
+	?>
+
+	<h2>// <b>jobs</b> <?php echo $msg?><br/></h2>
+	<table>
+	<tr class=header_row>
 		<td></td>
 		<td></td>
-		<td> &nbsp; <a href=\"index.php?view=jobs&order_by=shot\">shot</a></td>
-		<td> &nbsp; <a href=\"index.php?view=jobs&order_by=progress_status\">progress status</a></td>
-		<td><a href=\"index.php?view=jobs&order_by=scene\">scene name</a></td>
-		<td><a href=\"index.php?view=jobs&order_by=config\">output</a></td>
-		<td><a href=\"index.php?view=jobs&order_by=start\">start</a>-<a href=\"index.php?view=jobs&order_by=end\">end</a></td>
-		<td><a href=\"index.php?view=jobs&order_by=chunks\">chunks</a></td>
-		<td><a href=\"index.php?view=jobs&order_by=current\">current</a> </td>
+		<td> &nbsp; <a href="index.php?view=jobs&order_by=shot">shot</a></td>
+		<td> &nbsp; <a href="index.php?view=jobs&order_by=progress_status">progress status</a></td>
+		<td><a href="index.php?view=jobs&order_by=scene">scene name</a></td>
+		<td><a href="index.php?view=jobs&order_by=config">output</a></td>
+		<td><a href="index.php?view=jobs&order_by=start">start</a>-<a href="index.php?view=jobs&order_by=end">end</a></td>
+		<td><a href="index.php?view=jobs&order_by=chunks">chunks</a></td>
+		<td><a href="index.php?view=jobs&order_by=current">current</a> </td>
 		<td>rendered</td>
-		<td width=10><a href=\"index.php?view=jobs&order_by=status\">status</a> &nbsp; </td>
+		<td width=10><a href="index.php?view=jobs&order_by=status">status</a> &nbsp; </td>
 		<td width=70></td>
 		<td width=60 align=center> &nbsp; </td>
 		<td width=10 align=center> lastseen </td>
 		<td> last edited by </td>
-		<td> &nbsp; <a href=\"index.php?view=jobs&order_by=priority\">priority</a></td>
+		<td> &nbsp; <a href="index.php?view=jobs&order_by=priority">priority</a></td>
 		<td> &nbsp; </td>
-	</tr>";
+	</tr>
+	<?php 
 	while ($row=mysql_fetch_object($results)){
 
 		$id=$row->id;
@@ -154,13 +156,11 @@ if (isset($_GET['del'])) {
 			<td bgcolor=$priority_color>$priority</a></td>
 			<td><a href=\"index.php?view=jobs&del=$id\"><img src=\"images/icons/close.png\"></a></td>
 		</tr>";
-	}
-	print "\n</table>\n";
-	print "<a href=\"index.php?view=upload\"><b class=\"ordre\">new job</a></b> - ";
-	print "<a href=\"index.php?view=jobs&restart_all_paused=1\"><b class=\"ordre\">restart all paused jobs</b></a> - ";
-	print "<a href=\"index.php?view=jobs&x=$random_x\"><b class=\"ordre\">reload</a></b> - ";
-	print "<a href=\"index.php?view=jobs&restart_all=1\"><b class=\"ordre\">restart all</b></a>";
-	print "<p><hr><p>";
-	print "<p><p>";
-
-?>
+	} ?>
+	</table>
+	<div class="table-controls">
+		<a href="index.php?view=upload\"><b class="ordre">new job</a></b> - 
+		<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> - 
+		<a href="index.php?view=jobs&x=$random_x"><b class="ordre">reload</a></b> - 
+		<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>
+	</div>

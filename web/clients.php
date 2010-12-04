@@ -114,21 +114,22 @@ if (isset($msg)) {
 }
 
 #--------read---------
+#------ listing all the clients in the table, including the ones not running------- 
 	$query="select * from clients order by $_SESSION[orderby_client]";
 	$results=mysql_query($query);
 	print "<h2>// <b>clients</b></h2>";
 	debug("$query<br/>");
-	print "<table border=0>";
-	print "<tr>
-		<td bgcolor=cccccc width=120 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client\">client name</a></b></td>
-		<td bgcolor=cccccc width=32 height=30 align=center><b><a href=\"index.php?view=clients&orderby=client_priority\">stats</a></b></td>
-		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=status\">status</a> &nbsp; </b></td>
-		<td bgcolor=ccccce width=500 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=rem\">rem</a> &nbsp; </b></td>
-		<td bgcolor=ccccce width=200 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=info\">info</a> &nbsp; </b></td>
-		<td bgcolor=cccccc width=120 align=center><b> &nbsp; cmd &nbsp; </td>
-		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=working_hour_start\">workhour start</a> &nbsp; </b></td>
-		<td bgcolor=ccccce width=120 align=center><b> &nbsp; <a href=\"index.php?view=clients&orderby=working_hour_end\">workhour end</a> &nbsp; </b></td>
-		<td bgcolor=cccccc align=center></td>
+	print "<table>";
+	print "<tr class=header_row>
+		<td width=120><a href=\"index.php?view=clients&orderby=client\">client name</a></td>
+		<td width=32<a href=\"index.php?view=clients&orderby=client_priority\">stats</a></td>
+		<td width=120> <a href=\"index.php?view=clients&orderby=status\">status</a></td>
+		<td width=500> <a href=\"index.php?view=clients&orderby=rem\">rem</a></td>
+		<td width=200> <a href=\"index.php?view=clients&orderby=info\">info</a></td>
+		<td width=120> cmd </td>
+		<td width=120><a href=\"index.php?view=clients&orderby=working_hour_start\">workhour start</a> &nbsp; </b></td>
+		<td width=120><a href=\"index.php?view=clients&orderby=working_hour_end\">workhour end</a> &nbsp; </b></td>
+		<td></td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
@@ -170,14 +171,13 @@ if (isset($msg)) {
 	}
 	print "</table>";
 ?>
-<a href="index.php?view=clients&benchmark=all"><b class="ordre">benchmark ALL</b></a> - 
-<a href="index.php?view=clients&enable=all"><b class="ordre">enable ALL</b></a> - 
-<a href="index.php?view=clients&disable=all"><b class="ordre">disable ALL</b></a> - 
-<a href="index.php?view=clients&refresh=1"><b class="ordre">refresh</b></a> - 
-<a href="index.php?view=clients&enable=force_all"><b class="ordre">force_all_enable</b></a>
-<p><hr><p>
-<p><p>
-
+<div class="table-controls">
+	<a href="index.php?view=clients&benchmark=all"><b class="ordre">benchmark ALL</b></a> - 
+	<a href="index.php?view=clients&enable=all"><b class="ordre">enable ALL</b></a> - 
+	<a href="index.php?view=clients&disable=all"><b class="ordre">disable ALL</b></a> - 
+	<a href="index.php?view=clients&refresh=1"><b class="ordre">refresh</b></a> - 
+	<a href="index.php?view=clients&enable=force_all"><b class="ordre">force_all_enable</b></a>
+</div>
 
 <?php show_new_client_form(); ?>
 

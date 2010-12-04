@@ -43,5 +43,7 @@ if (isset($_GET['del'])) {
 	}
 	?>
 </table>
-<a href="index.php?view=orders&delete_all=1"><div class="ordre">delete_all</div></a>
+<div class="table-controls">
+	<a href="index.php?view=orders&delete_all=1"><div class="ordre">delete_all</div></a>
+</div>
 
