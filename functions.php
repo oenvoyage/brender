@@ -483,15 +483,21 @@ function output_progress_bar($start,$end,$current,$style="progress_bar") {
 	#$output.= "<br/>$done / $remaining";
 	return $output;
 }
-function show_last_rendered_frame() {
-	 $query="SELECT * FROM rendered_frames WHERE is_thumbnailed='1' ORDER BY finished_time DESC LIMIT 1";
-         $results=mysql_query($query);
-         $row=mysql_fetch_object($results);
-         $job_id=$row->job_id;
-         $rendered_by=$row->rendered_by;
-         $frame=$row->frame;
-         $finished_time=$row->finished_time;
-         print get_thumbnail_image($job_id,$frame);
+function show_last_rendered_frame($mode="simple") {
+	$query="SELECT * FROM rendered_frames WHERE is_thumbnailed='1' ORDER BY finished_time DESC LIMIT 1";
+        $results=mysql_query($query);
+        $row=mysql_fetch_object($results);
+        $job_id=$row->job_id;
+        $rendered_by=$row->rendered_by;
+        $frame=$row->frame;
+        $finished_time=$row->finished_time;
+	if ($mode=="full") {
+         	print get_thumbnail_image($job_id,$frame)."<br/>";
+		print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
+	}
+	else {
+         	print get_thumbnail_image($job_id,$frame);
+	}
 }
 function get_rendered_frames($job_id) {
 

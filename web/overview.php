@@ -25,7 +25,7 @@ if (isset($_GET['orderby_client'])) {
 	<tr><td>
 		<?php show_client_list();?>
 	</td><td>
-		 <?php show_last_rendered_frame();?>
+		 <?php show_last_rendered_frame("full");?>
 	</td></tr>
 	<tr class=header_row><td colspan=2>
 		//<b>current jobs</b>
@@ -96,18 +96,6 @@ function show_client_list() {
 	}
 	print "</table>";
 
-}
-function last_rendered_frame() {
-	$query="select * from rendered_frames where is_thumbnailed=1 order by finished_time";
-	$results=mysql_query($query);
-	$row=mysql_fetch_object($results);
-	$job_id=$row->job_id;
-	$rendered_by=$row->rendered_by;
-	$frame=$row->frame;
-	$finished_time=$row->finished_time;
-	$thumbnail_img=get_thumbnail_image($job_id,$frame);
-	return "<img src=\"$thumbnail_img\">";
-	
 }
 function show_job_list() {
 	#----------------------------
