@@ -69,6 +69,9 @@ function show_client_list() {
 		<td width=120><b> &nbsp; &nbsp; </td>
 	</tr>
 	<?php
+	 if (mysql_num_rows($results)==0) {
+		echo '"<tr><td class="header_row error" colspan=8> NO clients running (<a href="index.php?view=clients">click here to add</a>)</td></tr>';
+        } 
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
 		$status=$row->status;
@@ -141,6 +144,9 @@ function show_job_list() {
 			<td width=60> &nbsp; </td>
 			<td width=10> &nbsp; <a href=\"index.php?orderby_job=priority\">priority</a></td>
 		</tr>";
+		if (mysql_num_rows($results)==0) {
+                	echo '"<tr><td class="header_row warning" colspan=11> no jobs running</td></tr>';
+         	}  
 		while ($row=mysql_fetch_object($results)){
 
 			$id=$row->id;

@@ -234,6 +234,14 @@ form {
 
 
 /* ------------------status colors -------------------*/
+.error {
+	color:#ff2222;
+	background:#eeeedd;
+}
+.warning {
+	color:#992222;
+	background:#eeeedd;
+}
 
 .neutral {
 	background:#ddddcc;
@@ -246,9 +254,6 @@ form {
 }
 .rendering {
 	background:#99ccff;
-}
-.error {
-	color:#ff2222;
 }
 .not_running {
 	background:#ffcc99;

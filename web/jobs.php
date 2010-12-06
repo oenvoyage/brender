@@ -92,6 +92,10 @@ if (isset($_GET['del'])) {
 		<td> &nbsp; </td>
 	</tr>
 	<?php 
+	if (mysql_num_rows($results)==0) {
+       		echo '"<tr><td class="header_row warning" colspan=17> no jobs found (<a href="index.php?view=upload">click here to add</a>) or check <a href="index.php?view=projects">active projects</a></td></tr>';
+        }
+
 	while ($row=mysql_fetch_object($results)){
 
 		$id=$row->id;

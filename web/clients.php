@@ -131,6 +131,9 @@ if (isset($msg)) {
 		<td width=120><a href=\"index.php?view=clients&orderby=working_hour_end\">workhour end</a> &nbsp; </b></td>
 		<td></td>
 	</tr>";
+	if (mysql_num_rows($results)==0) {
+	 	echo '"<tr><td class="header_row error" colspan=8> NO clients found</td></tr>';
+	}
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
 		$status=$row->status;
