@@ -1,11 +1,41 @@
+<script>
+	$(function() {
+		$( "#tabs" ).tabs({
+			ajaxOptions: {
+				error: function( xhr, status, index, anchor ) {
+					$( anchor.hash ).html(
+						"Couldn't load this tab. We'll try to fix this as soon as possible. " +
+						"If this wouldn't be a demo." );
+				}
+			},
+			selected: 1
+		});
+	});
+</script>
+
+
+
+<h2>// <b>logs</b></h2>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Preloaded</a></li>
+		<li><a href="ajax/logs.php?log=server">server</a></li>
+		<li><a href="ajax/logs.php?log=brender">brender</a></li>
+	</ul>
+	<div id="tabs-1">
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+</div>
+
+
 <?php
-print "<h2>// <b>logs</b></h2>";
 
 #--------read---------
 	$query="select * from clients order by status";
 	$results=mysql_query($query);
 	print "<table border=0>";
-	print"<tr>";
+	print "<tr>";
 	print "<td bgcolor=dddddd align=center width=80><a href=\"index.php?view=logs&log=brender\">brender</a></td>";
 	print "<td width=80 height=25 align=center bgcolor=dddddd><a href=\"index.php?view=logs&log=server\">$qq<b>server</b></a> </td>";
 	while ($row=mysql_fetch_object($results)){
@@ -39,6 +69,7 @@ print "<h2>// <b>logs</b></h2>";
 	}
 	print "</tr></table>";
 print "<p><hr><p>";
+/*
 if ($log=$_GET[log]){ 
 	if ($_GET[max]) {
 		$_max=$_GET[max];
@@ -60,4 +91,5 @@ if ($log=$_GET[log]){
 	
 }
 print "<p><p>";
+*/
 ?>
