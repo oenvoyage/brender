@@ -82,6 +82,7 @@ a {
 	font-size: 12px;
 	color: #336699;
 	text-decoration: none;
+	outline: none;
 }
 a:hover {
 	color: #003366;
