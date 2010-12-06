@@ -7,14 +7,18 @@
 		$view = $_POST['view'];
 	}
 	
+	if(isset($_SESSION['user'])) {
+		$session_user = $_SESSION['user'];
+	}
+	
 	require_once('tpl/header.php');
 
 	require_once('tpl/menu.php');
 	
+	
 ?>
 	<div id="section">
 	<?php
-	
 		if (!$_SESSION['user']) {
 				//print('<div id="dialog">');
 				include "login.php";
