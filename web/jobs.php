@@ -125,8 +125,7 @@ if (isset($_GET['del'])) {
 		$total_rendered=get_rendered_frames($id);
 		$status_class=get_css_class($status);
 		$priority_color=get_priority_color($priority);
-		$thumbnail_img=get_thumbnail_image($id,$start);;
-		$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\"><img src=\"$thumbnail_image\" width=\"50\"></a>";
+		$thumbnail_image=get_thumbnail_image($id,$start,"thumbnail small");;
 		
 		if (preg_match("/(rendering|waiting)/",$status)) {
                 	$play_pause_button="<a href=\"index.php?view=jobs&pause=$id\"><img src=\"images/icons/pause.png\" /></a>";
@@ -137,7 +136,7 @@ if (isset($_GET['del'])) {
 
 		print "<tr class=$status_class>
 			<td>$padded_id</td> 
-			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
+			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail_image</a></td> 
 			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot <font size=1>($project)</b></a></td>
 			<td>
 				<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>

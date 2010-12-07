@@ -43,7 +43,7 @@ while ($q=1) {
 				$blender_path=get_blender_path();
 				$parsed=parse_render_command($rem); # parsing  the rendering command to get an array used later for generating thumbnails
 				$rendering_command=preg_replace("/(.*) -JOB (\d*)/","$1",$rem);  #parsing $rem to get the rendering command for blender (without the - JOB xx)
-				output("RENDER command $rendering_command");
+				output("RENDER command order $rem");
 
 				#--- we are now rendering the scene/chunk ...
 				set_status("$computer_name","rendering","$rendering_command");
@@ -56,8 +56,8 @@ while ($q=1) {
 
 				# --- now we send an order to server to generate the thumbnails
 				add_rendered_frames($parsed['job_id'],$parsed['start'],$parsed['end']);
-				//$thumbnail_creation_order="JOB=$parsed[job_id] START=$parsed[start] END=$parsed[end]";
-				//debug(" HHHHHHHHHHHHHHHHHHHHHH- $thumbnail_creation_order");
+				$thumbnail_creation_order="JOB=$parsed[job_id] START=$parsed[start] END=$parsed[end]";
+				debug(" HHHHHHHHHHHHHHHHHHHHHH- $thumbnail_creation_order");
 				// send_order("server","create_thumbnails",$thumbnail_creation_order,"20");
 				
 

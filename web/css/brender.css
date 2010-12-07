@@ -49,6 +49,12 @@ body {
 img.logo {
 	margin-bottom: 21px;
 }
+img.thumbnail {
+	border:solid 1px #000000;
+}
+img.small {
+	width:100px;
+}
 
 .metadata {
 	float: right;

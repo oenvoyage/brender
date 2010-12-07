@@ -402,23 +402,26 @@ function add_rendered_frames($job_id,$start,$end){
 function parse_render_command($render_command) {
 	#print "parsing $render_command<br/>";
 	$parsed=array();
-        preg_match("/(.*)\-s (.\d) \-e (.\d)\ -a \-JOB (\d*)/",$render_command,$preg_matches);
+        #preg_match("/(.*)\-s (.\d) \-e (.\d)\ -a \-JOB (\d*)/",$render_command,$preg_matches);
+        preg_match("/(.*)\-s (\d*) -e (\d*) -a -JOB (\d*)/",$render_command,$preg_matches);
         $parsed["start"]=$preg_matches[2];
         $parsed["end"]=$preg_matches[3];
         $parsed["job_id"]=$preg_matches[4];
         #$job_id=$preg_matches[2];
-        #print "JOB ID = $job_id start=".$parsed["start"]." end=$end<br/>";
+        debug("-----------------PARSING :: $render_command--------------------------");
+        debug("-----------------JOB ID = ".$parsed['job_id']." start=".$parsed["start"]." end=".$parsed['end']." --------------------------");
 	return $parsed;
 }
-function get_thumbnail_image($job_id,$image_number) {
+function get_thumbnail_image($job_id,$image_number,$class="") {
 	# function will output the <img src> of the thumbnail of a specific job_id and frame
+	debug("i try to get the frame $image_number from job_id= $job_id");
 	$thumbnail_path="thumbnails/";
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
-	$thumbnail_location="/thumbnails/$project/$scene/$shot/$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
-	return '<img src="'.$thumbnail_location.'">';
+	$thumbnail_location="/thumbnails/$project/$scene/$shot/small_$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	return "<img src=\"$thumbnail_location\" class=\"$class\">";
 }
 function create_thumbnail($job_id,$image_number) {
 	if ($GLOBALS[computer_name]=="web_interface") {

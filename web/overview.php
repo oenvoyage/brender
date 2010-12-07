@@ -178,7 +178,7 @@ function show_job_list() {
 			$play_pause_button="";
 			$status_class=get_css_class($status);
 			$priority_color=get_priority_color($priority);
-			$thumbnail_img=get_thumbnail_image($id,$frame);
+			$thumbnail_img=get_thumbnail_image($id,$start,"small");
 			$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail_img</a>";
 
 			if (preg_match("/(rendering|waiting)/",$status)) {
