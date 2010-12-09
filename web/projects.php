@@ -5,7 +5,7 @@ if ($projectid=$_GET[del]) {
 	# sleep(1);
 }
 if ($deactivate=$_GET[deactivate]) {
-	$queryqq="update projects set status='finished' where id=$deactivate;";
+	$queryqq="update projects set status='inactive' where id=$deactivate;";
 	mysql_query($queryqq);
 }
 if ($activate=$_GET[activate]) {
@@ -38,7 +38,7 @@ if (!$order_by=$_GET[order_by]) {
 	print "<h2>// <b>projects</b></h2>\n";
 	print "<table>\n";
 	print "<tbody>\n";
-	print "<tr>
+	print "<tr class=\"header_row\">
 		<td></td>
 		<td> &nbsp; </td>
 		<td> &nbsp; <a href=\"index.php?view=projects&order_by=name\">project</a></td>
@@ -58,26 +58,26 @@ if (!$order_by=$_GET[order_by]) {
 		$output_mac=$row->output_mac;
 		$output_win=$row->output_win;
 		$output_linux=$row->output_linux;
-		$status=$row->status;
+		$status=get_css_class($row->status);
 		if ($status=="active") {
 			$status_link='<a href="index.php?view=projects&deactivate=' . $id.'">active</a>';
 		}
 		else {
-			$status_link='<a href="index.php?view=projects&activate=' . $id.'">finished</a>';
+			$status_link='<a href="index.php?view=projects&activate=' . $id.'">inactive</a>';
 		}
 		$def=$row->def;
 		$bgcolor="ddddcc";
 		if ($def==1) {
 			$bgcolor="ccdddd";
 		}
-		print "<tr>
-			<td bgcolor=$bgcolor>$id</td> 
-			<td bgcolor=$bgcolor>$def</td> 
-			<td bgcolor=$bgcolor><a href=\"index.php?view=projects&def=$id\">$name</a></td> 
-			<td bgcolor=$bgcolor>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
-			<td bgcolor=$bgcolor>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
-			<td bgcolor=$bgcolor>$rem</td> 
-			<td bgcolor=$bgcolor>$status_link</td> 
+		print "<tr class=\"$status\">
+			<td>$id</td> 
+			<td>$def</td> 
+			<td><a href=\"index.php?view=projects&def=$id\">$name</a></td> 
+			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
+			<td>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
+			<td>$rem</td> 
+			<td>$status_link</td> 
 			<td><a href=\"index.php?view=projects&del=$id\">x</a></td>
 		</tr>";
 	}

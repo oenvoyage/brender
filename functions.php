@@ -99,6 +99,12 @@ function get_css_class($status) {
 	else if (preg_match("/waiting/",$status)) {
 		return "waiting";
 	}
+	else if (preg_match("/inactive/",$status)) {
+		return "inactive";
+	}
+	else if (preg_match("/active/",$status)) {
+		return "active";
+	}
 	
 }
 function check_if_client_should_work($client_name="check all") {
