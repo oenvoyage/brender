@@ -102,6 +102,8 @@
 		<input type="submit" value="update <?php print $client?>"><br/>&nbsp;<br/>
 	</form>
 	<a href="index.php?view=clients&delete=<?php print $client?>">delete <?php print $client ?></a>
+
+	<h2>// 5 last rendered frames </h2>
 	<?php show_last_rendered_frame_by_client($client); ?>
 	
 

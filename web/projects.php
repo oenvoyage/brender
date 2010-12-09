@@ -40,13 +40,13 @@ if (!$order_by=$_GET[order_by]) {
 	print "<tbody>\n";
 	print "<tr class=\"header_row\">
 		<td></td>
-		<td> &nbsp; </td>
-		<td> &nbsp; <a href=\"index.php?view=projects&order_by=name\">project</a></td>
-		<td> &nbsp; .blend path</td>
-		<td> &nbsp; output path</td>
-		<td> &nbsp; <a href=\"index.php?view=projects&order_by=rem\">rem</a></td>
-		<td> status </td>
-		<td> &nbsp; </td>
+		<td> default </td>
+		<td> <a href=\"index.php?view=projects&order_by=name\">project</a></td>
+		<td> .blend path</td>
+		<td> output path</td>
+		<td> <a href=\"index.php?view=projects&order_by=rem\">rem</a></td>
+		<td> </td>
+		<td>&nbsp;</td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
@@ -68,17 +68,20 @@ if (!$order_by=$_GET[order_by]) {
 		$def=$row->def;
 		$bgcolor="ddddcc";
 		if ($def==1) {
-			$bgcolor="ccdddd";
+			$is_default="<img src=\"images/icons/close.png\">";
+		}
+		else {
+			$is_default="";
 		}
 		print "<tr class=\"$status\">
 			<td>$id</td> 
-			<td>$def</td> 
+			<td>$is_default</td> 
 			<td><a href=\"index.php?view=projects&def=$id\">$name</a></td> 
 			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
 			<td>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
 			<td>$rem</td> 
 			<td>$status_link</td> 
-			<td><a href=\"index.php?view=projects&del=$id\">x</a></td>
+			<td>&nbsp;<a href=\"index.php?view=projects&del=$id\"><img src=\"images/icons/close.png\"></a></td>
 		</tr>";
 	}
 

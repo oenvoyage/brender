@@ -277,7 +277,7 @@ form {
 	background:#ddeddd;
 }
 .active {
-	background:#ffcc33;
+	background:#bcffa6;
 }
 .inactive {
 	background:#e1e1e1;
@@ -407,6 +407,7 @@ span.progress-bar img {
 
 table {
 	width: 100%;
+	
 }
 
 table tr {
