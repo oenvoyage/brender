@@ -187,7 +187,8 @@ function change_order_owner($id,$client) {
 	# print "### $client deleted order $id\n";
 }
 function delete_node($node) {
-	$query="delete from clients where name='$node'";
+	$query="delete from clients where client='$node'";
+	debug("delete query $query");
 	mysql_query($query);
 }
 function remove_order($id) {

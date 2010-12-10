@@ -48,12 +48,12 @@ while ($q=1) {
 				$blender_path=get_blender_path();
 				$parsed=parse_render_command($rem); # parsing  the rendering command to get an array used later for generating thumbnails
 				$rendering_command=preg_replace("/(.*) -JOB (\d*)/","$1",$rem);  #parsing $rem to get the rendering command for blender (without the - JOB xx)
-				output("RENDER command order $rem");
+				debug("RENDER command order $rem");
 
 				#--- we are now rendering the scene/chunk ...
 				set_status("$computer_name","rendering","$rendering_command");
 				$render_query="$blender_path $rendering_command";
-				output("render_query=$render_query\n");
+				output("-  I am rendering using this command = $render_query\n");
 				system($render_query);
 
 				#--- once rendering is finished we erase the order
