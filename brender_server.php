@@ -42,6 +42,11 @@ while ($q=1) {
 		$status=$row->status;
 		$rem=$row->rem;
 		if ($status=="idle") {
+			if (check_if_client_has_order_waiting($client)) {
+				# ... the client seems to be already do something... abort;
+				debug("error --- client $client has already an order waiting");
+				break;
+			}
 			# print "$client is idle .... checking for a job\n";
 			$query="select * from jobs where status='waiting' or status='rendering' order by priority limit 1;";
 			$results_job=mysql_query($query);

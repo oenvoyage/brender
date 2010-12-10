@@ -211,6 +211,12 @@ function server_start($pid){
 	mysql_query($query);
 	print "STARTED SERVER $status $rem\n";
 }
+function check_if_client_has_order_waiting($client) {
+        $query="select count(orders) from orders where client='$client'";
+        $results=mysql_query($query);
+        $check_result=mysql_result($results,0);
+	return $check_result;
+}
 function check_server_is_dead() {
 	#---to check if server is running, we send him a ping order. If he is alive, it will remove the order. If not the order will still be there after 3 sconds, meaning the server is ko
 	send_order("server","ping","","1");
