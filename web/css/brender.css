@@ -467,7 +467,7 @@ table tr {
 	color: #c66f38;
 }
 
-.result {
+.result, #render_configs .ui-tabs-panel {
 	font-family: Courier, Monaco;
 	font-size: 11px;
 }

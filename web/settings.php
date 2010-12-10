@@ -1,3 +1,38 @@
+<script>
+	$(function() {
+		$( "#render_configs" ).tabs({
+			ajaxOptions: {
+				error: function( xhr, status, index, anchor ) {
+					$( anchor.hash ).html(
+						"Couldn't load this tab. We'll try to fix this as soon as possible.");
+				}
+			},
+			selected: 0
+		});
+	});
+</script>
+
+<h2>// <strong>server</strong> settings</h2>
+
+<p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>
+
+<h2>// <strong>render</strong> configurations</h2>
+
+<div id="render_configs">
+	<ul>
+		<?php		
+		$list= `ls ../conf/`;
+		$list=preg_split("/\n/",$list);
+		foreach ($list as $item) {
+			$item=preg_replace("/\.py/","",$item);
+			if ($item <> "") {
+				print "<li><a href=\"ajax/render_configs.php?edit=$item\">$item</a><li> ";
+			}
+		}		
+		?>
+	</ul>
+</div>
+
 <?php
 #print "sid = $sid <br/>";
 
@@ -44,14 +79,12 @@ if (isset($_GET['disable_sound'])) {
 if (isset($_GET['test'])) {
 }
 
-print "<h2>// <strong>server</strong> settings</h2>";
 system_status();
 theme_chooser();
 print "<br/>";
 print "<a class=\"grey\" href=\"index.php?view=settings&debug=1\">switch debug</a> <br/>";
 print "<a class=\"grey\" href=\"index.php?view=settings&do_the_test=1\">do a test</a> <br/>";
 print "<a class=\"button grey\" href=\"index.php?view=projects\">manage projects</a> ";
-print "<a class=\"button grey\" href=\"index.php?view=render_configs\">manage render configs</a> ";
 print "<br/>";
 print "<br/>";
 print "<a class=\"button grey\" href=\"index.php?view=settings&check_server_status=1\">check server status</a> ";
