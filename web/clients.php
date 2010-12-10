@@ -103,7 +103,7 @@
 			$msg="<span class=\"error\">error, please enter a client name</span>";
 		}
 		else {
-			$add_query="insert into clients values('','$new_client_name','$_POST[speed]','$_POST[machinetype]','$_POST[machine_os]','$_POST[blender_manual_path]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
+			$add_query="insert into clients values('','$new_client_name','$_POST[speed]','$_POST[machinetype]','$_POST[machine_os]','$_POST[blender_local_path]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
 			mysql_query($add_query);
 			$msg="created new client $_POST[client] $add_query";
 		}
@@ -196,7 +196,7 @@ if (isset($msg)) {
 				<option>mac</option>
 				<option>windows</option>
 			</select><br/>
-			blender local path (leave empty to use the /blender remote folder in brender_root) : <br/><input type="text" name="blender_manual_path" size="80"><br>
+			blender local path (leave empty to use the /blender remote folder in brender_root) : <br/><input type="text" name="blender_local_path" size="80"><br>
 			machine type <select name="machinetype">
 				<option>rendernode</option>
 				<option>workstation</option>

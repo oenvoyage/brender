@@ -24,7 +24,7 @@
 		$msg="client $client deleted :: ok $dquery";
 	}
 	if ($_POST['action']=="update") {
-		$uquery="update clients set speed='$_POST[speed]',machinetype='$_POST[machinetype]',blender_manual_path='$POST[blender_manual_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
+		$uquery="update clients set speed='$_POST[speed]',machinetype='$_POST[machinetype]',blender_local_path='$POST[blender_local_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
 		mysql_query($uquery);
 		$msg="$client updated :: ok <br/>";
 		$msg.="<a href=\"index.php?view=clients\">back to clients list</a>";
@@ -52,7 +52,7 @@
 		$speed=$row->speed;
 		$machinetype=$row->machinetype;
 		$machine_os=$row->machine_os;
-		$blender_manual_path=$row->blender_manual_path;
+		$blender_local_path=$row->blender_local_path;
 		$client_priority=$row->client_priority;
 		$working_hour_start=$row->working_hour_start;
 		$working_hour_end=$row->working_hour_end;
@@ -90,7 +90,7 @@
 
 		<h3>machine description</h3>
 		operating system (<?php echo $machine_os ?>)<br/>
-		blender manual path (leave empty to use the /blender folder in brender_root : <br/><input type="text" name="blender_manual_path" size="80" value="<?php print $blender_manual_path?>"><br>
+		blender local path (leave empty to use the /blender folder in brender_root : <br/><input type="text" name="blender_local_path" size="80" value="<?php print $blender_local_path?>"><br>
 		machine type <select name="machinetype">
 			<option>workstation</option>
 			<option <?print $rendernode_selected?>>rendernode</option>

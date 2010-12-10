@@ -54,9 +54,9 @@ if ($log=$_GET[log]){
 		$machine=$lines[3];
 		$rest=$lines[4];
 		#print_r($lines);
-		print "$line<br/>";
-		#print "$machine@$date $time ::<br/>";
-		#print "<b>$rest</b>";
+		#print "$line<br/>";
+		print "$machine@$date $time ::<br/>";
+		print "<b>$rest</b>";
 		print "<br/>----------------<br/>";
 	}
 	print $text_note;

@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `client` varchar(32) NOT NULL,
   `speed` tinyint(4) NOT NULL,
   `machinetype` varchar(24) NOT NULL DEFAULT 'node',
-  `blender_manual_path` varchar(512) NOT NULL,
+  `blender_local_path` varchar(512) NOT NULL,
   `machine_os` varchar(16) NOT NULL,
   `client_priority` tinyint(4) NOT NULL,
   `status` varchar(128) NOT NULL DEFAULT 'not running',
