@@ -506,7 +506,7 @@ function output_progress_bar($start,$end,$current,$style="progress_bar") {
 	}
 	$done=$percent/2;
 	$remaining=(100-$percent)/2;
-	$output= "<img src=\"images/cube_light_green.png\" style=\"width:".$done."px;\" class=\"$style\"/>";
+	$output= "<img src=\"images/cube_light_green.png\" style=\"width:".$done."px;\" class=\"$style\" alt=\"$percent% done\"/>";
 	#$output.="<img src=\"images/cube_red.png\" style=\"width:".$remaining."px;\" class=\"$style\"/>";
 	#$output.= "<br/>$done / $remaining";
 	return $output;
@@ -520,7 +520,7 @@ function show_last_rendered_frame($mode="simple") {
         $frame=$row->frame;
         $finished_time=$row->finished_time;
 	if ($mode=="full") {
-         	print get_thumbnail_image($job_id,$frame)."<br/>";
+         	print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">".get_thumbnail_image($job_id,$frame)."</a><br/>";
 		print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
 	}
 	else {

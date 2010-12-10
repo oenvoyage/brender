@@ -122,7 +122,7 @@ function show_last_rendered_frame_by_client($client) {
 		$frame=$row->frame;
         	$finished_time=$row->finished_time;
 		print "<td>";
-		print get_thumbnail_image($job_id,$frame)."<br/>";
+		print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">".get_thumbnail_image($job_id,$frame)."</a><br/>";
                 print "finished @ $finished_time<br/>";
                 print "job_id <a href=\"index.php?view=view_job&id=$job_id\">$job_id</a><br/>";
 		print "</td>";

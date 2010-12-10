@@ -85,7 +85,6 @@ if (isset($_GET['del'])) {
 		<td>rendered</td>
 		<td width=10><a href="index.php?view=jobs&order_by=status">status</a> &nbsp; </td>
 		<td width=70></td>
-		<td width=60 align=center> &nbsp; </td>
 		<td width=10 align=center> lastseen </td>
 		<td> last edited by </td>
 		<td> &nbsp; <a href="index.php?view=jobs&order_by=priority">priority</a></td>
