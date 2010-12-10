@@ -14,15 +14,13 @@ function output($msg,$type="info") {
 	print "$msg\n";
 }
 function debug($msg) {
-	if ($GLOBALS[computer_name]=="web_interface") {
-		if ($_SESSION[debug]) { 
+	if ($_SESSION[debug]) { 
 		# only display debug message on web interface when _SESSION debug is enabled
-			print "## DEBUG :: $msg<br/>";
-		}
+		print "****  DEBUG ***** :: $msg<br/>";
 	}
-	else {
-		# --- for command_line we always display debug messages
-		print "## DEBUG :: $msg\n";
+	if ($GLOBALS[debug_mode]) { 
+		# --- for command_line we display debug messages if debug_mode global is on
+		print "**** DEBUG ***** :: $msg\n";
 	}
 }
 function check_client_exists($client) {

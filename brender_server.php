@@ -12,6 +12,12 @@ output("---- brender server 0.5 ----");
     $pid=getmypid();
     $imagemagick_root=""; # keep empty if $IMAGEMAGICK_HOME is set 
 #-----------------------------------------------------
+if ($argv[1] =="debug") {
+                        # -- we enable debug mode ------
+       $GLOBALS[debug_mode]=1;
+       debug(" STARTED IN DEBUG MODE ");
+}
+
 
 output("process id=$pid");
 brender_log("SERVER STARTS $pid");

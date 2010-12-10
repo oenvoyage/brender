@@ -10,6 +10,11 @@ else {
 	if (check_client_exists($argv[1])) {
 		$computer_name=$argv[1];
 		$GLOBALS[computer_name]=$computer_name;
+		if ($argv[2] =="debug") {
+			# -- we enable debug mode ------
+			$GLOBALS[debug_mode]=1;
+			debug(" STARTED IN DEBUG MODE ");
+		}
 	}
 	else {
 		die("ERROR :: computer not found in client list, please check name again or add it to the list\n");
