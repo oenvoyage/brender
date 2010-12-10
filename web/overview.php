@@ -27,6 +27,7 @@ if (isset($_GET['orderby_client'])) {
 	</td><td>
 		 <?php show_last_rendered_frame("full");?>
 	</td></tr>
+	<tr class="spacer_row"></tr>
 	<tr class=header_row><td colspan=2>
 		//<b>current jobs</b>
 	</td></tr>

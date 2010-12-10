@@ -183,9 +183,14 @@ form {
 	padding:10px;
 	font-size:12px;
 }
+.spacer_row {
+	height:30px;
+}
 .header_row {
-	height:20px;
-	background:#cccccc;
+	# background:#cccccc;
+	background: -webkit-gradient(linear, left top, left bottom, from(#d8d8d8), to(#bdbdbd));
+        background: -moz-linear-gradient(top, #bdbdbd, #9d9d9d);
+	height:30px;
 	padding:10px;
 	margin:10px;
 	text-align:center;
@@ -271,7 +276,13 @@ form {
 .finished2 {
 	background:#ddeddd;
 }
-.pause{
+.active {
+	background:#bcffa6;
+}
+.inactive {
+	background:#e1e1e1;
+}
+.pause {
 	background:#ffff99;
 }
 .waiting {
@@ -396,6 +407,7 @@ span.progress-bar img {
 
 table {
 	width: 100%;
+	
 }
 
 table tr {
