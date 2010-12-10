@@ -408,4 +408,77 @@ table tr {
 }
 
 
-.ui-widget-overlay {background: #000 url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30);}
+.ui-widget-overlay {
+	background: #000 url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30);
+	}
+
+#tabs {
+	margin-bottom: 15px;
+}
+
+.ui-state-active a.rendering, 
+.ui-state-active a.rendering:link, 
+.ui-state-active a.rendering:visited,
+.ui-state-default a.rendering, 
+.ui-state-default a.rendering:link, 
+.ui-state-default a.rendering:visited {
+	color: #66AAFF;
+	background-color: transparent;
+}
+
+.ui-state-hover a.rendering, 
+.ui-state-hover a.rendering:link, 
+.ui-state-hover a.rendering:visited {
+	color: #0066AA;
+}
+
+
+.ui-state-active a.idle, 
+.ui-state-active a.idle:link, 
+.ui-state-active a.idle:visited,
+.ui-state-default a.idle, 
+.ui-state-default a.idle:link, 
+.ui-state-default a.idle:visited {
+	color: #88b97b;
+	background-color: transparent;
+}
+
+.ui-state-hover a.idle, 
+.ui-state-hover a.idle:link, 
+.ui-state-hover a.idle:visited {
+	color: #6a9369;
+}
+
+
+.ui-state-active a.not_running, 
+.ui-state-active a.not_running:link, 
+.ui-state-active a.not_running:visited,
+.ui-state-default a.not_running, 
+.ui-state-default a.not_running:link, 
+.ui-state-default a.not_running:visited {
+	background-color: transparent;
+	color: #dd7c3e;
+}
+
+.ui-state-hover a.not_running, 
+.ui-state-hover a.not_running:link, 
+.ui-state-hover a.not_running:visited {
+	background-color: transparent;
+	color: #c66f38;
+}
+
+.result {
+	font-family: Courier, Monaco;
+	font-size: 11px;
+}
+
+.more, .less {
+	cursor: pointer;
+	font-weight: bold;
+	font-family: sans-serif;
+	margin-top: 5px;
+}
+
+.more:hover, .less:hover {
+	text-decoration: underline;
+}
