@@ -196,7 +196,7 @@ if (isset($msg)) {
 				<option>mac</option>
 				<option>windows</option>
 			</select><br/>
-			blender manual path (leave empty to use the /blender folder in brender_root : <br/><input type="text" name="blender_manual_path" size="80"><br>
+			blender local path (leave empty to use the /blender remote folder in brender_root) : <br/><input type="text" name="blender_manual_path" size="80"><br>
 			machine type <select name="machinetype">
 				<option>rendernode</option>
 				<option>workstation</option>

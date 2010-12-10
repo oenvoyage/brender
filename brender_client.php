@@ -25,7 +25,7 @@ set_status("$computer_name","idle",'');
 set_info($computer_name,'');
 $os=get_client_os($computer_name);
 output("computer name=$computer_name os=$os");
-output("process id=".getmypid()."\n");
+output("process id=".getmypid());
 brender_log("START $computer_name");
 
 while ($q=1) {
@@ -53,7 +53,7 @@ while ($q=1) {
 				#--- we are now rendering the scene/chunk ...
 				set_status("$computer_name","rendering","$rendering_command");
 				$render_query="$blender_path $rendering_command";
-				output("-  I am rendering using this command = $render_query\n");
+				output("-  I am rendering using this command = $render_query");
 				system($render_query);
 
 				#--- once rendering is finished we erase the order

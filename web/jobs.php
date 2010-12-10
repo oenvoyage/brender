@@ -136,8 +136,8 @@ if (isset($_GET['del'])) {
 
 		print "<tr class=$status_class>
 			<td>$padded_id</td> 
-			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail_image</a></td> 
-			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot <font size=1>($project)</b></a></td>
+			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$random_x\">$thumbnail_image</a></td> 
+			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$random_x\"><b>$shot <font size=1>($project)</b></a></td>
 			<td>
 				<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>
 				$progress_status <small>$progress_remark</small>
@@ -164,6 +164,6 @@ if (isset($_GET['del'])) {
 	<div class="table-controls">
 		<a href="index.php?view=upload\"><b class="ordre">new job</a></b> - 
 		<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> - 
-		<a href="index.php?view=jobs&x=$random_x"><b class="ordre">reload</a></b> - 
+		<a href="index.php?view=jobs&x=<?php $random_x ?>"><b class="ordre">reload</a></b> - 
 		<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>
 	</div>

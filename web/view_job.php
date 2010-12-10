@@ -8,9 +8,6 @@ else {
 	$bgcolor= "white";
 	
 }
-if ($_GET[visual]=="1") {
-	$visual=1;
-}
 #--------read---------
 	$id=$_GET[id];
 	$query="select * from jobs where id='$id'";
@@ -49,7 +46,7 @@ if ($_GET[visual]=="1") {
 	print "<tr><td width=200>";
 		print "<a href=\"index.php\">back to overview</a><br/>";
 		print "<a href=\"index.php?view=jobs\">jobs</a><br/>";
-		print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$option_couleur&visual=$visual\">$option_couleur</a><br/>";
+		print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$option_couleur\">$option_couleur</a><br/>";
 		print "$total frames ($start-$end by $chunks)<br/>";
 		$total_rendered=get_rendered_frames($id);
 		print "$total_rendered rendered frames<br/>";
@@ -99,14 +96,12 @@ if ($_GET[visual]=="1") {
 	print "<tr>";
 	#-------------------------------les images ------------------------------
 	$a=$start;
-	$ext=filetype_to_ext($filetype);
-        $first_image="../thumbnails/$project/$scene/$shot/small_$shot".str_pad($start,4,0,STR_PAD_LEFT).".$ext";
+	$first_image=get_thumbnail_image($id,$start);
 
-	if ($visual) {
-		$img_chunks=round(($total)/20);
-		# print "a= $a --- start $start -- end $end -- totalframes $total img_chunks =$img_chunks </br>";
-		print "<td><a href=\"index.php?view=view_image&id=$id&name=$name&image=$first_image&bgcolor=$bgcolor&project=$project\"><img src=\"$first_image\" width=\"200\"></a><br/>$start</td>";
-		$rows=1;
+	$img_chunks=round(($total)/20);
+	# print "a= $a --- start $start -- end $end -- totalframes $total img_chunks =$img_chunks </br>";
+	print "<td><a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$first_image</a><br/>$a<br/></td>";
+	$rows=1;
 	while ($a++<($total+$start)){
 		$b++;
 		# print " a= $a ---- b=$b/$img_chunks <br/>";
@@ -119,15 +114,11 @@ if ($_GET[visual]=="1") {
                                         #send_order("any","render",$render_order,"20");
 			}
 			*/
-                        $thumbnail_image="../thumbnails/$project/$scene/$shot/small_$shot".str_pad($a,4,0,STR_PAD_LEFT).".$ext";
-                        /*if (!file_exists($thumbnail_image)) {
-                                #print "FILE DOESNT EXIST $thumbnail_image<br/>";
-                                create_thumbnail($id,$a);
-                        }
-			*/
+                        #$thumbnail_image="../thumbnails/$project/$scene/$shot/small_$shot".str_pad($a,4,0,STR_PAD_LEFT).".$ext";
+			$thumbnail_image=get_thumbnail_image($id,$a);
 
 			print "<td bgcolor=\"$tdcolor\">";
-				print "<a href=\"index.php?view=view_image&id=$id&name=$name&image=$thumbnail_image&bgcolor=$bgcolor&project=$project\"><img src=\"$thumbnail_image\" border=0 width=\"200\"></a><br/>$a<br/>";
+				print "<a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$thumbnail_image</a><br/>$a<br/>";
 			print "</td>";
 			$b=0;
 			#  print "row = $rows";
@@ -140,11 +131,6 @@ if ($_GET[visual]=="1") {
 	print "</tr></table><br>";
 	#print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$bgcolor&visual=1&renderpreview=1\">render preview</>";
 	print "<hr>";
-	}
-	#-------------------------------------------------------------------
-	if (!$visual) {
-		print "<a href=\"index.php?view=view_job&id=$id&visual=1&bgcolor=$bgcolor\"><img src=\"$first_image\" width=\"200\" border=1></a><br/><hr>";
-	}
 #--------read---------
 	print "<a href=\"index.php?view=jobs\">back to job list</a>";
 ?>

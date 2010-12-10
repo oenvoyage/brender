@@ -48,15 +48,15 @@ if ($log=$_GET[log]){
 		}
 		#$line =preg_replace('/(\d{4}\/\d\d\/\d\d\)/i','<small>$1</small>',$line);
 		#$lines =preg_match('/(\d{4}\/\d\d\/\d\d) (\d\d:\d\d:\d\d)/i','<small>$1</small><big>$2</big>',$line);
-		preg_match('/(\d{4}\/\d\d\/\d\d) (\d\d:\d\d:\d\d) (\w*): (.*)/i',$line,$lines);
+		preg_match('/(\d{4}\/\d\d\/\d\d) (\d\d:\d\d:\d\d) (\w*)\: (.*)/i',$line,$lines);
 		$date=$lines[1];
 		$time=$lines[2];
 		$machine=$lines[3];
 		$rest=$lines[4];
 		#print_r($lines);
-		#print "$line<br/>";
-		print "$machine@$date $time ::<br/>";
-		print "<b>$rest</b>";
+		print "$line<br/>";
+		#print "$machine@$date $time ::<br/>";
+		#print "<b>$rest</b>";
 		print "<br/>----------------<br/>";
 	}
 	print $text_note;

@@ -439,7 +439,7 @@ function parse_render_command($render_command) {
 }
 function get_thumbnail_image($job_id,$image_number,$class="") {
 	# function will output the <img src> of the thumbnail of a specific job_id and frame
-	debug("i try to get the frame $image_number from job_id= $job_id");
+	debug("i try to get the frame $image_number from job_id= $job_id and output the image");
 	$thumbnail_path="thumbnails/";
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
