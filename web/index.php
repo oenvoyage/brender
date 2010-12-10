@@ -85,7 +85,9 @@
 			}			
 	
 		}
-	?>	
+	?>
+	
+	<?php include "upload.php"; ?>	
 	</div>
 </div>
 <?php

@@ -17,7 +17,7 @@
 								var obj = jQuery.parseJSON(data);
 								//alert(data);
 								if(obj.status == true) {
-									$("#dialog-form").dialog("close" );
+									//$("#dialog-form").dialog("close" );
 									window.location= 'index.php';
 								} else {
 									alert(obj.msg);
@@ -53,8 +53,7 @@
 				<fieldset class="login">
 					<div class="col_1">
 						<label for="username">Username</label>
-						<label for="password">Password</label>
-			            
+						<label for="password">Password</label>          
 					</div>
 					<div class="col_2">
 						<input id="username" type="text" name="username" value="brender" />	
@@ -64,4 +63,3 @@
 					<input id="do_login" type="hidden" name="do_login" value="true" />
 				</fieldset>
 		</div>
-		

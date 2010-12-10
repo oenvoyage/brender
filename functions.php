@@ -426,11 +426,11 @@ function get_thumbnail_image($job_id,$image_number,$class="") {
 function create_thumbnail($job_id,$image_number) {
 	if ($GLOBALS[computer_name]=="web_interface") {
 		#print "WEBBBBBB<br/>";
-		$thumbnail_path="../thumbnails/";
+		$thumbnail_path="../thumbnails";
 		#$input_prefix="../";
 	}
 	else {
-		$thumbnail_path="thumbnails/";
+		$thumbnail_path="thumbnails";
 	}
 	
 	debug("----------------------------------");
