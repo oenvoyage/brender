@@ -152,6 +152,20 @@ function get_path($project,$what,$os="NONE") {
 	return $qq;
 }
 function get_blender_path() {
+	$query="select blender_manual_path from clients where client='$GLOBALS[computer_name]'";
+	$results=mysql_query($query);
+	$manual_path=mysql_result($results,0);
+	debug("****************** manual path  = $manual_path *****************");
+	if ($manual_path) {
+		if (file_exists($manual_path)) {
+			# --- there is a manual_path set in the client table, so we return it
+			return $manual_path;
+		}
+		else {
+			output("blender manual path not found :: $manual_path .... switching to server one","warning");
+		}
+	}
+	# ---there is no manual_path, so we take the blender form the brender_root
 	switch($GLOBALS['os']) {
 		case "mac":
 			$path="blender/mac/blender.app/Contents/MacOS/blender";
