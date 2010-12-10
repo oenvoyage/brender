@@ -16,16 +16,26 @@ if(isset($_GET['max'])) {
 			  $('.more').hide();
 			});
 		});
+		
+		$('.less').click(function(){
+			$.get('ajax/logs.php?log=<?php echo $log; ?>&max=100', function(data) {
+			  $('.result').html(data);
+			  //alert('Load was performed.');
+			  $('.less').hide();		  
+			});
+		});
+		
 </script>
 
 <?php
 if ($log=$_GET[log]){ 
 	if ($_GET[max]) {
 		$_max=$_GET[max];
-		echo('Showing more content');
+		$text_note = "<p class=\"less\">show less content...</p><br/>";	
 	}
 	else {
 		$_max=100;	
+		$text_note = "<p class=\"more\">more...</p><br/>";
 	}
 	?> <div class="result"><?php
 	//print "<b>$log log</b><br/>";
@@ -38,7 +48,7 @@ if ($log=$_GET[log]){
 		}
 		print "$line<br/>";
 	}
-	print "<p class=\"more\">more...</p><br/>";
+	print $text_note;
 	?> </div><?php	
 }
 ?>
