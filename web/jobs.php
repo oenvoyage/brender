@@ -13,10 +13,12 @@ if (isset($_GET['order_by'])) {
 #----------------------------
 if (isset($_GET['restart_all_paused'])) {
 	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active') and status='pause');";
+	output("ALL PAUSED JOBS RESTARTED");
 	mysql_query($queryqq);
 }
 if (isset($_GET['restart_all'])) {
 	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active'));";
+	output("ALL JOBS RESTARTED");
 	mysql_query($queryqq);
 }
 if (isset($_POST['updateid'])) {
@@ -57,6 +59,7 @@ if (isset($_GET['start'])) {
 }
 if (isset($_GET['del'])) {
 	$queryqq="delete from jobs where id=$_GET[del];";
+	output("DELETED job $_GET[del]");
 	mysql_query($queryqq);
 	# sleep(1);
 }
