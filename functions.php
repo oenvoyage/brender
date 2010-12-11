@@ -80,6 +80,14 @@ function get_css_class($status) {
 	else if (preg_match("/not running/",$status)) {
 		return "not_running";
 	}
+	else if (preg_match("/running/",$status)) {
+		# for server status
+		return "idle";
+	}
+	else if (preg_match("/died/",$status)) {
+		# for server status
+		return "not_running";
+	}
 	else if (preg_match("/pause/",$status)) {
 		return "pause";
 	}
@@ -200,14 +208,14 @@ function remove_order($id) {
 	 #print "### $client of $os deleted order $id\n";
 }
 function server_stop($pid){
-	$query="update status set pid='$pid',status='stopped',started=now()";
+	$query="update server_settings set pid='$pid',status='stopped',started=now()";
 	# print "\n query = $query ----\n";
 	mysql_unbuffered_query($query);
 	print "STOPPED SERVER \n";
 	stop();
 }
 function server_start($pid){
-	$query="update status set pid='$pid',status='running',started=now()";
+	$query="update server_settings set pid='$pid',status='running',started=now()";
 	# 	print "\n query = $query ----\n";
 	mysql_query($query);
 	print "STARTED SERVER $status $rem\n";
@@ -232,29 +240,29 @@ function check_server_status(){
 	# command to see if the server is running or dead
         if (check_server_is_dead()){
 		$GLOBALS['computer_name']="web_interface";
-		set_server_status("status","died");
-		set_server_status("pid","0");
-		set_server_status("started","now()");
+		set_server_settings("status","died");
+		set_server_settings("pid","0");
+		set_server_settings("started","now()");
 		brender_log("server not responding (PING)");
 		brender_log("SERVER DIED");
 		$color="red";
 		$status="SERVER DIED !!!!!!!!<br/>";
        	}
 	else {
-		set_server_status("status","running");
+		set_server_settings("status","running");
 		$color="green";
 		$status="server is running";
 	}
 	print "<font color=$color>$status $pid</font>\n";
 }
-function get_server_status(){
-	$query="select status from status;";
+function get_server_settings($setting){
+	$query="select $setting from server_settings;";
 	$results=mysql_query($query);
 	$status=mysql_result($results,0);
 	return $status;
 }
-function set_server_status($key,$value){
-	$query="update status set $key='$value'";
+function set_server_settings($key,$value){
+	$query="update server_settings set $key='$value'";
 	mysql_unbuffered_query($query);
 	#	print "### $client status : $status $rem\n";
 }

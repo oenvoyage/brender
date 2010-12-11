@@ -71,12 +71,12 @@ if (isset($_GET['check_server_status'])) {
 	check_server_status();
 }
 if (isset($_GET['enable_sound'])) {
-	$query="update status set sound='yes'";
+	$query="update server_settings set sound='yes'";
 	mysql_unbuffered_query($query);
 	print "sound enabled<br/>";
 }
 if (isset($_GET['disable_sound'])) {
-	$query="update status set sound='no'";
+	$query="update server_settings set sound='no'";
 	mysql_unbuffered_query($query);
 	print "sound disabled<br/>";
 }
@@ -97,16 +97,17 @@ print_r($_SESSION);
 
 #------------------ system status -----------------
 function system_status() {
-	$query="select server,status,pid,started,timediff(now(),started) as uptime,sound from status;";
+	$query="select server,status,pid,started,timediff(now(),started) as uptime,sound from server_settings;";
 	$results=mysql_query($query);
 	print "<table width=600>";
-	print "<tr>
-		<td bgcolor=cccccc width=120 align=center><b> &nbsp; server &nbsp; </b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>status</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>pid</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>uptime</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>started</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>sound</b></td>
+	print "<tr class=\"header_row\">
+		<td><b> &nbsp; server &nbsp; </b></td>
+		<td><b>status</b></td>
+		<td><b>pid</b></td>
+		<td><b>uptime</b></td>
+		<td><b>machine os</b></td>
+		<td><b>started</b></td>
+		<td><b>sound</b></td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$server=$row->server;
@@ -114,15 +115,18 @@ function system_status() {
 		$started=$row->started;
 		$uptime=$row->uptime;
 		$sound=$row->sound;
+		$server_os=$row->server_os;
 		$pid=$row->pid;
 		$bgcolor="#cccccc";
+		$status_class=get_css_class($status);
 		print "<tr>
 			<td bgcolor=$bgcolor align=center>$server</td>
-			<td bgcolor=ddddcc align=center>$status</td> 
-			<td bgcolor=ddddcc align=center>$pid</td> 
-			<td bgcolor=ddddcc align=center>$uptime</td> 
-			<td bgcolor=ddddcc align=center>$started</td> 
-			<td bgcolor=ddddcc align=center>
+			<td class=$status_class >$status</td> 
+			<td>$pid</td> 
+			<td>$uptime</td> 
+			<td>$server_os</td> 
+			<td>$started</td> 
+			<td>
 				$sound<br/> 
 				<a href=\"index.php?view=settings&enable_sound=1\">yes</a>
 				<a href=\"index.php?view=settings&disable_sound=1\">no</a>

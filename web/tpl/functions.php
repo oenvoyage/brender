@@ -16,7 +16,7 @@ function init_user($user) {
 }
 
 function display_dead_server_warning() {
-	if(get_server_status()<>"running") {
+	if(get_server_settings("status")<>"running") {
 		print "<span class=\"alert\"> that currently looks dead</span> ";
 	}
 }
