@@ -57,6 +57,9 @@ else {
 		if ($filetype=="TGA"){
 			$select_tga="selected";
 		}
+		else if ($filetype=="OPEN_EXR"){
+			$select_exr="selected";
+		}
 		else if ($filetype=="PNG"){
 			$select_png="selected";
 		}
@@ -65,6 +68,7 @@ else {
                        		 	<option value=\"JPEG\">JPEG</option>
                        		 	<option value=\"PNG\" $select_png>PNG</option>
 					<option value=\"TGA\" $select_tga>TGA</option>
+					<option value=\"OPEN_EXR\" $select_exr>OPEN_EXR</option>
                 		</select>
 				config
         			<select name=\"config\"> ";

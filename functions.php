@@ -387,6 +387,7 @@ function output_config_select($default="NONE") {
 }
 function checking_alive_clients() {
 	# print "i am checking alive clients ";
+	# to check alive clients we first looks who is supposed to be active, and send them a png order ....
 	$query="select * from clients where status='idle' or status='disabled'";
         $results=mysql_query($query);
         while ($row=mysql_fetch_object($results)){
@@ -396,9 +397,11 @@ function checking_alive_clients() {
                 send_order($client,"ping","","15");
                 print "pinging $client...\n";
         }
+	#... then we sleep 2 second, time to let a client get the order and delete it....
         sleep(2);
         $query="select * from orders where orders='ping'";
         $results=mysql_query($query);
+	#..... then we check which client did not reply to ping order, so we know its dead
         while ($row=mysql_fetch_object($results)){
                 $id=$row->id;
                 $client=$row->client;
@@ -409,6 +412,7 @@ function checking_alive_clients() {
         }
 }
 function seconds_to_hms($time_in_secs) {
+	# function to display time from seconds to hours:minutes:seconds
    $secs = $time_in_secs % 60;
    $time_in_secs -= $secs;
    $time_in_secs /= 60;
@@ -455,7 +459,7 @@ function check_create_path($path) {
 	chmod($path,0777);
 }
 function filetype_to_ext($filetype) {
-	# transform filetype to the ofrmat that blender understands
+	# transform filetype of the format that blender understands PNG TGA JPEG OPENEXR to a simple extension
 	switch ($filetype) {
 		case "PNG":
 			return "png";
@@ -463,6 +467,8 @@ function filetype_to_ext($filetype) {
 			return "tga";
 		case "JPEG":
 			return "jpg";
+		case "OPEN_EXR":
+			return "exr";
 	}
 	
 }

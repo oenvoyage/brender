@@ -136,6 +136,7 @@ while ($q=1) {
 
 
 function check_and_create_thumbnails() {
+	# we check if there are some recently rendered frames that have not been thumbnailed. If found some ,then do the thumbnails
 	$query="select * from rendered_frames where is_thumbnailed=0";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)){

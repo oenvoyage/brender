@@ -95,6 +95,7 @@
 							<option>PNG</option>
 							<option>JPEG</option>
 							<option>TGA</option>
+							<option>OPEN_EXR</option>
 						</select>
 					</td>
 				</tr>
