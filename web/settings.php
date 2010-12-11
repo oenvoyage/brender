@@ -84,7 +84,7 @@ print_r($_SESSION);
 
 #------------------ system status -----------------
 function system_status() {
-	$query="select server,status,pid,started,timediff(now(),started) as uptime,sound from server_settings;";
+	$query="select server,status,pid,started,timediff(now(),started) as uptime,server_os,sound from server_settings;";
 	$results=mysql_query($query);
 	print "<table width=600>";
 	print "<tr class=\"header_row\">
