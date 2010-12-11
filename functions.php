@@ -154,7 +154,7 @@ function get_path($project,$what,$os="NONE") {
 	$query="select $path from projects where name='$project'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
-	#print "GETTING PATH $query \n path = $path\n";
+	debug ("GETTING PATH $query path = $path");
 	return $qq;
 }
 function get_blender_path() {
@@ -259,6 +259,7 @@ function get_server_settings($setting){
 	$query="select $setting from server_settings;";
 	$results=mysql_query($query);
 	$status=mysql_result($results,0);
+	debug("QUERY SERVER SETTINGS = $query");
 	return $status;
 }
 function set_server_settings($key,$value){
@@ -327,6 +328,47 @@ function output_progress_status_select($default="NONE") {
 			print " <option value=\"$item\">$item </option>";
 		}
 	}
+}
+function output_scene_selector($project) {
+	# ----- WORK IN PROGRESS -----------XXX------
+	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project
+	$server_os=get_server_settings("server_os");
+	$blend_path=get_path($project,"blend",$server_os);
+	debug("Debug path server_os = $server_os and path = $blend_path");
+
+	$list= `ls $blend_path`;
+	$list=preg_split("/\n/",$list);
+
+	print "<select name=\"scene\">";
+		print " <option value=\"\">---choose a SCENE---</option>";
+		foreach ($list as $item) {
+			print("check item=$item<br/>");
+			if (is_dir("$blend_path/$item")) {
+				print " <option value=\"$item\">$item </option>";
+			}
+		}
+	print "</select><br/>";
+}
+function output_shot_selector($project,$selected_scene="") {
+	# ----- WORK IN PROGRESS -----------XXX------
+	# to have this working, the server needs to have a server_os set, and have path access to the blend files of the project
+	$server_os=get_server_settings("server_os");
+	$scenes_path=get_path($project,"blend",$server_os);
+	debug("Debug path server_os = $server_os and path = $scenes_path");
+
+	$list= `ls $scenes_path/$selected_scene`;
+	$list=preg_split("/\n/",$list);
+
+	print "<select name=\"shot\">";
+		print " <option value=\"\">---choose a shot---</option>";
+		foreach ($list as $item) {
+			print("check item=$item<br/>");
+			if (preg_match("/(\w*)\.blend$/",$item,$res)) {
+				$filename=$res[1]; # we extract only filename without .blend from regex
+				print " <option value=\"$filename\">$item</option>";
+			}
+		}
+	print "</select>";
 }
 function output_config_select($default="NONE") {
 	if ($default=="NONE") {$default=$_SESSION['last_used_config'];};
