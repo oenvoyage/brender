@@ -37,31 +37,18 @@
 #print "sid = $sid <br/>";
 
 if (isset($_GET['do_the_test'])) {
-	print "doing a test<br/>";
-
+	print "<form>";
+	print "<b>doing a test</b><br/>";
+	output_scene_selector("gphg");
+	output_shot_selector("gphg","03_animal_ballon");
+	print "</form>";
+	#output_shot_selector("gphg","03_animal_ballon");
+	/*
 	$log="2010/05/11 19:36:49 macbook: blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender";
 	$line =preg_replace('/(\d*)/i','<small>$1</small>',$log);
 	print "logline == $line<br/>";
-	
-	/*
-	add_rendered_frame(145,2);
-	show_last_rendered_frame();
-	create_thumbnail(139,3);
-	$rem="blender/mac/blender.app/Contents/MacOS/blender -b '/Volumes/rgb_noel/01_3D/SCENES/99_tests/brender_test.blend' -o '/Volumes/rgb_noel/01_3D/RENDER/99_tests/brender_test/brender_test' -P conf/pal_widescreen.py -F PNG  -s 25 -e 26 -a JOB 143";
-	$rem="-b '/Volumes/rgb_noel/01_3D/SCENES/99_tests/rainbow.blend' -o '/Volumes/rgb_noel/01_3D/RENDER/99_tests/rainbow/rainbow' -P conf/pal_widescreen.py -F PNG -s 9 -e 10 -a -JOB 152";
-	$parsed=parse_render_command($rem);
-	print "job_id = ".$parsed["job_id"];
-	$parsed_rem=array();
-
-	preg_match("/(.*)\-s (.\d) \-e (.\d)\ -a JOB (\d*)/",$rem,$preg_matches);
-	$start=$preg_matches[3];
-	$end=$preg_matches[2];
-	$job_id=$preg_matches[4];
-	$parsed_rem["start"]=$preg_matches[3];
-	$parsed_rem["job_id"]=$preg_matches[4];
-	#$job_id=$preg_matches[2];
-	print "JOB ID = $job_id start=".$parsed_rem["start"]." end=$end<br/>";
 	*/
+	
 }
 if (isset($_GET[debug])) {
 	$_SESSION[debug]=!$_SESSION[debug];
@@ -71,12 +58,12 @@ if (isset($_GET['check_server_status'])) {
 	check_server_status();
 }
 if (isset($_GET['enable_sound'])) {
-	$query="update status set sound='yes'";
+	$query="update server_settings set sound='yes'";
 	mysql_unbuffered_query($query);
 	print "sound enabled<br/>";
 }
 if (isset($_GET['disable_sound'])) {
-	$query="update status set sound='no'";
+	$query="update server_settings set sound='no'";
 	mysql_unbuffered_query($query);
 	print "sound disabled<br/>";
 }
@@ -97,16 +84,17 @@ print_r($_SESSION);
 
 #------------------ system status -----------------
 function system_status() {
-	$query="select server,status,pid,started,timediff(now(),started) as uptime,sound from status;";
+	$query="select server,status,pid,started,timediff(now(),started) as uptime,server_os,sound from server_settings;";
 	$results=mysql_query($query);
 	print "<table width=600>";
-	print "<tr>
-		<td bgcolor=cccccc width=120 align=center><b> &nbsp; server &nbsp; </b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>status</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>pid</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>uptime</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>started</b></td>
-		<td bgcolor=cccccc width=120 height=30 align=center><b>sound</b></td>
+	print "<tr class=\"header_row\">
+		<td><b> &nbsp; server &nbsp; </b></td>
+		<td><b>status</b></td>
+		<td><b>pid</b></td>
+		<td><b>uptime</b></td>
+		<td><b>machine os</b></td>
+		<td><b>started</b></td>
+		<td><b>sound</b></td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$server=$row->server;
@@ -114,15 +102,18 @@ function system_status() {
 		$started=$row->started;
 		$uptime=$row->uptime;
 		$sound=$row->sound;
+		$server_os=$row->server_os;
 		$pid=$row->pid;
 		$bgcolor="#cccccc";
+		$status_class=get_css_class($status);
 		print "<tr>
 			<td bgcolor=$bgcolor align=center>$server</td>
-			<td bgcolor=ddddcc align=center>$status</td> 
-			<td bgcolor=ddddcc align=center>$pid</td> 
-			<td bgcolor=ddddcc align=center>$uptime</td> 
-			<td bgcolor=ddddcc align=center>$started</td> 
-			<td bgcolor=ddddcc align=center>
+			<td class=$status_class >$status</td> 
+			<td>$pid</td> 
+			<td>$uptime</td> 
+			<td>$server_os</td> 
+			<td>$started</td> 
+			<td>
 				$sound<br/> 
 				<a href=\"index.php?view=settings&enable_sound=1\">yes</a>
 				<a href=\"index.php?view=settings&disable_sound=1\">no</a>

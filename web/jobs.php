@@ -13,10 +13,12 @@ if (isset($_GET['order_by'])) {
 #----------------------------
 if (isset($_GET['restart_all_paused'])) {
 	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active') and status='pause');";
+	output("ALL PAUSED JOBS RESTARTED");
 	mysql_query($queryqq);
 }
 if (isset($_GET['restart_all'])) {
 	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active'));";
+	output("ALL JOBS RESTARTED");
 	mysql_query($queryqq);
 }
 if (isset($_POST['updateid'])) {
@@ -57,6 +59,7 @@ if (isset($_GET['start'])) {
 }
 if (isset($_GET['del'])) {
 	$queryqq="delete from jobs where id=$_GET[del];";
+	output("DELETED job $_GET[del]");
 	mysql_query($queryqq);
 	# sleep(1);
 }
@@ -85,7 +88,6 @@ if (isset($_GET['del'])) {
 		<td>rendered</td>
 		<td width=10><a href="index.php?view=jobs&order_by=status">status</a> &nbsp; </td>
 		<td width=70></td>
-		<td width=60 align=center> &nbsp; </td>
 		<td width=10 align=center> lastseen </td>
 		<td> last edited by </td>
 		<td> &nbsp; <a href="index.php?view=jobs&order_by=priority">priority</a></td>
@@ -136,8 +138,8 @@ if (isset($_GET['del'])) {
 
 		print "<tr class=$status_class>
 			<td>$padded_id</td> 
-			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail_image</a></td> 
-			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot <font size=1>($project)</b></a></td>
+			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$random_x\">$thumbnail_image</a></td> 
+			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$random_x\"><b>$shot <font size=1>($project)</b></a></td>
 			<td>
 				<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>
 				$progress_status <small>$progress_remark</small>
@@ -164,6 +166,6 @@ if (isset($_GET['del'])) {
 	<div class="table-controls">
 		<a href="index.php?view=upload\"><b class="ordre">new job</a></b> - 
 		<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> - 
-		<a href="index.php?view=jobs&x=$random_x"><b class="ordre">reload</a></b> - 
+		<a href="index.php?view=jobs&x=<?php $random_x ?>"><b class="ordre">reload</a></b> - 
 		<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>
 	</div>

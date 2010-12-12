@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `client` varchar(32) NOT NULL,
   `speed` tinyint(4) NOT NULL,
   `machinetype` varchar(24) NOT NULL DEFAULT 'node',
-  `blender_manual_path` varchar(512) NOT NULL,
+  `blender_local_path` varchar(512) NOT NULL,
   `machine_os` varchar(16) NOT NULL,
   `client_priority` tinyint(4) NOT NULL,
   `status` varchar(128) NOT NULL DEFAULT 'not running',
@@ -186,13 +186,13 @@ CREATE TABLE IF NOT EXISTS `scenes` (
 -- Table structure for table `status`
 --
 
-CREATE TABLE IF NOT EXISTS `status` (
+CREATE TABLE IF NOT EXISTS `server_settings` (
   `server` varchar(32) NOT NULL,
   `status` varchar(32) NOT NULL,
   `pid` int(11) NOT NULL,
   `started` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `sound` varchar(12) NOT NULL,
-  `last_rendered` varchar(128) NOT NULL,
+  `server_os` varchar(128) NOT NULL,
   `rem` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

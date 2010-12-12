@@ -9,6 +9,7 @@ output("---- brender server 0.5 ----");
 #-----------------------------------------------------
     $server_speed=2; # server speed is the number of second that tha main loop will sleep(), check at the end of brender_server.php file
     $computer_name="server";
+    $GLOBALS['os']="mac";
     $pid=getmypid();
     $imagemagick_root=""; # keep empty if $IMAGEMAGICK_HOME is set 
 #-----------------------------------------------------
@@ -135,6 +136,7 @@ while ($q=1) {
 
 
 function check_and_create_thumbnails() {
+	# we check if there are some recently rendered frames that have not been thumbnailed. If found some ,then do the thumbnails
 	$query="select * from rendered_frames where is_thumbnailed=0";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)){

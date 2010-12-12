@@ -48,7 +48,7 @@ if ($log=$_GET[log]){
 		}
 		#$line =preg_replace('/(\d{4}\/\d\d\/\d\d\)/i','<small>$1</small>',$line);
 		#$lines =preg_match('/(\d{4}\/\d\d\/\d\d) (\d\d:\d\d:\d\d)/i','<small>$1</small><big>$2</big>',$line);
-		preg_match('/(\d{4}\/\d\d\/\d\d) (\d\d:\d\d:\d\d) (\w*): (.*)/i',$line,$lines);
+		preg_match('/(\d{4}\/\d\d\/\d\d) (\d\d:\d\d:\d\d) (\w*)\: (.*)/i',$line,$lines);
 		$date=$lines[1];
 		$time=$lines[2];
 		$machine=$lines[3];

@@ -7,7 +7,7 @@
 						"Couldn't load this tab. We'll try to fix this as soon as possible.");
 				}
 			},
-			selected: 0
+			selected: 1
 		});
 	});
 </script>

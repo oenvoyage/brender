@@ -80,6 +80,14 @@ function get_css_class($status) {
 	else if (preg_match("/not running/",$status)) {
 		return "not_running";
 	}
+	else if (preg_match("/running/",$status)) {
+		# for server status
+		return "idle";
+	}
+	else if (preg_match("/died/",$status)) {
+		# for server status
+		return "not_running";
+	}
 	else if (preg_match("/pause/",$status)) {
 		return "pause";
 	}
@@ -146,24 +154,24 @@ function get_path($project,$what,$os="NONE") {
 	$query="select $path from projects where name='$project'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
-	#print "GETTING PATH $query \n path = $path\n";
+	debug ("GETTING PATH $query path = $path");
 	return $qq;
 }
 function get_blender_path() {
-	$query="select blender_manual_path from clients where client='$GLOBALS[computer_name]'";
+	$query="select blender_local_path from clients where client='$GLOBALS[computer_name]'";
 	$results=mysql_query($query);
-	$manual_path=mysql_result($results,0);
-	debug("****************** manual path  = $manual_path *****************");
-	if ($manual_path) {
-		if (file_exists($manual_path)) {
-			# --- there is a manual_path set in the client table, so we return it
-			return $manual_path;
+	$local_path=mysql_result($results,0);
+	debug("****************** local path  = $local_path *****************");
+	if ($local_path) {
+		if (file_exists($local_path)) {
+			# --- there is a local_path set in the client table, so we return it
+			return $local_path;
 		}
 		else {
-			output("blender manual path not found :: $manual_path .... switching to server one","warning");
+			output("blender local path not found :: $local_path .... switching to server one","warning");
 		}
 	}
-	# ---there is no manual_path, so we take the blender form the brender_root
+	# ---there is no local_path, so we take the blender form the brender_root
 	switch($GLOBALS['os']) {
 		case "mac":
 			$path="blender/mac/blender.app/Contents/MacOS/blender";
@@ -186,9 +194,10 @@ function change_order_owner($id,$client) {
 	print "become order query $query\n";
 	# print "### $client deleted order $id\n";
 }
-function delete_node($node) {
-	$query="delete from clients where client='$node'";
+function delete_node($client) {
+	$query="delete from clients where client='$client'";
 	debug("delete query $query");
+	output("NODE DELETED :: $client");
 	mysql_query($query);
 }
 function remove_order($id) {
@@ -199,14 +208,14 @@ function remove_order($id) {
 	 #print "### $client of $os deleted order $id\n";
 }
 function server_stop($pid){
-	$query="update status set pid='$pid',status='stopped',started=now()";
+	$query="update server_settings set pid='$pid',status='stopped',started=now()";
 	# print "\n query = $query ----\n";
 	mysql_unbuffered_query($query);
 	print "STOPPED SERVER \n";
 	stop();
 }
 function server_start($pid){
-	$query="update status set pid='$pid',status='running',started=now()";
+	$query="update server_settings set pid='$pid',status='running',started=now()";
 	# 	print "\n query = $query ----\n";
 	mysql_query($query);
 	print "STARTED SERVER $status $rem\n";
@@ -231,29 +240,30 @@ function check_server_status(){
 	# command to see if the server is running or dead
         if (check_server_is_dead()){
 		$GLOBALS['computer_name']="web_interface";
-		set_server_status("status","died");
-		set_server_status("pid","0");
-		set_server_status("started","now()");
+		set_server_settings("status","died");
+		set_server_settings("pid","0");
+		set_server_settings("started","now()");
 		brender_log("server not responding (PING)");
 		brender_log("SERVER DIED");
 		$color="red";
 		$status="SERVER DIED !!!!!!!!<br/>";
        	}
 	else {
-		set_server_status("status","running");
+		set_server_settings("status","running");
 		$color="green";
 		$status="server is running";
 	}
 	print "<font color=$color>$status $pid</font>\n";
 }
-function get_server_status(){
-	$query="select status from status;";
+function get_server_settings($setting){
+	$query="select $setting from server_settings;";
 	$results=mysql_query($query);
 	$status=mysql_result($results,0);
+	debug("QUERY SERVER SETTINGS = $query");
 	return $status;
 }
-function set_server_status($key,$value){
-	$query="update status set $key='$value'";
+function set_server_settings($key,$value){
+	$query="update server_settings set $key='$value'";
 	mysql_unbuffered_query($query);
 	#	print "### $client status : $status $rem\n";
 }
@@ -319,6 +329,47 @@ function output_progress_status_select($default="NONE") {
 		}
 	}
 }
+function output_scene_selector($project) {
+	# ----- WORK IN PROGRESS -----------XXX------
+	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project
+	$server_os=get_server_settings("server_os");
+	$blend_path=get_path($project,"blend",$server_os);
+	debug("Debug path server_os = $server_os and path = $blend_path");
+
+	$list= `ls $blend_path`;
+	$list=preg_split("/\n/",$list);
+
+	print "<select name=\"scene\">";
+		print " <option value=\"\">---choose a SCENE---</option>";
+		foreach ($list as $item) {
+			print("check item=$item<br/>");
+			if (is_dir("$blend_path/$item")) {
+				print " <option value=\"$item\">$item </option>";
+			}
+		}
+	print "</select><br/>";
+}
+function output_shot_selector($project,$selected_scene="") {
+	# ----- WORK IN PROGRESS -----------XXX------
+	# to have this working, the server needs to have a server_os set, and have path access to the blend files of the project
+	$server_os=get_server_settings("server_os");
+	$scenes_path=get_path($project,"blend",$server_os);
+	debug("Debug path server_os = $server_os and path = $scenes_path");
+
+	$list= `ls $scenes_path/$selected_scene`;
+	$list=preg_split("/\n/",$list);
+
+	print "<select name=\"shot\">";
+		print " <option value=\"\">---choose a shot---</option>";
+		foreach ($list as $item) {
+			print("check item=$item<br/>");
+			if (preg_match("/(\w*)\.blend$/",$item,$res)) {
+				$filename=$res[1]; # we extract only filename without .blend from regex
+				print " <option value=\"$filename\">$item</option>";
+			}
+		}
+	print "</select>";
+}
 function output_config_select($default="NONE") {
 	if ($default=="NONE") {$default=$_SESSION['last_used_config'];};
 	$list= `ls ../conf/`;
@@ -336,6 +387,7 @@ function output_config_select($default="NONE") {
 }
 function checking_alive_clients() {
 	# print "i am checking alive clients ";
+	# to check alive clients we first looks who is supposed to be active, and send them a png order ....
 	$query="select * from clients where status='idle' or status='disabled'";
         $results=mysql_query($query);
         while ($row=mysql_fetch_object($results)){
@@ -345,9 +397,11 @@ function checking_alive_clients() {
                 send_order($client,"ping","","15");
                 print "pinging $client...\n";
         }
+	#... then we sleep 2 second, time to let a client get the order and delete it....
         sleep(2);
         $query="select * from orders where orders='ping'";
         $results=mysql_query($query);
+	#..... then we check which client did not reply to ping order, so we know its dead
         while ($row=mysql_fetch_object($results)){
                 $id=$row->id;
                 $client=$row->client;
@@ -358,6 +412,7 @@ function checking_alive_clients() {
         }
 }
 function seconds_to_hms($time_in_secs) {
+	# function to display time from seconds to hours:minutes:seconds
    $secs = $time_in_secs % 60;
    $time_in_secs -= $secs;
    $time_in_secs /= 60;
@@ -404,7 +459,7 @@ function check_create_path($path) {
 	chmod($path,0777);
 }
 function filetype_to_ext($filetype) {
-	# transform filetype to the ofrmat that blender understands
+	# transform filetype of the format that blender understands PNG TGA JPEG OPENEXR to a simple extension
 	switch ($filetype) {
 		case "PNG":
 			return "png";
@@ -412,6 +467,8 @@ function filetype_to_ext($filetype) {
 			return "tga";
 		case "JPEG":
 			return "jpg";
+		case "OPEN_EXR":
+			return "exr";
 	}
 	
 }
@@ -439,7 +496,7 @@ function parse_render_command($render_command) {
 }
 function get_thumbnail_image($job_id,$image_number,$class="") {
 	# function will output the <img src> of the thumbnail of a specific job_id and frame
-	debug("i try to get the frame $image_number from job_id= $job_id");
+	debug("i try to get the frame $image_number from job_id= $job_id and output the image");
 	$thumbnail_path="thumbnails/";
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
@@ -506,7 +563,7 @@ function output_progress_bar($start,$end,$current,$style="progress_bar") {
 	}
 	$done=$percent/2;
 	$remaining=(100-$percent)/2;
-	$output= "<img src=\"images/cube_light_green.png\" style=\"width:".$done."px;\" class=\"$style\"/>";
+	$output= "<img src=\"images/cube_light_green.png\" style=\"width:".$done."px;\" class=\"$style\" alt=\"$percent% done\"/>";
 	#$output.="<img src=\"images/cube_red.png\" style=\"width:".$remaining."px;\" class=\"$style\"/>";
 	#$output.= "<br/>$done / $remaining";
 	return $output;
@@ -520,7 +577,7 @@ function show_last_rendered_frame($mode="simple") {
         $frame=$row->frame;
         $finished_time=$row->finished_time;
 	if ($mode=="full") {
-         	print get_thumbnail_image($job_id,$frame)."<br/>";
+         	print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">".get_thumbnail_image($job_id,$frame)."</a><br/>";
 		print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
 	}
 	else {

@@ -16,7 +16,7 @@
 
 	if ($log == true) {
 		if ($user == $pwd) {
-			//session_destroy();
+			#session_destroy();
 			session_start();
 			if (init_user($user)) {
 				echo "{\"status\":true, \"user\":\"$user\"}"; 
