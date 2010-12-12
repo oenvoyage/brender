@@ -38,6 +38,31 @@ else {
 	print "// project :: <b>$project</b><br/>";
 	print "// scene :: $scene $rem<br/>";
 	print "last changes made by  :: $last_edited_by<br/>";
+	?>
+	<script>
+	$(function() {
+		$("button.switchbg").button({
+            icons: {
+                primary: "ui-icon-gear"
+            }
+        });
+        
+        $("button.switchbg").click(function() {
+			$(".over").toggleClass("brender-overlay", 100);
+			return false;
+		});
+	});
+	
+	</script>
+		
+
+
+	<button class="switchbg">Dark background</button>
+
+	
+
+
+	<?php
 	print "<table border=0>";
 	print "<tr>";
 	print "<td bgcolor=\"#bbbbbb\" colspan=2>";
@@ -96,7 +121,7 @@ else {
 		print "</form>";
 	print "</td>";
 	print "</table>";
-	print "<table border=0>";
+	print "<table border=0 class=\"thumbnails_table\">";
 	print "<tr>";
 	#-------------------------------les images ------------------------------
 	$a=$start;
@@ -138,3 +163,4 @@ else {
 #--------read---------
 	print "<a href=\"index.php?view=jobs\">back to job list</a>";
 ?>
+<div class="over"></div>
