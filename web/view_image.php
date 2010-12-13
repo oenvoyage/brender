@@ -19,7 +19,7 @@
 	$finished_time=$row->finished_time;
 ?>
 
-	<a href="index.php?view=view_job&id=<?php echo $job_id?>"><img src="<?php $thumbnail_location ?>" class="image big"></a><br/>
+	<a href="index.php?view=view_job&id=<?php echo $job_id?>"><img src="<?php print $thumbnail_location ?>" class="image"></a><br/>
 	<a href="<?php echo $thumbnail_location ?>"><?php echo $file_name ?></a><br/>
 	rendered by <?php print "<a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time "?><br/>
 
