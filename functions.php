@@ -146,9 +146,19 @@ function check_if_client_should_work($client_name="check all") {
 	}
 	
 }
+function check_project_exists($project) {
+	$query="select count(name) from projects where name='$project'";
+        $results=mysql_query($query);
+        $check_result=mysql_result($results,0);
+        return $check_result;
+}
 function get_path($project,$what,$os="NONE") {
 	# get the output/blend path for a specific project and specific OS
 	#$path=$what."_".$GLOBALS['os'];
+	if (!check_project_exists($project)) {
+		debug("project $project not found");
+		return 0;
+	}
 	if ($os=="NONE") {$os=$GLOBALS['os'];};
 	$path=$what."_".$os;
 	$query="select $path from projects where name='$project'";
@@ -259,7 +269,7 @@ function get_server_settings($setting){
 	$query="select $setting from server_settings;";
 	$results=mysql_query($query);
 	$status=mysql_result($results,0);
-	debug("QUERY SERVER SETTINGS = $query");
+	# debug("QUERY SERVER SETTINGS = $query");
 	return $status;
 }
 function set_server_settings($key,$value){

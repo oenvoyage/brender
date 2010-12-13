@@ -40,7 +40,7 @@ if (isset($_GET['do_the_test'])) {
 	print "<form>";
 	print "<b>doing a test</b><br/>";
 	output_scene_selector("gphg");
-	output_shot_selector("gphg","03_animal_ballon");
+	#output_shot_selector("gphg","03_animal_ballon");
 	print "</form>";
 	#output_shot_selector("gphg","03_animal_ballon");
 	/*
