@@ -1,6 +1,6 @@
 <?php
 
-include_once("../connect.php");
+include_once("../../connect.php");
 include_once("../../functions.php");
 
 if ($_POST['scene'] && $_POST['shot']) {	

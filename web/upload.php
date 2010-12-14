@@ -127,7 +127,7 @@
 				</tr>
 				</tr>
 					<td>remarks</td>
-					<td><input id="rem" type="text" name="rem" size="30"></td>
+					<td><input id="rem" type="text" name="rem" size="30" value=""></td>
 				</tr>
 				</tr>
 					<td>directstart</td>
