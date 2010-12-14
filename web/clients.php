@@ -122,14 +122,14 @@ if (isset($msg)) {
 	<?php debug($query); ?>
 	<table>
 	<tr class=header_row>
-		<td width=120><a href=\"index.php?view=clients&orderby=client\">client name</a></td>
-		<td width=32<a href=\"index.php?view=clients&orderby=client_priority\">stats</a></td>
-		<td width=120> <a href=\"index.php?view=clients&orderby=status\">status</a></td>
-		<td width=500> <a href=\"index.php?view=clients&orderby=rem\">rem</a></td>
-		<td width=200> <a href=\"index.php?view=clients&orderby=info\">info</a></td>
+		<td width=120><a href="index.php?view=clients&orderby=client">client name</a></td>
+		<td width=32<a href="index.php?view=clients&orderby=client_priority">stats</a></td>
+		<td width=120> <a href="index.php?view=clients&orderby=status">status</a></td>
+		<td width=500> <a href="index.php?view=clients&orderby=rem">rem</a></td>
+		<td width=200> <a href="index.php?view=clients&orderby=info">info</a></td>
 		<td width=120> cmd </td>
-		<td width=120><a href=\"index.php?view=clients&orderby=working_hour_start\">workhour start</a> &nbsp; </b></td>
-		<td width=120><a href=\"index.php?view=clients&orderby=working_hour_end\">workhour end</a> &nbsp; </b></td>
+		<td width=120><a href="index.php?view=clients&orderby=working_hour_start">workhour start</a> &nbsp; </b></td>
+		<td width=120><a href="index.php?view=clients&orderby=working_hour_end">workhour end</a> &nbsp; </b></td>
 		<td></td>
 	</tr>
 <?php 
@@ -160,7 +160,7 @@ if (isset($msg)) {
 			$shutdown_button="";
 		}
 		else {
-			$shutdown_button="<a href=\"index.php?view=clients&stop=$client\">x</a>";
+			$shutdown_button="<a href=\"index.php?view=clients&stop=$client\"><img src=\"/web/images/icons/close.png\"></a>";
 		}
 		print "<tr class=$status_class>
 			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
