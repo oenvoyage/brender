@@ -131,6 +131,7 @@ function theme_chooser() {
 		<tr>
 			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"index.php?view=settings&theme=brender\">brender</a> &nbsp; </b></td>
 			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"index.php?view=settings&theme=brender_dark\">brender_dark</a> &nbsp; </b></td>
+			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"index.php?view=settings&theme=brender_mobile\">brender_mobile</a> &nbsp; </b></td>
 		</tr>
 	</table>
 	";
