@@ -14,7 +14,7 @@
 
 
 
-<h2>// <b>logs</b></h2>
+<h2>// <b>logs</b> <?php output_refresh_button();?></h2>
 
 <div id="tabs">
 	<ul>

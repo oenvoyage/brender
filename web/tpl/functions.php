@@ -15,6 +15,9 @@ function init_user($user) {
 	return 1;
 }
 
+function output_refresh_button() {
+	print "<a href=\"index.php?view=$GLOBALS[view]\"><img src=\"/web/images/icons/reload.png\"></a>";
+}
 function display_dead_server_warning() {
 	if(get_server_settings("status")<>"running") {
 		print "<span class=\"alert\"> that currently looks dead</span> ";

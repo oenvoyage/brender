@@ -69,7 +69,7 @@ while ($q=1) {
 
 				#output("SCENE = $scene CLIENT priority $client=$client_priority   ..... JOB priority=$job_priority ");
 			if ($scene && $client_priority<$job_priority) {
-				output("...found job for $client ::  $name file $file start $start end $end current $current chunks $chunks config=$config");	
+				output("...found job for $client ::  $name file $file start $start end $end current $current chunks $chunks config=$config");
 				$number_of_chunks=$chunks*$speed;
 				$where_to_start=$current;
 				$where_to_end=$current+$number_of_chunks-1;

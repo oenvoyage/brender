@@ -1,4 +1,4 @@
-<h2>//<b>overview</b> </h2>
+<h2>//<b>overview</b> <?php output_refresh_button(); ?> </h2>
 <?php
 if (isset($_GET['orderby_job'])) {
 	if ($_SESSION[orderby_jobs]==$_GET[orderby_job]) {

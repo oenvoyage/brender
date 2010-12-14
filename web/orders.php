@@ -12,7 +12,7 @@ if (isset($_GET['del'])) {
 }
 ?>
 	
-<h2>// <b>orders</b></h2>
+<h2>// <b>orders</b> <?php output_refresh_button(); ?></h2>
 <table>
 	<tr class="header_row">
 		<td width=120><b> &nbsp; id &nbsp; </b></td>

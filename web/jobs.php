@@ -73,7 +73,7 @@ if (isset($_GET['del'])) {
 	$results=mysql_query($job_query);
 	?>
 
-	<h2>// <b>jobs</b> <?php echo $msg?><br/></h2>
+	<h2>// <b>jobs</b> <?php output_refresh_button() ?><br/></h2>
 	<table>
 	<tr class=header_row>
 		<td></td>

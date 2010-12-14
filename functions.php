@@ -311,6 +311,7 @@ function send_order($client,$orders,$rem,$priority){
 }
 function brender_log($log){
 	$computer_name=$GLOBALS['computer_name'];
+	$log=preg_replace("/\n$/","",$log);  # we erase the trailing carriage return to avoid empty lines in the log file
 	if ($computer_name=="web_interface") {
 		$prefix="../";
 	}

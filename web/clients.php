@@ -117,10 +117,11 @@ if (isset($msg)) {
 #------ listing all the clients in the table, including the ones not running------- 
 	$query="select * from clients order by $_SESSION[orderby_client]";
 	$results=mysql_query($query);
-	print "<h2>// <b>clients</b></h2>";
-	debug("$query<br/>");
-	print "<table>";
-	print "<tr class=header_row>
+	?>
+	<h2> // <b>clients</b> <?php output_refresh_button(); ?> </h2>
+	<?php debug($query); ?>
+	<table>
+	<tr class=header_row>
 		<td width=120><a href=\"index.php?view=clients&orderby=client\">client name</a></td>
 		<td width=32<a href=\"index.php?view=clients&orderby=client_priority\">stats</a></td>
 		<td width=120> <a href=\"index.php?view=clients&orderby=status\">status</a></td>
@@ -130,7 +131,8 @@ if (isset($msg)) {
 		<td width=120><a href=\"index.php?view=clients&orderby=working_hour_start\">workhour start</a> &nbsp; </b></td>
 		<td width=120><a href=\"index.php?view=clients&orderby=working_hour_end\">workhour end</a> &nbsp; </b></td>
 		<td></td>
-	</tr>";
+	</tr>
+<?php 
 	if (mysql_num_rows($results)==0) {
 	 	echo '"<tr><td class="header_row error" colspan=8> NO clients found</td></tr>';
 	}
