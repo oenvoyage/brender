@@ -88,8 +88,8 @@ if (isset($_GET['del'])) {
 		<td>rendered</td>
 		<td width=10><a href="index.php?view=jobs&order_by=status">status</a> &nbsp; </td>
 		<td width=70></td>
-		<td width=10 align=center> lastseen </td>
-		<td> last edited by </td>
+		<td width=80><a href="index.php?view=jobs&order_by=lastseen">lastseen</a></td>
+		<td width=80><a href="index.php?view=jobs&order_by=last_edited_by">last edited by</a></td>
 		<td> &nbsp; <a href="index.php?view=jobs&order_by=priority">priority</a></td>
 		<td> &nbsp; </td>
 	</tr>
@@ -166,6 +166,6 @@ if (isset($_GET['del'])) {
 	<div class="table-controls">
 		<a href="index.php?view=upload\"><b class="ordre">new job</a></b> - 
 		<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> - 
-		<a href="index.php?view=jobs&x=<?php $random_x ?>"><b class="ordre">reload</a></b> - 
+		<a href="index.php?view=jobs&x=<?php print $random_x ?>"><b class="ordre">reload</a></b> - 
 		<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>
 	</div>
