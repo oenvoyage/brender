@@ -23,6 +23,6 @@
 	<a href="<?php echo $thumbnail_location ?>"><?php echo $file_name ?></a><br/>
 	rendered by <?php print "<a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time "?><br/>
 
-	<a href="index.php?view=view_job&id=<?php echo $job_id ?>\">return to job <?php echo $job_id ?></a><br/>
+	<a href="index.php?view=view_job&id=<?php echo $job_id ?>">return to job <?php echo $job_id ?></a><br/>
 
 

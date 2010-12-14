@@ -77,6 +77,9 @@
 								$id=$row->id;
 								$nom=$row->name;
 								print "<option>$nom</option>";
+								if (!$project) {
+									$project=$nom;
+								}
 							}
 						?>
 						</select>
