@@ -174,7 +174,7 @@ function show_job_list() {
 			$progress_remark=$row->progress_remark;
 
 			$total_frames=$end-$start+1;
-			$total_rendered=get_rendered_frames($id);
+			$total_rendered=count_rendered_frames($id);
 			$icon="play";
 			$play_pause_button="";
 			$status_class=get_css_class($status);

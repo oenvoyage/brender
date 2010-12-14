@@ -73,7 +73,7 @@ else {
 		print "<a href=\"index.php?view=jobs\">jobs</a><br/>";
 		print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$option_couleur\">$option_couleur</a><br/>";
 		print "$total frames ($start-$end by $chunks)<br/>";
-		$total_rendered=get_rendered_frames($id);
+		$total_rendered=count_rendered_frames($id);
 		print "$total_rendered rendered frames<br/>";
 		print "file $file <br/>";
 	print "</td>";

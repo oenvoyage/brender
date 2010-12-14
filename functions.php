@@ -595,25 +595,30 @@ function show_last_rendered_frame($mode="simple") {
          	print get_thumbnail_image($job_id,$frame);
 	}
 }
-function get_rendered_frames($job_id) {
+function count_rendered_frames($job_id) {
+		# counting the total number of rendered frames for a job.
+		# If a job is rerendered, the total might already be 100%
 
 		$query="select scene,shot,project,start,end,filetype from jobs where id='$job_id'";
-		#print "query === $query <br/>";
 		$results=mysql_query($query);
 		$row=mysql_fetch_object($results);
+		#print "query === $query <br/>";
+
 		$scene=$row->scene;
 		$shot=$row->shot;
-		$filetype=$row->filetype;
+		$filetype=filetype_to_ext($row->filetype);
 		$project=$row->project;
-		$path=get_path($project,"blend","linux");
+		$server_os=get_server_settings("server_os");
+		$path=get_path($project,"output",$server_os);
 		$end=$row->end;
 		$name=$row->name;
 		$a=$row->start-1;
+		$total=0;
+
                 # print " i check $a to $end $output###.$filetype<br/>";
                 while ($a<$end){
                         $a++;
-                        $filecheck="./$path/$scene/$shot/$shot".str_pad($a,4,0,STR_PAD_LEFT).".".$filetype;
-			#print "bla filecheck = $filecheck<br/>";
+                        $filecheck="$path/$scene/$shot/$shot".str_pad($a,4,0,STR_PAD_LEFT).".".$filetype;
                         if (file_exists($filecheck)) {
                                 $ok="ok";
                                 $total++;
@@ -621,9 +626,10 @@ function get_rendered_frames($job_id) {
                         else {
                                 $ok="";
                         }
+			debug("count_rendered_frames filecheck = $filecheck  == $ok");
                }
 		# print "total $total<br/>";
-              return $total;
+		return $total;
 
 }
 
