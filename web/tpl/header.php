@@ -28,19 +28,14 @@
 <?php if(!$view == "upload") { ?> <meta http-equiv="Refresh" content="60;URL=index.php" /> <?php } ?>	
 		<script>
 		$(function() {
-			$( "#dialog-modal" ).dialog({
-				height: 250,
-				resizable: false,
-				draggable: false,
-				modal: true,
-				hide: "explode",
-				closeOnEscape: false,
-			});
-
-		});
-		$(function() {
-			$( "button, input:submit, a", "#dialog-modal" ).button();
-			$( "a", ".demo" ).click(function() { return false; });
+			$('#loadingSpinner')
+			    .hide()  // hide it initially
+			    .ajaxStart(function() {
+			        $(this).show();
+			    })
+			    .ajaxStop(function() {
+			        $(this).hide();
+			    });
 		});
 
 		
@@ -52,7 +47,7 @@
 			<a href="index.php"><img src="images/<?php if (!$_SESSION[user]) { 
 			print "brender";
 			} else { print($_SESSION[theme]);
-			} ?>_logo.png" class="logo" /></a>
+			} ?>_logo.png" class="logo" /></a><img id="loadingSpinner" src="images/ajax-loader.gif" alt="ajax-spinner" />
 			<div class="metadata">
 				<p>
 					<?php print "connected to server <a href=\"/phpmyadmin/index.php?db=brender\" target=\"_blank\">$my_server</a>";

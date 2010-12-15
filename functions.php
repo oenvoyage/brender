@@ -255,15 +255,15 @@ function check_server_status(){
 		set_server_settings("started","now()");
 		brender_log("server not responding (PING)");
 		brender_log("SERVER DIED");
-		$color="red";
+		//$color="red";
 		$status="SERVER DIED !!!!!!!!<br/>";
        	}
 	else {
 		set_server_settings("status","running");
-		$color="green";
+		//$color="green";
 		$status="server is running";
 	}
-	print "<font color=$color>$status $pid</font>\n";
+	return $status;
 }
 function get_server_settings($setting){
 	$query="select $setting from server_settings;";

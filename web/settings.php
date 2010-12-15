@@ -9,8 +9,32 @@
 			},
 			selected: 0
 		});
+		
 		$( "button, input:submit, a.btn").button();
 		$( "a", ".btn" ).click(function() { return false; });
+		
+		$( " a.check_server_status")
+			.button()
+			.click(function() {
+				$.get("ajax/settings.php", {check_server_status: "1"}, function(data) {
+					var obj = jQuery.parseJSON(data);				
+					if(obj.status == true) {
+						//$("#dialog-form").dialog("close" );
+						alert(obj.msg);
+					} else {
+						alert(obj.msg);
+					}
+				}, "Json");				
+    			return false;});
+
+				
+		$("#theme_selector").change(function() {
+			var theme_name = $("#theme_selector option:selected").val();
+			window.location = 'index.php?view=settings&theme=' + theme_name;
+		});
+		
+		//$(".header_row td:first").addClass("thead_l");
+		//$(".header_row td:last").addClass("thead_r"); 
 
 	});
 </script>
@@ -32,16 +56,17 @@
 		<a class="btn" href="index.php?view=projects">manage projects</a>
 	</div>
 	<div class="item">
-		<a class="btn" href="index.php?view=settings&check_server_status=1">check server status</a> 
+		<a class="check_server_status" href="">check server status</a> 
 	</div>
 	<div class="clear"></div>
 	
 	<h3>Interface</h3>
 	<div class="item">	
-		<select>
-			<option>brender</option>
-			<option>brender dark</option>
-			<option>brender mobile</option>
+		<select id="theme_selector">
+			<option value="">select theme</option>
+			<option value="brender">brender</option>
+			<option value="brender_dark">brender dark</option>
+			<option value="brender_mobile">brender mobile</option>
 		</select>
 	</div>
 	<div class="clear"></div>
@@ -84,10 +109,7 @@ if (isset($_GET['do_the_test'])) {
 if (isset($_GET[debug])) {
 	$_SESSION[debug]=!$_SESSION[debug];
 }
-if (isset($_GET['check_server_status'])) {
-	print "checking server status<br/>";
-	check_server_status();
-}
+
 if (isset($_GET['enable_sound'])) {
 	$query="update server_settings set sound='yes'";
 	mysql_unbuffered_query($query);
@@ -102,7 +124,7 @@ if (isset($_GET['test'])) {
 }
 
 system_status();
-theme_chooser();
+
 
 print "<h2>// <strong>session</strong> settings</h2>";
 print_r($_SESSION);
@@ -147,20 +169,7 @@ function system_status() {
 	}
 	print "</table>";
 }
-# ------------------------- theme chooser --------------------
-function theme_chooser() {
-	print "<table width=600>";
-	print " <tr>
-			<td bgcolor=cccccc width=120 align=center colspan=4 height=25><b> &nbsp; theme ($_SESSION[theme]) &nbsp; </b></td>
-		</tr>
-		<tr>
-			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"index.php?view=settings&theme=brender\">brender</a> &nbsp; </b></td>
-			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"index.php?view=settings&theme=brender_dark\">brender_dark</a> &nbsp; </b></td>
-			<td bgcolor=ddddcc align=center><b> &nbsp; <a href=\"index.php?view=settings&theme=brender_mobile\">brender_mobile</a> &nbsp; </b></td>
-		</tr>
-	</table>
-	";
-}
+
 
 #--------read---------
 if (!$order_by=$_GET[order_by]) {
