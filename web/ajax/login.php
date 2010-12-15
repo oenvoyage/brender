@@ -1,5 +1,6 @@
 <?php 
-	include_once("../..//functions.php");
+	include_once("../tpl/functions.php");
+	include_once("../../functions.php");
 		
 	if(isset($_POST['do_login'])) {
 		$log = $_POST['do_login'];
