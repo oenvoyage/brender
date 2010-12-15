@@ -20,7 +20,14 @@
 ?>
 
 	<a href="index.php?view=view_job&id=<?php echo $job_id?>"><img src="<?php print $thumbnail_location ?>" class="image"></a><br/>
-	<a href="<?php echo $thumbnail_location ?>"><?php echo $file_name ?></a><br/>
+	<a href="<?php echo $thumbnail_location ?>"><?php echo $file_name ?></a>
+	<br/>
+	<a href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame-10?>"><img src="images/icons/go-previous10.png"></a>
+	<a href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame-1?>"><img src="images/icons/go-previous.png"></a>
+	<?php print "<b> $frame</b>" ?>
+	<a href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+1?>"><img src="images/icons/go-next.png"></a>
+	<a href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+10?>"><img src="images/icons/go-next10.png"></a>
+	<br/>
 	rendered by <?php print "<a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time "?><br/>
 
 	<a href="index.php?view=view_job&id=<?php echo $job_id ?>">return to job <?php echo $job_id ?></a><br/>
