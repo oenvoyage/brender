@@ -9,4 +9,4 @@ Todo
 * web interface (in progress)
 * documentation (in progress)
 
-More informations on online shared development docs.
+More informations on online shared development documents.
