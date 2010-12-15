@@ -525,3 +525,28 @@ table tr {
 	z-index: 12;
 	position: relative;
 }
+
+.settings_container {
+	position: relative;
+	margin-top: 15px;
+}
+
+.settings_container .item {
+	float: left;
+	width: 280px;
+	padding: 0 20px 0 0;
+}
+
+.settings_container h3 {
+	margin: 15px 0 7px 0;
+}
+
+.settings_container .item a {
+	display: block;
+	width: 150px;
+}
+
+.settings_container .ui-widget {
+	font-size: 10px;
+	margin-bottom: 5px;
+}

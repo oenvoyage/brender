@@ -9,12 +9,43 @@
 			},
 			selected: 0
 		});
+		$( "button, input:submit, a.btn").button();
+		$( "a", ".btn" ).click(function() { return false; });
+
 	});
 </script>
 
 <h2>// <strong>server</strong> settings</h2>
 
 <p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>
+<div class="settings_container">
+	<h3>Server</h3>
+	<div class="item">	
+		<a class="btn" href="index.php?view=settings&debug=1">switch to debug</a>
+		<p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>
+	</div>
+	<div class="item">
+		<a class="btn" href="index.php?view=settings&do_the_test=1">do a test</a> 
+		<p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>
+	</div>
+	<div class="item">
+		<a class="btn" href="index.php?view=projects">manage projects</a>
+	</div>
+	<div class="item">
+		<a class="btn" href="index.php?view=settings&check_server_status=1">check server status</a> 
+	</div>
+	<div class="clear"></div>
+	
+	<h3>Interface</h3>
+	<div class="item">	
+		<select>
+			<option>brender</option>
+			<option>brender dark</option>
+			<option>brender mobile</option>
+		</select>
+	</div>
+	<div class="clear"></div>
+</div>
 
 <h2>// <strong>render</strong> configurations</h2>
 
@@ -72,13 +103,7 @@ if (isset($_GET['test'])) {
 
 system_status();
 theme_chooser();
-print "<br/>";
-print "<a class=\"grey\" href=\"index.php?view=settings&debug=1\">switch debug</a> <br/>";
-print "<a class=\"grey\" href=\"index.php?view=settings&do_the_test=1\">do a test</a> <br/>";
-print "<a class=\"button grey\" href=\"index.php?view=projects\">manage projects</a> ";
-print "<br/>";
-print "<br/>";
-print "<a class=\"button grey\" href=\"index.php?view=settings&check_server_status=1\">check server status</a> ";
+
 print "<h2>// <strong>session</strong> settings</h2>";
 print_r($_SESSION);
 
@@ -136,4 +161,66 @@ function theme_chooser() {
 	</table>
 	";
 }
+
+#--------read---------
+if (!$order_by=$_GET[order_by]) {
+        $order_by="id";
+}
+
+	$query="select * from projects order by $order_by";
+	$results=mysql_query($query);
+	print "<h2>// <b>projects</b></h2>\n";
+	print "<table>\n";
+	print "<tbody>\n";
+	print "<tr class=\"header_row\">
+		<td></td>
+		<td> default </td>
+		<td> <a href=\"index.php?view=projects&order_by=name\">project</a></td>
+		<td> .blend path</td>
+		<td> output path</td>
+		<td> <a href=\"index.php?view=projects&order_by=rem\">rem</a></td>
+		<td> </td>
+		<td>&nbsp;</td>
+	</tr>";
+	while ($row=mysql_fetch_object($results)){
+		$id=$row->id;
+		$name=$row->name;
+		$rem=$row->rem;
+		$blend_mac=$row->blend_mac;
+		$blend_win=$row->blend_win;
+		$blend_linux=$row->blend_linux;
+		$output_mac=$row->output_mac;
+		$output_win=$row->output_win;
+		$output_linux=$row->output_linux;
+		$status=get_css_class($row->status);
+		if ($status=="active") {
+			$status_link='<a href="index.php?view=projects&deactivate=' . $id.'">active</a>';
+		}
+		else {
+			$status_link='<a href="index.php?view=projects&activate=' . $id.'">inactive</a>';
+		}
+		$def=$row->def;
+		$bgcolor="ddddcc";
+		if ($def==1) {
+			$is_default="<img src=\"images/icons/close.png\">";
+		}
+		else {
+			$is_default="";
+		}
+		print "<tr class=\"$status\">
+			<td>$id</td> 
+			<td>$is_default</td> 
+			<td><a href=\"index.php?view=projects&def=$id\">$name</a></td> 
+			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
+			<td>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
+			<td>$rem</td> 
+			<td>$status_link</td> 
+			<td>&nbsp;<a href=\"index.php?view=projects&del=$id\"><img src=\"images/icons/close.png\"></a></td>
+		</tr>";
+	}
+
 ?>
+
+	</tbody>
+</table>
+
