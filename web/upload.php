@@ -63,77 +63,52 @@
 		});
 </script>
 <div id="upload" title="// start new job">
-
-		<p><?php echo $error?></p>
-		<table summary="" >
-			<tbody>
-				<tr>
-					<td>project</td>
-					<td><select id="project" name="project">
-						<?php 
-							$query="select * from projects order by def DESC ";
-							$results=mysql_query($query);
-							while ($row=mysql_fetch_object($results)){
-								$id=$row->id;
-								$nom=$row->name;
-								print "<option>$nom</option>";
-								if (!$project) {
-									$project=$nom;
-								}
-							}
-						?>
-						</select>
-					</td>			
-				</tr>
-					<td>scene</td>
-					<td><input id="scene" type="text" name="scene" size="30"></td>
-				</tr>
-				</tr>
-					<td>shot</td>
-					<td><input id="shot" type="text" name="shot" size="30"></td>
-				</tr>
-				</tr>
-					<td>file format</td>
-					<td><select id="fileformat" name="filetype">
-							<option>PNG</option>
-							<option>JPEG</option>
-							<option>TGA</option>
-							<option>OPEN_EXR</option>
-						</select>
-					</td>
-				</tr>
-				</tr>
-					<td>config</td>
-					<td><select id="config" name="config">
-						<?php output_config_select() ?>
-						</select>
-					</td>
-				</tr>
-				</tr>
-					<td>start</td>
-					<td><input id="start" type="text" name="start" size="3" value="1"></td>
-				</tr>
-				</tr>
-					<td>end</td>
-					<td><input id="end" type="text" name="end" size="3" value="100"></td>
-				</tr>
-				</tr>
-					<td>chunks</td>
-					<td><input id="chunks" type="text" name="chunks" size="3" value="3"></td>
-				</tr>
-				</tr>
-					<td>priority</td>
-					<td><input id="priority" type="text" name="priority" size="3" value="50"></td>
-				</tr>
-				</tr>
-					<td>remarks</td>
-					<td><input id="rem" type="text" name="rem" size="30" value=""></td>
-				</tr>
-				</tr>
-					<td>directstart</td>
-					<td><input id="directstart" type="checkbox" name="directstart" value="true" /></td>
-				</tr>       
-			</tbody>
-		</table>
-		<div class="clear"></div>
+<p><?php echo $error?></p>
+	<div class="col_1">
+		<label for="project">project</label>
+		<label for="scene">scene</label>
+		<label for="shot">shot</label>
+		<label for="file_format">file format</label>
+		<label for="config">config</label>
+		<label for="start">start</label>
+		<label for="end">end</label>
+		<label for="chunks">chunks</label>
+		<label for="priority">priority</label>
+		<label for="remarks">remarks</label>
+		<label for="directstart">directstart</label>				
+	</div>
+	<div class="col_2">
+		<select id="project" name="project">
+				<?php 
+					$query="select * from projects order by def DESC ";
+					$results=mysql_query($query);
+					while ($row=mysql_fetch_object($results)){
+						$id=$row->id;
+						$nom=$row->name;
+						print "<option>$nom</option>";
+						if (!$project) {
+							$project=$nom;
+						}
+					}
+				?>
+		</select>
+		<input id="scene" type="text" name="scene" size="30" />
+		<input id="shot" type="text" name="shot" size="30" />
+		<select id="fileformat" name="filetype">
+					<option>PNG</option>
+					<option>JPEG</option>
+					<option>TGA</option>
+					<option>OPEN_EXR</option>
+		</select>
+		<select id="config" name="config">
+				<?php output_config_select() ?>
+		</select>
+		<input id="start" type="text" name="start" size="3" value="1" />
+		<input id="end" type="text" name="end" size="3" value="100" />
+		<input id="chunks" type="text" name="chunks" size="3" value="3" />
+		<input id="priority" type="text" name="priority" size="3" value="50" />
+		<input id="rem" type="text" name="rem" size="30" value="" />
+		<input id="directstart" type="checkbox" name="directstart" value="true" />				
+	</div>
+	<div class="clear"></div>
 </div>

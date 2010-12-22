@@ -566,3 +566,8 @@ table tr {
 
 #theme_selector {
 }
+
+#upload table tr, #upload table td:hover {
+	background-color: transparent;
+}
+
