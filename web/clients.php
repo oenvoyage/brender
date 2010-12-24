@@ -183,32 +183,94 @@ if (isset($msg)) {
 	<a href="index.php?view=clients&refresh=1"><b class="ordre">refresh</b></a> - 
 	<a href="index.php?view=clients&enable=force_all"><b class="ordre">force_all_enable</b></a>
 </div>
+<a id="new_client" class="button grey" href="#">new job</a>
+
+<script>
+		$(function() {
+			var name = $('input#name'),
+				machine_os = $('select#machine_os :selected'),
+				blender_local_path = $('input#blender_local_path'),
+				machine_type = $('select#machine_type :selected'),
+				speed = $('input#speed'),
+				working_hour_start = $('input#working_hour_start'),
+				working_hour_end = $('input#working_hour_end'),
+				client_priority = $('input#client_priority');
+		
+			
+			$("#new_client_form").dialog({
+				autoOpen: false,
+				height: 400,
+				width: 450,
+				modal: true,
+				buttons: {
+					Cancel: function() {
+						$(this).dialog("close");
+					},
+					"Add new client": function() { 							
+							
+							$.post("ajax/clients.php", {
+								name: name.val(), 
+								blender_local_path: blender_local_path.val(),
+								machine_os: machine_os.val(),
+								machine_type: machine_type.val(),
+								speed: speed.val(),
+								working_hour_start: working_hour_start.val(),
+								working_hour_end: working_hour_end.val(),
+								client_priority: client_priority.val(),
+								action: "add_client"
+							}, function(data) {
+								var obj = jQuery.parseJSON(data);
+								//alert(data);
+								if(obj.status == true) {
+									$("#dialog-form").dialog("close" );
+									alert(obj.query);
+									window.location= 'index.php?view=clients';
+								} else {
+									alert(obj.msg);
+								}
+							}, "Json");				
+			    			return false;					
+					}
+				},
+				close: function() {
+					//allFields.val( "" ).removeClass( "ui-state-error" );
+				}
+			});
+			
+			$("#new_client")
+			.click(function() {
+				$( "#new_client_form" ).dialog( "open" );
+			});
+
+	
+		});
+</script>
+
 
 <?php show_new_client_form(); ?>
 
 <?php function show_new_client_form() { ?>
-	<div class="dialog">
-		<h2>// <b>add new client</b></h2>
+	<div id="new_client_form" title="// add new client">
 		<form action="index.php" method="post">
 			<input type="hidden" name="view" value="clients">
-			name <input type="text" name="new_client_name" size="20"> (must be unique)<br>
+			name <input id="name" type="text" name="new_client_name" size="20"> (must be unique)<br>
 			<h3>machine description</h3>
-			operating system <select name="machine_os">
+			operating system <select id="machine_os" name="machine_os">
 				<option>linux</option>
 				<option>mac</option>
 				<option>windows</option>
 			</select><br/>
-			blender local path (leave empty to use the /blender remote folder in brender_root) : <br/><input type="text" name="blender_local_path" size="80"><br>
-			machine type <select name="machinetype">
+			blender local path (leave empty to use the /blender remote folder in brender_root) : <br/><input id="blender_local_path" type="text" name="blender_local_path" size="80"><br>
+			machine type <select id="machine_type" name="machinetype">
 				<option>rendernode</option>
 				<option>workstation</option>
 			</select><br/>
-			speed (number of processors (multiplicator for number of chunks)) <input type="text" name="speed" size="2" value="2"><br>
+			speed (number of processors (multiplicator for number of chunks)) <input id="speed" type="text" name="speed" size="2" value="2"><br>
 			<h3>working hours / priority</h3>
 			working hours are hours during which the workstation will be disabled<br/>
-			 Start: <input type="text" name="working_hour_start" size="10" value="07:00:00"><br/>
-			 End: <input type="text" name="working_hour_end" size="10" value="19:00:00"><br>
-			 client priority (1-100) (will only render jobs with priority higher than this value)<input type="text" name="client_priority" size="3" value="1"><br>
+			 Start: <input id="working_hour_start" type="text" name="working_hour_start" size="10" value="07:00:00"><br/>
+			 End: <input id="working_hour_end" type="text" name="working_hour_end" size="10" value="19:00:00"><br>
+			 client priority (1-100) (will only render jobs with priority higher than this value)<input id="client_priority" type="text" name="client_priority" size="3" value="1"><br>
 	
 			<input type="submit" name="action" value="add client"><br/>
 		</form>
