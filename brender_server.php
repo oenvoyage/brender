@@ -122,12 +122,21 @@ while ($q=1) {
 	#----we are sleeping 1 or 2 seconds beetween each cycle
 	sleep($server_speed);
 
-	#----every 120 cycle (about every 2 minutes we check if clients are still alive
-	if($a++==120){
-		$a=0;
+	#----every 3600 cycle (about every hour we delete old orders)
+	if($cycles_b++==3600){
+		$max_hours=24;#  number of hours after which the orders get deleted automatically;
+		$query="delete from orders WHERE time_format(TIMEDIFF(NOW(),created),'%k') >$max_hours";
+		mysql_query($query);
+		$affected_rows=mysql_affected_rows();
+		print ("... deleting old orders : more than $max_hours hour old (found $affected_rows)...");
+		$cycles_b=0; #reset the cycle_ounter;
+	}
+	#----every 1200 cycle (about every 2 minutes we check if clients are still alive)
+	if($num_cycles++==120){
 		print ("... checking alive clients :");
 		checking_alive_clients();
 		check_if_client_should_work();
+		$num_cycles=0; #reset the cycle counter
 	}
 	check_and_execute_server_orders();
 	check_and_create_thumbnails();

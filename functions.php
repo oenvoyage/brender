@@ -305,7 +305,7 @@ function get_status($client) {
 }
 function send_order($client,$orders,$rem,$priority){
 	#print "------send_order var = $client, $orders, $rem, $priority----\n";
-	$query="insert into orders values('','$client','$orders','$priority','$rem')";
+	$query="insert into orders values('','$client',NOW(),'$orders','$priority','$rem')";
 	 #print "order query = $query\n";
 	mysql_unbuffered_query($query);
 }

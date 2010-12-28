@@ -20,6 +20,7 @@ if (isset($_GET['del'])) {
 		<td width=120><b>orders</b></td>
 		<td width=500 align=center><b> &nbsp; rem &nbsp; </b></td>
 		<td width=120 align=center><b> &nbsp; priority &nbsp; </td>
+		<td width=120><b>created</b></td>
 		<td width=10></td>
 	</tr>
 	<?php
@@ -29,6 +30,7 @@ if (isset($_GET['del'])) {
 		$client=$row->client;
 		$priority=$row->priority;
 		$id=$row->id;
+		$created=$row->created;
 		$rem=$row->rem;
 		$orders=$row->orders;
 		$bgcolor="#cccccc";
@@ -38,6 +40,7 @@ if (isset($_GET['del'])) {
 			<td class=neutral align=center>$orders</td> 
 			<td bgcolor=$bgcolor align=center>$rem</td>
 			<td bgcolor=$bgcolor align=center>$priority</td>
+			<td class=neutral align=center>$created</td> 
 			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=orders&del=$id\">x</a></td>
 		</tr>";
 	}

@@ -114,6 +114,7 @@ INSERT INTO `jobs` (`id`, `scene`, `shot`, `start`, `end`, `project`, `current`,
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `client` varchar(32) NOT NULL,
+  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `orders` varchar(255) NOT NULL,
   `priority` smallint(6) NOT NULL,
   `rem` varchar(1024) NOT NULL,
