@@ -113,7 +113,7 @@
 
 		<input type="submit" value="update <?php print $client?>"><br/>&nbsp;<br/>
 	</form><br/>
-	<a href="index.php?view=clients&delete=<?php print $client?>" class="bxutton gsrey" ><img src="images/icons/close.png"> delete client <?php print $client ?></a>
+	<a href="index.php?view=clients&delete=<?php print $client?>"><img src="images/icons/close.png"> delete client <?php print $client ?></a>
 
 	<h2>// 5 last rendered frames </h2>
 	<?php show_last_rendered_frame_by_client($client); ?>
