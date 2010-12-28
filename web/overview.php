@@ -71,7 +71,7 @@ function show_client_list() {
 	</tr>
 	<?php
 	 if (mysql_num_rows($results)==0) {
-		echo '"<tr><td class="header_row error" colspan=8> NO clients running (<a href="index.php?view=clients">click here to add</a>)</td></tr>';
+		echo '"<tr><td class="header_row error" colspan=8> NO clients running (<a href="index.php?view=clients">click here to add/manage</a>)</td></tr>';
         } 
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
@@ -212,7 +212,7 @@ function show_job_list() {
 		}?>
 		</table>
 		<div class="table-controls">
-			<a href="index.php?view=upload"><b class="ordre">new job</a></b> -
+			<a id="new_job2" href="#"><b class="ordre">new job</a></b> -
 			<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> -
 			<a href="index.php?view=jobs&x=$random_x"><b class="ordre">reload</a></b> -
 			<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>

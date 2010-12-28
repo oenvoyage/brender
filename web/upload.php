@@ -54,7 +54,7 @@
 				}
 			});
 			
-			$("#new_job")
+			$("#new_job, #new_job2")
 			.click(function() {
 				$( "#upload" ).dialog( "open" );
 			});
