@@ -183,7 +183,7 @@ if (isset($msg)) {
 	<a href="index.php?view=clients&refresh=1"><b class="ordre">refresh</b></a> - 
 	<a href="index.php?view=clients&enable=force_all"><b class="ordre">force_all_enable</b></a>
 </div>
-<a id="new_client" class="button grey" href="#">new job</a>
+<a id="new_client" class="button grey" href="#">add new client</a>
 
 <script>
 		$(function() {
@@ -199,8 +199,7 @@ if (isset($msg)) {
 			
 			$("#new_client_form").dialog({
 				autoOpen: false,
-				height: 400,
-				width: 450,
+				width: 540,
 				modal: true,
 				buttons: {
 					Cancel: function() {
@@ -260,7 +259,7 @@ if (isset($msg)) {
 				<option>mac</option>
 				<option>windows</option>
 			</select><br/>
-			blender local path (leave empty to use the /blender remote folder in brender_root) : <br/><input id="blender_local_path" type="text" name="blender_local_path" size="80"><br>
+			blender local path (leave empty to use the /blender remote folder in brender_root) : <br/><input id="blender_local_path" type="text" name="blender_local_path" size="60"><br>
 			machine type <select id="machine_type" name="machinetype">
 				<option>rendernode</option>
 				<option>workstation</option>
@@ -272,7 +271,6 @@ if (isset($msg)) {
 			 End: <input id="working_hour_end" type="text" name="working_hour_end" size="10" value="19:00:00"><br>
 			 client priority (1-100) (will only render jobs with priority higher than this value)<input id="client_priority" type="text" name="client_priority" size="3" value="1"><br>
 	
-			<input type="submit" name="action" value="add client"><br/>
 		</form>
 	</div>
 <?php } ?>

@@ -43,7 +43,7 @@
 	if (isset($msg)) {
 		print "$msg<br/>";
 	}
-	print "<h2>//view client <b>$client</b></h2>";
+	print "<h2>// view client <b>$client</b></h2>";
 	#print "$query<br/>";
 		$row=mysql_fetch_object($results);
 		$client=$row->client;
@@ -112,8 +112,8 @@
 		 priority (1-100) (will only render jobs with priority higher than this value)<input type="text" name="client_priority" size="3" value="<?php print $client_priority?>"><br>
 
 		<input type="submit" value="update <?php print $client?>"><br/>&nbsp;<br/>
-	</form>
-	<a href="index.php?view=clients&delete=<?php print $client?>">delete <?php print $client ?></a>
+	</form><br/>
+	<a href="index.php?view=clients&delete=<?php print $client?>" class="bxutton gsrey" ><img src="images/icons/close.png"> delete client <?php print $client ?></a>
 
 	<h2>// 5 last rendered frames </h2>
 	<?php show_last_rendered_frame_by_client($client); ?>

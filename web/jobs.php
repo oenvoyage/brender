@@ -12,12 +12,12 @@ if (isset($_GET['order_by'])) {
 
 #----------------------------
 if (isset($_GET['restart_all_paused'])) {
-	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active') and status='pause');";
+	$queryqq="UPDATE jobs SET current=start,status='waiting' WHERE (project IN (SELECT name FROM projects WHERE status='active') AND status='pause');";
 	output("ALL PAUSED JOBS RESTARTED");
 	mysql_query($queryqq);
 }
 if (isset($_GET['restart_all'])) {
-	$queryqq="update jobs set current=start,status='waiting' where (project in (select name from projects where status='active'));";
+	$queryqq="UPDATE jobs SET current=start,status='waiting' WHERE (project IN (SELECT name FROM projects WHERE status='active'));";
 	output("ALL JOBS RESTARTED");
 	mysql_query($queryqq);
 }
@@ -25,16 +25,16 @@ if (isset($_POST['updateid'])) {
 	$jobid=$_POST['updateid'];
 	if ($_POST['copy']=="copy job") {
 		#----update COPY so we create a new job-------
-		$query="insert into jobs values('','$_POST[scene]','$_POST[shot]','$_POST[start]','$_POST[end]','$_POST[project]','$_POST[start]','$_POST[chunks]','$_POST[filetype]','$_POST[rem]','$_POST[config]','active','$_POST[progress_status]','$_POST[progress_remark]','$_POST[priority]',now(),'$_SESSION[user]')";
+		$query="INSERT INTO jobs VALUES('','$_POST[scene]','$_POST[shot]','$_POST[start]','$_POST[end]','$_POST[project]','$_POST[start]','$_POST[chunks]','$_POST[filetype]','$_POST[rem]','$_POST[config]','active','$_POST[progress_status]','$_POST[progress_remark]','$_POST[priority]',now(),'$_SESSION[user]')";
                 mysql_query($query);
 		print "COPYPROCESS = $_POST[copy] and query = $query";
 	}
 	else {
 		#----update UPDATE so we just update the job-------
-		$queryqq="update jobs set start='$_POST[start]',end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',progress_status='$_POST[progress_status]',progress_remark='$_POST[progress_remark]', lastseen=NOW(),last_edited_by='$_SESSION[user]'  where id=$jobid;";
+		$queryqq="UPDATE jobs SET start='$_POST[start]',end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',progress_status='$_POST[progress_status]',progress_remark='$_POST[progress_remark]', lastseen=NOW(),last_edited_by='$_SESSION[user]'  where id=$jobid;";
 		if (isset($_POST['directstart'])){
 			print "direct start...";
-			$queryqq="update jobs set start='$_POST[start]',current='$_POST[start]', end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',status='waiting', lastseen=NOW() where id=$jobid;";
+			$queryqq="UPDATE jobs SET start='$_POST[start]',current='$_POST[start]', end='$_POST[end]',filetype='$_POST[filetype]',config='$_POST[config]',chunks='$_POST[chunks]',priority='$_POST[priority]',status='waiting', lastseen=NOW() where id=$jobid;";
 		}	
 		mysql_query($queryqq);
 		#$msg= "job $jobid updated $queryqq<br/>";
@@ -67,6 +67,7 @@ if (isset($_GET['del'])) {
 # ---------------------------------------------
 #-------- Display Table with all jobs ---------
 # ---------------------------------------------
+	// select and display all jobs from active projects
 	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
 	#print "<h2>job query $job_query</h2>";
 	debug("$job_query<br/>");
@@ -95,6 +96,7 @@ if (isset($_GET['del'])) {
 	</tr>
 	<?php 
 	if (mysql_num_rows($results)==0) {
+		// there is no jobs to display.... so display a little warning instead :)
        		echo '"<tr><td class="header_row warning" colspan=17> no jobs found (<a href="index.php?view=upload">click here to add</a>) or check <a href="index.php?view=projects">active projects</a></td></tr>';
         }
 

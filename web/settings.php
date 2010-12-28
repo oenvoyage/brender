@@ -63,7 +63,7 @@
 	<h3>Interface</h3>
 	<div class="item">	
 		<select id="theme_selector">
-			<option value="">select theme</option>
+			<option value="">select theme (<?php print $_SESSION[theme] ?>)</option>
 			<option value="brender">brender</option>
 			<option value="brender_dark">brender dark</option>
 			<option value="brender_mobile">brender mobile</option>
