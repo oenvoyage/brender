@@ -27,10 +27,11 @@ if ($_POST['scene'] && $_POST['shot']) {
 		$query="insert into jobs values  ('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$status','new','rem','$priority',now(),'$_SESSION[user]')";
 				
 		mysql_query($query) or die ($dberror = mysql_error());
-		$_SESSION['last_used_config']=$config;
+		//session_destroy();
+		//$_SESSION['last_used_config']=$config;
 		//print "<a href=\"index.php?view=jobs\">view jobs</a><br/>";
 		//print "<a href=\"index.php?view=upload\">send another job</a>";
-		echo "{\"status\":true, \"msg\":\"$msg\", \"query\":\"$query\"}";
+		echo "{\"status\":true, \"msg\":\"$msg\", \"query\":\"$dberror\"}";
 		
 	}
 	else {

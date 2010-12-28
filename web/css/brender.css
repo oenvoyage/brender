@@ -382,7 +382,7 @@ form {
 	font-size: 11px;
 } 
 
-.ui-dialog .col_2 input {
+.ui-dialog .col_2 input, .ui-dialog .col_2 select {
 	margin: 2px 0;
 } 
 
@@ -571,3 +571,6 @@ table tr {
 	background-color: transparent;
 }
 
+#upload input, #upload select{
+	font-size: 11px;
+}
