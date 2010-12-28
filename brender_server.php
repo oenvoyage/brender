@@ -23,8 +23,9 @@ if ($argv[1] =="debug") {
 output("process id=$pid");
 brender_log("SERVER STARTS $pid");
 server_start($pid);
+# ---things to do and check when starting server
 checking_alive_clients();
-
+check_and_delete_old_orders();
 
 #-----------------main loop---------------------------
 #--- the main loop acts like this : it checks through all clients if there is an idle one, and trys to find some job for it
@@ -124,12 +125,8 @@ while ($q=1) {
 
 	#----every 3600 cycle (about every hour we delete old orders)
 	if($cycles_b++==3600){
-		$max_hours=24;#  number of hours after which the orders get deleted automatically;
-		$query="delete from orders WHERE time_format(TIMEDIFF(NOW(),created),'%k') >$max_hours";
-		mysql_query($query);
-		$affected_rows=mysql_affected_rows();
-		print ("... deleting old orders : more than $max_hours hour old (found $affected_rows)...");
-		$cycles_b=0; #reset the cycle_ounter;
+		check_and_delete_old_orders();
+		$cycles_b=0; #reset the cycle_counter;
 	}
 	#----every 1200 cycle (about every 2 minutes we check if clients are still alive)
 	if($num_cycles++==120){
@@ -156,6 +153,13 @@ function check_and_create_thumbnails() {
 		$query="update rendered_frames set is_thumbnailed=1 where id='$id'";
 		mysql_query($query);
 	}
+}
+function check_and_delete_old_orders() {
+		$max_hours=24;#  number of hours after which the orders get deleted automatically;
+		$query="delete from orders WHERE time_format(TIMEDIFF(NOW(),created),'%k') >$max_hours";
+		mysql_query($query);
+		$affected_rows=mysql_affected_rows();
+		print ("... deleting old orders : more than $max_hours hour old (found $affected_rows)...\n");
 }
 function check_and_execute_server_orders() {
 	#------we get and check if there are orders for the server------
