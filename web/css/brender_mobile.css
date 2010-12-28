@@ -20,9 +20,12 @@ html, body {height: 100%;}
 
 body {	
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
+	font-size: 15px;
 	background: #EEE;
 	color: #000000;
-	padding: 0;
-	margin: 0;
 }
+.button {
+        font: 14px/100% Arial, Helvetica, sans-serif;
+	padding : 0.4em;
+}
+ 
