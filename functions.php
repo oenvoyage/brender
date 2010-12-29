@@ -240,23 +240,25 @@ function check_server_is_dead() {
 	#---to check if server is running, we send him a ping order. If he is alive, it will remove the order. If not the order will still be there after 3 sconds, meaning the server is ko
 	send_order("server","ping","","1");
 	sleep(3);
-        $query="select count(orders) from orders where orders='ping' and client='server'";
-        $results=mysql_query($query);
+        $check_query="select count(orders) from orders where orders='ping' and client='server'";
+        $results=mysql_query($check_query);
         $ping_result=mysql_result($results,0);
+	return 1;
 	return $ping_result;
 }
 function check_server_status(){
 	# print "<br/>get server status<br/>";
 	# command to see if the server is running or dead
+	#brender_log("I CHECK SERVER STATUS");
         if (check_server_is_dead()){
-		$GLOBALS['computer_name']="web_interface";
+		#$GLOBALS['computer_name']="web_interface";
 		set_server_settings("status","died");
 		set_server_settings("pid","0");
 		set_server_settings("started","now()");
 		brender_log("server not responding (PING)");
 		brender_log("SERVER DIED");
 		//$color="red";
-		$status="SERVER DIED !!!!!!!!<br/>";
+		$status="SERVER DIED !!!!!!!!";
        	}
 	else {
 		set_server_settings("status","running");
@@ -314,6 +316,9 @@ function brender_log($log){
 	$log=preg_replace("/\n$/","",$log);  # we erase the trailing carriage return to avoid empty lines in the log file
 	if ($computer_name=="web_interface") {
 		$prefix="../";
+	}
+	if ($computer_name=="ajax") {
+		$prefix="../../";
 	}
 	$heure=date('Y/d/m H:i:s');
 	$log_koi = "$heure $computer_name: $log\n";

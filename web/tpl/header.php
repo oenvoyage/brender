@@ -6,6 +6,7 @@
 	include_once("connect.php");
 	include_once("../functions.php");
 	include_once("functions.php");
+	global $computer_name;
 	$computer_name="web_interface";
 	
 	if (isset($_GET['theme'])) {
