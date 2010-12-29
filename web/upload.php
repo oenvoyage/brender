@@ -65,9 +65,9 @@
 <div id="upload" title="// start new job">
 <p><?php echo $error?></p>
 	<div class="col_1">
-		<label for="project">project</label>
-		<label for="scene">scene</label>
-		<label for="shot">shot</label>
+		<label for="projects">project</label>
+		<label for="scenes">scene</label>
+		<label for="shots">shot</label>
 		<label for="file_format">file format</label>
 		<label for="config">config</label>
 		<label for="start">start</label>
@@ -78,22 +78,7 @@
 		<label for="directstart">directstart</label>				
 	</div>
 	<div class="col_2">
-		<select id="project" name="project">
-				<?php 
-					$query="select * from projects order by def DESC ";
-					$results=mysql_query($query);
-					while ($row=mysql_fetch_object($results)){
-						$id=$row->id;
-						$nom=$row->name;
-						print "<option>$nom</option>";
-						if (!$project) {
-							$project=$nom;
-						}
-					}
-				?>
-		</select>
-		<input id="scene" type="text" name="scene" size="30" />
-		<input id="shot" type="text" name="shot" size="30" />
+		<?php scene_shot_cascading_dropdown_menus() ?>
 		<select id="fileformat" name="filetype">
 					<option>PNG</option>
 					<option>JPEG</option>

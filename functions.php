@@ -340,8 +340,94 @@ function output_progress_status_select($default="NONE") {
 		}
 	}
 }
+function scene_shot_cascading_dropdown_menus() {
+	# ----- WORK IN PROGRESS -----------XXX------
+	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project for autodiscovery of .blend files
+
+	$projects_list=get_projects_list_array();
+	foreach ($projects_list as $project) {
+		$scene_list=get_scene_list_array($project);
+		$projects_options.="<option class=\"project\" value=\"$project\">$project</option>";
+		foreach ($scene_list as $scene) {
+			#print "$scene <br/>";
+			$scene_options.="<option class=\"$project\" value=\"$scene\">$scene</option>";
+			$shot_list=get_shot_list_array($project,$scene);
+			#$shot_options="";
+			foreach ($shot_list as $shot) {
+				$shot_options.="<option class=\"$scene\" value=\"$shot\">$shot</option>";
+				#print " --- $shot<br/>";
+			}
+		}
+	}
+	?>
+	<select name="project" id="project">
+		<?php echo $projects_options ?>
+	</select><br/>
+
+	<select name="scene" id="scene">
+		<?php echo $scene_options ?>
+	</select><br/>
+	
+	<select name="shot" id="shot">
+		<?php echo $shot_options ?>
+	</select><br/>
+	<!--  the javascript needs to be called after <select><option> construction. No idea why. This has to be fixed  -->
+	<script type='text/javascript' src='js/js_brender.js'></script> 
+
+	<?php
+
+}
+function get_projects_list_array() {
+	$query="select * from projects order by def DESC ";
+        $results=mysql_query($query);
+	while ($row=mysql_fetch_object($results)) {
+		$projects_list[]=$row->name;
+	}
+	#print_r($projects_list);
+	return $projects_list;
+}
+function get_scene_list_array($project) {
+	# ----- WORK IN PROGRESS -----------XXX------
+	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project
+	$server_os=get_server_settings("server_os");
+	$blend_path=get_path($project,"blend",$server_os);
+	debug("Debug path server_os = $server_os and path = $blend_path");
+
+	$scene_list=array();
+	$list= `ls $blend_path`;
+	$list=preg_split("/\n/",$list);
+
+	foreach ($list as $item) {
+		#print("check item=$item<br/>");
+		if (is_dir("$blend_path/$item")) {
+			$scene_list[]=$item;
+		}
+	}
+	return $scene_list;
+}
+function get_shot_list_array($project,$selected_scene="") {
+	# ----- WORK IN PROGRESS -----------XXX------
+	# to have this working, the server needs to have a server_os set, and have path access to the blend files of the project
+	$server_os=get_server_settings("server_os");
+	$scenes_path=get_path($project,"blend",$server_os);
+	debug("Debug path server_os = $server_os and path = $scenes_path");
+
+	$shot_list=array();
+	$list= `ls $scenes_path/$selected_scene`;
+	$list=preg_split("/\n/",$list);
+
+	foreach ($list as $item) {
+		#print("check item=$item<br/>");
+		if (preg_match("/(\w*)\.blend$/",$item,$res)) {
+			$filename=$res[1]; # we extract only filename without .blend from regex
+			$shot_list[]=$filename;
+		}
+	}
+	return $shot_list;
+}
 function output_scene_selector($project) {
 	# ----- WORK IN PROGRESS -----------XXX------
+	#  NOT USED for the moment XXX
 	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project
 	$server_os=get_server_settings("server_os");
 	$blend_path=get_path($project,"blend",$server_os);
@@ -362,6 +448,7 @@ function output_scene_selector($project) {
 }
 function output_shot_selector($project,$selected_scene="") {
 	# ----- WORK IN PROGRESS -----------XXX------
+	#  NOT USED for the moment XXX
 	# to have this working, the server needs to have a server_os set, and have path access to the blend files of the project
 	$server_os=get_server_settings("server_os");
 	$scenes_path=get_path($project,"blend",$server_os);

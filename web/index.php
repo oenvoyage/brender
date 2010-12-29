@@ -54,6 +54,10 @@
 			if($view == "settings") { 
 				include "settings.php";
 			}
+
+			if($view == "test") { 
+				include "test.php";
+			}
 			
 			if($view == "status") { 
 				include "status.php";

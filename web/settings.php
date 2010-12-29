@@ -40,6 +40,21 @@
 </script>
 
 <h2>// <strong>server</strong> settings</h2>
+<?php 
+if (isset($_GET['do_the_test'])) {
+	print "<b>doing a test</b><br/>";
+	print "go to <a href=\"index.php?view=test\">test page</a><br/><br/>";
+	#output_shot_selector("gphg","03_animal_ballon");
+	#$qq=get_scene_list_array("gphg");
+	$qq=get_shot_list_array("gphg","02_katana");
+	#print_r($qq);
+	javascript_selector();
+}
+#print output_scene_list("gphg");
+print "<br/>-----<br/>";
+#print "<br/>";
+#print output_shot_list("gphg","01_bulles_champagne");
+?>
 
 <p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>
 <div class="settings_container">
@@ -92,20 +107,6 @@
 <?php
 #print "sid = $sid <br/>";
 
-if (isset($_GET['do_the_test'])) {
-	print "<form>";
-	print "<b>doing a test</b><br/>";
-	output_scene_selector("gphg");
-	#output_shot_selector("gphg","03_animal_ballon");
-	print "</form>";
-	#output_shot_selector("gphg","03_animal_ballon");
-	/*
-	$log="2010/05/11 19:36:49 macbook: blenderpath=/Applications/blender/2_48/Blender.app/Contents/MacOS/blender";
-	$line =preg_replace('/(\d*)/i','<small>$1</small>',$log);
-	print "logline == $line<br/>";
-	*/
-	
-}
 if (isset($_GET[debug])) {
 	$_SESSION[debug]=!$_SESSION[debug];
 }
