@@ -10,7 +10,7 @@ if ($ticker>4) {
 }
 
 print "<meta http-equiv=\"Refresh\" content=\"5;URL=index.php?view=status&ticker=$ticker\" />\n";
-print "<a href=\"index.php?view=status&server_stop=1\">stop</a>";
+#print "<a href=\"index.php?view=status&server_stop=1\">stop</a>";
 $qq=exec('ps');
 # print "qq= $qq";
 
@@ -18,14 +18,14 @@ print "<span class=\"clock\">";
 	include "tpl/clock.php";
 print "</span><br/>";
 
-decimal_time();
+#decimal_time();
 
 order_status();
 client_status();
 system_status();
 pourcent_total();
 print "<br/>";
-pourcents();
+#pourcents();
 logs();
 
 #------------------ server log-----------------
@@ -51,30 +51,17 @@ function logs() {
 } 
 #--------------barre pourcents ---------
 function pourcents() {
-	$query="select name,status,(end-current)/(end-start+1)*100 as pourcent from jobs where status='rendering' or status='pause' or status='waiting';";
+	#$query="select shot,status,(end-current)/(end-start+1)*100 as pourcent from jobs where status='rendering' or status='pause' or status='waiting';";
+	$query="select shot,status,start,end,current from jobs where status='rendering' or status='pause' or status='waiting';";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)) {
-		$pourcent=$row->pourcent;
-		$name=$row->name;
+		$name=$row->shot;
 		$status=$row->status;
-		# print "$name = $pourcent<br/>";
-		$longueur_rouge=$pourcent*5;
-		$longueur_vert=(100-$pourcent)*5;
-		if ($pourcent>0){
-			$bgcolor="#bcffa6";
-			if ($status=="waiting") {
-			          $bgcolor="#777700";
-			}
-			if ($status=="rendering") {
-			        $bgcolor="#002244";
-			}
-			if ($status=="pause") {
-			          $bgcolor="#ffff99";
-			}
-			print "<table border=0><tr>";
-				print "<td width=\"100\" align=\"right\" class=\"pourcent\">$name</td><td width=\"$longueur_vert\" bgcolor=\"#006600\" height=\"10\"></td><td width=\"$longueur_rouge\" bgcolor=\"#660000\"></td>";
-			print "</tr></table>";
-		}
+		$start=$row->start;
+		$end=$row->end;
+		$current=$row->current;
+		#print "$name = $start $end $current<br/>";
+		print "<span class=\"progress-bar large\"> $name :: ".output_progress_bar($start,$end,$current)."</span>";
 			
 	}
 
@@ -138,7 +125,7 @@ function order_status() {
 
 #---------------system status ---------
 function system_status() {
-	$query="select server,status,pid,started,timediff(now(),started) as uptime from status;";
+	$query="select server,status,pid,started,timediff(now(),started) as uptime from server_settings;";
 	$results=mysql_query($query);
 	print "<table width=600>";
 	print "<tr>

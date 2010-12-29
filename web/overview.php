@@ -1,4 +1,4 @@
-<h2>//<b>overview</b> <?php output_refresh_button(); ?> </h2>
+<h2>// <b>overview</b> <?php output_refresh_button(); ?> </h2>
 <?php
 if (isset($_GET['orderby_job'])) {
 	if ($_SESSION[orderby_jobs]==$_GET[orderby_job]) {
@@ -29,13 +29,13 @@ if (isset($_GET['orderby_client'])) {
 	</td></tr>
 	<tr class="spacer_row"></tr>
 	<tr class=header_row><td colspan=2>
-		//<b>current jobs</b>
+		// <b>current jobs</b>
 	</td></tr>
 	<tr><td colspan=2>
 		<?php show_job_list(); ?>
 	</td></tr>
 	<tr class=header_row><td colspan=2>
-		//<b>last logs</b>
+		// <b>last logs</b>
 	</td></tr>
 	<tr><td colspan=2>
 		 <?php show_last_log();?>
@@ -64,14 +64,14 @@ function show_client_list() {
 		?>
 	<table border=0>
 	<tr class="header_row">
-		<td class="header_td" width=200> <a href="index.php?orderby_client=client">client name</a> </td>
+		<td class="header_td" width="200"> <a href="index.php?orderby_client=client">client name</a> </td>
  		<td><a href="index.php?orderby_client=status">status</a></td>
 		<td> &nbsp; <a href="index.php?orderby_client=info">info</a></td>
 		<td width=120><b> &nbsp; &nbsp; </td>
 	</tr>
 	<?php
 	 if (mysql_num_rows($results)==0) {
-		echo '"<tr><td class="header_row error" colspan=8> NO clients running (<a href="index.php?view=clients">click here to add/manage</a>)</td></tr>';
+		echo '<tr><td class="header_row error" colspan=8> NO clients running (<a href="index.php?view=clients">click here to add/manage</a>)</td></tr>';
         } 
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
@@ -213,8 +213,8 @@ function show_job_list() {
 		</table>
 		<div class="table-controls">
 			<a id="new_job2" href="#"><b class="ordre">new job</a></b> -
+			<a href="index.php?view=jobs&x=<?php print $GLOBALS[random_x] ?>"><b class="ordre">reload</a></b> -
 			<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> -
-			<a href="index.php?view=jobs&x=$random_x"><b class="ordre">reload</a></b> -
 			<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>
 		</div>
 		<?php

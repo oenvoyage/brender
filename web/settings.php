@@ -48,12 +48,12 @@ if (isset($_GET['do_the_test'])) {
 	#$qq=get_scene_list_array("gphg");
 	$qq=get_shot_list_array("gphg","02_katana");
 	#print_r($qq);
-	javascript_selector();
+	#javascript_selector();
+	#print output_scene_list("gphg");
+	print "<br/>-----<br/>";
+	#print "<br/>";
+	#print output_shot_list("gphg","01_bulles_champagne");
 }
-#print output_scene_list("gphg");
-print "<br/>-----<br/>";
-#print "<br/>";
-#print output_shot_list("gphg","01_bulles_champagne");
 ?>
 
 <p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>

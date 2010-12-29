@@ -1,13 +1,4 @@
 <?php
-if ($_GET[bgcolor]=="black") {
-	$option_couleur= "white";
-	$bgcolor= "black";
-}
-else {
-	$option_couleur= "black";
-	$bgcolor= "white";
-	
-}
 #--------read---------
 	$id=$_GET[id];
 	$query="select * from jobs where id='$id'";
@@ -18,7 +9,6 @@ else {
 		$scene=$row->scene;
 		$shot=$row->shot;
 		$jobtype=$row->jobtype;
-		$file=$row->file;
 		$config=$row->config;
 		$output=$row->output;
 		$start=$row->start;
@@ -30,14 +20,12 @@ else {
 		$progress_status=$row->progress_status;
 		$progress_remark=$row->progress_remark;
 		$last_edited_by=$row->last_edited_by;
+		$lastseen=$row->lastseen;
 		$status=$row->status;
 		$priority=$row->priority;
 		$total=$end-$start;
 	#-------------------
-	print "<h2>// job $id : <b>$shot</b></h2>";
-	print "// project :: <b>$project</b><br/>";
-	print "// scene :: $scene $rem<br/>";
-	print "last changes made by  :: $last_edited_by<br/>";
+	print "<h2>// job $id : $scene/<b>$shot</b> </h2>";
 	?>
 	<script>
 	$(function() {
@@ -56,12 +44,6 @@ else {
 	</script>
 		
 
-
-	<button class="switchbg">Dark background</button>
-
-	
-
-
 	<?php
 	print "<table border=0>";
 	print "<tr>";
@@ -69,13 +51,17 @@ else {
 	
 	print "</td></tr>";
 	print "<tr><td width=200>";
-		print "<a href=\"index.php\">back to overview</a><br/>";
-		print "<a href=\"index.php?view=jobs\">jobs</a><br/>";
+		#print "<a class=\"button grey\" href=\"index.php\">back to overview</a><br/>";
+		print "&nbsp;<br/>";
+		print "<a class=\"button grey\" href=\"index.php?view=jobs\">back to jobs</a><br/>";
 		print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$option_couleur\">$option_couleur</a><br/>";
+		print "project : $project<br/>";
 		print "$total frames ($start-$end by $chunks)<br/>";
 		$total_rendered=count_rendered_frames($id);
 		print "$total_rendered rendered frames<br/>";
-		print "file $file <br/>";
+		print "last changes made by  :: $last_edited_by<br/> $lastseen <br/>";
+		print "<button class=\"switchbg\">Dark background</button>";
+		print "&nbsp;<br/>";
 	print "</td>";
 	print "<td>";
 	#------------------------------ option update job -----------------------
