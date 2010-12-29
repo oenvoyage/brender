@@ -5,6 +5,11 @@ if (isset($_GET['delete_all'])) {
 	mysql_unbuffered_query($qquery);
 	print "$qquery";
 }
+if (isset($_GET['delete_old'])) {
+	$qquery="delete from orders where time_format(TIMEDIFF(NOW(),created),'%k') >2";
+	mysql_unbuffered_query($qquery);
+	print "$qquery";
+}
 if (isset($_GET['del'])) {
 	$qquery="delete from orders where id='$_GET[del]'";
 	mysql_unbuffered_query($qquery);
@@ -24,7 +29,7 @@ if (isset($_GET['del'])) {
 		<td width=10></td>
 	</tr>
 	<?php
-	$query="select * from orders";
+	$query="select *,time_format(TIMEDIFF(NOW(),created),'%k') as hours_idle from orders";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
@@ -33,20 +38,27 @@ if (isset($_GET['del'])) {
 		$created=$row->created;
 		$rem=$row->rem;
 		$orders=$row->orders;
+		$hours_idle=$row->hours_idle;
 		$bgcolor="#cccccc";
+		$created_class="";
+		if ($hours_idle>2) {   
+			# the orders that are older than 2 hours will be displayed in red
+			$created_class="error";
+		}
 		print "<tr>
-			<td bgcolor=$bgcolor align=center>$id</td>
-			<td class=neutral align=center><a href=\"index.php?view=view_client&client=$client\">$client</a></td> 
-			<td class=neutral align=center>$orders</td> 
-			<td bgcolor=$bgcolor align=center>$rem</td>
-			<td bgcolor=$bgcolor align=center>$priority</td>
-			<td class=neutral align=center>$created</td> 
-			<td bgcolor=$bgcolor align=center><a href=\"index.php?view=orders&del=$id\">x</a></td>
+			<td bgcolor=$bgcolor>$id</td>
+			<td class=neutral><a href=\"index.php?view=view_client&client=$client\">$client</a></td> 
+			<td class=neutral>$orders</td> 
+			<td bgcolor=$bgcolor>$rem</td>
+			<td bgcolor=$bgcolor>$priority</td>
+			<td class=$created_class>$created</td> 
+			<td bgcolor=$bgcolor><a href=\"index.php?view=orders&del=$id\">x</a></td>
 		</tr>";
 	}
 	?>
 </table>
 <div class="table-controls">
-	<a href="index.php?view=orders&delete_all=1"><div class="ordre">delete_all</div></a>
+	<a href="index.php?view=orders&delete_all=1"><b class="ordre">delete_all</b></a> - 
+	<a href="index.php?view=orders&delete_old=1"><b class="ordre">delete_older than 2 hours</b></a>
 </div>
 
