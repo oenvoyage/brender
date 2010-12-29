@@ -243,7 +243,6 @@ function check_server_is_dead() {
         $check_query="select count(orders) from orders where orders='ping' and client='server'";
         $results=mysql_query($check_query);
         $ping_result=mysql_result($results,0);
-	return 1;
 	return $ping_result;
 }
 function check_server_status(){
