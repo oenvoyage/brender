@@ -68,7 +68,7 @@
 		<label for="project">project</label>
 		<label for="scene">scene</label>
 		<label for="shot">shot</label>
-		<label for="file_format">file format</label>
+		<label for="fileformat">file format</label>
 		<label for="config">config</label>
 		<label for="start">start</label>
 		<label for="end">end</label>
@@ -79,7 +79,7 @@
 	</div>
 	<div class="col_2">
 		<?php scene_shot_cascading_dropdown_menus() ?>
-		<select id="file_format" name="file_format">
+		<select id="fileformat" name="fileformat">
 					<option>PNG</option>
 					<option>JPEG</option>
 					<option>TGA</option>

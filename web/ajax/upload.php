@@ -9,7 +9,7 @@ if ($_POST['scene'] && $_POST['shot']) {
 		$shot = $_POST[shot];
 		$project = $_POST[project];
 		$scene = $_POST[scene];
-		$filetype = $_POST[filetype];
+		$fileformat = $_POST[fileformat];
 		$rem = $_POST[rem];
 		$config = $_POST[config];
 		$chunks = $_POST[chunks];
@@ -24,7 +24,7 @@ if ($_POST['scene'] && $_POST['shot']) {
 			
 		}
 		
-		$query="insert into jobs values  ('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$status','new','rem','$priority',now(),'$_SESSION[user]')";
+		$query="insert into jobs values  ('','$scene','$shot','$start','$end','$project','$start','$chunks','$fileformat','$rem','$config','$status','new','rem','$priority',now(),'$_SESSION[user]')";
 				
 		mysql_query($query) or die ($dberror = mysql_error());
 		//session_destroy();
