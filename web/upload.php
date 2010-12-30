@@ -1,8 +1,8 @@
 <script>
 		$(function() {
 			var project = $('select#project'),
-				scene = $('input#scene'),
-				shot = $('input#shot'),
+				scene = $('select#scene'),
+				shot = $('select#shot'),
 				fileformat = $('select#fileformat'),
 				config = $('select#config'),
 				start = $('input#start'),
@@ -65,9 +65,9 @@
 <div id="upload" title="// start new job">
 <p><?php echo $error?></p>
 	<div class="col_1">
-		<label for="projects">project</label>
-		<label for="scenes">scene</label>
-		<label for="shots">shot</label>
+		<label for="project">project</label>
+		<label for="scene">scene</label>
+		<label for="shot">shot</label>
 		<label for="file_format">file format</label>
 		<label for="config">config</label>
 		<label for="start">start</label>
@@ -79,7 +79,7 @@
 	</div>
 	<div class="col_2">
 		<?php scene_shot_cascading_dropdown_menus() ?>
-		<select id="fileformat" name="filetype">
+		<select id="file_format" name="file_format">
 					<option>PNG</option>
 					<option>JPEG</option>
 					<option>TGA</option>
