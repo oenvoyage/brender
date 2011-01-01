@@ -87,7 +87,7 @@ if (isset($_GET['del'])) {
 		<td><a href="index.php?view=jobs&order_by=chunks">chunks</a></td>
 		<td><a href="index.php?view=jobs&order_by=current">current</a> </td>
 		<td>rendered</td>
-		<td width=10><a href="index.php?view=jobs&order_by=status">status</a> &nbsp; </td>
+		<td width=60><a href="index.php?view=jobs&order_by=status">status</a> &nbsp; </td>
 		<td width=70></td>
 		<td width=80><a href="index.php?view=jobs&order_by=lastseen">lastseen</a></td>
 		<td width=80><a href="index.php?view=jobs&order_by=last_edited_by">last edited by</a></td>
@@ -97,7 +97,7 @@ if (isset($_GET['del'])) {
 	<?php 
 	if (mysql_num_rows($results)==0) {
 		// there is no jobs to display.... so display a little warning instead :)
-       		echo '"<tr><td class="header_row warning" colspan=17> no jobs found (<a id="new_job_button3" href="#">click here to add</a>) or check <a href="index.php?view=projects">active projects</a></td></tr>';
+       		echo '<tr><td class="header_row warning" colspan=30> no jobs found (<a id="new_job_button3" href="#">click here to add</a>) or check <a href="index.php?view=projects">active projects</a></td></tr>';
         }
 
 	while ($row=mysql_fetch_object($results)){

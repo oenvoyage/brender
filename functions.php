@@ -489,7 +489,7 @@ function output_config_select($default="NONE") {
 			print " <option value=\"$item\" selected>$item</option>";
 		}	
 		else if ($item<>""){
-			print " <option value=\"$item\">--$item--</option>";
+			print " <option value=\"$item\">$item</option>";
 		}
 	}
 }
