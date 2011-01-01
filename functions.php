@@ -152,6 +152,12 @@ function check_if_client_should_work($client_name="check all") {
 	}
 	
 }
+function check_project_is_active($project_id) {
+	$query="select count(name) from projects where id='$project_id' and status='active'";
+        $results=mysql_query($query);
+        $check_result=mysql_result($results,0);
+        return $check_result;
+}
 function check_project_exists($project) {
 	$query="select count(name) from projects where name='$project'";
         $results=mysql_query($query);
