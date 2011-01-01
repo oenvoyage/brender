@@ -13,7 +13,7 @@
 				directstart = $('#directstart input[type="checkbox"]');
 		
 			
-			$("#upload").dialog({
+			$("#new_job").dialog({
 				autoOpen: false,
 				height: 400,
 				width: 450,
@@ -24,7 +24,7 @@
 					},
 					"Start job": function() { 							
 							
-							$.post("ajax/upload.php", {
+							$.post("ajax/new_job.php", {
 								project: project.val(), 
 								scene: scene.val(), shot: shot.val(), 
 								fileformat: fileformat.val(), 
@@ -54,15 +54,15 @@
 				}
 			});
 			
-			$("#new_job, #new_job2")
+			$("#new_job_button, #new_job_button2, #new_job_button3")
 			.click(function() {
-				$( "#upload" ).dialog( "open" );
+				$( "#new_job" ).dialog( "open" );
 			});
 
 	
 		});
 </script>
-<div id="upload" title="// start new job">
+<div id="new_job" title="// start new job">
 <p><?php echo $error?></p>
 	<div class="col_1">
 		<label for="project">project</label>

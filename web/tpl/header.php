@@ -28,7 +28,7 @@
 			print "brender";
 			} else { print($_SESSION[theme]);
 			} ?>.css" rel="stylesheet" type="text/css">
-<?php if(!$view == "upload") { ?> <meta http-equiv="Refresh" content="60;URL=index.php" /> <?php } ?>	
+<?php if(!$view == "new_job") { ?> <meta http-equiv="Refresh" content="60;URL=index.php" /> <?php } ?>	
 		<script>
 		$(function() {
 			$('#loadingSpinner')

@@ -30,7 +30,7 @@ if ($_POST['scene'] && $_POST['shot']) {
 		//session_destroy();
 		//$_SESSION['last_used_config']=$config;
 		//print "<a href=\"index.php?view=jobs\">view jobs</a><br/>";
-		//print "<a href=\"index.php?view=upload\">send another job</a>";
+		//print "<a href=\"index.php?view=new_job\">send another job</a>";
 		echo "{\"status\":true, \"msg\":\"$msg\", \"query\":\"$dberror\"}";
 		
 	}
