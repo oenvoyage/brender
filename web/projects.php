@@ -13,12 +13,17 @@ if ($activate=$_GET[activate]) {
 	mysql_query($queryqq);
 }
 if ($def=$_GET[def]) {
-	$queryqq="update projects set def=0";
-	mysql_query($queryqq);
-	$queryqq="update projects set def=1 where id=$def;";
-	mysql_query($queryqq);
-	print "default project = $def";
-	# sleep(1);
+	if (check_project_is_active($def)) {
+		$queryqq="update projects set def=0";
+		mysql_query($queryqq);
+		$queryqq="update projects set def=1 where id=$def;";
+		mysql_query($queryqq);
+		print "default project = $def";
+		# sleep(1);
+	}
+	else {
+		print "<span class=\"error\">to set a project as default, it must be active</span>";
+	}
 }
 if (isset($_GET[new_project])) {
 	$new_project=clean_name($_GET[new_project]);

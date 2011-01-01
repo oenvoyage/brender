@@ -1,11 +1,13 @@
 <?php
 
+include_once("../connect.php");
 include_once("../../functions.php");
+$GLOBALS['computer_name']="ajax";
 
 
 if(isset($_GET['check_server_status'])) {
 	$server = $_GET['check_server_status'];
-	}
+}
 
 if ($server) {
 	//print "checking server status<br/>";

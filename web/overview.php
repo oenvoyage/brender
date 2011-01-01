@@ -212,7 +212,7 @@ function show_job_list() {
 		}?>
 		</table>
 		<div class="table-controls">
-			<a id="new_job2" href="#"><b class="ordre">new job</a></b> -
+			<a id="new_job_button2" href="#"><b class="ordre">new job</a></b> -
 			<a href="index.php?view=jobs&x=<?php print $GLOBALS[random_x] ?>"><b class="ordre">reload</a></b> -
 			<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> -
 			<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>

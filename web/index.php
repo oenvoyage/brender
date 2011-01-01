@@ -45,9 +45,9 @@
 				include "orders.php";
 			}
 			
-			if($view == "upload") { 
+			if($view == "new_job") { 
 				print('<div class="dialog">');
-				include "upload.php";
+				include "new_job.php";
 				print('</div>');
 			}
 			
@@ -91,7 +91,7 @@
 		}
 	?>
 	
-	<?php include "upload.php"; ?>	
+	<?php include "new_job.php"; ?>	
 	</div>
 </div>
 <?php

@@ -571,7 +571,7 @@ table tr {
 	background-color: transparent;
 }
 
-#upload input{
+#new_job input, #new_job select{
 	font-size: 11px;
 }
 

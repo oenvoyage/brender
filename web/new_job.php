@@ -1,8 +1,8 @@
 <script>
 		$(function() {
 			var project = $('select#project'),
-				scene = $('input#scene'),
-				shot = $('input#shot'),
+				scene = $('select#scene'),
+				shot = $('select#shot'),
 				fileformat = $('select#fileformat'),
 				config = $('select#config'),
 				start = $('input#start'),
@@ -13,7 +13,7 @@
 				directstart = $('#directstart input[type="checkbox"]');
 		
 			
-			$("#upload").dialog({
+			$("#new_job").dialog({
 				autoOpen: false,
 				height: 400,
 				width: 450,
@@ -24,7 +24,7 @@
 					},
 					"Start job": function() { 							
 							
-							$.post("ajax/upload.php", {
+							$.post("ajax/new_job.php", {
 								project: project.val(), 
 								scene: scene.val(), shot: shot.val(), 
 								fileformat: fileformat.val(), 
@@ -54,21 +54,21 @@
 				}
 			});
 			
-			$("#new_job, #new_job2")
+			$("#new_job_button, #new_job_button2, #new_job_button3")
 			.click(function() {
-				$( "#upload" ).dialog( "open" );
+				$( "#new_job" ).dialog( "open" );
 			});
 
 	
 		});
 </script>
-<div id="upload" title="// start new job">
+<div id="new_job" title="// start new job">
 <p><?php echo $error?></p>
 	<div class="col_1">
-		<label for="projects">project</label>
-		<label for="scenes">scene</label>
-		<label for="shots">shot</label>
-		<label for="file_format">file format</label>
+		<label for="project">project</label>
+		<label for="scene">scene</label>
+		<label for="shot">shot</label>
+		<label for="fileformat">file format</label>
 		<label for="config">config</label>
 		<label for="start">start</label>
 		<label for="end">end</label>
@@ -79,7 +79,7 @@
 	</div>
 	<div class="col_2">
 		<?php scene_shot_cascading_dropdown_menus() ?>
-		<select id="fileformat" name="filetype">
+		<select id="fileformat" name="fileformat">
 					<option>PNG</option>
 					<option>JPEG</option>
 					<option>TGA</option>

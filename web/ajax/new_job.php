@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once("../connect.php");
 include_once("../../functions.php");
@@ -9,7 +10,7 @@ if ($_POST['scene'] && $_POST['shot']) {
 		$shot = $_POST[shot];
 		$project = $_POST[project];
 		$scene = $_POST[scene];
-		$filetype = $_POST[filetype];
+		$fileformat = $_POST[fileformat];
 		$rem = $_POST[rem];
 		$config = $_POST[config];
 		$chunks = $_POST[chunks];
@@ -23,14 +24,15 @@ if ($_POST['scene'] && $_POST['shot']) {
 			$msg = "New job submitted and waiting to be started.";
 			
 		}
+		$_SESSION['last_used_config']=$config;
 		
-		$query="insert into jobs values  ('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$status','new','rem','$priority',now(),'$_SESSION[user]')";
+		$query="insert into jobs values  ('','$scene','$shot','$start','$end','$project','$start','$chunks','$fileformat','$rem','$config','$status','new','rem','$priority',now(),'$_SESSION[user]')";
 				
 		mysql_query($query) or die ($dberror = mysql_error());
 		//session_destroy();
 		//$_SESSION['last_used_config']=$config;
 		//print "<a href=\"index.php?view=jobs\">view jobs</a><br/>";
-		//print "<a href=\"index.php?view=upload\">send another job</a>";
+		//print "<a href=\"index.php?view=new_job\">send another job</a>";
 		echo "{\"status\":true, \"msg\":\"$msg\", \"query\":\"$dberror\"}";
 		
 	}

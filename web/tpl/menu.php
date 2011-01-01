@@ -5,7 +5,7 @@
 		<li><a class="button grey <?php if($view == "clients"){print("active");}?>" href="?view=clients">clients</a></li>
 		<li><a class="button grey <?php if($view == "jobs"){print("active");}?>" href="?view=jobs">jobs</a></li>
 		<li><a class="button grey <?php if($view == "orders"){print("active");}?>" href="?view=orders">orders</a></li>
-		<li><a id="new_job" class="button grey" href="#">new job</a></li>
+		<li><a id="new_job_button" class="button grey" href="#">new job</a></li>
 	</ul>
 	<ul class="right">
 		<li><a class="button black <?php if($view == "settings"){print("active");}?>" href="?view=settings">settings</a></li>

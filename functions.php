@@ -23,6 +23,12 @@ function debug($msg) {
 		print "**** DEBUG ***** :: $msg\n";
 	}
 }
+function check_job_exists($job_id) {
+	$query="select count(scene) from jobs where id='$job_id'";
+	$results=mysql_query($query);
+	$qq=mysql_result($results,0);
+	return $qq;
+}
 function check_client_exists($client) {
 	$query="select count(client) from clients where client='$client'";
 	$results=mysql_query($query);
@@ -146,6 +152,12 @@ function check_if_client_should_work($client_name="check all") {
 	}
 	
 }
+function check_project_is_active($project_id) {
+	$query="select count(name) from projects where id='$project_id' and status='active'";
+        $results=mysql_query($query);
+        $check_result=mysql_result($results,0);
+        return $check_result;
+}
 function check_project_exists($project) {
 	$query="select count(name) from projects where name='$project'";
         $results=mysql_query($query);
@@ -240,23 +252,24 @@ function check_server_is_dead() {
 	#---to check if server is running, we send him a ping order. If he is alive, it will remove the order. If not the order will still be there after 3 sconds, meaning the server is ko
 	send_order("server","ping","","1");
 	sleep(3);
-        $query="select count(orders) from orders where orders='ping' and client='server'";
-        $results=mysql_query($query);
+        $check_query="select count(orders) from orders where orders='ping' and client='server'";
+        $results=mysql_query($check_query);
         $ping_result=mysql_result($results,0);
 	return $ping_result;
 }
 function check_server_status(){
 	# print "<br/>get server status<br/>";
 	# command to see if the server is running or dead
+	#brender_log("I CHECK SERVER STATUS");
         if (check_server_is_dead()){
-		$GLOBALS['computer_name']="web_interface";
+		#$GLOBALS['computer_name']="web_interface";
 		set_server_settings("status","died");
 		set_server_settings("pid","0");
 		set_server_settings("started","now()");
 		brender_log("server not responding (PING)");
 		brender_log("SERVER DIED");
 		//$color="red";
-		$status="SERVER DIED !!!!!!!!<br/>";
+		$status="SERVER DIED !!!!!!!!";
        	}
 	else {
 		set_server_settings("status","running");
@@ -314,6 +327,9 @@ function brender_log($log){
 	$log=preg_replace("/\n$/","",$log);  # we erase the trailing carriage return to avoid empty lines in the log file
 	if ($computer_name=="web_interface") {
 		$prefix="../";
+	}
+	if ($computer_name=="ajax") {
+		$prefix="../../";
 	}
 	$heure=date('Y/d/m H:i:s');
 	$log_koi = "$heure $computer_name: $log\n";
@@ -474,12 +490,12 @@ function output_config_select($default="NONE") {
 	$list=preg_split("/\n/",$list);
 	foreach ($list as $item) {
 		$item=preg_replace("/\.py/","",$item);
-		print("check default=$default and item=$item");
+		#print("check default=$default and item=$item");
 		if ($default==$item) {
-			print " <option value=\"$item\" selected>$item </option>";
+			print " <option value=\"$item\" selected>$item</option>";
 		}	
 		else if ($item<>""){
-			print " <option value=\"$item\">$item </option>";
+			print " <option value=\"$item\">$item</option>";
 		}
 	}
 }
@@ -542,10 +558,14 @@ function clean_name($name) {
 	return $name;
 }
 function job_get($what,$id) {
+	if (!check_job_exists($id)) {
+		# job doesnt exist or was deleted, we just return o
+		return 0;
+	}
 	$query="select $what from jobs where id='$id'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
-	#debug ("******************************************$query*****************************************");
+	debug ("******************************************$query*****************************************");
 	return $qq;
 }
 function check_create_path($path) {
