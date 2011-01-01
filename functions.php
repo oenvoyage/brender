@@ -23,6 +23,12 @@ function debug($msg) {
 		print "**** DEBUG ***** :: $msg\n";
 	}
 }
+function check_job_exists($job_id) {
+	$query="select count(scene) from jobs where id='$job_id'";
+	$results=mysql_query($query);
+	$qq=mysql_result($results,0);
+	return $qq;
+}
 function check_client_exists($client) {
 	$query="select count(client) from clients where client='$client'";
 	$results=mysql_query($query);
@@ -546,10 +552,14 @@ function clean_name($name) {
 	return $name;
 }
 function job_get($what,$id) {
+	if (!check_job_exists($id)) {
+		# job doesnt exist or was deleted, we just return o
+		return 0;
+	}
 	$query="select $what from jobs where id='$id'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
-	#debug ("******************************************$query*****************************************");
+	debug ("******************************************$query*****************************************");
 	return $qq;
 }
 function check_create_path($path) {
