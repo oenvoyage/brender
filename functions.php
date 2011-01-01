@@ -484,12 +484,12 @@ function output_config_select($default="NONE") {
 	$list=preg_split("/\n/",$list);
 	foreach ($list as $item) {
 		$item=preg_replace("/\.py/","",$item);
-		print("check default=$default and item=$item");
+		#print("check default=$default and item=$item");
 		if ($default==$item) {
 			print " <option value=\"$item\" selected>$item</option>";
 		}	
 		else if ($item<>""){
-			print " <option value=\"$item\">$item</option>";
+			print " <option value=\"$item\">--$item--</option>";
 		}
 	}
 }

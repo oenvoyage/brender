@@ -567,10 +567,10 @@ table tr {
 #theme_selector {
 }
 
-#newjob table tr, #newjob table td:hover {
+#new_job table tr, #new_job table td:hover {
 	background-color: transparent;
 }
 
-#newjob input, #newjob select{
+#new_job input, #new_job select{
 	font-size: 11px;
 }

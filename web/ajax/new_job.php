@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once("../connect.php");
 include_once("../../functions.php");
@@ -23,6 +24,7 @@ if ($_POST['scene'] && $_POST['shot']) {
 			$msg = "New job submitted and waiting to be started.";
 			
 		}
+		$_SESSION['last_used_config']=$config;
 		
 		$query="insert into jobs values  ('','$scene','$shot','$start','$end','$project','$start','$chunks','$fileformat','$rem','$config','$status','new','rem','$priority',now(),'$_SESSION[user]')";
 				
