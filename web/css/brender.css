@@ -571,6 +571,11 @@ table tr {
 	background-color: transparent;
 }
 
-#upload input, #upload select{
+#upload input{
 	font-size: 11px;
+}
+
+#upload select {
+	font-size: 11px;
+	margin: 3px 0;
 }
