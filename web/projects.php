@@ -173,14 +173,14 @@ if (!$order_by=$_GET[order_by]) {
  		<label for="output_win">output path on win</label>
  	</div>
 	<div class="col_2">
-		<input type="text" name="project_name" value="">
-		<input type="text" name="rem" value="">
-		<input type="text" name="blend_mac" value="blend/">
-		<input type="text" name="blend_linux" value="blend/">
-		<input type="text" name="blend_win" value="\\blend">	
-		<input type="text" name="output_mac" value="render">
-		<input type="text" name="output_linux" value="render">
-		<input type="text" name="output_win" value="\\render">
+		<input type="text" id="project_name" value="test_3">
+		<input type="text" id="rem" value="">
+		<input type="text" id="blend_mac" value="blend/">
+		<input type="text" id="blend_linux" value="blend/">
+		<input type="text" id="blend_win" value="\\blend">	
+		<input type="text" id="output_mac" value="render">
+		<input type="text" id="output_linux" value="render">
+		<input type="text" id="output_win" value="\\render">
 	</div>
 	<div class="clear"></div>
 </div>

@@ -4,8 +4,12 @@ session_start();
 include_once("../connect.php");
 include_once("../../functions.php");
 
-print $_POST['project_name']."  dfffffffff ". $_POST['rem']." ------";
-if ($_POST['project_name']) {	
+if ($_POST['project_name']) {
+	$project_name = $_POST['project_name'];
+}
+
+//print $_POST['project_name']."  dfffffffff ". $_POST['rem']." ------";
+if ($project_name) {	
 		$project = clean_name($_POST[project_name]);
 		$rem = $_POST[rem];
 		$blend_mac = $_POST[blend_mac];
@@ -19,7 +23,7 @@ if ($_POST['project_name']) {
 			echo "{\"status\":false, \"msg\":\"Epic Fail: please enter scene and shot name.\", \"query\":\"$dberror\"}";
 		}
 		else {
-			$query="INSET INTO projects VALUES ('','$project','$blend_mac','$blend_linux','$blend_win','$output_mac','$output_win','$output_linux','$rem','active','');";
+			$query="INSERT INTO projects VALUES ('','$project','$blend_mac','$blend_linux','$blend_win','$output_mac','$output_win','$output_linux','$rem','active','');";
 			mysql_query($query) or die ($dberror = mysql_error());
 			echo "{\"status\":true, \"msg\":\"new project $project created\"}";
 		}
