@@ -182,7 +182,5 @@ if (!$order_by=$_GET[order_by]) {
 		<input type="text" name="output_linux" value="render">
 		<input type="text" name="output_win" value="\\render">
 	</div>
-	<div class="clear"><div>
+	<div class="clear"></div>
 </div>
-
-<br/>
