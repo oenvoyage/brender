@@ -571,6 +571,6 @@ table tr {
 	background-color: transparent;
 }
 
-#new_job input, #new_job select{
+#new_job input, #new_job select,#nes_client input, #new_client select{
 	font-size: 11px;
 }

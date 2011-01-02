@@ -43,7 +43,7 @@ if (!$order_by=$_GET[order_by]) {
 
 
 #--------read---------
-	$query="select * from projects order by $order_by";
+	$query="SELECT * FROM projects ORDER BY $order_by";
 	$results=mysql_query($query);
 	print "<h2>// <b>projects</b></h2>\n";
 	print "<table>\n";
@@ -99,58 +99,90 @@ if (!$order_by=$_GET[order_by]) {
 
 	</tbody>
 </table>
-
-<h2>// <strong>create new</strong> project</h2>
-
-<form action="index.php" method="get">
-<table>
-	<tbody>
-		<tr>
-			<td>project title</td>
-			<td><input type="text" name="new_project" value="new project" size=18></td>
-		</tr>
-		<tr>
-			<td>remarks</td>
-			<td><input type="text" name="rem" size=38></td>
-		</tr>
-		<tr>
-			<td colspan=2><b>.blend files path</b></td>
-		</tr>
-		<tr>
-			<td>blend_mac</td>
-			<td><input type="text" name="blend_mac" value="blend/" size=15></td>
-		</tr>
-		<tr>
-			<td>blend_linux</td>
-			<td><input type="text" name="blend_linux" value="blend/" size=15></td>
-		</tr>
-		<tr>
-			<td>blend_windows</td>		
-			<td><input type="text" name="blend_win" value="\\blend" size=15></td>	
-		</tr>
-		<tr>
-			<td colspan=2><b>output path</b></td>
-		</tr>
-		<tr>
-			<td>output_mac</td>
-			<td><input type="text" name="output_mac" value="render" size=15></td>
-		</tr>
-		<tr>
-			<td>output_linux</td>
-			<td><input type="text" name="output_linux" value="render" size=15></td>
-		</tr>
-		<tr>
-			<td>output_windows</td>		
-			<td><input type="text" name="output_win" value="\\render" size=15></td>	
-		</tr>
-		<tr>
-			<td><input type="hidden" value="projects" name="view"></td>
-			<td><input type="submit" value="create"></td>
-		</tr>
-
-	</tbody>
-</table>
-</form>
-<a href="index.php">back</a>
+<a id="new_project_button" class="button grey" href="#">new project</a>
 
 
+<script>
+                $(function() {
+                        var project_name = $('input#project_name'),
+                                rem = $('input#rem'),
+                                blend_mac = $('input#blend_mac'),
+                                blend_linux = $('input#blend_linux'),
+                                blend_win = $('input#blend_win'),
+                                output_mac = $('input#output_mac'),
+                                output_linux = $('input#output_linux'),
+                                output_win = $('input#output_win');
+                
+                        
+                        $("#new_project").dialog({
+                                autoOpen: false,
+                                height: 400,
+                                width: 450,
+                                modal: true,
+                                buttons: {
+                                        Cancel: function() {
+                                                $(this).dialog("close");
+                                        },
+                                        "Create project": function() {                                                       
+                                                        
+                                                        $.post("ajax/new_project.php", {
+                                                                project_name: project_name.val(), 
+                                                                rem: rem.val(), 
+                                                                blend_mac: blend_mac.val(), 
+                                                                blend_linux: blend_linux.val(), 
+                                                                blend_win: blend_win.val() ,
+                                                                output_mac: output_mac.val(), 
+                                                                output_linux: output_linux.val(), 
+                                                                output_win: output_win.val() 
+                                                        }, function(data) {
+                                                                var obj = jQuery.parseJSON(data);
+                                                                //alert(data);
+                                                                if(obj.status == true) {
+                                                                        $("#dialog-form").dialog("close" );
+                                                                        //alert(obj.query);
+                                                                        window.location= 'index.php?view=projects';
+                                                                } else {
+                                                                        alert(obj.msg);
+                                                                }
+                                                        }, "Json");                             
+                                                return false;                                   
+                                        }
+                                },
+                                close: function() {
+                                        //allFields.val( "" ).removeClass( "ui-state-error" );
+                                }
+                        });
+                        
+                        $("#new_project_button")
+                        .click(function() {
+                                $( "#new_project" ).dialog( "open" );
+                        });
+
+        
+                });
+</script>
+<div id="new_project" title="// create new project">
+	<div class="col_1">
+ 		<label for="project_name">project name</label>
+ 		<label for="rem">remarks</label>
+ 		<label for="blend_mac">blend files path on mac</label>
+ 		<label for="blend_linux">blend files path on linux</label>
+ 		<label for="blend_win">blend files path on windows</label>
+ 		<label for="output_mac">output path on mac</label>
+ 		<label for="output_linux">output path on linux</label>
+ 		<label for="output_win">output path on win</label>
+ 	</div>
+	<div class="col_2">
+		<input type="text" name="project_name" value="">
+		<input type="text" name="rem" value="">
+		<input type="text" name="blend_mac" value="blend/">
+		<input type="text" name="blend_linux" value="blend/">
+		<input type="text" name="blend_win" value="\\blend">	
+		<input type="text" name="output_mac" value="render">
+		<input type="text" name="output_linux" value="render">
+		<input type="text" name="output_win" value="\\render">
+	</div>
+	<div class="clear"><div>
+</div>
+
+<br/>
