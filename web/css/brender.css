@@ -567,10 +567,15 @@ table tr {
 #theme_selector {
 }
 
-#new_job table tr, #new_job table td:hover {
+#upload table tr, #upload table td:hover {
 	background-color: transparent;
 }
 
 #new_job input, #new_job select,#nes_client input, #new_client select{
 	font-size: 11px;
+}
+
+#upload select {
+	font-size: 11px;
+	margin: 3px 0;
 }
