@@ -10,6 +10,9 @@
 				height: 200,
 				width: 350,
 				modal: true,
+				closeOnEscape: false,
+				draggable: false,
+				resizable: false,
 				buttons: {
 					"Login": function() { 							
 							

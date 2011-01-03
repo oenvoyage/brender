@@ -1,3 +1,9 @@
+<script>
+	$(function() {
+		$( "button, input:submit, a.btn").button();
+	});
+</script>
+
 <?php	
 
 if (isset($_GET['delete_all'])) {
@@ -58,7 +64,7 @@ if (isset($_GET['del'])) {
 	?>
 </table>
 <div class="table-controls">
-	<a href="index.php?view=orders&delete_all=1"><b class="ordre">delete_all</b></a> - 
-	<a href="index.php?view=orders&delete_old=1"><b class="ordre">delete_older than 2 hours</b></a>
+	<a class="btn" href="index.php?view=orders&delete_all=1">delete_all</a>
+	<a class="btn" href="index.php?view=orders&delete_old=1">delete_older than 2 hours</a>
 </div>
 

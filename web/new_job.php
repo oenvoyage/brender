@@ -18,6 +18,9 @@
 				height: 400,
 				width: 450,
 				modal: true,
+				closeOnEscape: false,
+				draggable: false,
+				resizable: false,
 				buttons: {
 					Cancel: function() {
 						$(this).dialog("close");

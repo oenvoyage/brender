@@ -124,13 +124,14 @@ if (isset($_GET['disable_sound'])) {
 if (isset($_GET['test'])) {
 }
 
-system_status();
+//system_status();
 
 
 print "<h2>// <strong>session</strong> settings</h2>";
 print_r($_SESSION);
 
 #------------------ system status -----------------
+/*
 function system_status() {
 	$query="select server,status,pid,started,timediff(now(),started) as uptime,server_os,sound from server_settings;";
 	$results=mysql_query($query);
@@ -170,7 +171,7 @@ function system_status() {
 	}
 	print "</table>";
 }
-
+*/
 
 #--------read---------
 if (!$order_by=$_GET[order_by]) {

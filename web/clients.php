@@ -1,3 +1,8 @@
+<script>
+	$(function() {
+		$( "button, input:submit, a.btn").button();
+	});
+</script>
 <?php	
 	if (isset($_GET['orderby'])) {
 		if ($_SESSION[orderby_client]==$_GET[orderby]) {
@@ -177,13 +182,14 @@ if (isset($msg)) {
 	print "</table>";
 ?>
 <div class="table-controls">
-	<a href="index.php?view=clients&benchmark=all"><b class="ordre">benchmark ALL</b></a> - 
-	<a href="index.php?view=clients&enable=all"><b class="ordre">enable ALL</b></a> - 
-	<a href="index.php?view=clients&disable=all"><b class="ordre">disable ALL</b></a> - 
-	<a href="index.php?view=clients&refresh=1"><b class="ordre">refresh</b></a> - 
-	<a href="index.php?view=clients&enable=force_all"><b class="ordre">force_all_enable</b></a>
+	<a class="btn" href="index.php?view=clients&benchmark=all">benchmark ALL</a> 
+	<a class="btn" href="index.php?view=clients&enable=all">enable ALL</a>
+	<a class="btn" href="index.php?view=clients&disable=all">disable ALL</a>
+	<a class="btn" href="index.php?view=clients&refresh=1">refresh</a> 
+	<a class="btn" href="index.php?view=clients&enable=force_all">force_all_enable</a>
+	<a id="new_client" class="btn" href="#">add new client</a>
 </div>
-<a id="new_client" class="button grey" href="#">add new client</a>
+
 
 <script>
 		$(function() {
