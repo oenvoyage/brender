@@ -234,4 +234,7 @@ if (!$order_by=$_GET[order_by]) {
 
 	</tbody>
 </table>
+<div class="table-controls">
+	<a class="btn" id="new_project_button" class="button grey" href="#">new project</a>
+</div>
 

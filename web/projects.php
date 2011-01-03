@@ -1,3 +1,64 @@
+<script>
+                $(function() {
+                        var project_name = $('input#project_name'),
+                                rem = $('input#rem'),
+                                blend_mac = $('input#blend_mac'),
+                                blend_linux = $('input#blend_linux'),
+                                blend_win = $('input#blend_win'),
+                                output_mac = $('input#output_mac'),
+                                output_linux = $('input#output_linux'),
+                                output_win = $('input#output_win');
+                
+                        
+                        $("#new_project").dialog({
+                                autoOpen: false,
+                                height: 400,
+                                width: 450,
+                                modal: true,
+                                buttons: {
+                                        Cancel: function() {
+                                                $(this).dialog("close");
+                                        },
+                                        "Create project": function() {                                                       
+                                                        
+                                                        $.post("ajax/new_project.php", {
+                                                                project_name: project_name.val(), 
+                                                                rem: rem.val(), 
+                                                                blend_mac: blend_mac.val(), 
+                                                                blend_linux: blend_linux.val(), 
+                                                                blend_win: blend_win.val() ,
+                                                                output_mac: output_mac.val(), 
+                                                                output_linux: output_linux.val(), 
+                                                                output_win: output_win.val() 
+                                                        }, function(data) {
+                                                                var obj = jQuery.parseJSON(data);
+                                                                //alert(data);
+                                                                if(obj.status == true) {
+                                                                        $("#dialog-form").dialog("close" );
+                                                                        //alert(obj.query);
+                                                                        window.location= 'index.php?view=projects';
+                                                                } else {
+                                                                        alert(obj.msg);
+                                                                }
+                                                        }, "Json");                             
+                                                return false;                                   
+                                        }
+                                },
+                                close: function() {
+                                        //allFields.val( "" ).removeClass( "ui-state-error" );
+                                }
+                        });
+                        
+                        $("#new_project_button")
+                        .click(function() {
+                                $( "#new_project" ).dialog( "open" );
+                        });
+                        
+                        $( "button, input:submit, a.btn").button();
+
+        
+                });
+</script>
 <?php
 if ($projectid=$_GET[del]) {
 	$queryqq="delete from projects where id=$projectid;";
@@ -99,68 +160,11 @@ if (!$order_by=$_GET[order_by]) {
 
 	</tbody>
 </table>
-<a id="new_project_button" class="button grey" href="#">new project</a>
+<div class="table-controls">
+	<a class="btn" id="new_project_button" class="button grey" href="#">new project</a>
+</div>
 
 
-<script>
-                $(function() {
-                        var project_name = $('input#project_name'),
-                                rem = $('input#rem'),
-                                blend_mac = $('input#blend_mac'),
-                                blend_linux = $('input#blend_linux'),
-                                blend_win = $('input#blend_win'),
-                                output_mac = $('input#output_mac'),
-                                output_linux = $('input#output_linux'),
-                                output_win = $('input#output_win');
-                
-                        
-                        $("#new_project").dialog({
-                                autoOpen: false,
-                                height: 400,
-                                width: 450,
-                                modal: true,
-                                buttons: {
-                                        Cancel: function() {
-                                                $(this).dialog("close");
-                                        },
-                                        "Create project": function() {                                                       
-                                                        
-                                                        $.post("ajax/new_project.php", {
-                                                                project_name: project_name.val(), 
-                                                                rem: rem.val(), 
-                                                                blend_mac: blend_mac.val(), 
-                                                                blend_linux: blend_linux.val(), 
-                                                                blend_win: blend_win.val() ,
-                                                                output_mac: output_mac.val(), 
-                                                                output_linux: output_linux.val(), 
-                                                                output_win: output_win.val() 
-                                                        }, function(data) {
-                                                                var obj = jQuery.parseJSON(data);
-                                                                //alert(data);
-                                                                if(obj.status == true) {
-                                                                        $("#dialog-form").dialog("close" );
-                                                                        //alert(obj.query);
-                                                                        window.location= 'index.php?view=projects';
-                                                                } else {
-                                                                        alert(obj.msg);
-                                                                }
-                                                        }, "Json");                             
-                                                return false;                                   
-                                        }
-                                },
-                                close: function() {
-                                        //allFields.val( "" ).removeClass( "ui-state-error" );
-                                }
-                        });
-                        
-                        $("#new_project_button")
-                        .click(function() {
-                                $( "#new_project" ).dialog( "open" );
-                        });
-
-        
-                });
-</script>
 <div id="new_project" title="// create new project">
 	<div class="col_1">
  		<label for="project_name">project name</label>

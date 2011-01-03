@@ -87,8 +87,9 @@ td {
 }
 
 td:hover {
-	background-color: #dddddd;
+	/*background-color: #dddddd;*/
 }
+
 
 .header_row {
 	background: -webkit-gradient(linear, left top, left bottom, from(#d8d8d8), to(#bdbdbd));
@@ -218,7 +219,7 @@ form {
 	background: -moz-linear-gradient(top, #bdbdbd, #9d9d9d);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#bdbdbd', endColorstr='#9d9d9d');
 }
-.grey:hover , .grey.active {
+.grey:hover , .grey.active, .grey.active:hover  {
 	color: #EEE;
 	background: #797979;
 	background: -webkit-gradient(linear, left top, left bottom, from(#929292), to(#797979));
@@ -240,7 +241,7 @@ form {
 	background: -moz-linear-gradient(top, #616161, #000000);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#616161', endColorstr='#000000');
 }
-.black:hover , .black.active  {
+.black:hover , .black.active, .black.active:hover  {
 	color: #EEE;
 	background: #616161;
 	background: -webkit-gradient(linear, left top, left bottom, from(#616161), to(#333));
@@ -274,32 +275,62 @@ form {
 .idle {
 	background:#bcffa6;
 }
+.idle:hover {
+	background:#ccfebd;
+}
 .disabled {
         background:#ffaa99;
+}
+.disabled:hover {
+        background:#ffbfb2;
 }
 .rendering {
 	background:#99ccff;
 }
+.rendering:hover {
+	background:#a9d8ff;
+}
 .not_running {
 	background:#ffcc99;
+}
+.not_running:hover {
+	background:#ffddbd;
 }
 .finished {
 	background:#ddfddd;
 }
+.finished:hover {
+	background:#ecfced;
+}
 .finished2 {
 	background:#ddeddd;
+}
+.finished2:hover {
+	background:#e0f6e1;
 }
 .active {
 	background:#bcffa6;
 }
+.active:hover {
+	background: #ccfebd;
+}
 .inactive {
 	background:#e1e1e1;
+}
+.inactive:hover {
+	background:#e8e8e8;
 }
 .pause {
 	background:#ffff99;
 }
+.pause:hover {
+	background:#fffec3;
+}
 .waiting {
 	background:#bcffa6;
+}
+.waiting:hover {
+	background:#ccfebd;
 }
 /*--------------------------------------------------------*/
 
