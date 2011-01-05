@@ -131,7 +131,6 @@ function show_job_list() {
 			print "// $msg";
 		}
 		debug("$job_query<br/>");
-		print "$job_query<br/>";
 		print "<table>\n";
 		print "<tr class=header_row>
 			<td width=12></td>
@@ -147,7 +146,7 @@ function show_job_list() {
 			<td width=10> &nbsp; <a href=\"index.php?orderby_job=priority\">priority</a></td>
 		</tr>";
 		if (mysql_num_rows($results)==0) {
-                	echo '"<tr><td class="header_row warning" colspan=11> no jobs running</td></tr>';
+                	echo '<tr><td class="header_row warning" colspan=11> no jobs running</td></tr>';
          	}  
 		while ($row=mysql_fetch_object($results)){
 

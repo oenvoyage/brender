@@ -19,20 +19,23 @@ if(isset($_POST['action'])) {
 if ($action == "add_client") {
 		//$new_client_name=clean_name($_POST['name']);
 		if (check_client_exists($name)) {
+			$status="false";
 			$msg="error client already exists";
 		}
 		else if ($name == "" ) {
+			$status="false";
 			$msg="error, please enter a client name";
 		}
 		else {
 			$add_query="insert into clients values('','$name','$speed','$machine_type','$machine_os','$blender_local_path','$client_priority','$working_hour_start','$working_hour_end','not running','','')";
 			mysql_query($add_query);
 			//$msg="created new client $_POST[client] $add_query";
-			$msg = "success";
+			$msg = "creation of client : $name with success";
+			$status="true";
 		}
-		echo "{\"status\":true, \"msg\":\"$msg\", \"query\":\"$add_query\"}";
+		echo "{\"status\":$status, \"msg\":\"$msg\", \"query\":\"$add_query\"}";
 } else {
 	//$error="please enter new job infos<br/>";
-	echo "{\"status\":false, \"msg\":\"Epic Fail: please enter scene and shot name.\"}";
+	echo "{\"status\":false, \"msg\":\"Epic Fail: please enter a client name.\"}";
 	}
 ?>
