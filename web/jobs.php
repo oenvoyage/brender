@@ -163,6 +163,7 @@ if (isset($_GET['del'])) {
 				 <a href=\"index.php?view=jobs&reset=$id&pause=$id\"><img src=\"images/icons/restart.png\" /></a>
 				 $play_pause_button
 				 <a href=\"index.php?view=jobs&finish=$id\"><img src=\"images/icons/stop.png\" /></a>
+				 <a href=\"index.php?view=jobs&reset=$id&start=$id\"><img src=\"images/icons/reload.png\" /></a>
 			</td>
 			<td>$lastseen</a><br/>
 			<td>$last_edited_by</a><br/>

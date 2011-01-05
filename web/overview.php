@@ -206,6 +206,7 @@ function show_job_list() {
 					<a href=\"index.php?reset=$id&pause=$id\"><img src=\"images/icons/restart.png\" /></a>
 					$play_pause_button
 					<a href=\"index.php?finish=$id\"><img src=\"images/icons/stop.png\" /></a>
+					<a href=\"index.php?reset=$id&start=$id\"><img src=\"images/icons/reload.png\" /></a>
 				</td>
 				<td bgcolor=$priority_color>$priority</td>
 			</tr>";
