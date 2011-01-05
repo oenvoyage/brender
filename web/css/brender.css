@@ -61,6 +61,10 @@ img.small {
 	margin-left: 15px;
 }
 
+span.version {
+	margin-bottom: 23px;
+}
+
 .metadata {
 	float: right;
 	text-align: right;
@@ -417,6 +421,17 @@ form {
 	margin: 2px 0;
 } 
 
+
+#new_project .col_1 {
+	width: 160px;
+}
+
+#new_project .col_2 input {
+	width: 255px;
+	font-size: 11px;
+	margin-bottom: 4px;
+}
+
 span.progress-bar {
 	height: 12px;
 	width: 50px;
@@ -608,6 +623,10 @@ table tr {
 
 #new_job input, #new_job select,#nes_client input, #new_client select{
 	font-size: 11px;
+}
+
+#new_job input {
+	margin-bottom: 4px;
 }
 
 #upload select {

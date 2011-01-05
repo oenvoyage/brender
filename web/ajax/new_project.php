@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include_once("../connect.php");
+include_once("../tpl/connect.php");
 include_once("../../functions.php");
 
 if ($_POST['project_name']) {
