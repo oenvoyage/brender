@@ -111,22 +111,20 @@ if (isset($_GET['do_the_test'])) {
 }
 ?>
 
-<p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>
+<p></p>
 <div class="settings_container">
 	<h3>Server</h3>
 	<div class="item">	
 		<a class="btn" href="index.php?view=settings&debug=1">switch to debug</a>
-		<p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>
+		<p>By switching to debug mode, it will be possible do view more details about brender queries and eventual errors.</p>
 	</div>
 	<div class="item">
 		<a class="btn" href="index.php?view=settings&do_the_test=1">do a test</a> 
-		<p>Brief server status, theme selector, debug mode, check status and debug mode will be place here. Content will be placed in columns with a description of what each option does.</p>
-	</div>
-	<div class="item">
-		<a class="btn" href="index.php?view=projects">manage projects</a>
+		<p>Run distribute rendering of a default file inside of the blend folder.</p>
 	</div>
 	<div class="item">
 		<a class="check_server_status" href="">check server status</a> 
+		<p>Will display an alert informing about the current server status.</p>
 	</div>
 	<div class="clear"></div>
 	
