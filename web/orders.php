@@ -1,9 +1,3 @@
-<script>
-	$(function() {
-		$( "button, input:submit, a.btn").button();
-	});
-</script>
-
 <?php	
 
 if (isset($_GET['delete_all'])) {

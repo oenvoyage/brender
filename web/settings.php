@@ -10,8 +10,6 @@
 			selected: 0
 		});
 		
-		$( "button, input:submit, a.btn").button();
-		$( "a", ".btn" ).click(function() { return false; });
 		
 		$( " a.check_server_status")
 			.button()

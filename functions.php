@@ -388,7 +388,7 @@ function scene_shot_cascading_dropdown_menus() {
 		<?php echo $shot_options ?>
 	</select><br/>
 	<!--  the javascript needs to be called after <select><option> construction. No idea why. This has to be fixed  -->
-	<script type='text/javascript' src='js/js_brender.js'></script> 
+	<script type="text/javascript" src="js/brender-0.5.dev.js"></script> 
 
 	<?php
 

@@ -52,11 +52,7 @@
                         $("#new_project_button")
                         .click(function() {
                                 $( "#new_project" ).dialog( "open" );
-                        });
-                        
-                        $( "button, input:submit, a.btn").button();
-
-        
+                        });        
                 });
 </script>
 <?php

@@ -19,9 +19,9 @@
 		<title>brender 0.5</title>
 		
 		<link rel="stylesheet" href="css/jquery-ui-1.8.6.custom.css">
-		<script src="js/jquery-1.4.3.min.js"></script>
-		<script type='text/javascript' src='js/js_brender.js'></script>
-		<script src="js/jquery-ui-1.8.6.custom.min.js"></script>	
+		<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+		<script type="text/javascript" src="js/brender-0.5.dev.js"></script>	
 		<meta name="viewport" content="width=device-width, user-scalable=no" /> 
 		
 		<link href="css/<?php if (!$_SESSION[user]) { 
@@ -29,20 +29,7 @@
 			} else { print($_SESSION[theme]);
 			} ?>.css" rel="stylesheet" type="text/css">
 <?php if(!$view == "new_job") { ?> <meta http-equiv="Refresh" content="60;URL=index.php" /> <?php } ?>	
-		<script>
-		$(function() {
-			$('#loadingSpinner')
-			    .hide()  // hide it initially
-			    .ajaxStart(function() {
-			        $(this).show();
-			    })
-			    .ajaxStop(function() {
-			        $(this).hide();
-			    });
-		});
-
-		
-		</script>		
+	
 	</head>
 	<body>
 		<div id="wrap">

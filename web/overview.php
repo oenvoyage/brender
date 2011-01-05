@@ -21,7 +21,7 @@ if (isset($_GET['orderby_client'])) {
 ?>
 <table>
 	<tr><td>
-	<tr class=header_row><td>// clients </td><td>// last rendered frame</td></tr>
+	<tr class="header_row"><td>// clients </td><td>// last rendered frame</td></tr>
 	<tr><td>
 		<?php show_client_list();?>
 	</td><td>
@@ -212,10 +212,10 @@ function show_job_list() {
 		}?>
 		</table>
 		<div class="table-controls">
-			<a id="new_job_button2" href="#"><b class="ordre">new job</a></b> -
-			<a href="index.php?view=jobs&x=<?php print $GLOBALS[random_x] ?>"><b class="ordre">reload</a></b> -
-			<a href="index.php?view=jobs&restart_all_paused=1"><b class="ordre">restart all paused jobs</b></a> -
-			<a href="index.php?view=jobs&restart_all=1"><b class="ordre">restart all</b></a>
+			<a class="btn" id="new_job_button2" href="#">new job</a>
+			<a class="btn" href="index.php?view=jobs&x=<?php print $GLOBALS[random_x] ?>">reload</a>
+			<a class="btn" href="index.php?view=jobs&restart_all_paused=1">restart all paused jobs</a>
+			<a class="btn" href="index.php?view=jobs&restart_all=1">restart all</a>
 		</div>
 		<?php
 	}
