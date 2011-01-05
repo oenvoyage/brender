@@ -74,7 +74,7 @@ if (isset($_GET['del'])) {
 #-------- Display Table with all jobs ---------
 # ---------------------------------------------
 	// select and display all jobs from active projects
-	$job_query="select * from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
+	$job_query="select *,end-start as total from jobs where (project in (select name from projects where status='active')) order by $_SESSION[orderby_jobs]";
 	#print "<h2>job query $job_query</h2>";
 	debug("$job_query<br/>");
 	$results=mysql_query($job_query);
@@ -86,13 +86,13 @@ if (isset($_GET['del'])) {
 		<td></td>
 		<td></td>
 		<td> &nbsp; <a href="index.php?view=jobs&order_by=shot">shot</a></td>
-		<td> &nbsp; <a href="index.php?view=jobs&order_by=progress_status">progress status</a></td>
-		<td><a href="index.php?view=jobs&order_by=scene">scene name</a></td>
+		<td width=120> &nbsp; <a href="index.php?view=jobs&order_by=progress_status">progress status</a></td>
+		<td width=100><a href="index.php?view=jobs&order_by=scene">scene name</a></td>
 		<td><a href="index.php?view=jobs&order_by=config">output</a></td>
 		<td><a href="index.php?view=jobs&order_by=start">start</a>-<a href="index.php?view=jobs&order_by=end">end</a></td>
 		<td><a href="index.php?view=jobs&order_by=chunks">chunks</a></td>
 		<td><a href="index.php?view=jobs&order_by=current">current</a> </td>
-		<td>rendered</td>
+		<td width=100>rendered / <a href="index.php?view=jobs&order_by=total">total</a></td>
 		<td width=60><a href="index.php?view=jobs&order_by=status">status</a> &nbsp; </td>
 		<td width=70></td>
 		<td width=80><a href="index.php?view=jobs&order_by=lastseen">lastseen</a></td>
@@ -163,6 +163,7 @@ if (isset($_GET['del'])) {
 				 <a href=\"index.php?view=jobs&reset=$id&pause=$id\"><img src=\"images/icons/restart.png\" /></a>
 				 $play_pause_button
 				 <a href=\"index.php?view=jobs&finish=$id\"><img src=\"images/icons/stop.png\" /></a>
+				 <a href=\"index.php?view=jobs&reset=$id&start=$id\"><img src=\"images/icons/reload.png\" /></a>
 			</td>
 			<td>$lastseen</a><br/>
 			<td>$last_edited_by</a><br/>

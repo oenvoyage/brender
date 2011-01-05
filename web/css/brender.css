@@ -301,16 +301,16 @@ form {
 	background:#ffddbd;
 }
 .finished {
-	background:#ddfddd;
+	background:#dddddd;
 }
 .finished:hover {
-	background:#ecfced;
+	background:#ececec;
 }
 .finished2 {
-	background:#ddeddd;
+	background:#dddddd;
 }
 .finished2:hover {
-	background:#e0f6e1;
+	background:#ececec;
 }
 .active {
 	background:#bcffa6;
