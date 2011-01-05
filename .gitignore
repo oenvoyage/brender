@@ -2,7 +2,7 @@
 blender/
 render/
 thumbnails/
-blend/
+# blend/
 logs/*
 conf/
 connect.php
