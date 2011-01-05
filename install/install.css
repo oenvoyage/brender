@@ -3,7 +3,10 @@
 			padding:0; 
 			font-size:15px; 
 			font-family:Helvetica, Arial, sans-serif;
+			background-color: #EEE;
 		}
+		
+		
 		p { 
 			margin:0; 
 			padding:0;
@@ -37,13 +40,18 @@
 			position: relative; 
 			margin: 0 auto;
 			text-align: justify;
-			background: url("../web/images/inst-body-grad.png") repeat-x scroll left top white;
+			background-color: #EEE;
 		}
 
 		#header { 
-			height:121px; 
+			height:80px; 
 			margin-bottom:20px;
 		}
+		
+		#container img {
+			margin-left: 10px;
+		}
+		
 		.blurb { 
 			color:#606060; 
 			margin-top:5px; 

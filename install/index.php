@@ -4,7 +4,7 @@
 	<link rel="stylesheet" href="install.css">	
 	</head>
 	<body>
-<div id="header"></div>	
+	<div id="header"></div>
 <div id="container">
 
 <?php
@@ -155,8 +155,8 @@
 <?php
 error_reporting(0);
 ?>
-
-<p class="blurb">This script will create <strong>conf.inc.php</strong> which is brender's config file. It will also configure your database, creating the tables required by the application. Be sure to provide an existing database name.</p>
+<img alt="brender" src="../web/images/brender_logo.png" />
+<p class="blurb">Welcome to the b<strong>render</strong> 0.5 installer. This script will create <strong>conf.inc.php</strong> which is brender's config file. It will also configure your database, creating the tables required by the application. Be sure to provide an existing database name.</p>
 
 	<div id="body">
 	<form action='index.php' method='post'>
