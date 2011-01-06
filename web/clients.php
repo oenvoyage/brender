@@ -137,7 +137,7 @@ if (isset($msg)) {
 		<tbody>
 <?php 
 	if (mysql_num_rows($results)==0) {
-	 	echo '"<tr><td class="header_row error" colspan=8> NO clients found</td></tr>';
+	 	echo '<tr><td class="header_row error" colspan=8>NO clients found <span class="normal">click the add new client button at bottom</span></td></tr>';
 	}
 	while ($row=mysql_fetch_object($results)){
 		$client=$row->client;
@@ -228,7 +228,7 @@ if (isset($msg)) {
 								if(obj.status == true) {
 									$("#dialog-form").dialog("close" );
 									//alert(obj.query);
-									alert(obj.msg + obj.query);
+									alert(obj.msg + " ::  " +obj.query);
 									window.location= 'index.php?view=clients';
 								} else {
 									alert(obj.msg);

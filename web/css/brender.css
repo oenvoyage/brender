@@ -294,6 +294,10 @@ form {
 	color:#992222;
 	background:#eeeedd;
 }
+.normal {
+	color:#222222;
+	font-weight:normal;
+}
 
 .neutral {
 	background:#ddddcc;
