@@ -1,8 +1,3 @@
-<script>
-	$(function() {
-		$( "button, input:submit, a.btn").button();
-	});
-</script>
 <?php	
 	if (isset($_GET['orderby'])) {
 		if ($_SESSION[orderby_client]==$_GET[orderby]) {
@@ -205,6 +200,7 @@ if (isset($msg)) {
 			
 			$("#new_client_form").dialog({
 				autoOpen: false,
+				resizable: false,
 				width: 540,
 				modal: true,
 				buttons: {
@@ -229,7 +225,7 @@ if (isset($msg)) {
 								if(obj.status == true) {
 									$("#dialog-form").dialog("close" );
 									//alert(obj.query);
-									alert(obj.msg);
+									alert(obj.msg + obj.query);
 									window.location= 'index.php?view=clients';
 								} else {
 									alert(obj.msg);
@@ -253,15 +249,11 @@ if (isset($msg)) {
 </script>
 
 
-<?php show_new_client_form(); ?>
-
-<?php function show_new_client_form() { ?>
 	<div id="new_client_form" title="// add new client">
-		<form action="index.php" method="post">
-			<input type="hidden" name="view" value="clients">
-			name <input id="name" type="text" name="new_client_name" size="20"> (must be unique)<br>
+
+			client name (must be unique): <input id="name" type="text" name="new_client_name" size="20"> <br>
 			<h3>machine description</h3>
-			operating system <select id="machine_os" name="machine_os">
+			operating system: <select id="machine_os" name="machine_os">
 				<option>linux</option>
 				<option>mac</option>
 				<option>windows</option>
@@ -271,15 +263,13 @@ if (isset($msg)) {
 				<option>rendernode</option>
 				<option>workstation</option>
 			</select><br/>
-			speed (number of processors (multiplicator for number of chunks)) <input id="speed" type="text" name="speed" size="2" value="2"><br>
+			number of processors (multiplicator for number of chunks): <input id="speed" type="text" name="speed" size="2" value="2"><br>
 			<h3>working hours / priority</h3>
 			working hours are hours during which the workstation will be disabled<br/>
 			 Start: <input id="working_hour_start" type="text" name="working_hour_start" size="10" value="07:00:00"><br/>
 			 End: <input id="working_hour_end" type="text" name="working_hour_end" size="10" value="19:00:00"><br>
-			 client priority (1-100) (will only render jobs with priority higher than this value)<input id="client_priority" type="text" name="client_priority" size="3" value="1"><br>
-	
-		</form>
+			 client priority (1-100) (will only render jobs with priority higher than this value): <input id="client_priority" type="text" name="client_priority" size="3" value="1"><br>
 	</div>
-<?php } ?>
+
 
 

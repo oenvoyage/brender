@@ -621,7 +621,7 @@ table tr {
 	background-color: transparent;
 }
 
-#new_job input, #new_job select,#nes_client input, #new_client select{
+#new_job input, #new_job select,#nes_client input, #new_client select, #new_client_form{
 	font-size: 11px;
 }
 
@@ -632,4 +632,9 @@ table tr {
 #upload select {
 	font-size: 11px;
 	margin: 3px 0;
+}
+
+#new_client_form h3 {
+	margin: 10px 0 0px 0;
+
 }
