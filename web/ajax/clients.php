@@ -2,6 +2,7 @@
 
 include_once("../tpl/connect.php");
 include_once("../../functions.php");
+$GLOBALS['computer_name']="ajax";
 
 if(isset($_POST['action'])) {
 		$action = $_POST['action'];
@@ -32,6 +33,7 @@ if ($action == "add_client") {
 			//$msg="created new client $_POST[client] $add_query";
 			$msg = "creation of client : $name with success";
 			$status="true";
+			brender_log("added new client : $name");
 		}
 		echo "{\"status\":$status, \"msg\":\"$msg\", \"query\":\"$add_query\"}";
 } else {

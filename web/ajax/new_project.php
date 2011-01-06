@@ -3,6 +3,7 @@ session_start();
 
 include_once("../tpl/connect.php");
 include_once("../../functions.php");
+$GLOBALS['computer_name']="ajax";
 
 if ($_POST['project_name']) {
 	$project_name = $_POST['project_name'];
