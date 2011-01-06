@@ -1,7 +1,7 @@
 *.php~
 blender/
 render/
-thumbnails/
+# thumbnails/
 # blend/
 logs/*
 conf/
