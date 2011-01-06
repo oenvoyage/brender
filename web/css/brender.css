@@ -298,6 +298,9 @@ form {
 .neutral {
 	background:#ddddcc;
 }
+.plain {
+	background:#ddd;
+}
 .idle {
 	background:#bcffa6;
 }

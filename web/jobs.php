@@ -146,7 +146,7 @@ if (isset($_GET['del'])) {
 
 		print "<tr class=$status_class>
 			<td>$padded_id</td> 
-			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$random_x\">$thumbnail_image</a></td> 
+			<td class=plain><a href=\"index.php?view=view_job&id=$id&x=$random_x\">$thumbnail_image</a></td> 
 			<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$random_x\"><b>$shot <font size=1>($project)</b></a></td>
 			<td>
 				<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>

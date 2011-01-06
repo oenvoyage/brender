@@ -201,7 +201,7 @@ function show_job_list() {
 			}
 	
 			print "<tr class=$status_class>
-				<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
+				<td class=plain><a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail</a></td> 
 				<td class=neutral><a href=\"index.php?view=view_job&id=$id&x=$x\"><b>$shot</b> <br /><font size=1>($project)</font></a></td> 
 				<td>
 					<span class=\"progress-bar\">".output_progress_bar($start,$end,$current)."</span><br/>
