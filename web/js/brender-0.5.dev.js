@@ -14,11 +14,77 @@ $(function() {
 	// Make buttons from the following element
 	$( "button, input:submit, a.btn").button();
 	//$( "a", ".btn" ).click(function() { return false; });
+	
+	
+	//+ NEW JOB dialog START
+	var project = $('select#project'),
+		scene = $('select#scene'),
+		shot = $('select#shot'),
+		fileformat = $('select#fileformat'),
+		config = $('select#config'),
+		start = $('input#start'),
+		end = $('input#end'),
+		chunks = $('input#chunks'),
+		priority = $('input#priority'),
+		rem = $('input#rem'),
+		directstart = $('#directstart input[type="checkbox"]');
+	
+	
+	$("#new_job").dialog({
+		autoOpen: false,
+		height: 400,
+		width: 450,
+		modal: true,
+		closeOnEscape: false,
+		draggable: false,
+		resizable: false,
+		buttons: {
+			Cancel: function() {
+				$(this).dialog("close");
+			},
+			"Start job": function() { 							
+					
+					$.post("ajax/new_job.php", {
+						project: project.val(), 
+						scene: scene.val(), shot: shot.val(), 
+						fileformat: fileformat.val(), 
+						config: config.val(), 
+						start: start.val(), 
+						end: end.val(), 
+						chunks: chunks.val(), 
+						priority: priority.val(), 
+						rem: rem.val(), 
+						directstart: directstart.val() 
+					}, function(data) {
+						var obj = jQuery.parseJSON(data);
+						//alert(data);
+						if(obj.status == true) {
+							$("#dialog-form").dialog("close" );
+							//alert(obj.query);
+							window.location= 'index.php';
+						} else {
+							alert(obj.msg);
+						}
+					}, "Json");				
+					return false;					
+			}
+		},
+		close: function() {
+			//allFields.val( "" ).removeClass( "ui-state-error" );
+		}
+	});
+	
+	$("#new_job_button, #new_job_button2, #new_job_button3").click(function() {
+	$("#new_job").dialog("open");
+	});
+	//+ NEW JOB dialog END
+	
+	
 });
 
 //jQuery and jQuery UI fununctions END
 
-//Applies cascading behavior for the specified dropdowns 
+// Applies cascading behavior for the specified dropdowns 
 // javascript source : http://www.weberdev.com/get_example-4505.html
 function applyCascadingDropdown(sourceId, targetId) { 
     var source = document.getElementById(sourceId); 
@@ -31,7 +97,7 @@ function applyCascadingDropdown(sourceId, targetId) {
     } 
 } 
 
-//Displays a subset of a dropdown's options 
+// Displays a subset of a dropdown's options 
 function displayOptionItemsByClass(selectElement, className) { 
     if (!selectElement.backup) { 
         selectElement.backup = selectElement.cloneNode(true); 
@@ -47,7 +113,7 @@ function displayOptionItemsByClass(selectElement, className) {
     } 
 } 
 
-//Binds dropdowns 
+// Binds dropdowns 
 function applyCascadingDropdowns() { 
     applyCascadingDropdown("project", "scene"); 
     applyCascadingDropdown("scene", "shot"); 
@@ -56,7 +122,7 @@ function applyCascadingDropdowns() {
 } 
 
 //    applyCascadingDropdown("categories", "items"); 
-////execute when the page is ready 
-//window.onload=applyCascadingDropdowns;
+//// execute when the page is ready 
+// window.onload=applyCascadingDropdowns;
 window.onload=applyCascadingDropdowns;
 
