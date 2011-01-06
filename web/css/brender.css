@@ -94,6 +94,16 @@ td:hover {
 	/*background-color: #dddddd;*/
 }
 
+table.overview_grid {
+	margin-top: 22px;
+}
+
+.overview_grid .log {
+	font-family: Courier, Monaco;
+    font-size: 11px;
+    padding: 10px;
+    text-align: left;
+}
 
 .header_row {
 	background: -webkit-gradient(linear, left top, left bottom, from(#d8d8d8), to(#bdbdbd));
@@ -109,6 +119,16 @@ td:hover {
 	background: -webkit-gradient(linear, left top, left bottom, from(#d8d8d8), to(#bdbdbd));
     background: -moz-linear-gradient(top, #bdbdbd, #9d9d9d);
 }
+
+
+.header_row.overview, .header_row.overview td, .header_row.overview td:hover  {
+	background: transparent;
+	text-align: left;
+	color: #000;
+	font-size: 18px;
+	font-weight: normal;
+}
+
 
 
 a {

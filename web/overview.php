@@ -1,4 +1,3 @@
-<h2>// <b>overview</b> <?php output_refresh_button(); ?> </h2>
 <?php
 if (isset($_GET['orderby_job'])) {
 	if ($_SESSION[orderby_jobs]==$_GET[orderby_job]) {
@@ -19,25 +18,27 @@ if (isset($_GET['orderby_client'])) {
 
 #check_if_client_should_work();
 ?>
-<table>
+<table class="overview_grid">
 	<tr><td>
-	<tr class="header_row"><td>// clients </td><td>// last rendered frame</td></tr>
+	<tr class="header_row overview"><td>// <strong>clients</strong><?php output_refresh_button(); ?></td><td>// <strong>last rendered frame</strong></td></tr>
 	<tr><td>
 		<?php show_client_list();?>
 	</td><td>
 		 <?php show_last_rendered_frame("full");?>
 	</td></tr>
 	<tr class="spacer_row"></tr>
-	<tr class=header_row><td colspan=2>
+	<tr class="header_row overview"><td colspan=2>
 		// <b>current jobs</b>
 	</td></tr>
-	<tr><td colspan=2>
-		<?php show_job_list(); ?>
+</table>
+
+<?php show_job_list(); ?>
+
+<table class="overview_grid">
+	<tr class="header_row overview"><td colspan=2>
+		// <strong>last logs</strong>
 	</td></tr>
-	<tr class=header_row><td colspan=2>
-		// <b>last logs</b>
-	</td></tr>
-	<tr><td colspan=2>
+	<tr><td colspan=2 class="log">
 		 <?php show_last_log();?>
 	</td></tr>
 </table>
