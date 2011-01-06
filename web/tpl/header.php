@@ -21,6 +21,7 @@
 		<link rel="stylesheet" href="css/jquery-ui-1.8.6.custom.css">
 		<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="js/brender-0.5.dev.js"></script>	
 		<meta name="viewport" content="width=device-width, user-scalable=no" /> 
 		

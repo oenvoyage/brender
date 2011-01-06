@@ -113,6 +113,8 @@ table.overview_grid {
 	margin:10px;
 	text-align:center;
 	font-weight:bold;
+	cursor: pointer;
+	color: #333;
 }
 
 .header_row td:hover {

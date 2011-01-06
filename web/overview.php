@@ -18,6 +18,12 @@ if (isset($_GET['orderby_client'])) {
 
 #check_if_client_should_work();
 ?>
+<script>
+$(document).ready(function() { 
+        $("#current_jobs").tablesorter(); 
+}); 
+</script>
+
 <table class="overview_grid">
 	<tr><td>
 	<tr class="header_row overview"><td>// <strong>clients</strong><?php output_refresh_button(); ?></td><td>// <strong>last rendered frame</strong></td></tr>
@@ -131,21 +137,25 @@ function show_job_list() {
 		if (isset($msg)) {
 			print "// $msg";
 		}
-		debug("$job_query<br/>");
-		print "<table>\n";
-		print "<tr class=header_row>
-			<td width=12></td>
-			<td width=120><a href=\"index.php?orderby_job=shot\">shot name</a></td>
-			<td width=120> &nbsp; <a href=\"index.php?orderby_job=progress_status\">progress status</a></td>
-			<td width=120> &nbsp; <a href=\"index.php?orderby_job=config\">output</a></td>
-			<td width=10> &nbsp; <a href=\"index.php?orderby_job=start\">start</a>-<a href=\"index.php?orderby_job=end\">end</a> &nbsp; </td>
-			<td width=10> &nbsp; <a href=\"index.php?orderby_job=chunks\">chunks</a> &nbsp; </td>
-			<td width=50> &nbsp; <a href=\"index.php?orderby_job=current\">current</a> </td>
-			<td width=60> &nbsp; rendered</td>
-			<td width=12> &nbsp; <a href=\"index.php?orderby_job=status\">status</a> &nbsp; </td>
-			<td width=60> &nbsp; </td>
-			<td width=10> &nbsp; <a href=\"index.php?orderby_job=priority\">priority</a></td>
-		</tr>";
+		debug("$job_query<br/>");?>
+		<table id="current_jobs" class="tablesorter">
+			<thead> 
+				<tr class=header_row>
+					<th width=12></th>
+					<th width=120>shot name</th>
+					<th width=120>progress status</th>
+					<th width=120>output</th>
+					<th width=10>startend</th>
+					<th width=10>chunks</th>
+					<th width=50>current</th>
+					<th width=60>rendered</th>
+					<th width=12>status</th>
+					<th width=60> &nbsp; </th>
+					<th width=10>priority</th>
+				</tr>
+			</thead>
+			<tbody>
+		<?php
 		if (mysql_num_rows($results)==0) {
                 	echo '<tr><td class="header_row warning" colspan=11> no jobs running</td></tr>';
          	}  
@@ -212,6 +222,7 @@ function show_job_list() {
 				<td bgcolor=$priority_color>$priority</td>
 			</tr>";
 		}?>
+		</tbody>
 		</table>
 		<div class="table-controls">
 			<a class="btn" id="new_job_button2" href="#">new job</a>

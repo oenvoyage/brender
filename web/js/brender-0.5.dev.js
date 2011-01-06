@@ -18,8 +18,6 @@ $(function() {
 
 //jQuery and jQuery UI fununctions END
 
-
-
 //Applies cascading behavior for the specified dropdowns 
 // javascript source : http://www.weberdev.com/get_example-4505.html
 function applyCascadingDropdown(sourceId, targetId) { 
