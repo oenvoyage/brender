@@ -120,18 +120,21 @@ if (isset($msg)) {
 	?>
 	<h2> // <b>clients</b> <?php output_refresh_button(); ?> </h2>
 	<?php debug($query); ?>
-	<table>
-	<tr class=header_row>
-		<td width=120><a href="index.php?view=clients&orderby=client">client name</a></td>
-		<td width=32<a href="index.php?view=clients&orderby=client_priority">stats</a></td>
-		<td width=120> <a href="index.php?view=clients&orderby=status">status</a></td>
-		<td width=500> <a href="index.php?view=clients&orderby=rem">rem</a></td>
-		<td width=200> <a href="index.php?view=clients&orderby=info">info</a></td>
-		<td width=120> cmd </td>
-		<td width=120><a href="index.php?view=clients&orderby=working_hour_start">workhour start</a> &nbsp; </b></td>
-		<td width=120><a href="index.php?view=clients&orderby=working_hour_end">workhour end</a> &nbsp; </b></td>
-		<td></td>
-	</tr>
+	<table id="clients_table" class="tablesorter">
+		<thead>
+			<tr class=header_row>
+				<th width=120>client name</a></th>
+				<th width=32>stats</a></th>
+				<th width=120>status</a></th>
+				<th width=500>rem</a></th>
+				<th width=200>info</a></th>
+				<th width=120>cmd</th>
+				<th width=120>workhour start</th>
+				<th width=120>workhour end</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
 <?php 
 	if (mysql_num_rows($results)==0) {
 	 	echo '"<tr><td class="header_row error" colspan=8> NO clients found</td></tr>';
@@ -174,7 +177,7 @@ if (isset($msg)) {
 			<td>$shutdown_button</td>
 		</tr>";
 	}
-	print "</table>";
+	print "</tbody></table>";
 ?>
 <div class="table-controls">
 	<a class="btn" href="index.php?view=clients&benchmark=all">benchmark ALL</a> 
@@ -246,6 +249,12 @@ if (isset($msg)) {
 
 	
 		});
+		
+
+	$(document).ready(function() { 
+	        $("#clients_table").tablesorter(); 
+	}); 
+
 </script>
 
 
