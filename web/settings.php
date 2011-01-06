@@ -47,6 +47,7 @@
 	    $("#new_project").dialog({
 	            autoOpen: false,
 				resizable: false,
+				position: 'top',
 	            height: 300,
 	            width: 450,
 	            modal: true,
