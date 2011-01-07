@@ -1,5 +1,5 @@
 *.php~
-blender_bin/
+#blender_bin/
 render/
 # thumbnails/
 # blend/
