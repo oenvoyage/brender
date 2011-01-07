@@ -20,11 +20,11 @@
 	}
 
 	if (isset($_GET['delete'])) {
-		$dquery="delete from clients where client='$client'";
+		$dquery="DELTE FROM clients WHERE client='$client'";
 		$msg="client $client deleted :: ok $dquery";
 	}
 	if ($_POST['action']=="update") {
-		$uquery="update clients set speed='$_POST[speed]',machine_os='$_POST[machine_os]',machinetype='$_POST[machinetype]',blender_local_path='$POST[blender_local_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
+		$uquery="UPDATE clients SET speed='$_POST[speed]',machine_os='$_POST[machine_os]',machine_type='$_POST[machine_type]',blender_local_path='$_POST[blender_local_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
 		mysql_query($uquery);
 		$msg="$client updated :: ok <br/>";
 		$msg.="<a href=\"index.php?view=clients\">back to clients list</a>";
@@ -50,7 +50,7 @@
 		$status=$row->status;
 		$rem=$row->rem;
 		$speed=$row->speed;
-		$machinetype=$row->machinetype;
+		$machine_type=$row->machine_type;
 		$machine_os=$row->machine_os;
 		$blender_local_path=$row->blender_local_path;
 		$client_priority=$row->client_priority;
@@ -76,7 +76,7 @@
 		else {
 			$benchmark_button= " <a class=\"grey\" href=\"index.php?view=clients&benchmark=$client\">benchmark </a>";
 		}
-		if ($machinetype=='rendernode') {
+		if ($machine_type=='rendernode') {
 			$rendernode_selected="selected";
 		}
 		if ($machine_os=='linux') {
@@ -101,7 +101,7 @@
 			<option <?print $windows_selected?>>windows</option>
 		</select><br/>
 		blender local path (leave empty to use the /blender folder in brender_root : <br/><input type="text" name="blender_local_path" size="80" value="<?php print $blender_local_path?>"><br>
-		machine type <select name="machinetype">
+		machine type <select name="machine_type">
 			<option>workstation</option>
 			<option <?print $rendernode_selected?>>rendernode</option>
 		</select><br/>

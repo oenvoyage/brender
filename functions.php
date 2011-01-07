@@ -129,7 +129,7 @@ function check_if_client_should_work($client_name="check all") {
 		
 	}
 	#checking_alive_clients();
-	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machinetype,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machinetype='workstation' and status<>'not running'";
+	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machine_type,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machine_type='workstation' and status<>'not running'";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)) {
 		$client=$row->client;

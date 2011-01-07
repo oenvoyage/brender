@@ -213,7 +213,7 @@
 			$msg="<span class=\"error\">error, please enter a client name</span>";
 		}
 		else {
-			$add_query="insert into clients values('','$new_client_name','$_POST[speed]','$_POST[machinetype]','$_POST[machine_os]','$_POST[blender_local_path]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
+			$add_query="insert into clients values('','$new_client_name','$_POST[speed]','$_POST[machine_type]','$_POST[machine_os]','$_POST[blender_local_path]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
 			mysql_query($add_query);
 			$msg="created new client $_POST[client] $add_query";
 		}
@@ -255,7 +255,7 @@ if (isset($msg)) {
 		$rem=$row->rem;
 		$info=$row->info;
 		$speed=$row->speed;
-		$machinetype=$row->machinetype;
+		$machine_type=$row->machine_type;
 		$machine_os=$row->machine_os;
 		$client_priority=$row->client_priority;
 		$working_hour_start=$row->working_hour_start;
@@ -276,7 +276,7 @@ if (isset($msg)) {
 			$shutdown_button="<a href=\"index.php?view=clients&stop=$client\"><img src=\"/web/images/icons/close.png\"></a>";
 		}
 		print "<tr class=$status_class>
-			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
+			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machine_type)</font></td> 
 			<td>$machine_os<br/><font size=1>$speed / $client_priority</font></a></td>
 			<td>$status</td>
 			<td>$rem</td>
@@ -309,7 +309,7 @@ if (isset($msg)) {
 				<option>windows</option>
 			</select><br/>
 			blender local path (leave empty to use the /blender remote folder in brender_root) : <br/><input id="blender_local_path" type="text" name="blender_local_path" size="60"><br>
-			machine type <select id="machine_type" name="machinetype">
+			machine type <select id="machine_type" name="machine_type">
 				<option>rendernode</option>
 				<option>workstation</option>
 			</select><br/>

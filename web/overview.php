@@ -85,7 +85,7 @@ function show_client_list() {
 		$status=$row->status;
 		$info=$row->info;
 		$speed=$row->speed;
-		$machinetype=$row->machinetype;
+		$machine_type=$row->machine_type;
 		$speed=$row->speed;
 		$status_class=get_css_class($status);
 		if ($status<>"disabled") {
@@ -98,7 +98,7 @@ function show_client_list() {
 			$dis="";
 		}
 		print "<tr class=$status_class>
-			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machinetype)</font></td> 
+			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machine_type)</font></td> 
 			<td>$status</td>
 			<td>$info</td>
 			<td>$dis</td>
