@@ -33,7 +33,7 @@ CREATE TABLE `clients` (
   `rem` varchar(1024) NOT NULL,
   `info` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='les clients' AUTO_INCREMENT=29 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='les clients' AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `clients`
@@ -64,7 +64,7 @@ CREATE TABLE `jobs` (
   `lastseen` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `last_edited_by` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=236 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `jobs`
@@ -84,7 +84,7 @@ CREATE TABLE `orders` (
   `priority` smallint(6) NOT NULL,
   `rem` varchar(1024) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48424 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `orders`
@@ -110,7 +110,7 @@ CREATE TABLE `projects` (
   `status` varchar(24) NOT NULL DEFAULT 'active',
   `def` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `projects`
@@ -132,7 +132,7 @@ CREATE TABLE `rendered_frames` (
   `finished_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_thumbnailed` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=381 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `rendered_frames`

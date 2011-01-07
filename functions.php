@@ -196,13 +196,13 @@ function get_blender_path() {
 	# ---there is no local_path, so we take the blender form the brender_root
 	switch($GLOBALS['os']) {
 		case "mac":
-			$path="blender/mac/blender.app/Contents/MacOS/blender";
+			$path="blender_bin/mac/blender.app/Contents/MacOS/blender";
 			break;
 		case "linux":
-			$path="blender/linux/blender";
+			$path="blender_bin/linux/blender";
 			break;
 		case "windows":
-			$path="blender/windows/blender.exe";
+			$path="blender_bin/windows/blender.exe";
 			break;
 
 	}
