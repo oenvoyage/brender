@@ -360,7 +360,7 @@ function scene_shot_cascading_dropdown_menus() {
 	# ----- WORK IN PROGRESS -----------XXX------
 	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project for autodiscovery of .blend files
 
-	$projects_list=get_projects_list_array();
+	$projects_list=get_projects_list_array("active");
 	foreach ($projects_list as $project) {
 		$scene_list=get_scene_list_array($project);
 		$projects_options.="<option class=\"project\" value=\"$project\">$project</option>";
@@ -393,8 +393,14 @@ function scene_shot_cascading_dropdown_menus() {
 	<?php
 
 }
-function get_projects_list_array() {
-	$query="select * from projects order by def DESC ";
+function get_projects_list_array($type="DEFAULT") {
+	switch($type) {
+		case "active":
+			$query="SELECT * FROM projects WHERE status='active' ORDER BY def DESC ";
+			break;
+		default:
+			$query="SELECT * FROM projects ORDER BY def DESC ";
+	}
         $results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)) {
 		$projects_list[]=$row->name;
