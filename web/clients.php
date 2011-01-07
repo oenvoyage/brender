@@ -1,9 +1,9 @@
 <script>
 		$(document).ready(function() {
 			var name = $('input#name'),
-				machine_os = $('select#machine_os :selected'),
+				machine_os = $('select#machine_os'),
+				machine_type = $('select#machine_type'),
 				blender_local_path = $('input#blender_local_path'),
-				machine_type = $('select#machine_type :selected'),
 				speed = $('input#speed'),
 				working_hour_start = $('input#working_hour_start'),
 				working_hour_end = $('input#working_hour_end'),
@@ -23,9 +23,9 @@
 							
 							$.post("ajax/clients.php", {
 								name: name.val(), 
-								blender_local_path: blender_local_path.val(),
 								machine_os: machine_os.val(),
 								machine_type: machine_type.val(),
+								blender_local_path: blender_local_path.val(),
 								speed: speed.val(),
 								working_hour_start: working_hour_start.val(),
 								working_hour_end: working_hour_end.val(),
@@ -37,7 +37,7 @@
 								if(obj.status == true) {
 									$("#dialog-form").dialog("close" );
 									//alert(obj.query);
-									alert(obj.msg + obj.query);
+									alert(obj.msg+ " : "+obj.query);
 									window.location= 'index.php?view=clients';
 								} else {
 									alert(obj.msg);
@@ -313,7 +313,7 @@ if (isset($msg)) {
 				<option>rendernode</option>
 				<option>workstation</option>
 			</select><br/>
-			number of processors (multiplicator for number of chunks): <input id="speed" type="text" name="speed" size="2" value="2"><br>
+			speed (number of processors = ( multiplier for number of chunks): <input id="speed" type="text" name="speed" size="2" value="2"><br>
 			<h3>working hours / priority</h3>
 			working hours are hours during which the workstation will be disabled<br/>
 			 Start: <input id="working_hour_start" type="text" name="working_hour_start" size="10" value="07:00:00"><br/>

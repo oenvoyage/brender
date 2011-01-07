@@ -14,7 +14,9 @@ if(isset($_POST['action'])) {
 		$working_hour_start = $_POST['working_hour_start'];
 		$working_hour_end = $_POST['working_hour_end'];
 		$client_priority = $_POST['client_priority'];
-		
+	
+		if ($speed>8) {
+			$speed=8;
 		}
 
 if ($action == "add_client") {
