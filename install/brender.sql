@@ -3,17 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 28, 2010 at 03:51 PM
+-- Generation Time: Jan 07, 2011 at 10:43 PM
 -- Server version: 5.1.37
 -- PHP Version: 5.2.11
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `brender`
@@ -29,8 +23,9 @@ CREATE TABLE `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `client` varchar(32) NOT NULL,
   `speed` tinyint(4) NOT NULL,
-  `machinetype` varchar(24) NOT NULL DEFAULT 'node',
+  `machine_type` varchar(24) NOT NULL DEFAULT 'node',
   `machine_os` varchar(16) NOT NULL,
+  `blender_local_path` varchar(512) NOT NULL,
   `client_priority` tinyint(4) NOT NULL,
   `working_hour_start` time NOT NULL,
   `working_hour_end` time NOT NULL,
@@ -38,7 +33,11 @@ CREATE TABLE `clients` (
   `rem` varchar(1024) NOT NULL,
   `info` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='les clients' AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='les clients' AUTO_INCREMENT=29 ;
+
+--
+-- Dumping data for table `clients`
+--
 
 -- --------------------------------------------------------
 
@@ -65,7 +64,11 @@ CREATE TABLE `jobs` (
   `lastseen` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `last_edited_by` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=141 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=236 ;
+
+--
+-- Dumping data for table `jobs`
+--
 
 -- --------------------------------------------------------
 
@@ -76,11 +79,17 @@ CREATE TABLE `jobs` (
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `client` varchar(32) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `orders` varchar(255) NOT NULL,
   `priority` smallint(6) NOT NULL,
   `rem` varchar(1024) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47957 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48424 ;
+
+--
+-- Dumping data for table `orders`
+--
+
 
 -- --------------------------------------------------------
 
@@ -101,33 +110,53 @@ CREATE TABLE `projects` (
   `status` varchar(24) NOT NULL DEFAULT 'active',
   `def` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+
+--
+-- Dumping data for table `projects`
+--
+
+-- INSERT INTO `projects` VALUES(21, 'test', '/Users/o/brender/brender/blend', '/Users/o/brender/brender/blend', '/Users/o/brender/brender/blend', '/Users/o/brender/brender/render', '/Users/o/brender/brender/render', '/Users/o/brender/brender/render', 'grand prix d-horlogerie version 2010', 'active', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `scenes`
+-- Table structure for table `rendered_frames`
 --
 
-CREATE TABLE `scenes` (
+CREATE TABLE `rendered_frames` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project` varchar(24) DEFAULT NULL,
-  `scene` varchar(24) DEFAULT NULL,
+  `job_id` int(11) NOT NULL,
+  `frame` int(11) NOT NULL,
+  `rendered_by` varchar(32) NOT NULL,
+  `finished_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_thumbnailed` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=381 ;
+
+--
+-- Dumping data for table `rendered_frames`
+--
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `status`
+-- Table structure for table `server_settings`
 --
 
-CREATE TABLE `status` (
+CREATE TABLE `server_settings` (
   `server` varchar(32) NOT NULL,
   `status` varchar(32) NOT NULL,
   `pid` int(11) NOT NULL,
   `started` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `sound` varchar(12) NOT NULL,
-  `last_rendered` varchar(128) NOT NULL,
+  `server_os` varchar(128) NOT NULL,
   `rem` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `server_settings`
+--
+
+-- INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', 'linux', '');
+

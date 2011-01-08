@@ -69,6 +69,8 @@
 	$mysql_password = $_POST[brenderPassword];
 	// Database name
 	$mysql_database = 'installer';
+	// Host OS
+	$mysql_host_os = $_POST[host_os];
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -95,12 +97,23 @@
 				$templine = '';
 			}
 		}
-	} 
+	}
+	
+	
+	// Connect to MySQL server
+	//mysql_connect($mysql_host, $mysql_username, $mysql_password) or die('Error connecting to MySQL server: ' . mysql_error());
+	// Select database
+	//mysql_select_db($mysql_database) or die('Error selecting MySQL database: ' . mysql_error());
+	$set_server_os = '"INSERT INTO server_settings (server_os) VALUES (\''.$mysql_host_os.'\')"';
+	//$set_server_os = '"INSERT INTO server_settings VALUES (\'server\', \'not started \', 0, \'1972-01-07 22:39:49\', \'no\', \'test\', \'\')"';
+	echo($set_server_os);
+	//INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', 'linux', '');
+	mysql_query($set_server_os) or print('Error performing query') . mysql_error();
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
-    echo "OK<br/>";
+    echo "<br/>OK<br/>";
     
 
 	if(is_file($_POST['con'])){
@@ -161,22 +174,32 @@ error_reporting(0);
 	<div id="body">
 	<form action='index.php' method='post'>
 	
-	<table id="installform" cellspacing="0" cellpadding="0" border="0">	
+	<table id="installform" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td class="label" width="200">Host OS:</td>
+			<td>
+				<select name="host_os">
+					<option value="mac">mac</option>
+					<option value="linux">win</option>
+					<option value="windows">lin</option>
+				</select>
+			</td>
+		</tr>		
 		<tr>
 			<td class="label" width="200">Database Host:</td>
-			<td><input type='text' name='host' value='localhost' /></td>
+			<td><input type="text" name="host" value="localhost" /></td>
 		</tr>
 		<tr>
 			<td class="label">Database Name:</td> 
-			<td><input type='text' name='database' value='brender' /></td>
+			<td><input type="text" name="database" value="installer" /></td>
 		</tr>
 		<tr>
 			<td class="label">Database Username:</td> 
-			<td><input type='text' name='brenderUser' value='brender' /></td>
+			<td><input type="text" name="brenderUser" value="root" /></td>
 		</tr>
 		<tr>
 			<td class="label">Database Password:</td> 
-			<td><input type='password' name='brenderPassword' value="brender" /></td>
+			<td><input type="password" name="brenderPassword" value="" /></td>
 		</tr>
 		<!-- <tr><td></td><td class="note">* password not masked</td></tr> -->
 		<tr>
@@ -187,8 +210,8 @@ error_reporting(0);
 		</tr>
 		<tr>
 			<td style="padding-top:20px; text-align:center;">
-				<input type='hidden' name='stage2' value='true'>
-				<input class="submit" type='submit' />
+				<input type="hidden" name="stage2" value="true">
+				<input class="submit" type="submit" />
 			</td>
 		</tr>
 	</table>
