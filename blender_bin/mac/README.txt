@@ -1,1 +1,1 @@
-to install a blender for use with brender on mac osx, copy your blender application folder here
+In order to enable Mac OSX clients to render, copy your blender (version 2.5 or higher) binary here.

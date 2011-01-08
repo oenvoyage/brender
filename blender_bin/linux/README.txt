@@ -1,1 +1,1 @@
-to install a blender for use with brender on linux, copy your blender binary here
+In order to enable Linux clients to render, copy your blender (version 2.5 or higher) binary here.

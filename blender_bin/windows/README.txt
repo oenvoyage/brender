@@ -1,1 +1,1 @@
-to install a blender for use with brender on windows, copy your blender.exe executable here
+In order to enable Windows clients to render, copy your blender (version 2.5 or higher) binary here.

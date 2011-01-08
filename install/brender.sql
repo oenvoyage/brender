@@ -158,5 +158,5 @@ CREATE TABLE `server_settings` (
 -- Dumping data for table `server_settings`
 --
 
--- INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', 'linux', '');
+INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', 'linux', '');
 

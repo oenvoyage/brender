@@ -78,8 +78,16 @@
 		.right { float:right; width:254px; }
 		#footer { float:left; width:100%; margin-top:100px; text-align:center;}
 		#footer p {color:#bbb; }
-
-		td {font-size:9pt;  color:#333;}
+		
+		tr {
+			height: 26px;
+		}
+		
+		td {
+			font-size:12px;
+			color:#333;		
+			}
+			
 		td.note {
 			color:#999;
 			padding-bottom:15px;
@@ -92,20 +100,22 @@
 		.label {
 			text-align:right;
 			vertical-align:top;
-			padding-top:3px;
+			padding-top:8px;
 			 
 		}
 		
 		input {
-			font-family:helvetica, arial, sans-serif;
-			font-size:10pt;
-			padding:3px;
-			background:white;
-			margin:0 10px 5px;
-			border-left:1px solid #83a5c7; 
-			border-top:1px solid #83a5c7; 
-			border-bottom:1px solid #d3e1ee;  
-			border-right:1px solid #d3e1ee; 
+			font-size: 10pt;
+			padding: 3px;
+			/*background: #FFF;*/
+			margin: 3px 10px;
+			border: 1px solid #666; 
+		}
+		
+
+		
+		select {
+			margin-left: 10px;
 		}
 		
 		.radio{
@@ -116,7 +126,7 @@
 			border:1px solid red;
 			background: #fff6f6;
 			padding:10px;
-			margin:0 0 15px 0;
+			margin:25px 0 15px 0;
 		}
 		#installform { 
 			margin:0 auto;
