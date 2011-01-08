@@ -1,8 +1,7 @@
 <?php
-
 include_once("../tpl/connect.php");
 include_once("../../functions.php");
-$GLOBALS['computer_name']="ajax";
+//$GLOBALS['computer_name']="ajax";
 
 if(isset($_POST['action'])) {
 		$action = $_POST['action'];
@@ -18,6 +17,7 @@ if(isset($_POST['action'])) {
 		if ($speed>8) {
 			$speed=8;
 		}
+	}
 
 if ($action == "add_client") {
 		//$new_client_name=clean_name($_POST['name']);
