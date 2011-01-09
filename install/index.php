@@ -109,8 +109,10 @@
 		}
 	}
 	
-	// Set host operating system (to generate proper paths when creating projects)
-	$set_server_os="DELETE FROM server_settings; INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', '$mysql_host_os', '')";
+	// Add a server_settings line with host operating system (to generate proper paths when creating projects)
+	mysql_query("DELETE FROM server_settings") or display_error_and_die("Error performing server_settings delete query : " . mysql_error());
+
+	$set_server_os="INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', '$mysql_host_os', '')";
 	mysql_query($set_server_os) or display_error_and_die("Error performing query : " . mysql_error());
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
