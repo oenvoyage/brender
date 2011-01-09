@@ -134,10 +134,10 @@
 \$my_server=\"$_POST[host]:$_POST[port]\";
 \$my_user=\"$_POST[brenderUser]\";
 \$my_password=\"$_POST[brenderPassword]\";
-print \"connect.php info :: ---- \$my_server,\$my_user,\$my_password ----\";
+#print \"connect.php info :: ---- \$my_server,\$my_user,\$my_password ----\";
 \$link=mysql_connect(\$my_server,\$my_user,\$my_password) or die(\"Fatal error: unable to connect to mysql server\");
 @mysql_select_db(\"brender\");
-print \"connected to server \$my_server : \$my_user\";
+#print \"connected to server \$my_server : \$my_user\";
 
 // paths
 \$rootPath= \"$rootpath\";
