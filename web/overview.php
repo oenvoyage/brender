@@ -26,7 +26,7 @@ $(document).ready(function() {
 
 <table class="overview_grid">
 	<tr><td>
-	<tr class="header_row overview"><td>// <strong>clients</strong><?php output_refresh_button(); ?></td><td>// <strong>last rendered frame</strong></td></tr>
+	<tr class="header_row overview"><td>// <strong>clients</strong> <?php output_refresh_button(); ?></td><td>// <strong>last rendered frame</strong></td></tr>
 	<tr><td>
 		<?php show_client_list();?>
 	</td><td>

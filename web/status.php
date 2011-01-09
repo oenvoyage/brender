@@ -125,7 +125,7 @@ function order_status() {
 
 #---------------system status ---------
 function system_status() {
-	$query="select server,status,pid,started,timediff(now(),started) as uptime from server_settings;";
+	$query="select server,status,pid,started,server_os,timediff(now(),started) as uptime from server_settings;";
 	$results=mysql_query($query);
 	print "<table width=600>";
 	print "<tr>
@@ -134,11 +134,13 @@ function system_status() {
 		<td bgcolor=cccccc width=120 height=30 align=center><b>pid</b></td>
 		<td bgcolor=cccccc width=120 height=30 align=center><b>uptime</b></td>
 		<td bgcolor=cccccc width=120 height=30 align=center><b>started</b></td>
+		<td bgcolor=cccccc width=120 height=30 align=center><b>server os</b></td>
 	</tr>";
 	while ($row=mysql_fetch_object($results)){
 		$server=$row->server;
 		$status=$row->status;
 		$started=$row->started;
+		$server_os=$row->server_os;
 		$uptime=$row->uptime;
 		$pid=$row->pid;
 		$bgcolor="#cccccc";
@@ -148,6 +150,7 @@ function system_status() {
 			<td bgcolor=ddddcc align=center>$pid</td> 
 			<td bgcolor=ddddcc align=center>$uptime</td> 
 			<td bgcolor=ddddcc align=center>$started</td> 
+			<td bgcolor=ddddcc align=center>$server_os</td> 
 		</tr>";
 	}
 	print "</table>";
