@@ -19,6 +19,10 @@
 		<title>brender 0.5</title>
 		
 		<link rel="stylesheet" href="css/jquery-ui-1.8.6.custom.css">
+		<link href="css/<?php if (!$_SESSION[user]) { 
+			print "brender";
+			} else { print($_SESSION[theme]);
+			} ?>.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
@@ -27,10 +31,6 @@
 		<script type="text/javascript" src="js/brender-0.5.dev.js"></script>	
 		<meta name="viewport" content="width=device-width, user-scalable=no" /> 
 		
-		<link href="css/<?php if (!$_SESSION[user]) { 
-			print "brender";
-			} else { print($_SESSION[theme]);
-			} ?>.css" rel="stylesheet" type="text/css">
 <?php// if(!$view == "new_job") { ?> <!-- <meta http-equiv="Refresh" content="5;URL=index.php" /> --><?php// } ?>	
 	
 	</head>
