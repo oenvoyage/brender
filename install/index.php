@@ -110,7 +110,7 @@
 	}
 	
 	// Set host operating system (to generate proper paths when creating projects)
-	$set_server_os="INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', '$mysql_host_os', '')";
+	$set_server_os="DELETE FROM server_settings; INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', '$mysql_host_os', '')";
 	mysql_query($set_server_os) or display_error_and_die("Error performing query : " . mysql_error());
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +161,7 @@ print \"connected to server \$my_server : \$my_user\";
 	echo "<p class=\"warning\"><strong>Warning</strong><br />";
     	echo "<br />Config file creation: seems to have FAILED somewhere <br/>";
     	echo "Generating config file: if creation fails make sure the webserver has permission to write to $rootpath<br/><br/>";
-    	echo "Setup unsuccessfull, please go back to <a href=\"javascript:history.go(-1)\">brender install</a>";
+    	echo "Setup unsuccessful, please go back to <a href=\"javascript:history.go(-1)\">brender install</a>";
 	echo "</p>";
 	
     }
@@ -249,7 +249,7 @@ error_reporting(0);
 function display_error_and_die($error_msg) {
 	echo "<p class=\"warning\"><strong>Warning</strong><br />";
 	echo "<br/>$error_msg<br/>";
-	echo "Setup unsuccessfull, please go back to <a href=\"javascript:history.go(-1)\">brender install</a>";
+	echo "Setup unsuccessful, please go back to <a href=\"javascript:history.go(-1)\">brender install</a>";
 	echo "</p>";
 	die();
 }
