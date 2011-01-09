@@ -76,9 +76,9 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// Connect to MySQL server
-	mysql_connect($mysql_host, $mysql_username, $mysql_password) or die('Error connecting to MySQL server: ' . mysql_error());
+	mysql_connect($mysql_host, $mysql_username, $mysql_password) or display_error_and_die('Error connecting to database: ' . mysql_error());
 	// Select database
-	mysql_select_db($mysql_database) or die('Error selecting MySQL database: ' . mysql_error());
+	mysql_select_db($mysql_database) or display_error_and_die('Error selecting MySQL database: ' . mysql_error());
 	
 	
 	// Optionally drop prvious tables
@@ -150,13 +150,22 @@ print \"connected to server \$my_server : \$my_user\";
 		}
     }
     
-    echo "Generating config file: if creation fails make sure the webserver has permission to write to $rootpath";
     
     file_put_contents("$rootpath/connect.php",$conffile);
     
-    echo "<br />Config file creation: OK<br /><hr>";
+    if (file_exists("$rootpath/connect.php")) {
+    	echo "<br />Config file creation: OK<br /><hr>";
+    	echo "Setup completed successfully, you can now go to <a href=\"../web/\">brender</a>!";
+    }
+    else {
+	echo "<p class=\"warning\"><strong>Warning</strong><br />";
+    	echo "<br />Config file creation: seems to have FAILED somewhere <br/>";
+    	echo "Generating config file: if creation fails make sure the webserver has permission to write to $rootpath<br/><br/>";
+    	echo "Setup unsuccessfull, please go back to <a href=\"javascript:history.go(-1)\">brender install</a>";
+	echo "</p>";
+	
+    }
     
-    echo "Setup completed successfully, you can now go to <a href=\"../web/\">brender</a>!";
     
     /*
     if(isset($_SERVER['PATH_INFO'])){$uploadPath = $_SERVER['PATH_INFO'];}
@@ -236,4 +245,12 @@ error_reporting(0);
 
 <?php
     }
+# //  function to display error message when setup failed
+function display_error_and_die($error_msg) {
+	echo "<p class=\"warning\"><strong>Warning</strong><br />";
+	echo "<br/>$error_msg<br/>";
+	echo "Setup unsuccessfull, please go back to <a href=\"javascript:history.go(-1)\">brender install</a>";
+	echo "</p>";
+	die();
+}
 ?>
