@@ -365,7 +365,7 @@ function scene_shot_cascading_dropdown_menus() {
 		$scene_list=get_scene_list_array($project);
 		$projects_options.="<option class=\"project\" value=\"$project\">$project</option>";
 		foreach ($scene_list as $scene) {
-			#print "$scene <br/>";
+			#print "*** $scene <br/>";;
 			$scene_options.="<option class=\"$project\" value=\"$scene\">$scene</option>";
 			$shot_list=get_shot_list_array($project,$scene);
 			#$shot_options="";
@@ -429,6 +429,9 @@ function get_scene_list_array($project) {
 		if (is_dir("$blend_path/$item")) {
 			$scene_list[]=$item;
 		}
+	}
+	if (count($scene_list)==0){
+		$scene_list[]="/";
 	}
 	return $scene_list;
 }

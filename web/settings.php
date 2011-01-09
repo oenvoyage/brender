@@ -214,7 +214,11 @@ function system_status() {
 }
 */
 
-#--------read---------
+#   ----------------------------------------
+#   ------------ PROJECTS ------------------
+#   ----------------------------------------
+print "<h2>// <b>projects</b></h2>";
+
 if ($projectid=$_GET[del]) {
 	$queryqq="delete from projects where id=$projectid;";
 	mysql_query($queryqq);
@@ -257,7 +261,6 @@ if (isset($_GET[new_project])) {
 #}
   ?>
 
-	<h2>// <b>projects</b></h2>
 	<table>
 	<tbody>
 	<tr class="header_row">
