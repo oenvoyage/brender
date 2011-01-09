@@ -3,7 +3,7 @@
 render/
 # thumbnails/
 # blend/
-logs/*
+#logs/*
 conf/
 connect.php
 *.DS_Store

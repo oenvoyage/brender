@@ -1,7 +1,7 @@
 <?php
 include_once("../tpl/connect.php");
 include_once("../../functions.php");
-//$GLOBALS['computer_name']="ajax";
+$GLOBALS['computer_name']="ajax";
 
 if(isset($_POST['action'])) {
 		$action = $_POST['action'];
