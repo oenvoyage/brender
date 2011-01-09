@@ -154,6 +154,7 @@ print \"connected to server \$my_server : \$my_user\";
     
     
     file_put_contents("$rootpath/connect.php",$conffile);
+    file_put_contents("$rootpath/web/tpl/connect.php",$conffile);
     
     if (file_exists("$rootpath/connect.php")) {
     	echo "<br />Config file creation: OK<br /><hr>";
