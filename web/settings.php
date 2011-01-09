@@ -139,23 +139,6 @@ if (isset($_GET['do_the_test'])) {
 	<div class="clear"></div>
 </div>
 
-<h2>// <strong>render</strong> configurations</h2>
-
-<div id="render_configs">
-	<ul>
-		<?php		
-		$list= `ls ../conf/`;
-		$list=preg_split("/\n/",$list);
-		foreach ($list as $item) {
-			$item=preg_replace("/\.py/","",$item);
-			if ($item <> "") {
-				print "<li><a href=\"ajax/render_configs.php?edit=$item\">$item</a><li> ";
-			}
-		}		
-		?>
-	</ul>
-</div>
-
 <?php
 #print "sid = $sid <br/>";
 
@@ -173,7 +156,13 @@ if (isset($_GET['disable_sound'])) {
 	mysql_unbuffered_query($query);
 	print "sound disabled<br/>";
 }
-if (isset($_GET['test'])) {
+if (isset($_GET['order_by'])) {
+        if ($_SESSION[orderby_projects]==$_GET[order_by]) {
+                $_SESSION[orderby_projects]=$_GET['order_by']." desc";
+        }   
+        else {
+                $_SESSION[orderby_projects]=$_GET['order_by'];
+        }   
 }
 
 //system_status();
@@ -263,25 +252,27 @@ if (isset($_GET[new_project])) {
 		mysql_query($queryqq);
 	}
 }
-if (!$order_by=$_GET[order_by]) {
-        $order_by="id";
-}
+#if (!$orderby_projects=$_GET[orderby_projects]) {
+#        $orderby_projects="id";
+#}
+  ?>
 
-	$query="select * from projects order by $order_by";
-	$results=mysql_query($query);
-	print "<h2>// <b>projects</b></h2>\n";
-	print "<table>\n";
-	print "<tbody>\n";
-	print "<tr class=\"header_row\">
+	<h2>// <b>projects</b></h2>
+	<table>
+	<tbody>
+	<tr class="header_row">
 		<td></td>
 		<td> default </td>
-		<td> <a href=\"index.php?view=settings&order_by=name\">project</a></td>
+		<td> <a href="index.php?view=settings&order_by=name">project</a></td>
 		<td> .blend path</td>
 		<td> output path</td>
-		<td> <a href=\"index.php?view=settings&order_by=rem\">rem</a></td>
-		<td> </td>
+		<td> <a href="index.php?view=settings&order_by=rem">rem</a></td>
+		<td> <a href="index.php?view=settings&order_by=status">status</a></td>
 		<td>&nbsp;</td>
-	</tr>";
+	</tr>
+	<?php 
+	$query="select * from projects order by $_SESSION[orderby_projects]";
+	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
 		$name=$row->name;
@@ -350,4 +341,21 @@ if (!$order_by=$_GET[order_by]) {
 	</div>
 	<div class="clear"></div>
 	<small>Please notice paths are RELATIVE to brender_root.<br/>You can also use Absolute paths</small>
+</div>
+
+<h2>// <strong>render</strong> configurations</h2>
+
+<div id="render_configs">
+        <ul>
+                <?php    
+                $list= `ls ../conf/`;
+                $list=preg_split("/\n/",$list);
+                foreach ($list as $item) {
+                        $item=preg_replace("/\.py/","",$item);
+                        if ($item <> "") {
+                                print "<li><a href=\"ajax/render_configs.php?edit=$item\">$item</a></li> ";
+                        }   
+                }    
+                ?>  
+        </ul>
 </div>

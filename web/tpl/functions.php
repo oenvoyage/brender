@@ -12,6 +12,7 @@ function init_user($user) {
 	$_SESSION['theme']="brender";
 	$_SESSION['orderby_client']="client";
 	$_SESSION['orderby_jobs']="shot";
+	$_SESSION['orderby_projects']="id";
 	return 1;
 }
 
