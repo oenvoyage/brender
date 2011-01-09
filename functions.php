@@ -406,6 +406,11 @@ function get_projects_list_array($type="DEFAULT") {
 		$projects_list[]=$row->name;
 	}
 	#print_r($projects_list);
+	
+	if (count($projects_list)==0){
+		$projects_list[]=" ! no ACTIVE project, please add one !";
+	}
+	#print "dfdffdfdfddf --- $projects_list ---<br/>";
 	return $projects_list;
 }
 function get_scene_list_array($project) {

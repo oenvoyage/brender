@@ -339,7 +339,7 @@ if (!$order_by=$_GET[order_by]) {
  		<label for="output_win">output path on win</label>
  	</div>
 	<div class="col_2">
-		<input type="text" id="project_name" value="test_3">
+		<input type="text" id="project_name" value="test_project">
 		<input type="text" id="rem" value="">
 		<input type="text" id="blend_mac" value="blend/">
 		<input type="text" id="blend_linux" value="blend/">
@@ -349,4 +349,5 @@ if (!$order_by=$_GET[order_by]) {
 		<input type="text" id="output_win" value="\\render">
 	</div>
 	<div class="clear"></div>
+	<small>Please notice paths are RELATIVE to brender_root.<br/>You can also use Absolute paths</small>
 </div>
