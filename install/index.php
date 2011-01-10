@@ -78,7 +78,7 @@
 	// Connect to MySQL server
 	mysql_connect($mysql_host, $mysql_username, $mysql_password) or display_error_and_die('Error connecting to database: ' . mysql_error());
 	// Select database
-	mysql_select_db($mysql_database) or display_error_and_die('Error selecting MySQL database: ' . mysql_error());
+	#mysql_select_db($mysql_database) or display_error_and_die('Error selecting MySQL database: ' . mysql_error());
 	
 	
 	// Optionally drop prvious tables
