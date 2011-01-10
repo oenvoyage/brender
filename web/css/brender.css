@@ -79,8 +79,9 @@ span.version {
 	color: #F00;
 }
 
-h2 {
+h2, h2 a {
 	font-weight: normal;
+	font-size: 18px;
 }
 
 td {
@@ -508,7 +509,11 @@ table tr {
 	margin-top: 10px;
 }
 
-.table-controls a {
+.table-controls span.current_frame {
+	margin: 0 10px;
+}
+
+.table-controls a, .table-controls button {
 	font-size: 10px;
 }
 
@@ -616,6 +621,7 @@ table tr {
 .thumbnails_table img {
 	z-index: 12;
 	position: relative;
+	margin: 10px 10px 0 10px;
 }
 
 .settings_container {

@@ -1,3 +1,46 @@
+	<script>
+	$(function() {       
+        $("button.switchbg").click(function() {
+			$(".over").toggleClass("brender-overlay", 100);
+			return false;
+		});
+		
+		$(".prev_10").button({
+            icons: {
+                primary: "ui-icon-seek-start"
+            },
+            text: false
+        });
+        
+        $(".prev").button({
+            icons: {
+                primary: "ui-icon-seek-prev"
+            },
+            text: false
+        });
+        
+        $(".next").button({
+            icons: {
+                primary: "ui-icon-seek-next"
+            },
+            text: false
+        });			
+		
+		$(".next_10").button({
+            icons: {
+                primary: "ui-icon-seek-end"
+            },
+            text: false
+        });
+        
+        $(".view_image").button({
+            icons: {
+                primary: "ui-icon-newwin"
+            }
+        });
+	});
+	
+	</script>
 <?php
 #--------read---------
 	$job_id=$_GET['job_id'];
@@ -18,18 +61,20 @@
 	$rendered_by=$row->rendered_by;
 	$finished_time=$row->finished_time;
 ?>
-
+	<h2>// <strong>rendered by</strong> <?php print "<a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time "?></h2>
 	<a href="index.php?view=view_job&id=<?php echo $job_id?>"><img src="<?php print $thumbnail_location ?>" class="image"></a><br/>
-	<a href="<?php echo $thumbnail_location ?>"><?php echo $file_name ?></a>
-	<br/>
-	<a href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame-10?>"><img src="images/icons/go-previous10.png"></a>
-	<a href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame-1?>"><img src="images/icons/go-previous.png"></a>
-	<?php print "<b> $frame</b>" ?>
-	<a href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+1?>"><img src="images/icons/go-next.png"></a>
-	<a href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+10?>"><img src="images/icons/go-next10.png"></a>
-	<br/>
-	rendered by <?php print "<a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time "?><br/>
+<div class="table-controls">
+	<a class="btn" href="index.php?view=view_job&id=<?php echo $job_id ?>">return to job <?php echo $job_id ?></a>
+	<a class="prev_10 btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame-10?>">previous 10</a>
+	<a class="prev btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame-1?>">previous</a>
+	<span class="current_frame"><?php print "frame <b>$frame</b>" ?></span>
+	<a class="next btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+1?>">next</a>
+	<a class="next_10 btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+10?>">next 10</a>
+	<button class="switchbg btn">dark background</button>
+	<a class="view_image btn" href="<?php echo $thumbnail_location ?>"><?php echo $file_name ?></a>
+	
+</div>
+	
 
-	<a href="index.php?view=view_job&id=<?php echo $job_id ?>">return to job <?php echo $job_id ?></a><br/>
-
+	
 

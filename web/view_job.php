@@ -60,7 +60,6 @@
 		$total_rendered=count_rendered_frames($id);
 		print "$total_rendered rendered frames<br/>";
 		print "last changes made by  :: $last_edited_by<br/> $lastseen <br/>";
-		print "<button class=\"switchbg\">Dark background</button>";
 		print "&nbsp;<br/>";
 	print "</td>";
 	print "<td>";
@@ -133,7 +132,7 @@
 			$thumbnail_image=get_thumbnail_image($id,$a);
 
 			print "<td bgcolor=\"$tdcolor\">";
-				print "<a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$thumbnail_image</a><br/>$a<br/>";
+				print "<a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$thumbnail_image</a><p>$a</p>";
 			print "</td>";
 			$b=0;
 			#  print "row = $rows";
@@ -143,10 +142,13 @@
 			}
 		}
 	}
-	print "</tr></table><br>";
+	print "</tr></table>";
 	#print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$bgcolor&visual=1&renderpreview=1\">render preview</>";
-	print "<hr>";
 #--------read---------
-	print "<a href=\"index.php?view=jobs\">back to job list</a>";
 ?>
+<div class="table-controls">
+	<a class="btn" href="index.php?view=jobs">back to job list</a>
+	<button class="switchbg btn">dark background</button>
+	<a class="btn" href="#">duplicate job</a>
+</div>
 <div class="over"></div>
