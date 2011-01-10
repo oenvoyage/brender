@@ -13,13 +13,17 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Database: `brender`
 --
 
+CREATE DATABASE IF NOT EXISTS `brender` ;
+
+USE `brender`;
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `clients`
 --
 
-CREATE TABLE `clients` (
+CREATE TABLE IF NOT EXISTS  `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `client` varchar(32) NOT NULL,
   `speed` tinyint(4) NOT NULL,
@@ -45,7 +49,7 @@ CREATE TABLE `clients` (
 -- Table structure for table `jobs`
 --
 
-CREATE TABLE `jobs` (
+CREATE TABLE IF NOT EXISTS `jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `scene` varchar(64) NOT NULL,
   `shot` varchar(64) NOT NULL,
@@ -76,7 +80,7 @@ CREATE TABLE `jobs` (
 -- Table structure for table `orders`
 --
 
-CREATE TABLE `orders` (
+CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `client` varchar(32) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -97,7 +101,7 @@ CREATE TABLE `orders` (
 -- Table structure for table `projects`
 --
 
-CREATE TABLE `projects` (
+CREATE TABLE IF NOT EXISTS `projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `blend_mac` varchar(255) NOT NULL,
@@ -124,7 +128,7 @@ CREATE TABLE `projects` (
 -- Table structure for table `rendered_frames`
 --
 
-CREATE TABLE `rendered_frames` (
+CREATE TABLE IF NOT EXISTS `rendered_frames` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_id` int(11) NOT NULL,
   `frame` int(11) NOT NULL,
@@ -144,7 +148,7 @@ CREATE TABLE `rendered_frames` (
 -- Table structure for table `server_settings`
 --
 
-CREATE TABLE `server_settings` (
+CREATE TABLE IF NOT EXISTS `server_settings` (
   `server` varchar(32) NOT NULL,
   `status` varchar(32) NOT NULL,
   `pid` int(11) NOT NULL,
