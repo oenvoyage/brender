@@ -2,8 +2,6 @@
 include_once("../tpl/connect.php");
 include_once("../../functions.php");
 
-$session_user = $_SESSION['user'];
-
 if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		$prog_status = $_POST['progress_status'];
 		$start = $_POST['start'];
@@ -16,6 +14,12 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		$config = $_POST['config'];
 		$chunks = $_POST['chunks'];
 		$priority = $_POST['priority'];
+		
+		$jobid = $_POST['updateid'];
+		$session_user = $_SESSION['user'];
+		$scene = $_POST['scene'];
+		$shot = $_POST['shot'];
+		
 		if ($_POST['directstart'] == "true"){
 			$status="waiting";
 			$msg = "New job direct started.".$_POST['directstart']; # TODO
@@ -26,21 +30,21 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 			
 		}
 
-			$jobid = $_POST['updateid'];
-			/*if ($_POST['copy'] == "copy job") {
-				#----update COPY so we create a new job-------
-				$query="INSERT INTO jobs VALUES('','$_POST[scene]','$_POST[shot]','$_POST[start]','$_POST[end]','$_POST[project]','$_POST[start]','$_POST[chunks]','$_POST[filetype]','$_POST[rem]','$_POST[config]','active','$_POST[progress_status]','$_POST[progress_remark]','$_POST[priority]',now(),'$_SESSION[user]')";
-	            mysql_query($query);
-				print "COPYPROCESS = $_POST[copy] and query = $query";
-			} else {*/
-				#----update UPDATE so we just update the job-------
-				$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', progress_status='$prog_status', progress_remark='$rem', lastseen=NOW(), last_edited_by='$_SESSION[user]' where id=$jobid;";
-				if (($_POST['directstart']) == "true"){
-					//print "direct start...";
-					$queryqq="UPDATE jobs SET start='$start', current='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', status='waiting', last_edited_by='$session_user', lastseen=NOW() where id=$jobid;";
-				}	
-			mysql_query($queryqq);
-			/*}*/
+
+		if ($_POST['action'] == "duplicate") {
+			#----update COPY so we create a new job-------
+			$query="INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','active','$progress_status','$rem','$priority',now(),'$user')";
+            mysql_query($query);
+			//print "COPYPROCESS = $_POST[copy] and query = $query";
+		} else {
+			#----update UPDATE so we just update the job-------
+			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', progress_status='$prog_status', progress_remark='$rem', lastseen=NOW(), last_edited_by='$_SESSION[user]' where id=$jobid;";
+			if (($_POST['directstart']) == "true"){
+				//print "direct start...";
+				$queryqq="UPDATE jobs SET start='$start', current='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', status='waiting', last_edited_by='$session_user', lastseen=NOW() where id=$jobid;";
+			}	
+		mysql_query($queryqq);
+		}
 		
 		echo "{\"status\":true, \"msg\":\"$msg\", \"query\":\"$dberror\"}";
 		

@@ -42,25 +42,26 @@
 				"Duplicate job": function() { 							
 						
 						$.post("ajax/view_job.php", {
+							updateid: updateid.val(),
+							action: 'duplicate',
 							project: project.val(), 
 							scene: scene.val(), 
 							shot: shot.val(), 
-							fileformat: fileformat.val(), 
+							filetype: filetype.val(), 
 							config: config.val(), 
-							progress_status: progress_status.val(),
 							start: start.val(), 
 							end: end.val(), 
 							chunks: chunks.val(), 
 							priority: priority.val(), 
 							rem: rem.val(), 
-							directstart: directstart 
+							directstart: directstart
 						}, function(data) {
 							var obj = jQuery.parseJSON(data);
 							//alert(data);
 							if(obj.status == true) {
 								$("#edit_job").dialog("close" );
 								//alert(obj.query);
-								window.location= 'index.php';
+								window.location= 'index.php?view=jobs';
 							} else {
 								alert(obj.msg);
 							}
@@ -70,7 +71,7 @@
 				"Update job": function() { 												
 						$.post("ajax/view_job.php", {
 							updateid: updateid.val(),
-							copy: 'test',
+							action: 'update',
 							project: project.val(), 
 							scene: scene.val(), 
 							shot: shot.val(), 
@@ -193,7 +194,7 @@
 			$select_png="selected";
 		}
 		?>
-		<form action="index.php" method="post">
+		
 		<div id="edit_job">
 			type	<select id="edit_filetype" name="filetype">
 	                 	<option value="JPEG">JPEG</option>
@@ -224,7 +225,7 @@
         		<input type="submit" name="copy" value="update job" /> or
         		<input type="submit" name="copy" value="copy job" /><br />
        		</div>
-		</form>
+
 
 
 
