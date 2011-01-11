@@ -195,36 +195,46 @@
 		}
 		?>
 		
-		<div id="edit_job">
-			type	<select id="edit_filetype" name="filetype">
+		<div id="edit_job" title="// edit or duplicate job">
+			<div class="col_1">
+				<label for="filetype">type</label>
+				<label for="config">config</label>
+				<label for="progress_status">progress status</label>
+				<label for="rem">remarks</label>
+				<label for="start">start</label>
+				<label for="end">end</label>
+				<label for="chunks">chunks</label>
+				<label for="priority">priority</label>
+				<label for="directstart">directstart</label>
+			</div>
+			
+			<div class="col_2">
+				<select id="edit_filetype" name="filetype">
 	                 	<option value="JPEG">JPEG</option>
 	                    <option value="PNG" <?php print($select_png); ?>>PNG</option>
 						<option value="TGA" <?php print($select_tga); ?>>TGA</option>
 						<option value="OPEN_EXR" <?php print($select_exr); ?>>OPEN_EXR</option>
-                	</select>
-				config
-        			<select id="edit_config" name="config">
-				<?php output_config_select($config); ?>
-				</select><br/>	
-
-        		<br/>progress status<br/> 
-        		<select id="progress_status" name="progress_status"> 
-				<?php output_progress_status_select($progress_status); ?>
-				</select> rem <input id="edit_rem" name="progress_remark" type="text" value="<?php print($progress_remark); ?>"><br /><br />
-        		start:<input id="edit_start" type=text name=start size="4" value="<?php print($start); ?>">
-        		end: <input id="edit_end" type="text" name="end" size="4" value="<?php print($end); ?>" />
-        		chunks: <input id="edit_chunks" type="text" name="chunks" size="3" value="<?php print($chunks); ?>" />
-	       		priority (1-99): <input id="edit_priority" type="text" name="priority" size="3" value="<?php print($priority); ?>" /><br />
-				directstart: <input id="edit_directstart" type="checkbox" name="directstart" value="yes" /><br />
-        		<input id="updateid" type="hidden" name="updateid" value="<?php print($id); ?>" />
-        		<input id="edit_scene" type="hidden" name="scene" value="<?php print($scene); ?>" />
-        		<input id="edit_shot" type="hidden" name="shot" value="<?php print($shot); ?>" />
-        		<input type="hidden" name="view" value="jobs" />
-        		<input id="edit_jobtype" type="hidden" name="jobtype" value="<?php print($jobtype); ?>" />
-        		<input id="edit_project" type="hidden" name="project" value="<?php print($project); ?>" />
-        		<input type="submit" name="copy" value="update job" /> or
-        		<input type="submit" name="copy" value="copy job" /><br />
-       		</div>
+                </select>
+                <select id="edit_config" name="config">
+						<?php output_config_select($config); ?>
+				</select>
+				<select id="progress_status" name="progress_status"> 
+					<?php output_progress_status_select($progress_status); ?>
+				</select>
+				<input id="edit_rem" name="progress_remark" type="text" value="<?php print($progress_remark); ?>">
+				<input id="edit_start" type=text name=start size="4" value="<?php print($start); ?>">
+				<input id="edit_end" type="text" name="end" size="4" value="<?php print($end); ?>" />
+				<input id="edit_chunks" type="text" name="chunks" size="3" value="<?php print($chunks); ?>" />
+				<input id="edit_priority" type="text" name="priority" size="3" value="<?php print($priority); ?>" />
+				<input id="edit_directstart" type="checkbox" name="directstart" value="yes" />
+			</div>
+	
+    		<input id="updateid" type="hidden" name="updateid" value="<?php print($id); ?>" />
+    		<input id="edit_scene" type="hidden" name="scene" value="<?php print($scene); ?>" />
+    		<input id="edit_shot" type="hidden" name="shot" value="<?php print($shot); ?>" />
+    		<input id="edit_jobtype" type="hidden" name="jobtype" value="<?php print($jobtype); ?>" />
+    		<input id="edit_project" type="hidden" name="project" value="<?php print($project); ?>" />
+   		</div>
 
 
 

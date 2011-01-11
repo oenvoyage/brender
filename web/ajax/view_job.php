@@ -22,11 +22,11 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		
 		if ($_POST['directstart'] == "true"){
 			$status="waiting";
-			$msg = "New job direct started.".$_POST['directstart']; # TODO
+			$msg = "Edited job direct started.".$_POST['directstart']; # TODO
 		}
 		else {
 			$status="pause";
-			$msg = "New job submitted and waiting to be started.".$_POST['directstart'];
+			$msg = "Edited job submitted and waiting to be started. Autostart: ".$_POST['directstart'];
 			
 		}
 
@@ -35,22 +35,19 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 			#----update COPY so we create a new job-------
 			$query="INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','active','$progress_status','$rem','$priority',now(),'$user')";
             mysql_query($query);
-			//print "COPYPROCESS = $_POST[copy] and query = $query";
 		} else {
 			#----update UPDATE so we just update the job-------
 			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', progress_status='$prog_status', progress_remark='$rem', lastseen=NOW(), last_edited_by='$_SESSION[user]' where id=$jobid;";
 			if (($_POST['directstart']) == "true"){
-				//print "direct start...";
-				$queryqq="UPDATE jobs SET start='$start', current='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', status='waiting', last_edited_by='$session_user', lastseen=NOW() where id=$jobid;";
+				$queryqq="UPDATE jobs SET start='$start', current='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', status='waiting', last_edited_by='$_SESSION[user]', lastseen=NOW() where id=$jobid;";
 			}	
-		mysql_query($queryqq);
+			mysql_query($queryqq);
 		}
 		
 		echo "{\"status\":true, \"msg\":\"$msg\", \"query\":\"$dberror\"}";
 		
 	}
 	else {
-		//$error="please enter new job infos<br/>";
-		echo "{\"status\":false, \"msg\":\"Epic Fail: please enter scene and shot name.\"}";
+		echo "{\"status\":false, \"msg\":\"Epic Fail: error processing POST data.\"}";
 	}
 ?>

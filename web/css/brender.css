@@ -656,11 +656,18 @@ table tr {
 	background-color: transparent;
 }
 
-#new_job input, #new_job select,#nes_client input, #new_client select, #new_client_form{
+#new_job input, 
+#new_job select,
+#new_client input, 
+#new_client select, 
+#new_client_form, 
+#edit_job select,
+#edit_job input{
 	font-size: 11px;
 }
 
-#new_job input {
+#new_job input,
+#edit_job input {
 	margin-bottom: 4px;
 }
 
