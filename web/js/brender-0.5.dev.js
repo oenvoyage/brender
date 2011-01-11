@@ -16,7 +16,7 @@ $(function() {
 	//$( "a", ".btn" ).click(function() { return false; });
 	
 	
-	//+ NEW JOB dialog START
+	// NEW JOB dialog START
 	var project = $('select#project'),
 		scene = $('select#scene'),
 		shot = $('select#shot'),
@@ -35,8 +35,6 @@ $(function() {
 		height: 400,
 		width: 450,
 		modal: true,
-		closeOnEscape: false,
-		draggable: false,
 		resizable: false,
 		buttons: {
 			Cancel: function() {
@@ -77,7 +75,7 @@ $(function() {
 	$("#new_job_button, #new_job_button2, #new_job_button3").click(function() {
 	$("#new_job").dialog("open");
 	});
-	//+ NEW JOB dialog END
+	// NEW JOB dialog END
 	
 	
 });

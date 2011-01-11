@@ -1,3 +1,115 @@
+<script>
+	$(function() {
+		$("button.switchbg").button({
+	        icons: {
+	            primary: "ui-icon-gear"
+	        }
+	    });
+	    
+	    $("button.switchbg").click(function() {
+			$(".over").toggleClass("brender-overlay", 100);
+			return false;
+		});
+		
+		// EDIT JOB dialog START
+			//$('input#edit_directstart').attr('checked', true);
+		var updateid = $('input#updateid'),
+			project = $('input#edit_project'),
+			scene = $('input#edit_scene'),
+			shot = $('input#edit_shot'),
+			filetype = $('select#edit_filetype'),
+			config = $('select#edit_config'),
+			progress_status = $('select#progress_status'),
+			start = $('input#start'),
+			end = $('input#edit_end'),
+			chunks = $('input#edit_chunks'),
+			priority = $('input#edit_priority'),
+			rem = $('input#edit_rem'),
+			directstart = $('input#edit_directstart').is(':checked');
+		
+		
+		
+		$("#edit_job").dialog({
+			autoOpen: false,
+			height: 400,
+			width: 450,
+			modal: true,
+			resizable: false,
+			buttons: {
+				Cancel: function() {
+					$(this).dialog("close");
+				},
+				"Duplicate job": function() { 							
+						
+						$.post("ajax/view_job.php", {
+							project: project.val(), 
+							scene: scene.val(), 
+							shot: shot.val(), 
+							fileformat: fileformat.val(), 
+							config: config.val(), 
+							progress_status: progress_status.val(),
+							start: start.val(), 
+							end: end.val(), 
+							chunks: chunks.val(), 
+							priority: priority.val(), 
+							rem: rem.val(), 
+							directstart: directstart 
+						}, function(data) {
+							var obj = jQuery.parseJSON(data);
+							//alert(data);
+							if(obj.status == true) {
+								$("#edit_job").dialog("close" );
+								//alert(obj.query);
+								window.location= 'index.php';
+							} else {
+								alert(obj.msg);
+							}
+						}, "Json");				
+						return false;					
+				},
+				"Update job": function() { 												
+						$.post("ajax/view_job.php", {
+							updateid: updateid.val(),
+							copy: 'test',
+							project: project.val(), 
+							scene: scene.val(), 
+							shot: shot.val(), 
+							filetype: filetype.val(), 
+							config: config.val(), 
+							start: start.val(), 
+							end: end.val(), 
+							chunks: chunks.val(), 
+							priority: priority.val(), 
+							rem: rem.val(), 
+							directstart: directstart
+						}, function(data) {
+							var obj = jQuery.parseJSON(data);
+							//alert(data);
+							if(obj.status == true) {
+								$("#edit_job").dialog("close" );
+								alert(obj.msg);
+								window.location= 'index.php?view=jobs';
+							} else {
+								alert(obj.msg);
+							}
+						}, "Json");				
+						return false;					
+				}
+			},
+			close: function() {
+				//allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+		
+		$("#edit_job_button").click(function() {
+			$("#edit_job").dialog("open");
+		});
+		// EDIT JOB dialog END
+	});
+	
+	
+</script>
+
 <?php
 #--------read---------
 	$id=$_GET[id];
@@ -25,87 +137,13 @@
 		$priority=$row->priority;
 		$total=$end-$start;
 	#-------------------
-	print "<h2>// job $id : $scene/<b>$shot</b> </h2>";
-	?>
-	<script>
-	$(function() {
-		$("button.switchbg").button({
-            icons: {
-                primary: "ui-icon-gear"
-            }
-        });
-        
-        $("button.switchbg").click(function() {
-			$(".over").toggleClass("brender-overlay", 100);
-			return false;
-		});
-	});
-	
-	</script>
+	print "<h2>// job $id : $scene/<b>$shot</b> </h2>";	
 		
-
-	<?php
-	print "<table border=0>";
-	print "<tr>";
-	print "<td bgcolor=\"#bbbbbb\" colspan=2>";
-	
-	print "</td></tr>";
-	print "<tr><td width=200>";
-		#print "<a class=\"button grey\" href=\"index.php\">back to overview</a><br/>";
-		print "&nbsp;<br/>";
-		print "<a class=\"button grey\" href=\"index.php?view=jobs\">back to jobs</a><br/>";
-		print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$option_couleur\">$option_couleur</a><br/>";
-		print "project : $project<br/>";
-		print "$total frames ($start-$end by $chunks)<br/>";
+		print "project: $project $total frames ($start-$end by $chunks)";
 		$total_rendered=count_rendered_frames($id);
-		print "$total_rendered rendered frames<br/>";
-		print "last changes made by  :: $last_edited_by<br/> $lastseen <br/>";
-		print "&nbsp;<br/>";
-	print "</td>";
-	print "<td>";
-	#------------------------------ option update job -----------------------
-		if ($filetype=="TGA"){
-			$select_tga="selected";
-		}
-		else if ($filetype=="OPEN_EXR"){
-			$select_exr="selected";
-		}
-		else if ($filetype=="PNG"){
-			$select_png="selected";
-		}
-		print "<form action=\"index.php\" method=\"post\">";
-                	print "type <select name=\"filetype\">
-                       		 	<option value=\"JPEG\">JPEG</option>
-                       		 	<option value=\"PNG\" $select_png>PNG</option>
-					<option value=\"TGA\" $select_tga>TGA</option>
-					<option value=\"OPEN_EXR\" $select_exr>OPEN_EXR</option>
-                		</select>
-				config
-        			<select name=\"config\"> ";
-				output_config_select($config);
-			#print "DDDD";
-				print " </select><br/>";	
+		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen";
 
-        			print "<br/>progress status<br/> <select name=\"progress_status\"> ";
-				output_progress_status_select($progress_status);
-				print " </select> rem <input name=\"progress_remark\" type=\"text\" value=\"$progress_remark\"><br/><br/>";	
-
-        		print "start:<input type=text name=start size=4 value=$start>";
-        		print "end:<input type=text name=end size=4 value=$end>";
-        		print "chunks:<input type=text name=chunks size=3 value=$chunks>";
-	       		print "priority (1-99):<input type=text name=priority size=3 value=$priority><br/><br/>";
-				print "directstart:<input type=checkbox name=directstart value=yes><br/>";
-        		print "<input type=hidden name=updateid value=$id>";
-        		print "<input type=hidden name=scene value=$scene>";
-        		print "<input type=hidden name=shot value=$shot>";
-        		print "<input type=hidden name=view value=jobs>";
-        		print "<input type=hidden name=jobtype value=$jobtype>";
-        		print "<input type=hidden name=project value=$project>";
-        		print "<input type=submit name=copy value=\"update job\"> or ";
-        		print "<input type=submit name=copy value=\"copy job\"><br/>";
-		print "</form>";
-	print "</td>";
-	print "</table>";
+		
 	print "<table border=0 class=\"thumbnails_table\">";
 	print "<tr>";
 	#-------------------------------les images ------------------------------
@@ -120,7 +158,6 @@
 		$b++;
 		# print " a= $a ---- b=$b/$img_chunks <br/>";
 		if ($b==$img_chunks) {
-			#  print "je met image $a <br/>";
 			/*if ($_GET[renderpreview]) {
 					$render_order="-b \'/brender/blend/$file\' -o \'/brender/render/$project/$name/$output\' -P conf/$config.py -F JPEG -f $a";
                                         # ---------------------------------
@@ -143,12 +180,57 @@
 		}
 	}
 	print "</tr></table>";
-	#print "<a href=\"index.php?view=view_job&id=$id&bgcolor=$bgcolor&visual=1&renderpreview=1\">render preview</>";
-#--------read---------
-?>
+
+// Update job form
+
+		if ($filetype=="TGA"){
+			$select_tga="selected";
+		}
+		else if ($filetype=="OPEN_EXR"){
+			$select_exr="selected";
+		}
+		else if ($filetype=="PNG"){
+			$select_png="selected";
+		}
+		?>
+		<form action="index.php" method="post">
+		<div id="edit_job">
+			type	<select id="edit_filetype" name="filetype">
+	                 	<option value="JPEG">JPEG</option>
+	                    <option value="PNG" <?php print($select_png); ?>>PNG</option>
+						<option value="TGA" <?php print($select_tga); ?>>TGA</option>
+						<option value="OPEN_EXR" <?php print($select_exr); ?>>OPEN_EXR</option>
+                	</select>
+				config
+        			<select id="edit_config" name="config">
+				<?php output_config_select($config); ?>
+				</select><br/>	
+
+        		<br/>progress status<br/> 
+        		<select id="progress_status" name="progress_status"> 
+				<?php output_progress_status_select($progress_status); ?>
+				</select> rem <input id="edit_rem" name="progress_remark" type="text" value="<?php print($progress_remark); ?>"><br /><br />
+        		start:<input id="edit_start" type=text name=start size="4" value="<?php print($start); ?>">
+        		end: <input id="edit_end" type="text" name="end" size="4" value="<?php print($end); ?>" />
+        		chunks: <input id="edit_chunks" type="text" name="chunks" size="3" value="<?php print($chunks); ?>" />
+	       		priority (1-99): <input id="edit_priority" type="text" name="priority" size="3" value="<?php print($priority); ?>" /><br />
+				directstart: <input id="edit_directstart" type="checkbox" name="directstart" value="yes" /><br />
+        		<input id="updateid" type="hidden" name="updateid" value="<?php print($id); ?>" />
+        		<input id="edit_scene" type="hidden" name="scene" value="<?php print($scene); ?>" />
+        		<input id="edit_shot" type="hidden" name="shot" value="<?php print($shot); ?>" />
+        		<input type="hidden" name="view" value="jobs" />
+        		<input id="edit_jobtype" type="hidden" name="jobtype" value="<?php print($jobtype); ?>" />
+        		<input id="edit_project" type="hidden" name="project" value="<?php print($project); ?>" />
+        		<input type="submit" name="copy" value="update job" /> or
+        		<input type="submit" name="copy" value="copy job" /><br />
+       		</div>
+		</form>
+
+
+
 <div class="table-controls">
 	<a class="btn" href="index.php?view=jobs">back to job list</a>
 	<button class="switchbg btn">dark background</button>
-	<a class="btn" href="#">duplicate job</a>
+	<a class="btn" id="edit_job_button" href="#">edit or duplicate job</a>
 </div>
 <div class="over"></div>

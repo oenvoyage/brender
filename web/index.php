@@ -45,11 +45,6 @@
 				include "orders.php";
 			}
 			
-			if($view == "new_job") { 
-				print('<div class="dialog">');
-				include "new_job.php";
-				print('</div>');
-			}
 			
 			if($view == "settings") { 
 				include "settings.php";
