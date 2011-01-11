@@ -157,6 +157,8 @@
     file_put_contents("$rootpath/web/tpl/connect.php",$conffile);
     
     if (file_exists("$rootpath/connect.php")) {
+	$log_message=date('Y/d/m H:i:s')." brender_installer : installation successful";
+	file_put_contents("$rootpath/logs/brender.log",$log_message);
     	echo "<br />Config file creation: OK<br /><hr>";
     	echo "Setup completed successfully, you can now go to <a href=\"../web/\">brender</a>!";
     }
