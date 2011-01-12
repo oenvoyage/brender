@@ -579,7 +579,7 @@ function job_get($what,$id) {
 	$query="select $what from jobs where id='$id'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
-	debug ("******************************************$query*****************************************");
+	#debug ("******************************************$query*****************************************");
 	return $qq;
 }
 function check_create_path($path) {
@@ -655,7 +655,8 @@ function create_thumbnail($job_id,$image_number) {
 	$project=job_get("project",$job_id);
 	$image_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
 
-	$input_path=get_path($project,"output","linux");
+	$server_os=get_server_settings("server_os");
+	$input_path=get_path($project,"output",$server_os);
 	$input_image = "$input_path/$scene/$shot/$image_name";
 	#print "<br/>----- input = $input_image ---<br/>";
 
