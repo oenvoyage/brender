@@ -48,12 +48,12 @@
 		exit;
 	}
     
-    if(file_exists("$rootpath/connect.php")){?>
+    /*if(file_exists("$rootpath/connect.php")){?>
 		<p class="warning"><strong>Warning</strong><br />
     	An already existing configuration file has been detected. Delete <i>connect.php</i> in brender's root directory before running this script again.</p>
 		<?php
 		exit;
-	}
+	}*/
 
     if(isset($_POST['stage2'])){
     
@@ -172,13 +172,13 @@
     }
     
     
-    /*
+    
     if(isset($_SERVER['PATH_INFO'])){$uploadPath = $_SERVER['PATH_INFO'];}
     if(isset($_SERVER['REQUEST_URI'])){$uploadPath = $_SERVER['REQUEST_URI'];}
     $uploadPath = str_replace("install/index.php","upload.pl?test",$uploadPath);
 	$uploadPath = "http://$_SERVER[SERVER_NAME]$uploadPath";
     echo $uploadPath . " ...";
-    */
+    
     
     echo "</div>";
     
@@ -196,7 +196,7 @@ error_reporting(0);
 	
 	<table id="installform" cellspacing="0" cellpadding="0" border="0">
 		<tr>
-			<td class="label" width="200">Host OS:</td>
+			<td class="label" width="250">Host OS:</td>
 			<td>
 				<select name="host_os">
 					<option value="mac">Mac OS</option>
@@ -206,7 +206,7 @@ error_reporting(0);
 			</td>
 		</tr>		
 		<tr>
-			<td class="label" width="200">Database Host (write the IP):</td>
+			<td class="label" width="200">Database Host <br />(write the IP):</td>
 			<td><input type="text" name="host" value="localhost" /></td>
 			<td class="label" width="100">Port</td>
 			<td><input type="text" name="port" value="3306" size="6"/></td>
