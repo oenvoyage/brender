@@ -17,7 +17,7 @@ r.use_antialiasing=False
 # --- to make sure every preview render gets a stamp we force it and add a little note
 r.use_stamp=True
 r.use_stamp_note=True
-r.stamp_note='Brender Preview Sample conf'
+r.stamp_note_text='Brender Preview Sample conf'
 
 # --- we can enable scene simplifications and set max subdivision to 0 
 r.use_simplify=True
