@@ -1,4 +1,5 @@
-<!--  /**
+<?php
+/**
 *
 * ***** BEGIN GPL LICENSE BLOCK *****
 * 
@@ -17,8 +18,7 @@
 *
 * ***** BEGIN GPL LICENSE BLOCK *****
 *
-* --!>
-<?php
+*/
 
 	session_start();
 	if(isset($_GET['view'])) {
