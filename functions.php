@@ -446,8 +446,11 @@ function get_scene_list_array($project) {
 	$list=preg_split("/\n/",$list);
 
 	foreach ($list as $item) {
-		#print("check item=$item<br/>");
+		#print("<br/>check item = $item<br/>");
 		if (is_dir("$blend_path/$item")) {
+			if (!$item) {
+				$item="/";
+			}
 			$scene_list[]=$item;
 		}
 	}
