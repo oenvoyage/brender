@@ -194,8 +194,11 @@
 		if ($filetype=="TGA"){
 			$select_tga="selected";
 		}
-		else if ($filetype=="OPEN_EXR"){
+		else if ($filetype=="EXR"){
 			$select_exr="selected";
+		}
+		else if ($filetype=="MULTILAYER"){
+			$select_multilayer="selected";
 		}
 		else if ($filetype=="PNG"){
 			$select_png="selected";
@@ -221,7 +224,8 @@
 	                 	<option value="JPEG">JPEG</option>
 	                    <option value="PNG" <?php print($select_png); ?>>PNG</option>
 						<option value="TGA" <?php print($select_tga); ?>>TGA</option>
-						<option value="OPEN_EXR" <?php print($select_exr); ?>>OPEN_EXR</option>
+						<option value="EXR" <?php print($select_exr); ?>>OPEN_EXR</option>
+						<option value="MULTILAYER" <?php print($select_multilayer); ?>>MULTILAYER</option>
                 </select>
                 <select id="edit_config" name="config">
 						<?php output_config_select($config); ?>

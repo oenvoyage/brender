@@ -620,7 +620,7 @@ function check_create_path($path) {
 	chmod($path,0777);
 }
 function filetype_to_ext($filetype) {
-	# transform filetype of the format that blender understands PNG TGA JPEG OPENEXR to a simple extension
+	# transform filetype of the format that blender understands PNG TGA JPEG EXR to a simple extension
 	switch ($filetype) {
 		case "PNG":
 			return "png";
@@ -628,7 +628,9 @@ function filetype_to_ext($filetype) {
 			return "tga";
 		case "JPEG":
 			return "jpg";
-		case "OPEN_EXR":
+		case "EXR":
+			return "exr";
+		case "MULTILAYER":
 			return "exr";
 	}
 	
