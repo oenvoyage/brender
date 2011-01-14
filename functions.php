@@ -372,12 +372,12 @@ function brender_log($log){
 function output_progress_status_select($default="NONE") {
 	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved","");
 	foreach ($list as $item) {
-		print("check default=$default and item=$item");
-		if ($default==$item) {
+		#print("check default=$default and item=$item");
+		if ($default==$item|| $default=="new") {
 			print " <option value=\"$item\" selected>$item </option>";
 		}	
 		else {
-			print " <option value=\"$item\">$item </option>";
+			print " <option value=\"$item\">$item</option>";
 		}
 	}
 }
