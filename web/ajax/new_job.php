@@ -22,12 +22,12 @@ if ($_POST['scene'] && $_POST['shot']) {
 		}
 		else {
 			$status="pause";
-			$msg = "New job submitted and waiting to be started.";
+			$msg = "New job submitted --$rem-- and waiting to be started.";
 			
 		}
 		$_SESSION['last_used_config']=$config;
 		
-		$query="insert into jobs values  ('','$scene','$shot','$start','$end','$project','$start','$chunks','$fileformat','$rem','$config','$status','new','rem','$priority',now(),'$_SESSION[user]')";
+		$query="insert into jobs values  ('','$scene','$shot','$start','$end','$project','$start','$chunks','$fileformat','$rem','$config','$status','new','','$priority',now(),'$_SESSION[user]')";
 				
 		mysql_query($query) or die ($dberror = mysql_error());
 		//session_destroy();

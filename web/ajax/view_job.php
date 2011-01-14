@@ -5,7 +5,8 @@ include_once("../tpl/connect.php");
 include_once("../../functions.php");
 
 if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
-		$prog_status = $_POST['progress_status'];
+		$progress_status = $_POST['progress_status'];
+		$progress_remark = $_POST['progress_remark'];
 		$start = $_POST['start'];
 		$end = $_POST['end'];
 		$shot = $_POST['shot'];
@@ -35,13 +36,15 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 
 		if ($_POST['action'] == "duplicate") {
 			#----update COPY so we create a new job-------
-			$query="INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','active','$progress_status','$rem','$priority',now(),'$user')";
+			$query="INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','active','$progress_status','$progress_remark','$priority',now(),'$session_user')";
             mysql_query($query);
 		} else {
 			#----update UPDATE so we just update the job-------
-			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', progress_status='$prog_status', progress_remark='$rem', lastseen=NOW(), last_edited_by='$_SESSION[user]' where id=$jobid;";
+			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', rem='$rem', config='$config', chunks='$chunks', priority='$priority', progress_status='$progress_status', progress_remark='$progress_remark', lastseen=NOW(), last_edited_by='$_SESSION[user]' where id=$jobid;";
+			mysql_query($queryqq);
 			if (($_POST['directstart']) == "true"){
-				$queryqq="UPDATE jobs SET start='$start', current='$start', end='$end', filetype='$filetype', config='$config', chunks='$chunks', priority='$priority', status='waiting', last_edited_by='$_SESSION[user]', lastseen=NOW() where id=$jobid;";
+				# for directstart we set the current frame position to start and set to waiting
+				$queryqq="UPDATE jobs current='$start', status='waiting';";
 			}	
 			mysql_query($queryqq);
 		}
