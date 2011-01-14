@@ -663,6 +663,7 @@ function get_thumbnail_image($job_id,$image_number,$class="") {
 	$shot=job_get("shot",$job_id);
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
+	$filetype="png"; // temporary test for fixing job thumbnail viewing when filetype is JPG OPENEXR or TGA
 	$thumbnail_location="/thumbnails/$project/$scene/$shot/small_$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
 	return "<img src=\"$thumbnail_location\" class=\"$class\">";
 }
@@ -683,6 +684,7 @@ function create_thumbnail($job_id,$image_number) {
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
 	$image_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	$thumbnail_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".png";  // XXX SPECIAL FIX for trying to resolve non-png jobs thumbnails
 
 	$server_os=get_server_settings("server_os");
 	$input_path=get_path($project,"output",$server_os);
@@ -698,8 +700,8 @@ function create_thumbnail($job_id,$image_number) {
 	check_create_path("$thumbnail_path/$project");
 	check_create_path("$thumbnail_path/$project/$scene");
 	check_create_path("$thumbnail_path/$project/$scene/$shot");
-	$output_image="$thumbnail_path/$project/$scene/$shot/$image_name";
-	$output_image_small="$thumbnail_path/$project/$scene/$shot/small_$image_name";
+	$output_image="$thumbnail_path/$project/$scene/$shot/$thumbnail_name";
+	$output_image_small="$thumbnail_path/$project/$scene/$shot/small_$thumbnail_name";
 
 	debug("----- output = $output_image ---<br/>");
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";

@@ -51,7 +51,10 @@
         $shot=job_get("shot",$job_id);
         $filetype=filetype_to_ext(job_get("filetype",$job_id));
         $project=job_get("project",$job_id);
-	$file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".$filetype";
+
+	// $file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".$filetype";
+	$file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".png";  // test fix for non-PNG jobs thumbnail generation
+
         $thumbnail_location="/thumbnails/$project/$scene/$shot/$file_name";
 
 	$query="select rendered_by,finished_time from rendered_frames where job_id='$job_id' and frame='$frame'";
