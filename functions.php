@@ -138,6 +138,10 @@ function get_css_class($status) {
 	else if (preg_match("/active/",$status)) {
 		return "active";
 	}
+	else {
+		# in case we can not find a status type, return finished
+		return "finished";
+	}
 	
 }
 function check_if_client_should_work($client_name="check all") {
@@ -424,7 +428,8 @@ function get_projects_list_array($type="DEFAULT") {
 	}
         $results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)) {
-		$projects_list[]=$row->name;
+		$project_name=$row->name;
+		$projects_list[]=$project_name;
 	}
 	#print_r($projects_list);
 	
@@ -459,7 +464,7 @@ function get_scene_list_array($project) {
 	}
 	return $scene_list;
 }
-function get_shot_list_array($project,$selected_scene="") {
+function get_shot_list_array($project,$selected_scene="/") {
 	# ----- WORK IN PROGRESS -----------XXX------
 	# to have this working, the server needs to have a server_os set, and have path access to the blend files of the project
 	$server_os=get_server_settings("server_os");
@@ -481,7 +486,7 @@ function get_shot_list_array($project,$selected_scene="") {
 }
 function output_scene_selector($project) {
 	# ----- WORK IN PROGRESS -----------XXX------
-	#  NOT USED for the moment XXX
+	#  NOT USED for the moment XXX might become useful if ajaxify the cascading
 	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project
 	$server_os=get_server_settings("server_os");
 	$blend_path=get_path($project,"blend",$server_os);
@@ -502,7 +507,7 @@ function output_scene_selector($project) {
 }
 function output_shot_selector($project,$selected_scene="") {
 	# ----- WORK IN PROGRESS -----------XXX------
-	#  NOT USED for the moment XXX
+	#  NOT USED for the moment XXX might become useful if ajaxify the cascading
 	# to have this working, the server needs to have a server_os set, and have path access to the blend files of the project
 	$server_os=get_server_settings("server_os");
 	$scenes_path=get_path($project,"blend",$server_os);

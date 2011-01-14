@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include_once("../tpl/connect.php");
 include_once("../../functions.php");
 
