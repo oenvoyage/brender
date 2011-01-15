@@ -741,12 +741,18 @@ function show_last_rendered_frame($mode="simple") {
         $rendered_by=$row->rendered_by;
         $frame=$row->frame;
         $finished_time=$row->finished_time;
-	if ($mode=="full") {
-         	print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">".get_thumbnail_image($job_id,$frame)."</a><br/>";
-		print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
+	$thumbnail_image=get_thumbnail_image($job_id,$frame);
+	if (file_exists($thumbnail_image)) {
+		if ($mode=="full") {
+         		print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">$thumbnail_image</a><br/>";
+			print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
+		}
+		else {
+       		  	print $thumbnail_image;
+		}
 	}
 	else {
-         	print get_thumbnail_image($job_id,$frame);
+		print "no last rendered frame found"; 
 	}
 }
 function count_rendered_frames($job_id) {
