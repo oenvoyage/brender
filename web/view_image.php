@@ -51,7 +51,10 @@
         $shot=job_get("shot",$job_id);
         $filetype=filetype_to_ext(job_get("filetype",$job_id));
         $project=job_get("project",$job_id);
-	$file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".$filetype";
+
+	// $file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".$filetype";
+	$file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".png";  // test fix for non-PNG jobs thumbnail generation
+
         $thumbnail_location="/thumbnails/$project/$scene/$shot/$file_name";
 
 	$query="select rendered_by,finished_time from rendered_frames where job_id='$job_id' and frame='$frame'";
@@ -62,7 +65,7 @@
 	$finished_time=$row->finished_time;
 ?>
 	<h2>// <strong>rendered by</strong> <?php print "<a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time "?></h2>
-	<a href="index.php?view=view_job&id=<?php echo $job_id?>"><img src="<?php print $thumbnail_location ?>" class="image"></a><br/>
+	<a href="index.php?view=view_job&id=<?php echo $job_id?>"><img src="<?php print $thumbnail_location ?>" class="image switchbg"></a><br/>
 <div class="table-controls">
 	<a class="btn" href="index.php?view=view_job&id=<?php echo $job_id ?>">return to job <?php echo $job_id ?></a>
 	<a class="prev_10 btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame-10?>">previous 10</a>
@@ -71,10 +74,8 @@
 	<a class="next btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+1?>">next</a>
 	<a class="next_10 btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+10?>">next 10</a>
 	<button class="switchbg btn">dark background</button>
-	<a class="view_image btn" href="<?php echo $thumbnail_location ?>"><?php echo $file_name ?></a>
+	<a class="view_image btn" href="<?php echo $thumbnail_location ?>" target="blank"><?php echo $file_name ?></a>
 	
 </div>
+<div class="over"></div>
 	
-
-	
-

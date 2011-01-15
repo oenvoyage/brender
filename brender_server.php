@@ -1,5 +1,26 @@
 #!/usr/bin/php -q
 <?php 
+/**
+* ***** BEGIN GPL LICENSE BLOCK *****
+*
+* This file is part of Brender.
+*
+* Brender is free software: you can redistribute it and/or 
+* modify it under the terms of the GNU General Public License 
+* as published by the Free Software Foundation, either version 2 * of the License, or any later version.
+* 
+* Brender is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License 
+* along with brender.  If not, see <http://www.gnu.org/licenses/>.
+*
+* ***** BEGIN GPL LICENSE BLOCK *****
+*
+*/
+
 require "functions.php";
 require "connect.php";
 
@@ -9,7 +30,7 @@ output("---- brender server 0.5 ----");
 #-----------------------------------------------------
     $server_speed=2; # server speed is the number of second that tha main loop will sleep(), check at the end of brender_server.php file
     $computer_name="server";
-    $GLOBALS['os']="mac";
+    #$GLOBALS['os']="mac";  // seems unused
     $pid=getmypid();
     $imagemagick_root=""; # keep empty if $IMAGEMAGICK_HOME is set 
 #-----------------------------------------------------

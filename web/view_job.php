@@ -20,6 +20,7 @@
 			filetype = $('select#edit_filetype'),
 			config = $('select#edit_config'),
 			progress_status = $('select#progress_status'),
+			progress_remark = $('input#edit_progress_remark'),
 			start = $('input#start'),
 			end = $('input#edit_end'),
 			chunks = $('input#edit_chunks'),
@@ -48,6 +49,8 @@
 							scene: scene.val(), 
 							shot: shot.val(), 
 							filetype: filetype.val(), 
+							progress_status: progress_status.val(), 
+							progress_remark: progress_remark.val(), 
 							config: config.val(), 
 							start: start.val(), 
 							end: end.val(), 
@@ -76,6 +79,8 @@
 							scene: scene.val(), 
 							shot: shot.val(), 
 							filetype: filetype.val(), 
+							progress_status: progress_status.val(), 
+							progress_remark: progress_remark.val(), 
 							config: config.val(), 
 							start: start.val(), 
 							end: end.val(), 
@@ -139,10 +144,12 @@
 		$total=$end-$start;
 	#-------------------
 	print "<h2>// job $id : $scene/<b>$shot</b> </h2>";	
-		
-		print "project: $project $total frames ($start-$end by $chunks)";
+		if ($rem ) {
+			print "remark :: $rem<br/>";
+		}	
+		print "project: $project $total frames ($start-$end by $chunks) ";
 		$total_rendered=count_rendered_frames($id);
-		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen";
+		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen ";
 
 		
 	print "<table border=0 class=\"thumbnails_table\">";
@@ -187,8 +194,11 @@
 		if ($filetype=="TGA"){
 			$select_tga="selected";
 		}
-		else if ($filetype=="OPEN_EXR"){
+		else if ($filetype=="EXR"){
 			$select_exr="selected";
+		}
+		else if ($filetype=="MULTILAYER"){
+			$select_multilayer="selected";
 		}
 		else if ($filetype=="PNG"){
 			$select_png="selected";
@@ -200,11 +210,12 @@
 				<label for="filetype">type</label>
 				<label for="config">config</label>
 				<label for="progress_status">progress status</label>
-				<label for="rem">remarks</label>
+				<label for="progress_remark">progress remark</label>
 				<label for="start">start</label>
 				<label for="end">end</label>
 				<label for="chunks">chunks</label>
 				<label for="priority">priority</label>
+				<label for="rem">remarks</label>
 				<label for="directstart">directstart</label>
 			</div>
 			
@@ -213,7 +224,8 @@
 	                 	<option value="JPEG">JPEG</option>
 	                    <option value="PNG" <?php print($select_png); ?>>PNG</option>
 						<option value="TGA" <?php print($select_tga); ?>>TGA</option>
-						<option value="OPEN_EXR" <?php print($select_exr); ?>>OPEN_EXR</option>
+						<option value="EXR" <?php print($select_exr); ?>>OPEN_EXR</option>
+						<option value="MULTILAYER" <?php print($select_multilayer); ?>>MULTILAYER</option>
                 </select>
                 <select id="edit_config" name="config">
 						<?php output_config_select($config); ?>
@@ -221,11 +233,12 @@
 				<select id="progress_status" name="progress_status"> 
 					<?php output_progress_status_select($progress_status); ?>
 				</select>
-				<input id="edit_rem" name="progress_remark" type="text" value="<?php print($progress_remark); ?>">
+				<input id="edit_progress_remark" name="progress_remark" type="text" value="<?php print($progress_remark); ?>">
 				<input id="edit_start" type=text name=start size="4" value="<?php print($start); ?>">
 				<input id="edit_end" type="text" name="end" size="4" value="<?php print($end); ?>" />
 				<input id="edit_chunks" type="text" name="chunks" size="3" value="<?php print($chunks); ?>" />
 				<input id="edit_priority" type="text" name="priority" size="3" value="<?php print($priority); ?>" />
+				<input id="edit_rem" name="rem" type="text" value="<?php print($rem); ?>">
 				<input id="edit_directstart" type="checkbox" name="directstart" value="yes" />
 			</div>
 	

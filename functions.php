@@ -1,4 +1,25 @@
 <?php
+/**
+* ***** BEGIN GPL LICENSE BLOCK *****
+*
+* This file is part of Brender.
+*
+* Brender is free software: you can redistribute it and/or 
+* modify it under the terms of the GNU General Public License 
+* as published by the Free Software Foundation, either version 2 * of the License, or any later version.
+* 
+* Brender is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License 
+* along with brender.  If not, see <http://www.gnu.org/licenses/>.
+*
+* ***** BEGIN GPL LICENSE BLOCK *****
+*
+*/
+
 date_default_timezone_set('Europe/Zurich'); # ----needed by php
 function test() {
 	global $qwer;
@@ -116,6 +137,10 @@ function get_css_class($status) {
 	}
 	else if (preg_match("/active/",$status)) {
 		return "active";
+	}
+	else {
+		# in case we can not find a status type, return finished
+		return "finished";
 	}
 	
 }
@@ -347,12 +372,12 @@ function brender_log($log){
 function output_progress_status_select($default="NONE") {
 	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved","");
 	foreach ($list as $item) {
-		print("check default=$default and item=$item");
-		if ($default==$item) {
+		#print("check default=$default and item=$item");
+		if ($default==$item|| $default=="new") {
 			print " <option value=\"$item\" selected>$item </option>";
 		}	
 		else {
-			print " <option value=\"$item\">$item </option>";
+			print " <option value=\"$item\">$item</option>";
 		}
 	}
 }
@@ -403,7 +428,8 @@ function get_projects_list_array($type="DEFAULT") {
 	}
         $results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)) {
-		$projects_list[]=$row->name;
+		$project_name=$row->name;
+		$projects_list[]=$project_name;
 	}
 	#print_r($projects_list);
 	
@@ -425,8 +451,11 @@ function get_scene_list_array($project) {
 	$list=preg_split("/\n/",$list);
 
 	foreach ($list as $item) {
-		#print("check item=$item<br/>");
+		#print("<br/>check item = $item<br/>");
 		if (is_dir("$blend_path/$item")) {
+			if (!$item) {
+				$item="/";
+			}
 			$scene_list[]=$item;
 		}
 	}
@@ -435,7 +464,7 @@ function get_scene_list_array($project) {
 	}
 	return $scene_list;
 }
-function get_shot_list_array($project,$selected_scene="") {
+function get_shot_list_array($project,$selected_scene="/") {
 	# ----- WORK IN PROGRESS -----------XXX------
 	# to have this working, the server needs to have a server_os set, and have path access to the blend files of the project
 	$server_os=get_server_settings("server_os");
@@ -457,7 +486,7 @@ function get_shot_list_array($project,$selected_scene="") {
 }
 function output_scene_selector($project) {
 	# ----- WORK IN PROGRESS -----------XXX------
-	#  NOT USED for the moment XXX
+	#  NOT USED for the moment XXX might become useful if ajaxify the cascading
 	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project
 	$server_os=get_server_settings("server_os");
 	$blend_path=get_path($project,"blend",$server_os);
@@ -478,7 +507,7 @@ function output_scene_selector($project) {
 }
 function output_shot_selector($project,$selected_scene="") {
 	# ----- WORK IN PROGRESS -----------XXX------
-	#  NOT USED for the moment XXX
+	#  NOT USED for the moment XXX might become useful if ajaxify the cascading
 	# to have this working, the server needs to have a server_os set, and have path access to the blend files of the project
 	$server_os=get_server_settings("server_os");
 	$scenes_path=get_path($project,"blend",$server_os);
@@ -579,7 +608,7 @@ function job_get($what,$id) {
 	$query="select $what from jobs where id='$id'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
-	debug ("******************************************$query*****************************************");
+	#debug ("******************************************$query*****************************************");
 	return $qq;
 }
 function check_create_path($path) {
@@ -591,7 +620,7 @@ function check_create_path($path) {
 	chmod($path,0777);
 }
 function filetype_to_ext($filetype) {
-	# transform filetype of the format that blender understands PNG TGA JPEG OPENEXR to a simple extension
+	# transform filetype of the format that blender understands PNG TGA JPEG EXR to a simple extension
 	switch ($filetype) {
 		case "PNG":
 			return "png";
@@ -599,7 +628,9 @@ function filetype_to_ext($filetype) {
 			return "tga";
 		case "JPEG":
 			return "jpg";
-		case "OPEN_EXR":
+		case "EXR":
+			return "exr";
+		case "MULTILAYER":
 			return "exr";
 	}
 	
@@ -634,8 +665,15 @@ function get_thumbnail_image($job_id,$image_number,$class="") {
 	$shot=job_get("shot",$job_id);
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
-	$thumbnail_location="/thumbnails/$project/$scene/$shot/small_$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
-	return "<img src=\"$thumbnail_location\" class=\"$class\">";
+	$filetype="png"; // temporary test for fixing job thumbnail viewing when filetype is JPG OPENEXR or TGA
+	$thumbnail_location="thumbnails/$project/$scene/$shot/small_$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	#print "**** $thumbnail_location****";
+	if (file_exists("../$thumbnail_location")) {
+		return "<img src=\"/$thumbnail_location\" class=\"$class\">";
+	}
+	else {
+		return false;
+	}
 }
 function create_thumbnail($job_id,$image_number) {
 	if ($GLOBALS[computer_name]=="web_interface") {
@@ -654,8 +692,10 @@ function create_thumbnail($job_id,$image_number) {
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
 	$image_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	$thumbnail_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".png";  // XXX SPECIAL FIX for trying to resolve non-png jobs thumbnails
 
-	$input_path=get_path($project,"output","linux");
+	$server_os=get_server_settings("server_os");
+	$input_path=get_path($project,"output",$server_os);
 	$input_image = "$input_path/$scene/$shot/$image_name";
 	#print "<br/>----- input = $input_image ---<br/>";
 
@@ -668,8 +708,8 @@ function create_thumbnail($job_id,$image_number) {
 	check_create_path("$thumbnail_path/$project");
 	check_create_path("$thumbnail_path/$project/$scene");
 	check_create_path("$thumbnail_path/$project/$scene/$shot");
-	$output_image="$thumbnail_path/$project/$scene/$shot/$image_name";
-	$output_image_small="$thumbnail_path/$project/$scene/$shot/small_$image_name";
+	$output_image="$thumbnail_path/$project/$scene/$shot/$thumbnail_name";
+	$output_image_small="$thumbnail_path/$project/$scene/$shot/small_$thumbnail_name";
 
 	debug("----- output = $output_image ---<br/>");
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
@@ -707,12 +747,18 @@ function show_last_rendered_frame($mode="simple") {
         $rendered_by=$row->rendered_by;
         $frame=$row->frame;
         $finished_time=$row->finished_time;
-	if ($mode=="full") {
-         	print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">".get_thumbnail_image($job_id,$frame)."</a><br/>";
-		print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
+	$thumbnail_image=get_thumbnail_image($job_id,$frame);
+	if ($thumbnail_image) {
+		if ($mode=="full") {
+        		print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">$thumbnail_image</a><br/>";
+			print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
+		}
+		else {
+       		  	print $thumbnail_image;
+		}
 	}
 	else {
-         	print get_thumbnail_image($job_id,$frame);
+		print "no last rendered frame found";
 	}
 }
 function count_rendered_frames($job_id) {
