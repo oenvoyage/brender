@@ -666,8 +666,14 @@ function get_thumbnail_image($job_id,$image_number,$class="") {
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
 	$filetype="png"; // temporary test for fixing job thumbnail viewing when filetype is JPG OPENEXR or TGA
-	$thumbnail_location="/thumbnails/$project/$scene/$shot/small_$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
-	return "<img src=\"$thumbnail_location\" class=\"$class\">";
+	$thumbnail_location="thumbnails/$project/$scene/$shot/small_$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	#print "**** $thumbnail_location****";
+	if (file_exists("../$thumbnail_location")) {
+		return "<img src=\"/$thumbnail_location\" class=\"$class\">";
+	}
+	else {
+		return false;
+	}
 }
 function create_thumbnail($job_id,$image_number) {
 	if ($GLOBALS[computer_name]=="web_interface") {
@@ -742,9 +748,9 @@ function show_last_rendered_frame($mode="simple") {
         $frame=$row->frame;
         $finished_time=$row->finished_time;
 	$thumbnail_image=get_thumbnail_image($job_id,$frame);
-	if (file_exists($thumbnail_image)) {
+	if ($thumbnail_image) {
 		if ($mode=="full") {
-         		print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">$thumbnail_image</a><br/>";
+        		print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">$thumbnail_image</a><br/>";
 			print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
 		}
 		else {
@@ -752,7 +758,7 @@ function show_last_rendered_frame($mode="simple") {
 		}
 	}
 	else {
-		print "no last rendered frame found"; 
+		print "no last rendered frame found";
 	}
 }
 function count_rendered_frames($job_id) {
