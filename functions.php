@@ -477,7 +477,7 @@ function get_shot_list_array($project,$selected_scene="/") {
 
 	foreach ($list as $item) {
 		#print("check item=$item<br/>");
-		if (preg_match("/(\w*)\.blend$/",$item,$res)) {
+		if (preg_match("/(.*)\.blend$/",$item,$res)) {
 			$filename=$res[1]; # we extract only filename without .blend from regex
 			$shot_list[]=$filename;
 		}
