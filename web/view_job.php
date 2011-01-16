@@ -149,12 +149,17 @@
 		}	
 		print "project: $project $total frames ($start-$end by $chunks) ";
 		$total_rendered=count_rendered_frames($id);
-		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen ";
+		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen "; ?>
 
+	<div class="table-controls">
+		<a class="btn" href="index.php?view=jobs">back to job list</a>
+		<button class="switchbg btn">dark background</button>
+		<a class="btn" id="edit_job_button" href="#">edit or duplicate job</a>
+	</div>
 		
-	print "<table border=0 class=\"thumbnails_table\">";
-	print "<tr>";
-	#-------------------------------les images ------------------------------
+	<table border=0 class="thumbnails_table">
+	<tr>
+	<?php #-------------------------------les images ------------------------------
 	$a=$start;
 	$first_image=get_thumbnail_image($id,$start);
 
