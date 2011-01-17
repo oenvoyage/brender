@@ -20,6 +20,7 @@
 					<option>JPEG</option>
 					<option>TGA</option>
 					<option>OPEN_EXR</option>
+					<option>MULTILAYER</option>
 		</select>
 		<select id="config" name="config">
 				<?php output_config_select() ?>
