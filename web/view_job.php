@@ -5,6 +5,12 @@
 	            primary: "ui-icon-gear"
 	        }
 	    });
+	    $(document).keyup(function(e) {
+                        
+                       if (e.keyCode == 27) {                  // left arrow
+                               window.location.href = 'index.php?view=jobs';
+                       }    
+		});
 	    
 	    $("button.switchbg").click(function() {
 			$(".over").toggleClass("brender-overlay", 100);

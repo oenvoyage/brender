@@ -1,6 +1,14 @@
 //jQuery and jQuery UI fununctions START
 
 $(function() {
+	// general shortcuts on all pages
+         $(document).keyup(function(e) {
+                        
+                       if (e.keyCode == 79) {                  // Esc
+                               window.location.href = 'index.php';
+                       }    
+                });
+
 	//Spinner next to brender logo (visible during AJAX calls)
 	$('#loadingSpinner')
 	    .hide()  // hide it initially
