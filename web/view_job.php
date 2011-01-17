@@ -32,7 +32,7 @@
 			config = $('select#edit_config'),
 			progress_status = $('select#progress_status'),
 			progress_remark = $('input#edit_progress_remark'),
-			start = $('input#start'),
+			start = $('input#edit_start'),
 			end = $('input#edit_end'),
 			chunks = $('input#edit_chunks'),
 			priority = $('input#edit_priority'),
@@ -95,7 +95,7 @@
 							chunks: chunks.val(), 
 							priority: priority.val(), 
 							rem: rem.val(), 
-							directstart: directstart
+							directstart: $('#edit_directstart').is(':checked') 
 						}, function(data) {
 							var obj = jQuery.parseJSON(data);
 							//alert(data);

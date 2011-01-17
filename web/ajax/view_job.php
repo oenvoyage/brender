@@ -17,19 +17,22 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		$config = $_POST['config'];
 		$chunks = $_POST['chunks'];
 		$priority = $_POST['priority'];
+		$directstart = $_POST['directstart'];
 		
 		$jobid = $_POST['updateid'];
 		$session_user = $_SESSION['user'];
 		$scene = $_POST['scene'];
 		$shot = $_POST['shot'];
 		
-		if ($_POST['directstart'] == true){
-			$status="waiting";
-			$msg = "Edited job direct started.".$_POST['directstart']; # TODO
+		#print "DIRRR ---$start----";
+		#  do we still need this msg dialog?
+		if ($directstart == "true"){
+			#$status="waiting";
+			$msg = "Edited job direct started . ".$directstart; # TODO
 		}
 		else {
-			$status="pause";
-			$msg = "Edited job submitted and waiting to be started. Autostart: ".$_POST['directstart'];
+			#$status="pause";
+			$msg = "Edited job submitted and waiting to be started. Directstart: ".$directstart;
 			
 		}
 
@@ -37,16 +40,18 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		if ($_POST['action'] == "duplicate") {
 			#----update COPY so we create a new job-------
 			$query="INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','active','$progress_status','$progress_remark','$priority',now(),'$session_user')";
-            mysql_query($query);
+            		mysql_query($query);
+			$msg = "Job $jobid duplicated successfully and waiting to be started";
 		} else {
 			#----update UPDATE so we just update the job-------
 			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', rem='$rem', config='$config', chunks='$chunks', priority='$priority', progress_status='$progress_status', progress_remark='$progress_remark', lastseen=NOW(), last_edited_by='$_SESSION[user]' where id=$jobid;";
 			mysql_query($queryqq);
-			if (($_POST['directstart']) == "true"){
+			if ($directstart == "true"){
+				#print "DDDFSDFSD SD SDF SF";
 				# for directstart we set the current frame position to start and set to waiting
-				$queryqq="UPDATE jobs current='$start', status='waiting';";
+				$querystart="UPDATE jobs set current='$start', status='waiting' where id='$jobid';";
+				mysql_query($querystart);
 			}	
-			mysql_query($queryqq);
 		}
 		
 		echo "{\"status\":true, \"msg\":\"$msg\", \"query\":\"$dberror\"}";
