@@ -174,7 +174,10 @@
 	$a=$start;
 	$first_image=get_thumbnail_image($id,$start);
 
-	$img_chunks=round(($total)/20) || 1;
+	$img_chunks=round(($total)/20);
+	if ($img_chunks==0) {
+		$img_chunks=1;
+	}
 	# print "a= $a --- start $start -- end $end -- totalframes $total img_chunks =$img_chunks </br>";
 	print "<td><a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$first_image</a><br/>$a<br/></td>";
 	$rows=1;

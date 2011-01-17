@@ -132,7 +132,8 @@ if (isset($_GET['del'])) {
 		$progress_remark=$row->progress_remark;
 
 		$total_frames=$end-$start+1;
-		$total_rendered=count_rendered_frames($id);
+		#$total_rendered=count_rendered_frames($id);
+		$total_rendered=$total_frames;
 		$status_class=get_css_class($status);
 		$priority_color=get_priority_color($priority);
 		$thumbnail_image=get_thumbnail_image($id,$start,"thumbnail small");;
