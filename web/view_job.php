@@ -25,11 +25,8 @@
 			end = $('input#edit_end'),
 			chunks = $('input#edit_chunks'),
 			priority = $('input#edit_priority'),
-			rem = $('input#edit_rem'),
-			directstart = $('input#edit_directstart').is(':checked');
-		
-		
-		
+			rem = $('input#edit_rem')
+			
 		$("#edit_job").dialog({
 			autoOpen: false,
 			height: 400,
@@ -57,7 +54,7 @@
 							chunks: chunks.val(), 
 							priority: priority.val(), 
 							rem: rem.val(), 
-							directstart: directstart
+							directstart: $('#edit_directstart').is(':checked') 
 						}, function(data) {
 							var obj = jQuery.parseJSON(data);
 							//alert(data);

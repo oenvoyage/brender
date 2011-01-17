@@ -23,7 +23,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		$scene = $_POST['scene'];
 		$shot = $_POST['shot'];
 		
-		if ($_POST['directstart'] == "true"){
+		if ($_POST['directstart'] == true){
 			$status="waiting";
 			$msg = "Edited job direct started.".$_POST['directstart']; # TODO
 		}
