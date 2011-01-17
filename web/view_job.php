@@ -5,19 +5,8 @@
 	            primary: "ui-icon-gear"
 	        }
 	    });
-	    $(document).keyup(function(e) {
-                        
-                       if (e.keyCode == 27) {                  // left arrow
-				if ($('button').hasClass('brender-overlay')) {
-                                	$(".over").toggleClass("brender-overlay", 100);
-                                }
-				else {
-                               		window.location.href = 'index.php?view=jobs';
-				}
-                       }    
-		});
-	    
-	    $("button.switchbg").click(function() {
+
+	    $("button.switchbg_btn, button.switchbg_btn2").click(function() {
 			$(".over").toggleClass("brender-overlay", 100);
 			return false;
 		});
@@ -115,7 +104,7 @@
 			}
 		});
 		
-		$("#edit_job_button").click(function() {
+		$("#edit_job_button, #edit_job_button2").click(function() {
 			$("#edit_job").dialog("open");
 		});
 		// EDIT JOB dialog END
@@ -123,10 +112,13 @@
 		// BACKGROUND SWITCH START
 		$(document).keyup(function(e) {
 			if (e.keyCode == 27) {			// esc (only if overlay is on)
-				if($('div').hasClass('brender-overlay')) {
-				$(".over").toggleClass("brender-overlay", 100);
-			} 
-		}
+				if ($('div').hasClass('brender-overlay')) {
+					$(".over").toggleClass("brender-overlay", 100);
+				} 
+				else {				// else we close the job_view and go to jobs.php
+                               		window.location.href = 'index.php?view=jobs';
+				}
+			}
 		
 			if (e.keyCode == 66) {			// b
 				$(".over").toggleClass("brender-overlay", 100);
@@ -285,6 +277,6 @@
 <div class="table-controls">
 	<a class="btn" href="index.php?view=jobs">back to job list</a>
 	<button class="switchbg_btn btn">dark background</button>
-	<a class="btn" id="edit_job_button" href="#">edit or duplicate job</a>
+	<a class="btn" id="edit_job_button2" href="#">edit or duplicate job</a>
 </div>
 <div class="over"></div>
