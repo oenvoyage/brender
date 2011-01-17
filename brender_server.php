@@ -34,6 +34,11 @@ output("---- brender server 0.5 ----");
     $pid=getmypid();
     $imagemagick_root=""; # keep empty if $IMAGEMAGICK_HOME is set 
 #-----------------------------------------------------
+if (!check_server_is_dead()) {  // this means the server is still running
+	$pid=get_server_settings("pid");
+	output("tried to start brender server.... but a server seems to be already running with process $pid\n");
+	die("could not start server");
+}
 if ($argv[1] =="debug") {
                         # -- we enable debug mode ------
        $GLOBALS[debug_mode]=1;
