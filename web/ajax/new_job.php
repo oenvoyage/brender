@@ -16,7 +16,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {
 		$config = $_POST[config];
 		$chunks = $_POST[chunks];
 		$priority = $_POST[priority];
-		if ($_POST[directstart] == true){
+		if ($_POST[directstart] == "true"){
 			$status="waiting";
 			$msg = "New job direct started."; # TODO
 		}
