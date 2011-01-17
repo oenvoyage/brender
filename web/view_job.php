@@ -8,7 +8,12 @@
 	    $(document).keyup(function(e) {
                         
                        if (e.keyCode == 27) {                  // left arrow
-                               window.location.href = 'index.php?view=jobs';
+				if ($('button').hasClass('brender-overlay')) {
+                                	$(".over").toggleClass("brender-overlay", 100);
+                                }
+				else {
+                               		window.location.href = 'index.php?view=jobs';
+				}
                        }    
 		});
 	    
