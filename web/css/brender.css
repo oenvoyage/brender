@@ -614,6 +614,11 @@ table tr {
 	z-index: 10;
 	}
 
+.single_switchbg {
+	position: relative;
+	z-index: 12;
+}
+
 .switchbg {
 	z-index: 12;
 }

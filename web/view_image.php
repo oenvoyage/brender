@@ -1,9 +1,15 @@
 	<script>
 	$(function() {       
-        $("button.switchbg").click(function() {
+        $("button.switchbg_btn").click(function() {
 			$(".over").toggleClass("brender-overlay", 100);
 			return false;
 		});
+		
+		 $(".brender-overlay").click(function() {
+		 	$(".over").toggleClass("brender-overlay", 100);
+			return false;		 	
+		});
+		
 		
 		$(".prev_10").button({
             icons: {
@@ -38,6 +44,20 @@
                 primary: "ui-icon-newwin"
             }
         });
+                
+        $(document).keyup(function(e) {
+  			
+  			if (e.keyCode == 27) {			// esc (only if overlay is on)
+  				if($('div').hasClass('brender-overlay')) {
+					$(".over").toggleClass("brender-overlay", 100);
+				} 
+			}
+			
+			if (e.keyCode == 66) {			// b
+				$(".over").toggleClass("brender-overlay", 100);
+			}    
+		});
+
 	});
 	
 	</script>
@@ -65,7 +85,7 @@
 	$finished_time=$row->finished_time;
 ?>
 	<h2>// <strong>rendered by</strong> <?php print "<a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time "?></h2>
-	<a href="index.php?view=view_job&id=<?php echo $job_id?>"><img src="<?php print $thumbnail_location ?>" class="image switchbg"></a><br/>
+	<a href="index.php?view=view_job&id=<?php echo $job_id?>"><img src="<?php print $thumbnail_location ?>" class="image single_switchbg"></a><br/>
 <div class="table-controls">
 	<a class="btn" href="index.php?view=view_job&id=<?php echo $job_id ?>">return to job <?php echo $job_id ?></a>
 	<a class="prev_10 btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame-10?>">previous 10</a>
@@ -73,7 +93,7 @@
 	<span class="current_frame"><?php print "frame <b>$frame</b>" ?></span>
 	<a class="next btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+1?>">next</a>
 	<a class="next_10 btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $frame+10?>">next 10</a>
-	<button class="switchbg btn">dark background</button>
+	<button class="switchbg_btn btn">dark background</button>
 	<a class="view_image btn" href="<?php echo $thumbnail_location ?>" target="blank"><?php echo $file_name ?></a>
 	
 </div>

@@ -1,6 +1,6 @@
 <script>
 	$(function() {
-		$("button.switchbg").button({
+		$("button.switchbg_btn").button({
 	        icons: {
 	            primary: "ui-icon-gear"
 	        }
@@ -111,6 +111,20 @@
 			$("#edit_job").dialog("open");
 		});
 		// EDIT JOB dialog END
+		
+		// BACKGROUND SWITCH START
+		$(document).keyup(function(e) {
+			if (e.keyCode == 27) {			// esc (only if overlay is on)
+				if($('div').hasClass('brender-overlay')) {
+				$(".over").toggleClass("brender-overlay", 100);
+			} 
+		}
+		
+			if (e.keyCode == 66) {			// b
+				$(".over").toggleClass("brender-overlay", 100);
+			}    
+		});
+		// BACKGROUND SWITCH END
 	});
 	
 	
@@ -153,7 +167,7 @@
 
 	<div class="table-controls">
 		<a class="btn" href="index.php?view=jobs">back to job list</a>
-		<button class="switchbg btn">dark background</button>
+		<button class="switchbg_btn btn">dark background</button>
 		<a class="btn" id="edit_job_button" href="#">edit or duplicate job</a>
 	</div>
 		
@@ -259,7 +273,7 @@
 
 <div class="table-controls">
 	<a class="btn" href="index.php?view=jobs">back to job list</a>
-	<button class="switchbg btn">dark background</button>
+	<button class="switchbg_btn btn">dark background</button>
 	<a class="btn" id="edit_job_button" href="#">edit or duplicate job</a>
 </div>
 <div class="over"></div>
