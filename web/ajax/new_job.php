@@ -5,7 +5,7 @@ include_once("../tpl/connect.php");
 include_once("../../functions.php");
 $GLOBALS['computer_name']="ajax";
 
-if ($_POST['scene'] && $_POST['shot']) {	
+if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {	
 		$start = $_POST[start];
 		$end = $_POST[end];
 		$shot = $_POST[shot];
@@ -39,6 +39,6 @@ if ($_POST['scene'] && $_POST['shot']) {
 	}
 	else {
 		//$error="please enter new job infos<br/>";
-		echo "{\"status\":false, \"msg\":\"Epic Fail: please enter scene and shot name.\"}";
+		echo "{\"status\":false, \"msg\":\"Epic Fail: please enter scene, shot name and configuration file.\"}";
 	}
 ?>

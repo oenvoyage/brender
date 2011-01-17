@@ -26,9 +26,8 @@ $(function() {
 		end = $('input#end'),
 		chunks = $('input#chunks'),
 		priority = $('input#priority'),
-		rem = $('input#rem'),
-		directstart = $('#directstart input[type="checkbox"]');
-	
+		rem = $('input#rem')
+
 	
 	$("#new_job").dialog({
 		autoOpen: false,
@@ -40,8 +39,7 @@ $(function() {
 			Cancel: function() {
 				$(this).dialog("close");
 			},
-			"Start job": function() { 							
-					
+			"Start job": function() { 											
 					$.post("ajax/new_job.php", {
 						project: project.val(), 
 						scene: scene.val(), shot: shot.val(), 
@@ -52,7 +50,7 @@ $(function() {
 						chunks: chunks.val(), 
 						priority: priority.val(), 
 						rem: rem.val(), 
-						directstart: directstart.val() 
+						directstart: $('#directstart').is(':checked') 
 					}, function(data) {
 						var obj = jQuery.parseJSON(data);
 						//alert(data);
