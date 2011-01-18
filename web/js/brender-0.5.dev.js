@@ -1,13 +1,27 @@
 //jQuery and jQuery UI fununctions START
 
+
 $(function() {
+
+	//Get focus of an input	
+	var focused = false;
+	$('input').focus(function() {
+		focused = true;
+	});
+	$('input').focusout(function() {
+		focused = false;
+	}); 
+				
 	// general shortcuts on all pages
-         $(document).keyup(function(e) {
-                        
-                       if (e.keyCode == 79) {                  // Esc
-                               window.location.href = 'index.php';
-                       }    
-                });
+	$(document).keyup(function(e) {
+		if (e.keyCode == 79 && !focused) {                  // o key
+			//alert('test');
+			window.location.href = 'index.php';
+        }
+           
+    });
+    
+    
 
 	//Spinner next to brender logo (visible during AJAX calls)
 	$('#loadingSpinner')

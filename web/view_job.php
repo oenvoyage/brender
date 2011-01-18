@@ -110,17 +110,27 @@
 		// EDIT JOB dialog END
 		
 		// BACKGROUND SWITCH START
+		
+		//Get focus of an input	
+		var focused = false;
+		$('input').focus(function() {
+			focused = true;
+		});
+		$('input').focusout(function() {
+			focused = false;
+		}); 
+		
 		$(document).keyup(function(e) {
-			if (e.keyCode == 27) {			// esc (only if overlay is on)
+			if (e.keyCode == 27 && !focused) {			// esc (only if overlay is on)
 				if ($('div').hasClass('brender-overlay')) {
 					$(".over").toggleClass("brender-overlay", 100);
 				} 
 				else {				// else we close the job_view and go to jobs.php
-                               		window.location.href = 'index.php?view=jobs';
+					window.location.href = 'index.php?view=jobs';
 				}
 			}
 		
-			if (e.keyCode == 66) {			// b
+			if (e.keyCode == 66 && !focused) {			// b
 				$(".over").toggleClass("brender-overlay", 100);
 			}    
 		});
