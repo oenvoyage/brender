@@ -14,12 +14,28 @@ $(function() {
 				
 	// general shortcuts on all pages
 	$(document).keyup(function(e) {
-		if (e.keyCode == 79 && !focused) {                  // o key
+		if (( e.keyCode == 49 || e.keyCode == 79) && !focused) {                  // o key or 1
 			//alert('test');
 			window.location.href = 'index.php';
-        }
+        	}
+		if (e.keyCode == 78 && !focused) {                  // n key
+			// window.location.href = 'index.php?view=new_job';
+			$("#new_job").dialog("open");
+        	}
+		if (e.keyCode == 74 && !focused) {                  // j key
+			window.location.href = 'index.php?view=jobs';
+        	}
+		if (e.keyCode == 76 && !focused) {                  // l key
+			window.location.href = 'index.php?view=logs';
+        	}
+		if (e.keyCode == 67 && !focused) {                  // c key
+			window.location.href = 'index.php?view=clients';
+        	}
+		if (e.keyCode == 83 && !focused) {                  // s key
+			window.location.href = 'index.php?view=settings';
+        	}
            
-    });
+    	});
     
     
 
@@ -93,7 +109,7 @@ $(function() {
 	});
 	
 	$("#new_job_button, #new_job_button2, #new_job_button3").click(function() {
-	$("#new_job").dialog("open");
+		$("#new_job").dialog("open");
 	});
 	// NEW JOB dialog END
 	
