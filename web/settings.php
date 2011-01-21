@@ -269,11 +269,14 @@ if (isset($_GET[new_project])) {
 		<td> <a href="index.php?view=settings&order_by=name">project</a></td>
 		<td> .blend path</td>
 		<td> output path</td>
+		<td> server test</td>
 		<td> <a href="index.php?view=settings&order_by=rem">rem</a></td>
 		<td> <a href="index.php?view=settings&order_by=status">status</a></td>
 		<td>&nbsp;</td>
 	</tr>
 	<?php 
+
+	$server_os=get_server_settings("server_os");
 	$query="select * from projects order by $_SESSION[orderby_projects]";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)){
@@ -301,12 +304,15 @@ if (isset($_GET[new_project])) {
 		else {
 			$is_default="";
 		}
+		$test_path=get_path($name,"output",$server_os);
+		$test_result= file_exists($test_path);
 		print "<tr class=\"$status\">
-			<td>$id</td> 
+			<td>$id ($res) $brender_root</td> 
 			<td>$is_default</td> 
 			<td><a href=\"index.php?view=settings&def=$id\">$name</a></td> 
 			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
 			<td>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
+			<td>$test_result</td> 
 			<td>$rem</td> 
 			<td>$status_link</td> 
 			<td>&nbsp;<a href=\"index.php?view=settings&del=$id\"><img src=\"images/icons/close.png\"></a></td>
