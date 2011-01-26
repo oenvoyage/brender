@@ -474,9 +474,9 @@ function get_scene_list_array($project) {
 	debug("Debug path server_os = $server_os and path = $blend_path");
 
 	$scene_list=array();
-	#$list= `ls $blend_path`;
-	#$list=preg_split("/\n/",$list);
-	$list=scandir($blend_path);
+	$list= `ls $blend_path`;
+	$list=preg_split("/\n/",$list);
+	#$list=scandir($blend_path);
 
 	foreach ($list as $item) {
 		#print("<br/>check item = $item<br/>");
@@ -490,10 +490,10 @@ function get_scene_list_array($project) {
 			}
 		}
 	}
-	#if (count($scene_list)==0){
+	if (count($scene_list)==0){
 		# we try with always showing the / folder
 		$scene_list[]="/";
-	#}
+	}
 	return $scene_list;
 }
 function get_shot_list_array($project,$selected_scene="/") {
@@ -504,9 +504,9 @@ function get_shot_list_array($project,$selected_scene="/") {
 	debug("Debug path server_os = $server_os and path = $scenes_path");
 
 	$shot_list=array();
-	#$list= `ls $scenes_path/$selected_scene`;
-	#$list=preg_split("/\n/",$list);
-	$list=scandir("$scenes_path/$selected_scene");
+	$list= `ls $scenes_path/$selected_scene`;
+	$list=preg_split("/\n/",$list);
+	#$list=scandir("$scenes_path/$selected_scene");
 
 	foreach ($list as $item) {
 		#print("check item=$item<br/>");
