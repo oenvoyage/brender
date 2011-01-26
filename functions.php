@@ -437,6 +437,7 @@ function scene_shot_cascading_dropdown_menus() {
 	
 	<select name="shot" id="shot">
 		<?php echo $shot_options ?>
+		<option class=\"warning_message\" value=\"warning_message\">please choose a scene first</option>
 	</select><br/>
 	<!--  the javascript needs to be called after <select><option> construction. No idea why. This has to be fixed  -->
 	<script type="text/javascript" src="js/brender-0.5.dev.js"></script> 
@@ -473,8 +474,9 @@ function get_scene_list_array($project) {
 	debug("Debug path server_os = $server_os and path = $blend_path");
 
 	$scene_list=array();
-	$list= `ls $blend_path`;
-	$list=preg_split("/\n/",$list);
+	#$list= `ls $blend_path`;
+	#$list=preg_split("/\n/",$list);
+	$list=scandir($blend_path);
 
 	foreach ($list as $item) {
 		#print("<br/>check item = $item<br/>");
@@ -482,12 +484,16 @@ function get_scene_list_array($project) {
 			if (!$item) {
 				$item="/";
 			}
-			$scene_list[]=$item;
+			if($item !="." && $item!="..") {
+				# we do not want to add the . and .. directories
+				$scene_list[]=$item;
+			}
 		}
 	}
-	if (count($scene_list)==0){
+	#if (count($scene_list)==0){
+		# we try with always showing the / folder
 		$scene_list[]="/";
-	}
+	#}
 	return $scene_list;
 }
 function get_shot_list_array($project,$selected_scene="/") {
@@ -498,8 +504,9 @@ function get_shot_list_array($project,$selected_scene="/") {
 	debug("Debug path server_os = $server_os and path = $scenes_path");
 
 	$shot_list=array();
-	$list= `ls $scenes_path/$selected_scene`;
-	$list=preg_split("/\n/",$list);
+	#$list= `ls $scenes_path/$selected_scene`;
+	#$list=preg_split("/\n/",$list);
+	$list=scandir("$scenes_path/$selected_scene");
 
 	foreach ($list as $item) {
 		#print("check item=$item<br/>");
@@ -507,6 +514,10 @@ function get_shot_list_array($project,$selected_scene="/") {
 			$filename=$res[1]; # we extract only filename without .blend from regex
 			$shot_list[]=$filename;
 		}
+	}
+	if (count($shot_list)==0){
+		#print "*** error empty for $project and $selected_scene ****";
+		$shot_list[]="";
 	}
 	return $shot_list;
 }
