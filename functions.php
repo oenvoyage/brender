@@ -56,6 +56,12 @@ function check_client_exists($client) {
 	$qq=mysql_result($results,0);
 	return $qq;
 }
+function get_client_status($client) {
+	$query="select status from clients where client='$client'";
+	$results=mysql_query($query);
+	$qq=mysql_result($results,0);
+	return $qq;
+}
 function get_client_os($client) {
 	$query="select machine_os from clients where client='$client'";
 	$results=mysql_query($query);
@@ -272,6 +278,26 @@ function check_if_client_has_order_waiting($client) {
         $results=mysql_query($query);
         $check_result=mysql_result($results,0);
 	return $check_result;
+}
+function check_client_is_running($client) {
+	#---to check if client is running, we send him a ping order. If he is alive, it will remove the order. If not the order will still be there after 3 sconds, meaning the server is ko
+	$client_status=get_client_status($client);
+	if ($client_status=="not running") {
+		return 0;
+	}
+	else if (preg_match("/rendering/",$client_status)) {
+		return 1;
+	}
+	send_order("$client","ping","","1");
+	sleep(3);
+        $check_query="select count(orders) from orders where orders='ping' and client='$client'";
+        $results=mysql_query($check_query);
+        $ping_result=mysql_result($results,0);
+	print "ping res = $ping_result\n";
+	if ($ping_result==0) {
+		# the ping order is still there so it sems the client is dead
+		return 1;
+	}
 }
 function check_server_is_dead() {
 	#---to check if server is running, we send him a ping order. If he is alive, it will remove the order. If not the order will still be there after 3 sconds, meaning the server is ko
