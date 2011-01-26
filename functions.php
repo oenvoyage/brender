@@ -566,16 +566,20 @@ function output_shot_selector($project,$selected_scene="") {
 }
 function output_config_select($default="NONE") {
 	if ($default=="NONE") {$default=$_SESSION['last_used_config'];};
-	$list= `ls ../conf/`;
-	$list=preg_split("/\n/",$list);
+	#$list= `ls ../conf/`;
+	#$list=preg_split("/\n/",$list);
+	$list=scandir("../conf/");	
 	foreach ($list as $item) {
-		$item=preg_replace("/\.py/","",$item);
-		#print("check default=$default and item=$item");
-		if ($default==$item) {
-			print " <option value=\"$item\" selected>$item</option>";
-		}	
-		else if ($item<>""){
-			print " <option value=\"$item\">$item</option>";
+		# we do not want the "." and ".." folders, and we only want .py python files
+		if($item !="." && $item!=".." && preg_match("/(.*)\.py/",$item)) {
+			$item=preg_replace("/\.py/","",$item);
+			#print("check default=$default and item=$item");
+			if ($default==$item) {
+				print " <option value=\"$item\" selected>$item</option>";
+			}	
+			else if ($item<>""){
+				print " <option value=\"$item\">$item</option>";
+			}
 		}
 	}
 }
