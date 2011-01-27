@@ -571,7 +571,7 @@ function output_config_select($default="NONE") {
 	$list=scandir("../conf/");	
 	foreach ($list as $item) {
 		# we do not want the "." and ".." folders, and we only want .py python files
-		if($item !="." && $item!=".." && preg_match("/(.*)\.py/",$item)) {
+		if($item !="." && $item!=".." && preg_match("/^[^.](\w*)\.py/",$item)) {
 			$item=preg_replace("/\.py/","",$item);
 			#print("check default=$default and item=$item");
 			if ($default==$item) {
