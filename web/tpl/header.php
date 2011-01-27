@@ -23,6 +23,7 @@
 			print "brender";
 			} else { print($_SESSION[theme]);
 			} ?>.css" rel="stylesheet" type="text/css">
+		<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 		<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
