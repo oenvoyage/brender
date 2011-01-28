@@ -105,7 +105,7 @@ while ($q=1) {
 				set_status("$computer_name","rendering benchmark","$rem");
 
 				$blender_path=get_blender_path();
-				$render_query="$blender_path -b 'blend/benchmark.blend' -o 'render/benchmark/$computer_name' -F PNG  -f 110";
+				$render_query="$blender_path -b 'blend/benchmark.blend' -o 'render/benchmark/$computer_name_' -F PNG  -f 110";
 				debug("BENCHMARK START $start_time");
 				print "------------------- benchmark renderquery = $render_query\n";
 				#--- we are now rendering the scene benchmark ...
