@@ -1,5 +1,8 @@
 <div id="new_job" title="// start new job">
-<p><?php echo $error?></p>
+<p><?php 
+	if (isset($error)) {
+		echo $error;
+	} ?></p>
 	<div class="col_1">
 		<label for="project">project</label>
 		<label for="scene">scene</label>

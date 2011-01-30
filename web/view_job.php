@@ -142,7 +142,7 @@
 
 <?php
 #--------read---------
-	$id=$_GET[id];
+	$id=$_GET['id'];
 	$query="select * from jobs where id='$id'";
 	$results=mysql_query($query);
 	$row=mysql_fetch_object($results);
@@ -150,9 +150,9 @@
 		$id=$row->id;
 		$scene=$row->scene;
 		$shot=$row->shot;
-		$jobtype=$row->jobtype;
+		#$jobtype=$row->jobtype;
 		$config=$row->config;
-		$output=$row->output;
+		#$output=$row->output;
 		$start=$row->start;
 		$end=$row->end;
 		$current=$row->current;
@@ -194,6 +194,7 @@
 	# print "a= $a --- start $start -- end $end -- totalframes $total img_chunks =$img_chunks </br>";
 	print "<td><a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$first_image</a><br/>$a<br/></td>";
 	$rows=1;
+	$b=0;
 	while ($a++<($total+$start)){
 		$b++;
 		# print " a= $a ---- b=$b/$img_chunks <br/>";
@@ -208,7 +209,7 @@
                         #$thumbnail_image="../thumbnails/$project/$scene/$shot/small_$shot".str_pad($a,4,0,STR_PAD_LEFT).".$ext";
 			$thumbnail_image=get_thumbnail_image($id,$a);
 
-			print "<td bgcolor=\"$tdcolor\">";
+			print "<td>";
 				print "<a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$thumbnail_image</a><p>$a</p>";
 			print "</td>";
 			$b=0;
@@ -222,6 +223,7 @@
 	print "</tr></table>";
 
 // Update job form
+		$select_multilayer=$select_exr=$select_tga=$select_png="";
 
 		if ($filetype=="TGA"){
 			$select_tga="selected";

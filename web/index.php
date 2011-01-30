@@ -24,8 +24,11 @@
 	if(isset($_GET['view'])) {
 		$view = $_GET['view'];
 	}
-	if(isset($_POST['view'])) {
+	else if(isset($_POST['view'])) {
 		$view = $_POST['view'];
+	}
+	else {
+		$view="";
 	}
 	
 	if(isset($_SESSION['user'])) {

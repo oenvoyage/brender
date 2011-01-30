@@ -19,9 +19,9 @@
 		<title>brender 0.5</title>
 		
 		<link rel="stylesheet" href="css/jquery-ui-1.8.6.custom.css">
-		<link href="css/<?php if (!$_SESSION[user]) { 
+		<link href="css/<?php if (!isset($_SESSION['user'])) { 
 			print "brender";
-			} else { print($_SESSION[theme]);
+			} else { print($_SESSION['theme']);
 			} ?>.css" rel="stylesheet" type="text/css">
 		<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 		<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
@@ -32,15 +32,15 @@
 		<script type="text/javascript" src="js/brender-0.5.dev.js"></script>	
 		<meta name="viewport" content="width=device-width, user-scalable=no" /> 
 		
-<?php// if(!$view == "new_job") { ?> <!-- <meta http-equiv="Refresh" content="5;URL=index.php" /> --><?php// } ?>	
+<?php // if(!$view == "new_job") { ?> <!-- <meta http-equiv="Refresh" content="5;URL=index.php" /> --><?php // } ?>	
 	
 	</head>
 	<body>
 		<div id="wrap">
 			<div id="header">
-			<a href="index.php"><img src="images/<?php if (!$_SESSION[user]) { 
+			<a href="index.php"><img src="images/<?php if (!isset($_SESSION['user'])) { 
 			print "brender";
-			} else { print($_SESSION[theme]);
+			} else { print($_SESSION['theme']);
 			} ?>_logo.png" class="logo" /></a><img id="loadingSpinner" src="images/ajax-loader.gif" alt="ajax-spinner" />
 			<div class="metadata">
 				<p>

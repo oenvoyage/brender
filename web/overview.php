@@ -191,6 +191,7 @@ function show_job_list() {
 			$status_class=get_css_class($status);
 			$priority_color=get_priority_color($priority);
 			$thumbnail_img=get_thumbnail_image($id,$start,"small");
+			$x=$GLOBALS['random_x'];
 			$thumbnail="<a href=\"index.php?view=view_job&id=$id&x=$x&visual=1\">$thumbnail_img</a>";
 
 			if (preg_match("/(rendering|waiting)/",$status)) {
@@ -226,7 +227,7 @@ function show_job_list() {
 		</table>
 		<div class="table-controls">
 			<a class="btn" id="new_job_button2" href="#">new job</a>
-			<a class="btn" href="index.php?view=jobs&x=<?php print $GLOBALS[random_x] ?>">reload</a>
+			<a class="btn" href="index.php?view=jobs&x=<?php print $GLOBALS['random_x'] ?>">reload</a>
 			<a class="btn" href="index.php?view=jobs&restart_all_paused=1">restart all paused jobs</a>
 			<a class="btn" href="index.php?view=jobs&restart_all=1">restart all</a>
 		</div>

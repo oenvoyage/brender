@@ -204,18 +204,20 @@
 		send_order($stop,"stop","","1");
 		sleep(2);
 	}
-	if ($_POST['action'] == "add client") {
-		$new_client_name=clean_name($_POST[new_client_name]);
-		if (check_client_exists($new_client_name)) {
-			$msg="<span class=\"error\">error client already exists</span>";
-		}
-		else if ($new_client_name == "" ) {
-			$msg="<span class=\"error\">error, please enter a client name</span>";
-		}
-		else {
-			$add_query="insert into clients values('','$new_client_name','$_POST[speed]','$_POST[machine_type]','$_POST[machine_os]','$_POST[blender_local_path]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
-			mysql_query($add_query);
-			$msg="created new client $_POST[client] $add_query";
+	if (isset($_POST['action'])) {
+		if ($_POST['action'] == "add client") {
+			$new_client_name=clean_name($_POST[new_client_name]);
+			if (check_client_exists($new_client_name)) {
+				$msg="<span class=\"error\">error client already exists</span>";
+			}
+			else if ($new_client_name == "" ) {
+				$msg="<span class=\"error\">error, please enter a client name</span>";
+			}
+			else {
+				$add_query="insert into clients values('','$new_client_name','$_POST[speed]','$_POST[machine_type]','$_POST[machine_os]','$_POST[blender_local_path]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
+				mysql_query($add_query);
+				$msg="created new client $_POST[client] $add_query";
+			}
 		}
 	}
 

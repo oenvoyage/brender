@@ -130,7 +130,7 @@ if (isset($_GET['do_the_test'])) {
 	<h3>Interface</h3>
 	<div class="item">	
 		<select id="theme_selector">
-			<option value="">select theme (<?php print $_SESSION[theme] ?>)</option>
+			<option value="">select theme (<?php print $_SESSION['theme'] ?>)</option>
 			<option value="brender">brender</option>
 			<option value="brender_dark">brender dark</option>
 			<option value="brender_mobile">brender mobile</option>
@@ -142,8 +142,8 @@ if (isset($_GET['do_the_test'])) {
 <?php
 #print "sid = $sid <br/>";
 
-if (isset($_GET[debug])) {
-	$_SESSION[debug]=!$_SESSION[debug];
+if (isset($_GET['debug'])) {
+	$_SESSION['debug']=!$_SESSION['debug'];
 }
 
 if (isset($_GET['enable_sound'])) {
@@ -219,20 +219,21 @@ function system_status() {
 #   ----------------------------------------
 print "<h2>// <b>projects</b></h2>";
 
-if ($projectid=$_GET[del]) {
-	$queryqq="delete from projects where id=$projectid;";
+if (isset($_GET['del'])) {
+	$queryqq="delete from projects where id=$_GET[del];";
 	mysql_query($queryqq);
 	# sleep(1);
 }
-if ($deactivate=$_GET[deactivate]) {
-	$queryqq="update projects set status='inactive' where id=$deactivate;";
+if (isset($_GET['deactivate'])) {
+	$queryqq="update projects set status='inactive' where id=$_GET[deactivate];";
 	mysql_query($queryqq);
 }
-if ($activate=$_GET[activate]) {
-	$queryqq="update projects set status='active' where id=$activate;";
+if (isset($_GET['activate'])) {
+	$queryqq="update projects set status='active' where id=$_GET[activate];";
 	mysql_query($queryqq);
 }
-if ($def=$_GET[def]) {
+if (isset($_GET['def'])) {
+	$def=$_GET['def'];
 	if (check_project_is_active($def)) {
 		$queryqq="update projects set def=0";
 		mysql_query($queryqq);
@@ -245,8 +246,8 @@ if ($def=$_GET[def]) {
 		print "<span class=\"error\">to set a project as default, it must be active</span>";
 	}
 }
-if (isset($_GET[new_project])) {
-	$new_project=clean_name($_GET[new_project]);
+if (isset($_GET['new_project'])) {
+	$new_project=clean_name($_GET['new_project']);
 	if (check_project_exists($new_project)) {
 		print "<span class=error>project $project already exists, please choose other name</span>";
 	}
@@ -307,7 +308,7 @@ if (isset($_GET[new_project])) {
 		$test_path=get_path($name,"output",$server_os);
 		$test_result= file_exists($test_path);
 		print "<tr class=\"$status\">
-			<td>$id ($res) $brender_root</td> 
+			<td>$id</td> 
 			<td>$is_default</td> 
 			<td><a href=\"index.php?view=settings&def=$id\">$name</a></td> 
 			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 

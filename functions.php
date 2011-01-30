@@ -35,11 +35,11 @@ function output($msg,$type="info") {
 	print "$msg\n";
 }
 function debug($msg) {
-	if ($_SESSION[debug]) { 
+	if (isset($_SESSION['debug'])) { 
 		# only display debug message on web interface when _SESSION debug is enabled
 		print "****  DEBUG ***** :: $msg<br/>";
 	}
-	if ($GLOBALS[debug_mode]) { 
+	if (isset($GLOBALS['debug_mode'])) { 
 		# --- for command_line we display debug messages if debug_mode global is on
 		print "**** DEBUG ***** :: $msg\n";
 	}
@@ -126,12 +126,12 @@ function get_css_class($status) {
 	}
 	else if (preg_match("/finished/",$status)) {
 		#print "GLOAB : ".$GLOBALs[last_finished];
-		if ($GLOBALS[last_finished]) {
-			$GLOBALS[last_finished]=0;
+		if (isset($GLOBALS['last_finished'])) {
+			$GLOBALS['last_finished']=0;
 			return "finished";
 		}
 		else {
-			$GLOBALS[last_finished]=1;
+			$GLOBALS['last_finished']=1;
 			return "finished2";
 		}
 	}
@@ -412,6 +412,8 @@ function scene_shot_cascading_dropdown_menus() {
 	# to have this working, the server needs to have an server_os set, and have path access to the blend files of the project for autodiscovery of .blend files
 
 	$projects_list=get_projects_list_array("active");
+	$projects_options = $shot_options = $scene_options = "";  #initalize the options
+
 	foreach ($projects_list as $project) {
 		$scene_list=get_scene_list_array($project);
 		$projects_options.="<option class=\"project\" value=\"$project\">$project</option>";
@@ -818,7 +820,6 @@ function count_rendered_frames($job_id) {
 		$server_os=get_server_settings("server_os");
 		$path=get_path($project,"output",$server_os);
 		$end=$row->end;
-		$name=$row->name;
 		$a=$row->start-1;
 		$total=0;
 

@@ -28,8 +28,9 @@ if(isset($_GET['max'])) {
 </script>
 
 <?php
-if ($log=$_GET[log]){ 
-	if ($_GET[max]) {
+if (isset($_GET['log'])){ 
+	$log=$_GET['log'];
+	if (isset($_GET['max'])) {
 		$_max=$_GET[max];
 		$text_note = "<p class=\"less\">show less content...</p><br/>";	
 	}
