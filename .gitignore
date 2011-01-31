@@ -1,6 +1,6 @@
 *.php~
 #blender_bin/
-render/
+#render/
 # thumbnails/
 # blend/
 #logs/*
