@@ -43,7 +43,7 @@
 ?>
 	<div id="section">
 	<?php
-		if (!$_SESSION['user']) {
+		if (!isset($_SESSION['user'])) {
 				//print('<div id="dialog">');
 				include "login.php";
 				//print('</div>');					

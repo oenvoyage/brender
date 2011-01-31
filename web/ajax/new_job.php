@@ -6,17 +6,19 @@ include_once("../../functions.php");
 $GLOBALS['computer_name']="ajax";
 
 if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {	
-		$start = $_POST[start];
-		$end = $_POST[end];
-		$shot = $_POST[shot];
-		$project = $_POST[project];
-		$scene = $_POST[scene];
-		$fileformat = $_POST[fileformat];
-		$rem = $_POST[rem];
-		$config = $_POST[config];
-		$chunks = $_POST[chunks];
-		$priority = $_POST[priority];
-		if ($_POST[directstart] == "true"){
+		$start = $_POST['start'];
+		$end = $_POST['end'];
+		$shot = $_POST['shot'];
+		$project = $_POST['project'];
+		$scene = $_POST['scene'];
+		$fileformat = $_POST['fileformat'];
+		$rem = $_POST['rem'];
+		$config = $_POST['config'];
+		$chunks = $_POST['chunks'];
+		$priority = $_POST['priority'];
+		$dberror="";
+		
+		if ($_POST['directstart'] == "true"){
 			$status="waiting";
 			$msg = "New job direct started."; # TODO
 		}

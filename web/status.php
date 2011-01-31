@@ -1,15 +1,11 @@
 <?php
-$ticker=$_GET['ticker']+1;
 #--------------------------------------------------
 #-------- THIS PAGE NEED REWRITE-------------------
 #--------------------------------------------------
 
  # print "ticker= $ticker";
-if ($ticker>4) {
-	$ticker=0;
-}
 
-print "<meta http-equiv=\"Refresh\" content=\"5;URL=index.php?view=status&ticker=$ticker\" />\n";
+print "<meta http-equiv=\"Refresh\" content=\"5;URL=index.php?view=status\" />\n";
 #print "<a href=\"index.php?view=status&server_stop=1\">stop</a>";
 $qq=exec('ps');
 # print "qq= $qq";

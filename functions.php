@@ -386,11 +386,11 @@ function brender_log($log){
 	$log_koi = "$heure $computer_name: $log\n";
 	#print "\n---------------------- I AM LOGGING THIS ::: $log_koi-----end ----\n";
 	# --- we log 2 times, first time for the computer itself, and ....
-	$foo=fopen($prefix."logs/$computer_name.log",a);
+	$foo=fopen($prefix."logs/$computer_name.log","a");
             fwrite($foo,"$log_koi");
         fclose($foo);
 	# .... second time for the brender.log that includes all logs
-	$foo=fopen($prefix."logs/brender.log",a);
+	$foo=fopen($prefix."logs/brender.log","a");
             fwrite($foo,"$log_koi");
         fclose($foo);
 	#print "$prefix/logs/brender.log";

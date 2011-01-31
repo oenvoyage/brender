@@ -23,11 +23,13 @@
 		$dquery="DELTE FROM clients WHERE client='$client'";
 		$msg="client $client deleted :: ok $dquery";
 	}
-	if ($_POST['action']=="update") {
-		$uquery="UPDATE clients SET speed='$_POST[speed]',machine_os='$_POST[machine_os]',machine_type='$_POST[machine_type]',blender_local_path='$_POST[blender_local_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
-		mysql_query($uquery);
-		$msg="$client updated :: ok <br/>";
-		$msg.="<a href=\"index.php?view=clients\">back to clients list</a>";
+	if (isset($_POST['action'])) {
+	   	if ($_POST['action']=="update") {
+			$uquery="UPDATE clients SET speed='$_POST[speed]',machine_os='$_POST[machine_os]',machine_type='$_POST[machine_type]',blender_local_path='$_POST[blender_local_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
+			mysql_query($uquery);
+			$msg="$client updated :: ok <br/>";
+			$msg.="<a href=\"index.php?view=clients\">back to clients list</a>";
+		}
 	}
 	if (isset($_GET['stop'])) {
 		$stop=$_GET['stop'];
@@ -79,6 +81,8 @@
 		if ($machine_type=='rendernode') {
 			$rendernode_selected="selected";
 		}
+
+		$linux_selected = $windows_selected = "";
 		if ($machine_os=='linux') {
 			$linux_selected="selected";
 		}

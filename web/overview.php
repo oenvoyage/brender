@@ -1,18 +1,18 @@
 <?php
 if (isset($_GET['orderby_job'])) {
-	if ($_SESSION[orderby_jobs]==$_GET[orderby_job]) {
-		$_SESSION[orderby_jobs]=$_GET['orderby_job']." desc";
+	if ($_SESSION['orderby_jobs']==$_GET['orderby_job']) {
+		$_SESSION['orderby_jobs']=$_GET['orderby_job']." desc";
 	}
 	else {
-		$_SESSION[orderby_jobs]=$_GET['orderby_job'];
+		$_SESSION['orderby_jobs']=$_GET['orderby_job'];
 	}
 }
 if (isset($_GET['orderby_client'])) {
-	if ($_SESSION[orderby_client]==$_GET[orderby_client]) {
-		$_SESSION[orderby_client]=$_GET['orderby_client']." desc";
+	if ($_SESSION['orderby_client']==$_GET['orderby_client']) {
+		$_SESSION['orderby_client']=$_GET['orderby_client']." desc";
 	}
 	else {
-		$_SESSION[orderby_client]=$_GET['orderby_client'];
+		$_SESSION['orderby_client']=$_GET['orderby_client'];
 	}
 }
 
@@ -52,6 +52,7 @@ $(document).ready(function() {
 <?php
 function show_last_log() {
 	#print "<h2>// last logs</h2>";
+	$a=0;
 	$lok = file("../logs/brender.log");
         $lok=array_reverse($lok);
         foreach ($lok as $line){

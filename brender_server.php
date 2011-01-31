@@ -41,7 +41,7 @@ if (!check_server_is_dead()) {  // this means the server is still running
 }
 if ($argv[1] =="debug") {
                         # -- we enable debug mode ------
-       $GLOBALS[debug_mode]=1;
+       $GLOBALS['debug_mode']=1;
        debug(" STARTED IN DEBUG MODE ");
 }
 

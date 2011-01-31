@@ -23,6 +23,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		$session_user = $_SESSION['user'];
 		$scene = $_POST['scene'];
 		$shot = $_POST['shot'];
+		$dberror="";
 		
 		#print "DIRRR ---$start----";
 		#  do we still need this msg dialog?

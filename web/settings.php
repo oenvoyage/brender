@@ -157,11 +157,11 @@ if (isset($_GET['disable_sound'])) {
 	print "sound disabled<br/>";
 }
 if (isset($_GET['order_by'])) {
-        if ($_SESSION[orderby_projects]==$_GET[order_by]) {
-                $_SESSION[orderby_projects]=$_GET['order_by']." desc";
+        if ($_SESSION['orderby_projects']==$_GET['order_by']) {
+                $_SESSION['orderby_projects']=$_GET['order_by']." desc";
         }   
         else {
-                $_SESSION[orderby_projects]=$_GET['order_by'];
+                $_SESSION['orderby_projects']=$_GET['order_by'];
         }   
 }
 
