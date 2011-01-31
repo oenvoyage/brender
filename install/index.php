@@ -82,15 +82,15 @@
 	// Name of the file
 	$filename = 'brender.sql';
 	// MySQL host (needs to be localhost - later to be changed according to MAMP)
-	$mysql_host = $_POST[host].':'.$_POST[port];
+	$mysql_host = $_POST['host'].':'.$_POST['port'];
 	// MySQL username
-	$mysql_username = $_POST[brenderUser];
+	$mysql_username = $_POST['brenderUser'];
 	// MySQL password
-	$mysql_password = $_POST[brenderPassword];
+	$mysql_password = $_POST['brenderPassword'];
 	// Database name
 	$mysql_database = 'brender';
 	// Host OS
-	$mysql_host_os = $_POST[host_os];
+	$mysql_host_os = $_POST['host_os'];
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -101,7 +101,7 @@
 	
 	
 	// Optionally drop prvious tables
-	if ($_POST[database_overwrite]) {
+	if ($_POST['database_overwrite']) {
 		$query="DROP TABLE `clients`, `jobs`, `orders`, `projects`, `rendered_frames`, `server_settings`";
 		mysql_query($query) or print(mysql_error());
 		echo("Dropping previous tables called `clients`, `jobs`, `orders`, `projects`, `rendered_frames`, `server_settings`");
