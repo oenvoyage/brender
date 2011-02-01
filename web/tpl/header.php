@@ -51,5 +51,9 @@
 					?>
 				</p>
 				<p class="clock"><?php include "clock.php"?></p>
-				<p><?php print "logged in as: $_SESSION[user]";?> <a href="logout.php">[logout]</a></p>
+				<p><?php 
+					if (isset($_SESSION['user'])) {
+						print "logged in as: $_SESSION[user]";
+						print "<a href=\"logout.php\">[logout]</a></p>";
+				   } ?>
 			</div>

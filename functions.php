@@ -786,22 +786,27 @@ function show_last_rendered_frame($mode="simple") {
 	$query="SELECT * FROM rendered_frames WHERE is_thumbnailed='1' ORDER BY finished_time DESC LIMIT 1";
         $results=mysql_query($query);
         $row=mysql_fetch_object($results);
-        $job_id=$row->job_id;
-        $rendered_by=$row->rendered_by;
-        $frame=$row->frame;
-        $finished_time=$row->finished_time;
-	$thumbnail_image=get_thumbnail_image($job_id,$frame);
-	if ($thumbnail_image) {
-		if ($mode=="full") {
-        		print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">$thumbnail_image</a><br/>";
-			print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
-		}
-		else {
-       		  	print $thumbnail_image;
-		}
+	if (mysql_num_rows($results)==0) {
+		print "no last rendered frame found";
 	}
 	else {
-		print "no last rendered frame found";
+        	$job_id=$row->job_id;
+        	$rendered_by=$row->rendered_by;
+        	$frame=$row->frame;
+        	$finished_time=$row->finished_time;
+		$thumbnail_image=get_thumbnail_image($job_id,$frame);
+		if ($thumbnail_image) {
+			if ($mode=="full") {
+        			print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">$thumbnail_image</a><br/>";
+				print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
+			}
+			else {
+       			  	print $thumbnail_image;
+			}
+		}
+		else {
+			print "no last rendered frame found";
+		}
 	}
 }
 function count_rendered_frames($job_id) {
