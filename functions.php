@@ -448,6 +448,8 @@ function scene_shot_cascading_dropdown_menus() {
 
 }
 function get_projects_list_array($type="DEFAULT") {
+	$projects_list="";   // initalize projects_list
+
 	switch($type) {
 		case "active":
 			$query="SELECT * FROM projects WHERE status='active' ORDER BY def DESC ";
@@ -456,6 +458,7 @@ function get_projects_list_array($type="DEFAULT") {
 			$query="SELECT * FROM projects ORDER BY def DESC ";
 	}
         $results=mysql_query($query);
+
 	while ($row=mysql_fetch_object($results)) {
 		$project_name=$row->name;
 		$projects_list[]=$project_name;
