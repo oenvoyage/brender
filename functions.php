@@ -448,7 +448,7 @@ function scene_shot_cascading_dropdown_menus() {
 
 }
 function get_projects_list_array($type="DEFAULT") {
-	$projects_list="";   // initalize projects_list
+	$projects_list[]="";   // initalize projects_list
 
 	switch($type) {
 		case "active":
