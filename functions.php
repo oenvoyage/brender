@@ -272,7 +272,7 @@ function server_start($pid){
 	$query="update server_settings set pid='$pid',status='running',started=now()";
 	# 	print "\n query = $query ----\n";
 	mysql_query($query);
-	print "STARTED SERVER $status $rem\n";
+	print "STARTED SERVER\n";
 }
 function check_if_client_has_order_waiting($client) {
         $query="select count(orders) from orders where client='$client'";
@@ -294,7 +294,7 @@ function check_client_is_running($client) {
         $check_query="select count(orders) from orders where orders='ping' and client='$client'";
         $results=mysql_query($check_query);
         $ping_result=mysql_result($results,0);
-	print "ping res = $ping_result\n";
+	#print "ping res = $ping_result\n";
 	if ($ping_result==0) {
 		# the ping order is still there so it sems the client is dead
 		return 1;
@@ -377,6 +377,7 @@ function send_order($client,$orders,$rem,$priority){
 function brender_log($log){
 	$computer_name=$GLOBALS['computer_name'];
 	$log=preg_replace("/\n$/","",$log);  # we erase the trailing carriage return to avoid empty lines in the log file
+	$prefix=""; // initialize prefix variable
 	if ($computer_name=="web_interface") {
 		$prefix="../";
 	}
@@ -684,7 +685,7 @@ function filetype_to_ext($filetype) {
 }
 function add_rendered_frames($job_id,$start,$end){
 	#will add a rendered frame to the table, usually it is a client that invoke this function just after finishing a render job
-	$client=$GLOBALS[computer_name];
+	$client=$GLOBALS['computer_name'];
 	for ($i=$start;$i<$end+1;$i++) {
 		$query="insert into rendered_frames values('','$job_id','$i','$client',now(),'0')";
 		debug("ADD RENDER FRAME QUERY = $query");
@@ -723,7 +724,7 @@ function get_thumbnail_image($job_id,$image_number,$class="") {
 	}
 }
 function create_thumbnail($job_id,$image_number) {
-	if ($GLOBALS[computer_name]=="web_interface") {
+	if ($GLOBALS['computer_name']=="web_interface") {
 		#print "WEBBBBBB<br/>";
 		$thumbnail_path="../thumbnails";
 		#$input_prefix="../";

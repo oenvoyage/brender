@@ -30,19 +30,22 @@ output("---- brender server 0.5 ----");
 #-----------------------------------------------------
     $server_speed=2; # server speed is the number of second that tha main loop will sleep(), check at the end of brender_server.php file
     $computer_name="server";
-    #$GLOBALS['os']="mac";  // seems unused
+    $GLOBALS['computer_name']="server";
     $pid=getmypid();
     $imagemagick_root=""; # keep empty if $IMAGEMAGICK_HOME is set 
+
 #-----------------------------------------------------
 if (!check_server_is_dead()) {  // this means the server is still running
 	$pid=get_server_settings("pid");
 	output("tried to start brender server.... but a server seems to be already running with process $pid\n");
 	die("could not start server");
 }
-if ($argv[1] =="debug") {
+if (isset($argv[1])) {
+	if ($argv[1] =="debug") {
                         # -- we enable debug mode ------
-       $GLOBALS['debug_mode']=1;
-       debug(" STARTED IN DEBUG MODE ");
+       		$GLOBALS['debug_mode']=1;
+       		debug(" STARTED IN DEBUG MODE ");
+	}
 }
 
 
@@ -57,7 +60,11 @@ check_and_delete_old_orders();
 #--- the main loop acts like this : it checks through all clients if there is an idle one, and trys to find some job for it
 #----this part might need some cleaning
 #-----------------------------------------------------
-while ($q=1) {
+#----- variable declaration .-----
+$cycles_b=0;
+$num_cycles=0;
+
+while (1<>2) {
 	$query="select * from clients";
 	$results=mysql_query($query) or die(mysql_error());
 	while ($row=mysql_fetch_object($results)){
@@ -78,66 +85,71 @@ while ($q=1) {
 			# print "$client is idle .... checking for a job\n";
 			$query="select * from jobs where status='waiting' or status='rendering' order by priority limit 1;";
 			$results_job=mysql_query($query);
-			$row_job=mysql_fetch_object($results_job);
-				$id=$row_job->id;
-				$project=$row_job->project;
-				$scene=$row_job->scene;
-				$shot=$row_job->shot;
-				$job_priority=$row_job->priority;
-				$file=$row_job->file;
-				$start=$row_job->start;
-				$filetype=$row_job->filetype;
-				#debug("-------------------- $id proj=$project scene=$scene shot=$shot----------");
-				$end=$row_job->end;
-				$current=$row_job->current;
-				$status=$row_job->status;
-				$config="conf/".$row_job->config.".py";
-				$chunks=$row_job->chunks;
+			if (mysql_num_rows($results_job)==0) {
+				#print "no jobs found";
+				# ------ we found no jobs to render so skip
+			}
+			else {
+				$row_job=mysql_fetch_object($results_job);
+					$id=$row_job->id;
+					$project=$row_job->project;
+					$scene=$row_job->scene;
+					$shot=$row_job->shot;
+					$job_priority=$row_job->priority;
+					$start=$row_job->start;
+					$filetype=$row_job->filetype;
+					#debug("-------------------- $id proj=$project scene=$scene shot=$shot----------");
+					$end=$row_job->end;
+					$current=$row_job->current;
+					$status=$row_job->status;
+					$config="conf/".$row_job->config.".py";
+					$chunks=$row_job->chunks;
 
-				#output("SCENE = $scene CLIENT priority $client=$client_priority   ..... JOB priority=$job_priority ");
-			if ($scene && $client_priority<$job_priority) {
-				output("...found job for $client ::  $name file $file start $start end $end current $current chunks $chunks config=$config");
-				$number_of_chunks=$chunks*$speed;
-				$where_to_start=$current;
-				$where_to_end=$current+$number_of_chunks-1;
-				$blend_path=get_path($project,"blend",$client_os);
-				$output_path=get_path($project,"output",$client_os);
-				if ($where_to_end>$end) {   # we render more than needed, lets cut the end
-					$where_to_end=$end;
-				}
-				$new_start=$current+$number_of_chunks; 
-				output("$client speed $speed : render $number_of_chunks chunks = ($do_start - $do_end)");
-				if ($current<$end) {
-					# -----------------------------------------
-					# --------- MAIN RENDER ORDERS  -----------
-					# -----------------------------------------
+					#output("SCENE = $scene CLIENT priority $client=$client_priority   ..... JOB priority=$job_priority ");
+				if ($scene && $client_priority<$job_priority) {
+					output("...found job for $client :: $scene/$shot start $start end $end current $current chunks $chunks config=$config");
+					$number_of_chunks=$chunks*$speed;
+					$where_to_start=$current;
+					$where_to_end=$current+$number_of_chunks-1;
+					$blend_path=get_path($project,"blend",$client_os);
+					$output_path=get_path($project,"output",$client_os);
+					if ($where_to_end>$end) {   # we render more than needed, lets cut the end
+						$where_to_end=$end;
+					}
+					$new_start=$current+$number_of_chunks; 
+					output("$client speed $speed : render $number_of_chunks chunks = ($where_to_start - $where_to_end)");
+					if ($current<$end) {
+						# -----------------------------------------
+						# --------- MAIN RENDER ORDERS  -----------
+						# -----------------------------------------
 
-					$render_order="-b \'$blend_path/$scene/$shot.blend\' -o \'$output_path/$scene/$shot/$shot\' -P $config -F $filetype ";
-					$info_string="job $id <b>$scene/$shot</b>";
+						$render_order="-b \'$blend_path/$scene/$shot.blend\' -o \'$output_path/$scene/$shot/$shot\' -P $config -F $filetype ";
+						$info_string="job $id <b>$scene/$shot</b>";
 
-					if (($where_to_start+$number_of_chunks)>$end) {
-						#---last chunk of job, its the end, we only need to render frames from CURRENT to END---
-						$render_order.=" -s $where_to_start -e $end -a -JOB $id"; 
- 						$info_string.=" $where_to_start-$end (last chunk)";
-						output("===last chunk=== job $name $file finished soon====");
-						send_order($client,"declare_finished","$id","30");
+						if (($where_to_start+$number_of_chunks)>$end) {
+							#---last chunk of job, its the end, we only need to render frames from CURRENT to END---
+							$render_order.=" -s $where_to_start -e $end -a -JOB $id"; 
+							$info_string.=" $where_to_start-$end (last chunk)";
+							output("===last chunk=== job $name $file finished soon====");
+							send_order($client,"declare_finished","$id","30");
+						}
+						else {
+							#---normal job...we render frames from CURRENT to DO_END
+							$render_order.=" -s $where_to_start -e $where_to_end -a -JOB $id"; 
+							$info_string.=" $where_to_start-$where_to_end";
+						}
+						output("job_render for $client :::: $render_order-----------");
+						# sending the render order to the client. the render_order contains everything used after the commandline blender -b
+						set_info($client,$info_string);
+						send_order($client,"render","$render_order","20");
+						$query="update jobs set current='$new_start',status='rendering' where id='$id'";
 					}
 					else {
-						#---normal job...we render frames from CURRENT to DO_END
-						$render_order.=" -s $where_to_start -e $where_to_end -a -JOB $id"; 
-						$info_string.=" $where_to_start-$where_to_end";
+						$query="update jobs set status='finished at $heure' where id='$id'";
 					}
-					output("job_render for $client :::: $render_order-----------");
-					# sending the render order to the client. the render_order contains everything used after the commandline blender -b
-					set_info($client,$info_string);
-					send_order($client,"render","$render_order","20");
-					$query="update jobs set current='$new_start',status='rendering' where id='$id'";
+					# print "--> query= $query\n\n";
+					mysql_unbuffered_query($query);
 				}
-				else {
-					$query="update jobs set status='finished at $heure' where id='$id'";
-				}
-				# print "--> query= $query\n\n";
-				mysql_unbuffered_query($query);
 			}
 		}
 	}

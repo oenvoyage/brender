@@ -36,10 +36,12 @@ else {
 			output("tried to start brender client with client name : $computer_name.... but a client with that name seems to be already running\n");
 		         die("could not start client");
 		}
-		if ($argv[2] =="debug") {
-			# -- we enable debug mode ------
-			$GLOBALS['debug_mode']=1;
-			debug(" STARTED IN DEBUG MODE ");
+		if (isset($argv[2])) {
+			if ($argv[2] =="debug") {
+				# -- we enable debug mode ------
+				$GLOBALS['debug_mode']=1;
+				debug(" STARTED IN DEBUG MODE ");
+			}
 		}
 	}
 	else {
@@ -54,6 +56,7 @@ output("computer name=$computer_name os=$os");
 output("process id=".getmypid());
 brender_log("START $computer_name");
 check_if_client_should_work();
+$a=0;
 
 while ($q=1) {
 	#-----------------main loop---------
