@@ -151,7 +151,7 @@ while ($q=1) {
 			}
 			else if ($orders=="stop") { 
 				# --- stop and client exits
-				set_status("$computer_name","not running","");
+				set_status("$computer_name","not running","$rem");
 				output("STOP");
 				remove_order($id);
 				die("\n stop $id\n");

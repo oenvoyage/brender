@@ -109,6 +109,8 @@
 </script>
 
 <?php	
+	$msg =""; // initalize message variable
+
 	if (isset($_GET['orderby'])) {
 		if ($_SESSION[orderby_client]==$_GET[orderby]) {
 			$_SESSION[orderby_client]=$_GET['orderby']." desc";
@@ -144,14 +146,14 @@
                         while ($row=mysql_fetch_object($results)){
                                 $client=$row->client;
                                 send_order("$client","disable","","5");
-                                $msg.= "disabled $client<br/>";
+                                $msg.= "... disabled $client<br/>";
                         }
         	}
         	else {
 			send_order($disable,"disable","","5");
-        		print "disable client : $disable<br/>";
+        		print "... disable client : $disable<br/>";
 		}
-		$msg= "disabled $disable <a href=\"index.php?view=clients\">reload</a><br/>";
+		$msg.= "disabled $disable <br/>";
 		sleep(1);
 	}
 	if (isset($_GET['enable'])) {
@@ -163,7 +165,7 @@
 			while ($row=mysql_fetch_object($results)){
 				$client=$row->client;
 				send_order($client,"enable","","5");
-				$msg.= "enabled $client<br/>";
+				$msg.= "... enabled $client<br/>";
 			}
 		}
 		else if ($enable=="force_all"){
@@ -173,7 +175,7 @@
 			while ($row=mysql_fetch_object($results)){
 				$client=$row->client;
 				send_order($client,"enable","","5");
-				$msg.= "enabled $client<br/>";
+				$msg.= "... enabled $client<br/>";
 			}
 		}
 		else {
@@ -181,7 +183,7 @@
 			#header( 'Location: index.php' );
 		}
 		sleep(2);
-		$msg= "enabled $enable <a href=\"index.php?view=clients\">reload</a><br/>";
+		$msg.= "enabled $enable <br/>";
 	}
 	if (isset($_GET['refresh'])) {	
 		checking_alive_clients();
@@ -190,18 +192,19 @@
 	if (isset($_GET['delete'])) {
 		$client=$_GET['delete'];
 		if (!check_client_exists($client)) {
-			$msg="error : client $client not found";
+			$msg.="error : client $client not found<br/>";
 		}
 		else {
 			delete_node($client);
-                	$msg="client $client deleted :: ok ";
+                	$msg.="client $client deleted :: ok <br/>";
 			# print "query =$dquery";
 		}
         }
 	if (isset($_GET['stop'])) {
 		$stop=$_GET['stop'];
-		$msg= "stopped $stop <a href=\"index.php?view=clients\">reload</a><br/>";
-		send_order($stop,"stop","","1");
+		$msg= "stopped $stop<br/>";
+		$when=date('Y/d/m H:i:s');
+		send_order($stop,"stop","stopped@$when","1");
 		sleep(2);
 	}
 	if (isset($_POST['action'])) {
@@ -222,7 +225,7 @@
 	}
 
 if (isset($msg)) {
-	print "$msg<br/> <a href=\"index.php?view=clients\">reload</a><br/>";
+	print "$msg <a href=\"index.php?view=clients\">reload</a><br/>";
 }
 
 #--------read---------
