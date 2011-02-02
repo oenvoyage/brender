@@ -31,7 +31,7 @@ if(isset($_GET['max'])) {
 if (isset($_GET['log'])){ 
 	$log=$_GET['log'];
 	if (isset($_GET['max'])) {
-		$_max=$_GET[max];
+		$_max=$_GET['max'];
 		$text_note = "<p class=\"less\">show less content...</p><br/>";	
 	}
 	else {
@@ -41,8 +41,20 @@ if (isset($_GET['log'])){
 	?> <div class="result"><?php
 	//print "<b>$log log</b><br/>";
 	//print "<a href=\"index.php?view=logs&log=$log&max=400\">400 lines</a><br/>";	
-	$lok = file("../../logs/$log.log");
-	$lok = array_reverse($lok);
+
+	$logpath="../../logs/$log.log";
+	$lok=array();
+	$a=0;
+
+	if (file_exists($logpath)) {
+		$lok = file($logpath);
+		$lok = array_reverse($lok);
+	}
+	else {
+		print "<span class=error>logfile $log not found</span><br/>";
+		
+	}
+
 	foreach ($lok as $line){
 		if ($a++>$_max ) {
 			break;
@@ -56,9 +68,9 @@ if (isset($_GET['log'])){
 		$rest=$lines[4];
 		#print_r($lines);
 		#print "$line<br/>";
-		print "$machine@$date $time ::<br/>";
+		print "<div class=\"log_$machine\">$machine</div><div class=\"log_time_display\">@$date $time </div>";
 		print "<b>$rest</b>";
-		print "<br/>----------------<br/>";
+		print "<br/>----------------------<br/>";
 	}
 	print $text_note;
 	?> </div><?php	

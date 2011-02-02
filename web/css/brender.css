@@ -286,6 +286,24 @@ form {
 /* -- Buttons end -- */
 
 
+/* ------------------logs colors  (used to display color in log files )-------------------*/
+.log_server {
+	color:#369;
+}
+
+.log_brender {
+	color:#369;
+}
+
+.log_ajax {
+	color:#396;
+}
+
+.log_time_display {
+	color:#666666;
+}
+
+
 /* ------------------status colors -------------------*/
 .error {
 	color:#ff2222;
