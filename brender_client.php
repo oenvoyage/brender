@@ -53,6 +53,7 @@ $os=get_client_os($computer_name);
 output("computer name=$computer_name os=$os");
 output("process id=".getmypid());
 brender_log("START $computer_name");
+check_if_client_should_work();
 
 while ($q=1) {
 	#-----------------main loop---------
@@ -131,7 +132,7 @@ while ($q=1) {
 				# ---disabling the computer----
 				#print "enabling debug rem $rem\n";
 				set_status("$computer_name","disabled","$rem");
-				set_info($computer_name,'');
+				#set_info($computer_name,'');
 				output("DISABLE");
 				sleep(1);
 				remove_order($id);

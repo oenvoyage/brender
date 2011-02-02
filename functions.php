@@ -169,16 +169,17 @@ function check_if_client_should_work($client_name="check all") {
 		$now=$row->now;
 		$end=$row->end;
 		$is_during_office_hours=$row->should_work;
-		print "$client is $status :: <br/>";
-		print "$now :: $start / $end ::::---- is during work hours? = $is_during_office_hours<br/>";
+		print "$client is $status :: <br/>\n";
+		print "$now :: $start / $end ::::---- is during work hours? = $is_during_office_hours<br/>\n";
 		if (!$is_during_office_hours && $status=='disabled') {
-			print "OHH $client should work, lets enable him<br/>";
+			print "OHH $client should work, lets enable him<br/>\n";
 			send_order($client,"enable","","5");
 
 		}
 		if ($is_during_office_hours && $status=='idle') {
-			print "OHH $client should not work, lets disable him<br/>";
+			print "OHH $client should not work, lets disable him<br/>\n";
 			send_order($client,"disable","artist@work","5");
+			set_info($client,"artist@work");
 		}
 	}
 	
