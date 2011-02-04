@@ -350,15 +350,15 @@ if (isset($_GET['new_project'])) {
 	<div class="col_2">
 		<input type="text" id="project_name" value="">
 		<input type="text" id="rem" value="">
-		<input type="text" id="blend_mac" value="blend/">
-		<input type="text" id="blend_linux" value="blend/">
-		<input type="text" id="blend_win" value="\\blend">	
-		<input type="text" id="output_mac" value="render">
-		<input type="text" id="output_linux" value="render">
-		<input type="text" id="output_win" value="\\render">
+		<input type="text" id="blend_mac" value="../blend/">
+		<input type="text" id="blend_linux" value="../blend/">
+		<input type="text" id="blend_win" value="../blend">	
+		<input type="text" id="output_mac" value="../render">
+		<input type="text" id="output_linux" value="../render">
+		<input type="text" id="output_win" value="../render">
 	</div>
 	<div class="clear"></div>
-	<small>Please notice paths are RELATIVE to brender_root.<br/>You can also use Absolute paths</small>
+	<small>Please notice paths are relative to brender_root/web folder.<br/>You should use Absolute paths if possible</small>
 </div>
 
 <h2>// <strong>render</strong> configurations</h2>

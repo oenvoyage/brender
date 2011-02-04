@@ -35,9 +35,11 @@ function output($msg,$type="info") {
 	print "$msg\n";
 }
 function debug($msg) {
-	if ($_SESSION['debug']==1) { 
-		# only display debug message on web interface when _SESSION debug is enabled
-		print "****  DEBUG ***** :: $msg<br/>";
+	if (isset($_SESSION['debug'])) {
+		if ($_SESSION['debug']==1) { 
+			# only display debug message on web interface when _SESSION debug is enabled
+			print "****  DEBUG ***** :: $msg<br/>";
+		}
 	}
 	if (isset($GLOBALS['debug_mode'])) { 
 		# --- for command_line we display debug messages if debug_mode global is on
