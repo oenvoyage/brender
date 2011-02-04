@@ -100,17 +100,16 @@ function order_status() {
                 $id=$row->id;
                 $rem=$row->rem;
 	        $orders=$row->orders;
-		$status=$row->status;
-		 $tdstyle="none";
-		 $text="";
-		 if ($orders=="render") {
-		    	$tdstyle="render";
-		 }
-		 else if($orders=="disable" or $orders=="enable") {
+		$tdstyle="none";
+		$text="";
+		if ($orders=="render") {
+		   	$tdstyle="render";
+		}
+		else if($orders=="disable" or $orders=="enable") {
 		 	$text="($client $orders)";
 		    	$tdstyle="disable";
 		} 
-		 else if($orders=="ping") {
+		else if($orders=="ping") {
 			$text=$client;
 		    	$tdstyle="ping";
 		} 
