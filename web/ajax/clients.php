@@ -38,7 +38,7 @@ if ($action == "add_client") {
 			$status="true";
 			brender_log("added new client : $name");
 		}
-		echo "{\"status\":$status, \"msg\":\"$msg\", \"query\":\"$add_query\"}";
+		echo "{\"status\":$status, \"msg\":\"$msg\"}";
 } else {
 	//$error="please enter new job infos<br/>";
 	echo "{\"status\":false, \"msg\":\"Epic Fail: please enter a client name.\"}";

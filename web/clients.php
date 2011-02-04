@@ -37,7 +37,7 @@
 								if(obj.status == true) {
 									$("#dialog-form").dialog("close" );
 									//alert(obj.query);
-									alert(obj.msg+ " : "+obj.query);
+									alert(obj.msg);
 									window.location= 'index.php?view=clients';
 								} else {
 									alert(obj.msg);
