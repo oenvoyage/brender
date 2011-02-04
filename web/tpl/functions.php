@@ -14,6 +14,7 @@ function init_user($user) {
 	$_SESSION['orderby_jobs']="shot";
 	$_SESSION['orderby_projects']="id";
 	$_SESSION['last_used_config']="";
+	$_SESSION['debug']= false;
 	return 1;
 }
 

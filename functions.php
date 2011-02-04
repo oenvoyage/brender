@@ -35,7 +35,7 @@ function output($msg,$type="info") {
 	print "$msg\n";
 }
 function debug($msg) {
-	if (isset($_SESSION['debug'])) { 
+	if ($_SESSION['debug']==1) { 
 		# only display debug message on web interface when _SESSION debug is enabled
 		print "****  DEBUG ***** :: $msg<br/>";
 	}
@@ -450,7 +450,7 @@ function scene_shot_cascading_dropdown_menus() {
 
 }
 function get_projects_list_array($type="DEFAULT") {
-	$projects_list[]="";   // initalize projects_list
+	$projects_list=array();   // initalize projects_list
 
 	switch($type) {
 		case "active":

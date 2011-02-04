@@ -108,13 +108,25 @@ if (isset($_GET['do_the_test'])) {
 	#print "<br/>";
 	#print output_shot_list("gphg","01_bulles_champagne");
 }
+
+if (isset($_GET['debug'])) {
+	if ($_SESSION['debug']) {
+		print "INFO : debug mode OFF";
+		$_SESSION['debug']=0;
+	}
+	else {
+		print "INFO : debug mode ON";
+		$_SESSION['debug']=1;
+	}
+}
+
 ?>
 
 <p></p>
 <div class="settings_container">
 	<h3>Server</h3>
 	<div class="item">	
-		<a class="btn" href="index.php?view=settings&debug=1">switch to debug</a>
+		<a class="btn" href="index.php?view=settings&debug=1">switch debug <?php print $_SESSION['debug']?></a>
 		<p>By switching to debug mode, it will be possible do view more details about brender queries and eventual errors.</p>
 	</div>
 	<div class="item">
@@ -141,10 +153,6 @@ if (isset($_GET['do_the_test'])) {
 
 <?php
 #print "sid = $sid <br/>";
-
-if (isset($_GET['debug'])) {
-	$_SESSION['debug']=!$_SESSION['debug'];
-}
 
 if (isset($_GET['enable_sound'])) {
 	$query="update server_settings set sound='yes'";
