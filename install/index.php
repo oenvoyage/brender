@@ -1,5 +1,8 @@
 <?php
 /**
+* Copyright (C) 2007-2011 Olivier Amrein
+* Author Olivier Amrein <olivier@brender-farm.org> 2007-2011
+*
 * ***** BEGIN GPL LICENSE BLOCK *****
 * This file is part of Brender.
 ** Brender is free software: you can redistribute it and/or 

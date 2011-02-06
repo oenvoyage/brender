@@ -1,6 +1,9 @@
 #!/usr/bin/php -q
 <?php 
 /**
+* Copyright (C) 2007-2011 Olivier Amrein
+* Author Olivier Amrein <olivier@brender-farm.org> 2007-2011
+* 
 * ***** BEGIN GPL LICENSE BLOCK *****
 *
 * This file is part of Brender.
@@ -31,7 +34,7 @@ if (!$argv[1]) {
 else {
 	if (check_client_exists($argv[1])) {
 		$computer_name=$argv[1];
-		$GLOBALS['computer_name']=$computer_name;
+		#$GLOBALS['computer_name']=$computer_name;
 		if (check_client_is_running($computer_name)) {
 			output("tried to start brender client with client name : $computer_name.... but a client with that name seems to be already running\n");
 		         die("could not start client");
