@@ -135,7 +135,7 @@ while (1<>2) {
 							#---last chunk of job, its the end, we only need to render frames from CURRENT to END---
 							$render_order.=" -s $where_to_start -e $end -a -JOB $id"; 
 							$info_string.=" $where_to_start-$end (last chunk)";
-							output("===last chunk=== job $name $file finished soon====");
+							output("===last chunk=== job $scene/$shot finished soon====");
 							send_order($client,"declare_finished","$id","30");
 						}
 						else {

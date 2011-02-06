@@ -279,7 +279,6 @@
     		<input id="updateid" type="hidden" name="updateid" value="<?php print($id); ?>" />
     		<input id="edit_scene" type="hidden" name="scene" value="<?php print($scene); ?>" />
     		<input id="edit_shot" type="hidden" name="shot" value="<?php print($shot); ?>" />
-    		<input id="edit_jobtype" type="hidden" name="jobtype" value="<?php print($jobtype); ?>" />
     		<input id="edit_project" type="hidden" name="project" value="<?php print($project); ?>" />
    		</div>
 
