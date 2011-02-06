@@ -3,6 +3,7 @@
 /**
 * Copyright (C) 2007-2011 Olivier Amrein
 * Author Olivier Amrein <olivier@brender-farm.org> 2007-2011
+* Author Laurent Clouet <laclouet@gmail.com> 2011
 * 
 * ***** BEGIN GPL LICENSE BLOCK *****
 *
@@ -28,7 +29,7 @@
 require "functions.php";
 require_once "connect.php";
 print "---- brender client 0.2 ----\n";
-if (!$argv[1]) {
+if (isset($argv[1]) == false) {
 	die("ERROR :: no computer_name, please use \n ./brender_client.php node <COMPUTER_NAME>\n");
 }
 else {
