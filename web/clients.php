@@ -224,7 +224,7 @@
 		}
 	}
 
-if (isset($msg)) {
+if ($msg<>"") {
 	print "$msg <a href=\"index.php?view=clients\">reload</a><br/>";
 }
 
