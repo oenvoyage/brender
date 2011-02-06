@@ -114,10 +114,10 @@ while ($q=1) {
 
 				$blender_path=get_blender_path();
 				$render_query="$blender_path -b 'blend/benchmark.blend' -o 'render/benchmark/$computer_name' -F PNG  -f 110";
-				debug("BENCHMARK START $start_time");
 				print "------------------- benchmark renderquery = $render_query\n";
 				#--- we are now rendering the scene benchmark ...
 				$start_time= microtime(true); 
+				debug("BENCHMARK START $start_time");
 				system($render_query);
 				$end_time=microtime(true);
 				$benchmark_time=round($end_time-$start_time,2) ; 
