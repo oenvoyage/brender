@@ -24,12 +24,6 @@
 *
 */
 
-require "functions.php";
-require "connect.php";
-
-output("---- brender server 0.5 ----");
-#-----------------------------------------------------
-#-----some server settings------
 #-----------------------------------------------------
     $server_speed=2; # server speed is the number of second that tha main loop will sleep(), check at the end of brender_server.php file
     $computer_name="server";
@@ -38,6 +32,14 @@ output("---- brender server 0.5 ----");
     $imagemagick_root=""; # keep empty if $IMAGEMAGICK_HOME is set 
 
 #-----------------------------------------------------
+
+require "functions.php";
+require "connect.php";
+
+output("---- brender server 0.5 ----");
+
+#-----some server settings------
+
 if (!check_server_is_dead()) {  // this means the server is still running
 	$pid=get_server_settings("pid");
 	output("tried to start brender server.... but a server seems to be already running with process $pid\n");
