@@ -87,6 +87,9 @@ while ($q=1) {
 				#--- we are now rendering the scene/chunk ...
 				set_status("$computer_name","rendering","$rendering_command");
 				$render_query="$blender_path $rendering_command";
+				if ($os=="windows") {
+					$render_query=windowsify_paths($render_query);
+				}
 				output("-  I am rendering using this command = $render_query");
 				system($render_query);
 
@@ -118,6 +121,9 @@ while ($q=1) {
 				#--- we are now rendering the scene benchmark ...
 				$start_time= microtime(true); 
 				debug("BENCHMARK START $start_time");
+				if ($os=="windows") {
+					$render_query=windowsify_paths($render_query);
+				}
 				system($render_query);
 				$end_time=microtime(true);
 				$benchmark_time=round($end_time-$start_time,2) ; 

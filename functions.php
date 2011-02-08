@@ -213,14 +213,23 @@ function get_path($project,$what,$os="NONE") {
 	$query="select $path from projects where name='$project'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
-	debug ("GETTING PATH $query path = $path");
+	debug (" ++++ + + + + + + + + + +GETTING PATH $query path = $path");
 	return $qq;
+}
+function windowsify_paths($path) {
+	if (DIRECTORY_SEPARATOR == "\/") {
+		$new_path = preg_replace('/', DIRECTORY_SEPARATOR, $path);
+	}
+	$new_path=preg_replace("/'/","",$new_path);
+	debug("\n ***** $path ****** \n ----becomes ----- \n ******* $new_path ****** ------\n");
+	return $new_path;
 }
 function get_blender_path() {
 	$query="select blender_local_path from clients where client='$GLOBALS[computer_name]'";
 	$results=mysql_query($query);
 	$local_path=mysql_result($results,0);
-	debug("****************** local path  = $local_path *****************");
+	debug("****************** query  = $query *****************\n");
+	debug("****************** local path  = $local_path *****************\n");
 	if ($local_path) {
 		if (file_exists($local_path)) {
 			# --- there is a local_path set in the client table, so we return it
