@@ -308,17 +308,18 @@ if (isset($_GET['new_project'])) {
 		$def=$row->def;
 		$bgcolor="ddddcc";
 		if ($def==1) {
-			$is_default="<img src=\"images/icons/close.png\">";
+			#$is_default="<img src=\"images/icons/close.png\">";
+			$default_button="yes";
 		}
 		else {
-			$is_default="";
+			$default_button="<a href=\"index.php?view=settings&def=$id\"><img src=\"images/icons/close.png\"></a>";
 		}
 		$test_path=get_path($name,"output",$server_os);
 		$test_result= file_exists($test_path);
 		print "<tr class=\"$status\">
 			<td>$id</td> 
-			<td>$is_default</td> 
-			<td><a href=\"index.php?view=settings&def=$id\">$name</a></td> 
+			<td>$default_button</td> 
+			<td>$name</td> 
 			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
 			<td>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
 			<td>$test_result</td> 
