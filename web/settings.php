@@ -176,8 +176,12 @@ if (isset($_GET['order_by'])) {
 //system_status();
 
 
-print "<h2>// <strong>session</strong> settings</h2>";
-print_r($_SESSION);
+if (isset($_GET['debug'])) {
+	if ($_SESSION['debug']) {
+		print "<h2>// <strong>session</strong> settings</h2>";
+		print_r($_SESSION);
+	}
+}
 
 #------------------ system status -----------------
 /*
