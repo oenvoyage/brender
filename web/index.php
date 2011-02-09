@@ -103,6 +103,10 @@
 				include "view_job.php";
 			}			
 
+			if($view == "view_project") {
+				include "view_project.php";
+			}			
+	
 			if($view == "view_client") {
 				include "view_client.php";
 			}			

@@ -319,7 +319,7 @@ if (isset($_GET['new_project'])) {
 		print "<tr class=\"$status\">
 			<td>$id</td> 
 			<td>$default_button</td> 
-			<td>$name</td> 
+			<td> <a href=\"index.php?view=view_project&project=$name\">$name</a></td>
 			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
 			<td>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
 			<td>$test_result</td> 
