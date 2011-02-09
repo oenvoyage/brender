@@ -78,5 +78,33 @@
 	</form><br/>
 	<a href="index.php?view=settings">back to settings</a>
 
+	<?php show_jobs_of_project($project); ?>
+
 <?php
 #------------------------------ functions -----------------
+function show_jobs_of_project($project) {
+	$query="select * from jobs where project='$project' order by scene;";
+	$results=mysql_query($query);
+	$num_cells=0;
+	print "<table>
+		<tr class=\"header_row\">
+			<td colspan=10>jobs from this project </td></tr>
+		";
+	while ($row=mysql_fetch_object($results)) {
+		$job_id=$row->id;
+		$scene=$row->scene;
+		$shot=$row->shot;
+		$start=$row->start;
+		$end=$row->end;
+		$thumbnail_image=get_thumbnail_image($job_id,$start,"thumbnail small");;
+
+		print "<td><a href=\"index.php?view=view_job&id=$job_id\">$thumbnail_image</a><br/> $scene <b>$shot</b></td>";
+		$num_cells+=1;
+		if ($num_cells>4) {
+			$num_cells=0;
+			print "</tr><tr>";
+		}
+	}
+	print "</table>";
+}
+	

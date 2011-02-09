@@ -171,7 +171,7 @@
 		if ($rem ) {
 			print "remark :: $rem<br/>";
 		}	
-		print "project: $project $total frames ($start-$end by $chunks) ";
+		print "project: <a href=\"index.php?view=view_project&project=$project\">$project</a> $total frames ($start-$end by $chunks) ";
 		$total_rendered=count_rendered_frames($id);
 		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen "; ?>
 

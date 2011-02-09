@@ -136,7 +136,7 @@ if (isset($_GET['del'])) {
 		$total_rendered=$total_frames;
 		$status_class=get_css_class($status);
 		$priority_color=get_priority_color($priority);
-		$thumbnail_image=get_thumbnail_image($id,$start,"thumbnail small");;
+		$thumbnail_image=get_thumbnail_image($id,$start,"thumbnail small");
 		
 		if (preg_match("/(rendering|waiting)/",$status)) {
                 	$play_pause_button="<a href=\"index.php?view=jobs&pause=$id\"><img src=\"images/icons/pause.png\" /></a>";
