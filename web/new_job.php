@@ -7,6 +7,7 @@
 		<label for="project">project</label>
 		<label for="scene">scene</label>
 		<label for="shot">shot</label>
+		<label for="shot_manual">shot manual *</label>
 		<label for="fileformat">file format</label>
 		<label for="config">config</label>
 		<label for="start">start</label>
@@ -18,6 +19,7 @@
 	</div>
 	<div class="col_2">
 		<?php scene_shot_cascading_dropdown_menus() ?>
+		<input id="shot_manual" type="text" name="shot_manual" size="20" value="" />
 		<select id="fileformat" name="fileformat">
 					<option>PNG</option>
 					<option>JPEG</option>
@@ -36,4 +38,6 @@
 		<input id="directstart" type="checkbox" name="directstart" value="true" />				
 	</div>
 	<div class="clear"></div>
+	* entering a shot manually will override the dropdown shot selection
+	
 </div>

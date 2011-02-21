@@ -58,6 +58,7 @@ $(function() {
 	var project = $('select#project'),
 		scene = $('select#scene'),
 		shot = $('select#shot'),
+		shot_manual = $('input#shot_manual'),
 		fileformat = $('select#fileformat'),
 		config = $('select#config'),
 		start = $('input#start'),
@@ -81,6 +82,7 @@ $(function() {
 					$.post("ajax/new_job.php", {
 						project: project.val(), 
 						scene: scene.val(), shot: shot.val(), 
+						shot_manual:shot_manual.val(),
 						fileformat: fileformat.val(), 
 						config: config.val(), 
 						start: start.val(), 

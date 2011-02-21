@@ -9,6 +9,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {
 		$start = $_POST['start'];
 		$end = $_POST['end'];
 		$shot = $_POST['shot'];
+		$shot_manual = $_POST['shot_manual'];
 		$project = $_POST['project'];
 		$scene = $_POST['scene'];
 		$fileformat = $_POST['fileformat'];
@@ -18,6 +19,14 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {
 		$priority = $_POST['priority'];
 		$dberror="";
 		
+		if ($shot_manual) {
+			#print "manual shot";
+			$shot=$shot_manual;
+		}
+		else {
+			#print "cascading selector shot";
+		}
+
 		if ($_POST['directstart'] == "true"){
 			$status="waiting";
 			$msg = "New job direct started."; # TODO
