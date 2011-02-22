@@ -115,7 +115,7 @@ while (1<>2) {
 					output("...found job for $client :: $scene/$shot start $start end $end current $current chunks $chunks config=$config");
 					$number_of_chunks=$chunks*$speed;
 					$where_to_start=$current;
-					$where_to_end=$current+$number_of_chunks;	// there used to be a -1 here, it must have been here for a reason, but i dont know it...so deleting for now
+					$where_to_end=$current+$number_of_chunks-1;	// there used to be a -1 here, it must have been here for a reason, but i dont know it...so deleting for now
 					$blend_path=get_path($project,"blend",$client_os);
 					$output_path=get_path($project,"output",$client_os);
 					$output_filename=basename($shot); // we only take the filename from the shot (it gave problem with shot like sc02/03/my_file)
