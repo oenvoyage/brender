@@ -118,6 +118,8 @@ while (1<>2) {
 					$where_to_end=$current+$number_of_chunks;	// there used to be a -1 here, it must have been here for a reason, but i dont know it...so deleting for now
 					$blend_path=get_path($project,"blend",$client_os);
 					$output_path=get_path($project,"output",$client_os);
+					$output_filename=basename($shot); // we only take the filename from the shot (it gave problem with shot like sc02/03/my_file)
+
 					if ($where_to_end>$end) {   # we render more than needed, lets cut the end
 						$where_to_end=$end;
 					}
@@ -128,7 +130,7 @@ while (1<>2) {
 						# --------- MAIN RENDER ORDERS  -----------
 						# -----------------------------------------
 
-						$render_order="-b \'$blend_path/$scene/$shot.blend\' -o \'$output_path/$scene/$shot/$shot\' -P $config -F $filetype ";
+						$render_order="-b \'$blend_path/$scene/$shot.blend\' -o \'$output_path/$scene/$shot/$output_filename\' -P $config -F $filetype ";
 						$info_string="job $id <b>$scene/$shot</b>";
 
 						if (($where_to_start+$number_of_chunks)>$end) {

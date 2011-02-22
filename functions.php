@@ -676,10 +676,20 @@ function job_get($what,$id) {
 function check_create_path($path) {
 	# - function to check if a path exists, if not then create it";
 	debug("DEBUG --- $path chmod"); 
-	if (!is_dir($path)) {
-		mkdir($path);
+	#print "DEBUG --- $path chmod\n"; 
+	$paths_array=explode("/",$path);
+	$current_path="";
+	#print_r($paths_array);
+	foreach ($paths_array as $item) {
+		#print "--- i am trying $item\n";
+		$path_to_check.="$item/";
+		#print "--------current path =$path_to_check\n";
+		if (!is_dir($path_to_check)) {
+			#print "$path_to_check not exist, lets create\n";
+			mkdir($path_to_check);
+		}
+		chmod($path_to_check,0777);
 	}
-	chmod($path,0777);
 }
 function filetype_to_ext($filetype) {
 	# transform filetype of the format that blender understands PNG TGA JPEG EXR to a simple extension
@@ -725,10 +735,11 @@ function get_thumbnail_image($job_id,$image_number,$class="") {
 	$thumbnail_path="thumbnails/";
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
+	$filename=basename($shot);
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
 	$filetype="png"; // temporary test for fixing job thumbnail viewing when filetype is JPG OPENEXR or TGA
-	$thumbnail_location="thumbnails/$project/$scene/$shot/small_$shot".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	$thumbnail_location="thumbnails/$project/$scene/$shot/small_$filename".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
 	#print "**** $thumbnail_location****";
 	if (file_exists("../$thumbnail_location")) {
 		return "<img src=\"/$thumbnail_location\" class=\"$class\">";
@@ -751,10 +762,11 @@ function create_thumbnail($job_id,$image_number) {
 	debug ("creating a cool thumbnail : for image number $image_number of job with id = $job_id");
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
+	$filename=basename($shot);
 	$filetype=filetype_to_ext(job_get("filetype",$job_id));
 	$project=job_get("project",$job_id);
-	$image_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
-	$thumbnail_name=$shot.str_pad($image_number,4,0,STR_PAD_LEFT).".png";  // XXX SPECIAL FIX for trying to resolve non-png jobs thumbnails
+	$image_name=$filename.str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
+	$thumbnail_name=$filename.str_pad($image_number,4,0,STR_PAD_LEFT).".png";  // XXX SPECIAL FIX for trying to resolve non-png jobs thumbnails
 
 	$server_os=get_server_settings("server_os");
 	$input_path=get_path($project,"output",$server_os);

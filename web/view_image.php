@@ -6,6 +6,7 @@
         $thumbnail_path="thumbnails/";
         $scene=job_get("scene",$job_id);
         $shot=job_get("shot",$job_id);
+	$shot_basename=basename($shot);
         $start=job_get("start",$job_id);
         $end=job_get("end",$job_id);
         $filetype=filetype_to_ext(job_get("filetype",$job_id));
@@ -30,7 +31,7 @@
 	
 
         // $file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".$filetype";
-        $file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".png";  // test fix for non-PNG jobs thumbnail generation
+        $file_name=$shot_basename.str_pad($frame,4,0,STR_PAD_LEFT).".png";  // test fix for non-PNG jobs thumbnail generation
 
         $thumbnail_location="/thumbnails/$project/$scene/$shot/$file_name";
 
