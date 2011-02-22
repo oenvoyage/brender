@@ -125,7 +125,7 @@ while (1<>2) {
 					}
 					$new_start=$current+$number_of_chunks; 
 					output("$client speed $speed : render $number_of_chunks chunks = ($where_to_start - $where_to_end)");
-					if ($current<$end) {
+					if ($current<$end+1) {
 						# -----------------------------------------
 						# --------- MAIN RENDER ORDERS  -----------
 						# -----------------------------------------
