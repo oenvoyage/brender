@@ -278,7 +278,7 @@ if ($msg<>"") {
 			$shutdown_button="";
 		}
 		else {
-			$shutdown_button="<a href=\"index.php?view=clients&stop=$client\"><img src=\"/web/images/icons/close.png\"></a>";
+			$shutdown_button="<a href=\"index.php?view=clients&stop=$client\"><img src=\"images/icons/close.png\"></a>";
 		}
 		print "<tr class=$status_class>
 			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machine_type)</font></td> 

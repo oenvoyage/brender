@@ -33,7 +33,7 @@
         // $file_name=$shot.str_pad($frame,4,0,STR_PAD_LEFT).".$filetype";
         $file_name=$shot_basename.str_pad($frame,4,0,STR_PAD_LEFT).".png";  // test fix for non-PNG jobs thumbnail generation
 
-        $thumbnail_location="/thumbnails/$project/$scene/$shot/$file_name";
+        $thumbnail_location="../thumbnails/$project/$scene/$shot/$file_name";
 
         $query="select rendered_by,finished_time from rendered_frames where job_id='$job_id' and frame='$frame'";
         $results=mysql_query($query);
