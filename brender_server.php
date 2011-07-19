@@ -152,6 +152,7 @@ while (1<>2) {
 						$query="update jobs set current='$new_start',status='rendering' where id='$id'";
 					}
 					else {
+						$heure = date('Y-m-d H:i:s');
 						$query="update jobs set status='finished at $heure' where id='$id'";
 					}
 					# print "--> query= $query\n\n";
