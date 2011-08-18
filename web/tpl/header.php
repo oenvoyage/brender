@@ -31,6 +31,7 @@
 		<script type="text/javascript" src="js/jquery.json-2.2.min.js"></script>
 		<script type="text/javascript" src="js/brender-0.5.dev.js"></script>	
 		<meta name="viewport" content="width=device-width, user-scalable=no" /> 
+		<meta http-equiv="REFRESH" content="60">
 		
 <?php // if(!$view == "new_job") { ?> <!-- <meta http-equiv="Refresh" content="5;URL=index.php" /> --><?php // } ?>	
 	

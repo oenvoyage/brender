@@ -682,7 +682,7 @@ function check_create_path($path) {
 	#print_r($paths_array);
 	foreach ($paths_array as $item) {
 		#print "--- i am trying $item\n";
-		$path_to_check.="$item/";
+		$path_to_check="$item/";
 		#print "--------current path =$path_to_check\n";
 		if (!is_dir($path_to_check)) {
 			#print "$path_to_check not exist, lets create\n";
@@ -829,7 +829,7 @@ function show_last_rendered_frame($mode="simple") {
 		if ($thumbnail_image) {
 			if ($mode=="full") {
         			print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">$thumbnail_image</a><br/>";
-				print "by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
+				print "$frame by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
 			}
 			else {
        			  	print $thumbnail_image;

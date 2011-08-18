@@ -29,11 +29,11 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		#  do we still need this msg dialog?
 		if ($directstart == "true"){
 			#$status="waiting";
-			$msg = "Edited job direct started . ".$directstart; # TODO
+			$msg = "Successfully edited job $jobid + RESTART"; # TODO
 		}
 		else {
 			#$status="pause";
-			$msg = "Edited job submitted and waiting to be started. Directstart: ".$directstart;
+			$msg = "Successfully edited job $jobid. ";
 			
 		}
 

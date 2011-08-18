@@ -19,9 +19,10 @@
 		}
 	}
 
-	if (isset($_GET['delete'])) {
-		$dquery="DELTE FROM clients WHERE client='$client'";
-		$msg="client $client deleted :: ok $dquery";
+	if (isset($_GET['reset'])) {
+		$dquery="UPDATE clients set status='not running' WHERE client='$client'";
+		mysql_query($dquery);
+		$msg="client $client reset: $dquery";
 	}
 	if (isset($_POST['action'])) {
 	   	if ($_POST['action']=="update") {
@@ -76,7 +77,8 @@
 			$bgcolor="#ffcc99";
 		}
 		else {
-			$benchmark_button= " <a class=\"grey\" href=\"index.php?view=clients&benchmark=$client\">benchmark </a>";
+			$reset_button= " <a class=\"grey\" href=\"index.php?view=view_client&reset=1&client=$client\">x</a>";
+			$benchmark_button= " &nbsp;<a class=\"grey\" href=\"index.php?view=clients&benchmark=$client\">benchmark </a>";
 		}
 		if ($machine_type=='rendernode') {
 			$rendernode_selected="selected";
@@ -92,7 +94,7 @@
 		?>
 	<form action="index.php" method="post">
 		<?php 
-			print "$disable_enable_button $benchmark_button";
+			print "$disable_enable_button $reset_button $benchmark_button";
 		?><br/>
 		<input type="hidden" name="view" value="view_client">
 		<input type="hidden" name="client" value="<?php print $client?>">

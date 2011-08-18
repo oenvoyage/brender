@@ -167,10 +167,11 @@
 		$priority=$row->priority;
 		$total=$end-$start;
 	#-------------------
-	print "<h2>// job $id : $scene/<b>$shot</b> </h2>";	
+	print "<h2>job $id : $scene/<b>$shot</b> </h2>";	
 		if ($rem ) {
 			print "remark :: $rem<br/>";
 		}	
+		#print " <p class=\"$status\">";
 		print "project: <a href=\"index.php?view=view_project&project=$project\">$project</a> $total frames ($start-$end by $chunks) ";
 		$total_rendered=count_rendered_frames($id);
 		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen "; ?>
@@ -179,6 +180,7 @@
 		<a class="btn" href="index.php?view=jobs">back to job list</a>
 		<button class="switchbg_btn btn">dark background</button>
 		<a class="btn" id="edit_job_button" href="#">edit or duplicate job</a>
+		<a class="btn" href="index.php?reset=<?php echo $id?>&start=<?php echo $id?>"><span class="<?php echo $status?>">&nbsp</span>&nbsp;<img src="images/icons/reload.png" /></a>
 	</div>
 		
 	<table border=0 class="thumbnails_table">
