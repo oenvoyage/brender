@@ -36,7 +36,10 @@ else {
 	if (check_client_exists($argv[1])) {
 		$computer_name=$argv[1];
 		#$GLOBALS['computer_name']=$computer_name;
-		if (check_client_is_running($computer_name)) {
+		if ($argv[2]=="force") {
+			debug("force start");
+		}
+		else if (check_client_is_running($computer_name)) {
 			output("tried to start brender client with client name : $computer_name.... but a client with that name seems to be already running\n");
 		         die("could not start client");
 		}

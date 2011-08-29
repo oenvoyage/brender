@@ -439,8 +439,9 @@ function scene_shot_cascading_dropdown_menus() {
 			$shot_list=get_shot_list_array($project,$scene);
 			#$shot_options="";
 			foreach ($shot_list as $shot) {
+				#$shot_options.="<option class=\"$scene\" value=\"$shot\">$project /$scene /$shot</option>";
 				$shot_options.="<option class=\"$scene\" value=\"$shot\">$shot</option>";
-				#print " --- $shot<br/>";
+				#print " --- $project -- $scene -- $shot<br/>";
 			}
 		}
 	}

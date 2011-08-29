@@ -134,6 +134,11 @@ function applyCascadingDropdown(sourceId, targetId) {
 } 
 
 // Displays a subset of a dropdown's options 
+function test(text) {
+	alert('fdff :'+text);
+}
+
+
 function displayOptionItemsByClass(selectElement, className) { 
     if (!selectElement.backup) { 
         selectElement.backup = selectElement.cloneNode(true); 

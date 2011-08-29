@@ -194,7 +194,7 @@
 		$img_chunks=1;
 	}
 	# print "a= $a --- start $start -- end $end -- totalframes $total img_chunks =$img_chunks </br>";
-	print "<td><a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$first_image</a><br/>$a<br/></td>";
+	print "<td><a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$first_image<br/>$a<br/></a></td>";
 	$rows=1;
 	$b=0;
 	while ($a++<($total+$start)){
@@ -212,7 +212,7 @@
 			$thumbnail_image=get_thumbnail_image($id,$a);
 
 			print "<td>";
-				print "<a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$thumbnail_image</a><p>$a</p>";
+				print "<a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$thumbnail_image<p>$a</p></a>";
 			print "</td>";
 			$b=0;
 			#  print "row = $rows";
