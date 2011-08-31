@@ -297,12 +297,12 @@ if (isset($_GET['new_project'])) {
 		$id=$row->id;
 		$name=$row->name;
 		$rem=$row->rem;
-		$blend_mac=$row->blend_mac;
-		$blend_win=$row->blend_win;
-		$blend_linux=$row->blend_linux;
-		$output_mac=$row->output_mac;
-		$output_win=$row->output_win;
-		$output_linux=$row->output_linux;
+		$blend_mac=shortify_string($row->blend_mac);
+		$blend_win=shortify_string($row->blend_win);
+		$blend_linux=shortify_string($row->blend_linux);
+		$output_mac=shortify_string($row->output_mac);
+		$output_win=shortify_string($row->output_win);
+		$output_linux=shortify_string($row->output_linux);
 		$status=get_css_class($row->status);
 		if ($status=="active") {
 			$status_link='<a href="index.php?view=settings&deactivate=' . $id.'">active</a>';

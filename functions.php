@@ -675,21 +675,60 @@ function job_get($what,$id) {
 	return $qq;
 }
 function check_create_path($path) {
+	if (is_dir($path)) {
+		output("$path already exists");
+	}
+	else {
+		if (!mkdir($path,0777,true)) {
+			output("$path creation error", "ERROR");
+		}
+		else {
+			debug("dir $path created successfully");
+		}
+	}
 	# - function to check if a path exists, if not then create it";
-	debug("DEBUG --- $path chmod"); 
+	/*
+	debug("Check & Create Path  --- $path "); 
 	#print "DEBUG --- $path chmod\n"; 
-	$paths_array=explode("/",$path);
-	$current_path="";
+	$paths_array = explode("/",$path);
+	$current_path = $path_to_check = "";
 	#print_r($paths_array);
 	foreach ($paths_array as $item) {
-		#print "--- i am trying $item\n";
-		$path_to_check="$item/";
-		#print "--------current path =$path_to_check\n";
-		if (!is_dir($path_to_check)) {
-			#print "$path_to_check not exist, lets create\n";
+		debug("\n");
+		debug("\n");
+		debug("--- i am trying  <b>$item</b>\n");
+		$path_to_check = $path_to_check."/$item";
+		print "-------- path to check = $path_to_check\n<br/>";
+		if (!is_dir("$path_to_check")) {
+			print "$path_to_check <b>not exist</b>, lets create\n";
 			mkdir($path_to_check);
 		}
+		else {
+			print "$path_to_check exists....\n";
+		}
+		debug("$path_to_check exists, i will now do a chmod");
 		chmod($path_to_check,0777);
+	}
+	*/
+}
+function shortify_string($string,$max_length=50) {
+	#$tmp = preg_replace("/(.4)(.*)/","xx $1 xx",$string);  // TODO replace with REGEX... 
+	
+	debug("----------ORIGINAL -----<b>$string</b>--------- <br/>");
+	if (strlen($string)>$max_length) {
+		debug("--- TOO LONG----<br/>");
+		$divider = $max_length/2;
+		$start = substr($string,0,$divider);
+		$end = substr($string,-$divider);
+		$tmp ="$start......$end";
+		#print "----------start $start--------- <br/>";
+		#print "----------end  $end--------- <br/>";
+		#print "----------TMP $tmp--------- <br/>";
+		#print "<br/>";
+		return $tmp;
+	}
+	else {
+		return $string;
 	}
 }
 function filetype_to_ext($filetype) {
@@ -760,7 +799,7 @@ function create_thumbnail($job_id,$image_number) {
 	}
 	
 	debug("----------------------------------");
-	debug ("creating a cool thumbnail : for image number $image_number of job with id = $job_id");
+	debug ("creating a  thumbnail : for image number $image_number of job with id = $job_id");
 	$scene=job_get("scene",$job_id);
 	$shot=job_get("shot",$job_id);
 	$filename=basename($shot);
@@ -780,8 +819,8 @@ function create_thumbnail($job_id,$image_number) {
 		return 0;
 	}
 	# create and check that all path are existing
-	check_create_path("$thumbnail_path/$project");
-	check_create_path("$thumbnail_path/$project/$scene");
+	#check_create_path("$thumbnail_path/$project");
+	#check_create_path("$thumbnail_path/$project/$scene");
 	check_create_path("$thumbnail_path/$project/$scene/$shot");
 	$output_image="$thumbnail_path/$project/$scene/$shot/$thumbnail_name";
 	$output_image_small="$thumbnail_path/$project/$scene/$shot/small_$thumbnail_name";
@@ -793,7 +832,7 @@ function create_thumbnail($job_id,$image_number) {
 	exec($commande);
        	$commande=$GLOBALS['imagemagick_root']."convert -resize 200 $input_image $output_image_small";
 	exec($commande);
-	debug("################ $commande");
+	debug("#########   CONVERT COMMAND   ####### $commande");
 }
 
 function output_progress_bar($start,$end,$current,$style="progress_bar") {

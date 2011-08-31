@@ -66,13 +66,13 @@
 		remark : <input type="text" name="rem" size="60" value="<?php echo $rem?>"><br/>
 		<h3>project paths</h3>
 		.blend files paths<br/>
-		blend_mac : <input type="text" name="blend_mac" size="60" value="<?php echo $blend_mac?>"><br/>
-		blend_linux : <input type="text" name="blend_linux" size="60" value="<?php echo $blend_linux?>"><br/>
-		blend_win : <input type="text" name="blend_win" size="60" value="<?php echo $blend_win?>"><br/>
+		blend_mac : <input type="text" name="blend_mac" size="120" value="<?php echo $blend_mac?>"><br/>
+		blend_linux : <input type="text" name="blend_linux" size="120" value="<?php echo $blend_linux?>"><br/>
+		blend_win : <input type="text" name="blend_win" size="120" value="<?php echo $blend_win?>"><br/>
 		render outputs paths<br/>
-		output_mac : <input type="text" name="output_mac" size="60" value="<?php echo $output_mac?>"><br/>
-		output_linux : <input type="text" name="output_linux" size="60" value="<?php echo $output_linux?>"><br/>
-		output_win : <input type="text" name="output_win" size="60" value="<?php echo $output_win?>"><br/>
+		output_mac : <input type="text" name="output_mac" size="120" value="<?php echo $output_mac?>"><br/>
+		output_linux : <input type="text" name="output_linux" size="120" value="<?php echo $output_linux?>"><br/>
+		output_win : <input type="text" name="output_win" size="120" value="<?php echo $output_win?>"><br/>
 
 		<input type="submit" value="update <?php print $project?>"><br/>&nbsp;<br/>
 	</form><br/>
