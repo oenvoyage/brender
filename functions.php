@@ -828,9 +828,9 @@ function create_thumbnail($job_id,$image_number) {
 	debug("----- output = $output_image ---<br/>");
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
 	#$image_magick_home="/Users/o/Documents/ImageMagick-6.6.5/bin/";
-       	$commande=$GLOBALS['imagemagick_root']."convert -resize 1024 $input_image $output_image";
+       	$commande=$GLOBALS['imagemagick_root']."convert -resize 1024 '$input_image' '$output_image'";
 	exec($commande);
-       	$commande=$GLOBALS['imagemagick_root']."convert -resize 200 $input_image $output_image_small";
+       	$commande=$GLOBALS['imagemagick_root']."convert -resize 200 '$input_image' '$output_image_small'";
 	exec($commande);
 	debug("#########   CONVERT COMMAND   ####### $commande");
 }
