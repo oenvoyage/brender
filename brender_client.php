@@ -172,6 +172,21 @@ while ($q=1) {
 				remove_order($id);
 				die("\n stop $id\n");
 			}
+			else if ($orders=="stop") { 
+				output("STOP");
+				remove_order($id);
+			}
+			else if ($orders=="execute_command") { 
+				$cmd=$rem;
+				output("executing command line $cmd");
+				$out = system($cmd);
+				output("command line output =$out");
+				remove_order($id);
+			}
+			else {
+				output("order unknown : $orders" , "ERROR");
+				remove_order($id);
+			}
 		}
 	}
 	#  --- sleep(1) can be enabled to have the mysql not running too many queries per minute

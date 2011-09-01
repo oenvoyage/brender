@@ -510,7 +510,14 @@ span.progress-bar img {
 
 .big {
 	height:20px;
-	}
+}
+
+.hiddenDiv {
+	display: none;
+}
+.visibleDiv {
+	display: block;
+}
 
 table {
 	width: 100%;
@@ -702,4 +709,8 @@ table tr {
 #new_client_form h3 {
 	margin: 10px 0 0px 0;
 
+}
+#client_form p {
+	padding:4px;
+	border-bottom:1px solid #ccc;
 }

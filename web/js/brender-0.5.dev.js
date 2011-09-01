@@ -133,11 +133,24 @@ function applyCascadingDropdown(sourceId, targetId) {
     } 
 } 
 
-// Displays a subset of a dropdown's options 
+// TESTS from oenvoyage who has to learn javascript one day, but not today because my laptop battery is dying
+function switch_working_hours(what) {
+	 // alert('blalblbl : '+what);
+	var work = document.getElementById("working_hours");
+	if (what == 'workstation') {
+		work.className = "visibleDiv";
+	}
+	else {
+		work.className = "hiddenDiv";
+	}
+	
+}
+
 function test(text) {
 	alert('fdff :'+text);
 }
 
+// Displays a subset of a dropdown's options 
 
 function displayOptionItemsByClass(selectElement, className) { 
     if (!selectElement.backup) { 

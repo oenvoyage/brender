@@ -95,7 +95,6 @@
 
 <h2>// <strong>server</strong> settings</h2>
 <?php 
-print $rrr+$rr+2;
 if (isset($_GET['do_the_test'])) {
 	print "<b>doing a test</b><br/>";
 	print "go to <a href=\"index.php?view=test\">test page</a><br/><br/>";

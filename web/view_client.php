@@ -1,6 +1,6 @@
 <?php	
 	if (!isset($_GET['client']) && !isset($_POST['client'] )) {
-		print "error :: please select a client<br/>";
+		print "<span class=\"error\">error :: please select a client</span><br/>";
 		print "<a href=\"index.php?view=clients\">back to clients list</a><br/>";
 		die();
 	}
@@ -13,12 +13,23 @@
 			$client=$_POST['client'];
 		}
 		if (!check_client_exists($client)) {
-			print "error :: client <b>$client</b> not found<br/>";
+			print "<span class=\"error\">error :: client <b>$client</b> not found</span><br/>";
 			print "<a href=\"index.php?view=clients\">back to clients list</a><br/>";
 			die();
 		}
 	}
 
+	
+	if (isset($_POST['execute_command'])) {
+		if ($_POST['command']) {
+			$cmd=$_POST['command'];
+			output("executing command $cmd on client $client");
+			send_order("$client","execute_command","$cmd","99");
+		}
+		else {
+			print "<span class=\"error\">please enter a <b>command</b> to execute</span>";
+		}
+	}
 	if (isset($_GET['reset'])) {
 		$dquery="UPDATE clients set status='not running' WHERE client='$client'";
 		mysql_query($dquery);
@@ -74,6 +85,7 @@
 		if ($status=="not running") {
 			$disable_enable_button="";
 			$benchmark_button= "";
+			$reset_button="";
 			$bgcolor="#ffcc99";
 		}
 		else {
@@ -82,6 +94,9 @@
 		}
 		if ($machine_type=='rendernode') {
 			$rendernode_selected="selected";
+		}
+		else {
+			$rendernode_selected="";
 		}
 
 		$linux_selected = $windows_selected = "";
@@ -92,35 +107,49 @@
 			$windows_selected="selected";
 		}
 		?>
-	<form action="index.php" method="post">
+	<!--  ******** form ********  -->
 		<?php 
-			print "$disable_enable_button $reset_button $benchmark_button";
+			print "<p>$disable_enable_button $reset_button $benchmark_button</p>";
 		?><br/>
+	<form action="index.php" method="post" id="client_form">
 		<input type="hidden" name="view" value="view_client">
 		<input type="hidden" name="client" value="<?php print $client?>">
 		<input type="hidden" name="action" value="update">
 
 		<h3>machine description</h3>
-		operating system <select name="machine_os">
-			<option>mac</option>
-			<option <?print $linux_selected?>>linux</option>
-			<option <?print $windows_selected?>>windows</option>
-		</select><br/>
-		blender local path (leave empty to use the /blender folder in brender_root : <br/><input type="text" name="blender_local_path" size="80" value="<?php print $blender_local_path?>"><br>
-		machine type <select name="machine_type">
-			<option>workstation</option>
-			<option <?print $rendernode_selected?>>rendernode</option>
-		</select><br/>
-		speed (number of processors = number of chunks multiplier) <input type="text" name="speed" size="2" value="<?php print $speed?>"><br>
-		<h3>working hours / priority</h3>
-		 Start: <input type="text" name="working_hour_start" size="10" value="<?php print $working_hour_start?>"><br/>
-		 End: <input type="text" name="working_hour_end" size="10" value="<?php print $working_hour_end?>"><br>
-		 priority (1-100) (will only render jobs with priority higher than this value)<input type="text" name="client_priority" size="3" value="<?php print $client_priority?>"><br>
+			<p>operating system <select name="machine_os">
+				<option>mac</option>
+				<option <?print $linux_selected?>>linux</option>
+				<option <?print $windows_selected?>>windows</option>
+			</select></p>
+			<p>blender local path including blender executable <br/>(leave empty to use the /blender folder in brender_root : <br/>
+				<input type="text" name="blender_local_path" size="80" value="<?php print $blender_local_path?>"></p>
+			<p>speed (number of processors = number of chunks multiplier) <input type="text" name="speed" size="2" value="<?php print $speed?>"></p>
+			<p>machine type <select name="machine_type" onchange="switch_working_hours(this.value)">
+				<option>workstation</option>
+				<option <?print $rendernode_selected?>>rendernode</option>
+			</select></p>
+		<div id="working_hours" class="<?php ($machine_type=="workstation") ? print "visibleDiv": print "hiddenDiv"?>">
+				<h3>working hours / priority</h3>
+				 <p>Start: <input type="text" name="working_hour_start" size="10" value="<?php print $working_hour_start?>"><br/>
+				 End: <input type="text" name="working_hour_end" size="10" value="<?php print $working_hour_end?>"></p>
+			</div>
+			<p>priority (1-100) (will only render jobs with priority higher than this value)<input type="text" name="client_priority" size="3" value="<?php print $client_priority?>"></p>
 
 		<input type="submit" value="update <?php print $client?>"><br/>&nbsp;<br/>
 	</form><br/>
-	<a href="index.php?view=clients&delete=<?php print $client?>"><img src="images/icons/close.png"> delete client <?php print $client ?></a>
 
+	<!--   ******** execute command form ********  -->
+	<form action="index.php" method="post">
+		<input type="hidden" name="view" value="view_client">
+		<input type="hidden" name="client" value="<?php print $client?>">
+		<h3>custom command</h3>
+		<p>enter a custom command to execute on this client : <input type="ext" name="command">
+		<input type="submit" name="execute_command" value="execute command"></p>
+	</form><br/>
+
+	<!--   ******** 5 last rendered frames ********  -->
+	<a href="index.php?view=clients&delete=<?php print $client?>"><img src="images/icons/close.png"> delete client <?php print $client ?></a>
 	<h2>// 5 last rendered frames </h2>
 	<?php show_last_rendered_frame_by_client($client); ?>
 	
