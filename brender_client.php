@@ -96,19 +96,18 @@ while ($q=1) {
 				output("-  I am rendering using this command = $render_query");
 				system($render_query);
 
-				#--- once rendering is finished we erase the order
-				remove_order($id);
-
 				# --- now we send an order to server to generate the thumbnails
 				add_rendered_frames($parsed['job_id'],$parsed['start'],$parsed['end']);
 				$thumbnail_creation_order="JOB=$parsed[job_id] START=$parsed[start] END=$parsed[end]";
 				debug(" HHHHHHHHHHHHHHHHHHHHHH- $thumbnail_creation_order");
 				// send_order("server","create_thumbnails",$thumbnail_creation_order,"20");
 				
-
 				# and finally set client to idle, ready to get some new work
-				set_status("$computer_name","idle","");
+				set_status("$computer_name","idle");
 				set_info($computer_name,'');
+
+				#--- once rendering is finished we erase the order
+				remove_order($id);
 			}
 			else if ($orders=="benchmark") { 
 				debug("BENCHMARK RENDER TIME");
@@ -172,18 +171,21 @@ while ($q=1) {
 				remove_order($id);
 				die("\n stop $id\n");
 			}
-			else if ($orders=="stop") { 
-				output("STOP");
-				remove_order($id);
-			}
 			else if ($orders=="execute_command") { 
+				# --- we must execute a command-- 
 				$cmd=$rem;
 				output("executing command line $cmd");
-				$out = system($cmd);
-				output("command line output =$out");
+				set_status("$computer_name","executing command","$rem");
+
+				// executing the command
+				$cmd_output = system($cmd);
+
+				output("command line output =$cmd_output");
+				set_status("$computer_name","idle","cmd output = $cmd_output");
 				remove_order($id);
 			}
 			else {
+				# --- no corresponding order found --- 
 				output("order unknown : $orders" , "ERROR");
 				remove_order($id);
 			}

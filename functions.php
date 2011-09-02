@@ -370,7 +370,7 @@ function get_info($client){
 	#print "*************** info $info\n";
 	return $info;
 }
-function set_status($client,$status,$rem){
+function set_status($client,$status,$rem=""){
 	$rem=str_replace("'","\'",$rem);
 	$query="update clients set status='$status',rem='$rem' where client='$client'";
 	mysql_unbuffered_query($query);
