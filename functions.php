@@ -50,25 +50,25 @@ function debug($msg) {
 	}
 }
 function check_job_exists($job_id) {
-	$query="select count(scene) from jobs where id='$job_id'";
+	$query="SELECT COUNT(scene) FROM jobs WHERE id='$job_id'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
 	return $qq;
 }
 function check_client_exists($client) {
-	$query="select count(client) from clients where client='$client'";
+	$query="SELECT COUNT(client) FROM clients WHERE client='$client'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
 	return $qq;
 }
 function get_client_status($client) {
-	$query="select status from clients where client='$client'";
+	$query="SELECT status FROM clients WHERE client='$client'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
 	return $qq;
 }
 function get_client_os($client) {
-	$query="select machine_os from clients where client='$client'";
+	$query="SELECT machine_os FROM clients WHERE client='$client'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
 	return $qq;
@@ -126,7 +126,7 @@ function get_css_class($status) {
 		# for server status
 		return "not_running";
 	}
-	else if (preg_match("/pause/",$status)) {
+	elsE if (preg_match("/pause/",$status)) {
 		return "pause";
 	}
 	else if (preg_match("/finished/",$status)) {
@@ -158,14 +158,14 @@ function get_css_class($status) {
 function check_if_client_should_work($client_name="check all") {
 	# function used for checking if a client is during his "working hours", these are set in the database for each client.
 	if ($client_name <> "check all") {
-		$query="SELECT (DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE client='$client_name'";
+		$query="SELECT (DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients SELECT client='$client_name'";
 		$results=mysql_query($query);
 		$qq=mysql_result($results,0);
 		return($qq);
 		
 	}
 	#checking_alive_clients();
-	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) as now,working_hour_start as start,working_hour_end as end,client,status,machine_type,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) as should_work FROM clients WHERE machine_type='workstation' and status<>'not running'";
+	$query="SELECT DATE_FORMAT( NOW( ) , '%T' ) AS now,working_hour_start AS start,working_hour_end AS end,client,status,machine_type,(DATE_FORMAT( NOW( ) , '%T' ) BETWEEN  working_hour_start AND working_hour_end) AS should_work FROM clients WHERE machine_type='workstation' AND status<>'not running'";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)) {
 		$client=$row->client;
@@ -190,13 +190,13 @@ function check_if_client_should_work($client_name="check all") {
 	
 }
 function check_project_is_active($project_id) {
-	$query="select count(name) from projects where id='$project_id' and status='active'";
+	$query="SELECT COUNT(name) FROM projects WHERE id='$project_id' AND status='active'";
         $results=mysql_query($query);
         $check_result=mysql_result($results,0);
         return $check_result;
 }
 function check_project_exists($project) {
-	$query="select count(name) from projects where name='$project'";
+	$query="SELECT count(name) FROM projects WHERE name='$project'";
         $results=mysql_query($query);
         $check_result=mysql_result($results,0);
         return $check_result;
@@ -210,7 +210,7 @@ function get_path($project,$what,$os="NONE") {
 	}
 	if ($os=="NONE") {$os=$GLOBALS['os'];};
 	$path=$what."_".$os;
-	$query="select $path from projects where name='$project'";
+	$query="SELECT $path FROM projects WHERE name='$project'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
 	debug (" ++++ + + + + + + + + + +GETTING PATH $query path = $path");
@@ -225,7 +225,7 @@ function windowsify_paths($path) {
 	return $new_path;
 }
 function get_blender_path() {
-	$query="select blender_local_path from clients where client='$GLOBALS[computer_name]'";
+	$query="SELECT blender_local_path FROM clients WHERE client='$GLOBALS[computer_name]'";
 	$results=mysql_query($query);
 	$local_path=mysql_result($results,0);
 	debug("****************** query  = $query *****************\n");
@@ -257,39 +257,39 @@ function get_blender_path() {
 function change_order_owner($id,$client) {
 	#function allowing a client to self-assign himself to an order
 	# used in case an order's client value is set to ANY, so this value becomes CLIENT and no other client will execute the order
-	$query="update orders set client=$client where id='$id'";
+	$query="UPDATE orders set client=$client WHERE id='$id'";
 	# mysql_unbuffered_query($query);
 	print "become order query $query\n";
 	# print "### $client deleted order $id\n";
 }
 function delete_node($client) {
-	$query="delete from clients where client='$client'";
+	$query="DELETE FROM clients WHERE client='$client'";
 	debug("delete query $query");
 	output("NODE DELETED :: $client");
 	mysql_query($query);
 }
 function remove_order($id) {
-	$query="delete from orders where id='$id'";
+	$query="DELETE FROM orders WHERE id='$id'";
 	mysql_unbuffered_query($query);
 	#$os=$GLOBALS['os'];
 	#$client=$GLOBALS['computer_name'];
 	 #print "### $client of $os deleted order $id\n";
 }
 function server_stop($pid){
-	$query="update server_settings set pid='$pid',status='stopped',started=now()";
+	$query="UPDATE server_settings set pid='$pid',status='stopped',started=now()";
 	# print "\n query = $query ----\n";
 	mysql_unbuffered_query($query);
 	print "STOPPED SERVER \n";
 	stop();
 }
 function server_start($pid){
-	$query="update server_settings set pid='$pid',status='running',started=now()";
+	$query="UPDATE server_settings set pid='$pid',status='running',started=now()";
 	# 	print "\n query = $query ----\n";
 	mysql_query($query);
 	print "STARTED SERVER\n";
 }
 function check_if_client_has_order_waiting($client) {
-        $query="select count(orders) from orders where client='$client'";
+        $query="SELECT count(orders) FROM orders WHERE client='$client'";
         $results=mysql_query($query);
         $check_result=mysql_result($results,0);
 	return $check_result;
@@ -305,7 +305,7 @@ function check_client_is_running($client) {
 	}
 	send_order("$client","ping","","1");
 	sleep(3);
-        $check_query="select count(orders) from orders where orders='ping' and client='$client'";
+        $check_query="SELECT COUNT(orders) FROM orders WHERE orders='ping' AND client='$client'";
         $results=mysql_query($check_query);
         $ping_result=mysql_result($results,0);
 	#print "ping res = $ping_result\n";
@@ -318,7 +318,7 @@ function check_server_is_dead() {
 	#---to check if server is running, we send him a ping order. If he is alive, it will remove the order. If not the order will still be there after 3 sconds, meaning the server is ko
 	send_order("server","ping","","1");
 	sleep(3);
-        $check_query="select count(orders) from orders where orders='ping' and client='server'";
+        $check_query="SELECT COUNT(orders) FROM orders WHERE orders='ping' AND client='server'";
         $results=mysql_query($check_query);
         $ping_result=mysql_result($results,0);
 	return $ping_result;
@@ -345,25 +345,25 @@ function check_server_status(){
 	return $status;
 }
 function get_server_settings($setting){
-	$query="select $setting from server_settings;";
+	$query="SELECT $setting FROM server_settings;";
 	$results=mysql_query($query);
 	$status=mysql_result($results,0);
 	# debug("QUERY SERVER SETTINGS = $query");
 	return $status;
 }
 function set_server_settings($key,$value){
-	$query="update server_settings set $key='$value'";
+	$query="UPDATE server_settings set $key='$value'";
 	mysql_unbuffered_query($query);
 	#	print "### $client status : $status $rem\n";
 }
 function set_info($client,$info){
 	#$rem=str_replace("'","\'",$rem);
-	$query="update clients set info='$info' where client='$client'";
+	$query="UPDATE clients set info='$info' WHERE client='$client'";
 	mysql_unbuffered_query($query);
 	print "### INFO $client status : $info\n";
 }
 function get_info($client){
-	$query="select info from clients where client='$client';";
+	$query="SELECT info FROM clients WHERE client='$client';";
 	#print "*************** infoquery $query\n";
 	$results=mysql_query($query);
 	$info=mysql_result($results,0);
@@ -372,12 +372,12 @@ function get_info($client){
 }
 function set_status($client,$status,$rem=""){
 	$rem=str_replace("'","\'",$rem);
-	$query="update clients set status='$status',rem='$rem' where client='$client'";
+	$query="UPDATE clients set status='$status',rem='$rem' WHERE client='$client'";
 	mysql_unbuffered_query($query);
 	#print "### $client status : $status $rem\n$query\n";
 }
 function get_status($client) {
-	$query="select status from clients where client='$client'";
+	$query="SELECT status FROM clients WHERE client='$client'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
 	return $qq;
@@ -411,12 +411,12 @@ function brender_log($log){
         fclose($foo);
 	#print "$prefix/logs/brender.log";
 }
-function output_progress_status_select($default="NONE") {
+function output_progress_status_SELECT($default="NONE") {
 	$list= array("blocked","layout","model","animation","lighting","compositing","finished","approved","");
 	foreach ($list as $item) {
 		#print("check default=$default and item=$item");
 		if ($default==$item|| $default=="new") {
-			print " <option value=\"$item\" selected>$item </option>";
+			print " <option value=\"$item\" SELECTed>$item </option>";
 		}	
 		else {
 			print " <option value=\"$item\">$item</option>";
@@ -608,7 +608,7 @@ function output_config_select($default="NONE") {
 function checking_alive_clients() {
 	# print "i am checking alive clients ";
 	# to check alive clients we first looks who is supposed to be active, and send them a png order ....
-	$query="select * from clients where status='idle' or status='disabled'";
+	$query="select * FROM clients WHERE status='idle' or status='disabled'";
         $results=mysql_query($query);
         while ($row=mysql_fetch_object($results)){
                 $id=$row->id;
@@ -619,7 +619,7 @@ function checking_alive_clients() {
         }
 	#... then we sleep 2 second, time to let a client get the order and delete it....
         sleep(2);
-        $query="select * from orders where orders='ping'";
+        $query="select * FROM orders WHERE orders='ping'";
         $results=mysql_query($query);
 	#..... then we check which client did not reply to ping order, so we know its dead
         while ($row=mysql_fetch_object($results)){
@@ -668,7 +668,7 @@ function job_get($what,$id) {
 		# job doesnt exist or was deleted, we just return o
 		return 0;
 	}
-	$query="select $what from jobs where id='$id'";
+	$query="select $what FROM jobs WHERE id='$id'";
 	$results=mysql_query($query);
 	$qq=mysql_result($results,0);
 	#debug ("******************************************$query*****************************************");
@@ -884,7 +884,7 @@ function count_rendered_frames($job_id) {
 		# counting the total number of rendered frames for a job.
 		# If a job is rerendered, the total might already be 100%
 
-		$query="select scene,shot,project,start,end,filetype from jobs where id='$job_id'";
+		$query="SELECT scene,shot,project,start,end,filetype FROM jobs WHERE id='$job_id'";
 		$results=mysql_query($query);
 		$row=mysql_fetch_object($results);
 		#print "query === $query <br/>";

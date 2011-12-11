@@ -186,7 +186,8 @@ function show_job_list() {
 			$progress_remark=$row->progress_remark;
 
 			$total_frames=$end-$start+1;
-			#$total_rendered=count_rendered_frames($id);
+			#$total_rendered=count_rendered_frames($id);  // diasable temporarly as it is sometimes slow (especially on a network server)
+			$total_rendered="";
 			$icon="play";
 			$play_pause_button="";
 			$status_class=get_css_class($status);
