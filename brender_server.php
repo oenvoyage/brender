@@ -70,7 +70,7 @@ $cycles_b=0;
 $num_cycles=0;
 
 while (1<>2) {
-	$query="select * from clients";
+	$query="SELECT * FROM clients";
 	$results=mysql_query($query) or die(mysql_error());
 	while ($row=mysql_fetch_object($results)){
 		check_and_execute_server_orders();
@@ -150,12 +150,16 @@ while (1<>2) {
 						# sending the render order to the client. the render_order contains everything used after the commandline blender -b
 						set_info($client,$info_string);
 						send_order($client,"render","$render_order","20");
+<<<<<<< HEAD
 						#play_sound("woosh_crystal.wav");
 						$query="update jobs set current='$new_start',status='rendering' where id='$id'";
+=======
+						$query="UPDATE jobs SET current='$new_start',status='rendering' WHERE id='$id'";
+>>>>>>> dfadf3b4a24993c762774387e309aad25730638d
 					}
 					else {
 						$heure = date('Y-m-d H:i:s');
-						$query="update jobs set status='finished at $heure' where id='$id'";
+						$query="UPDATE jobs SET status='finished at $heure' WHERE id='$id'";
 					}
 					# print "--> query= $query\n\n";
 					mysql_unbuffered_query($query);
@@ -191,27 +195,27 @@ while (1<>2) {
 
 function check_and_create_thumbnails() {
 	# we check if there are some recently rendered frames that have not been thumbnailed. If found some ,then do the thumbnails
-	$query="select * from rendered_frames where is_thumbnailed=0";
+	$query="SELECT * FROM rendered_frames WHERE is_thumbnailed=0";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
 		$job_id=$row->job_id;
 		$frame=$row->frame;
 		create_thumbnail($job_id,$frame);
-		$query="update rendered_frames set is_thumbnailed=1 where id='$id'";
+		$query="UPDATE rendered_frames SET is_thumbnailed=1 WHERE id='$id'";
 		mysql_query($query);
 	}
 }
 function check_and_delete_old_orders() {
 		$max_hours=24;#  number of hours after which the orders get deleted automatically;
-		$query="delete from orders WHERE time_format(TIMEDIFF(NOW(),created),'%k') >$max_hours";
+		$query="DELETE FROM orders WHERE time_format(TIMEDIFF(NOW(),created),'%k') >$max_hours";
 		mysql_query($query);
 		$affected_rows=mysql_affected_rows();
 		print ("... deleting old orders : more than $max_hours hour old (found $affected_rows)...\n");
 }
 function check_and_execute_server_orders() {
 	#------we get and check if there are orders for the server------
-	$query="select * from orders where client='server'";
+	$query="SELECT * FROM orders WHERE client='server'";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;

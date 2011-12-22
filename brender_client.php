@@ -67,7 +67,7 @@ $a=0;
 
 while ($q=1) {
 	#-----------------main loop---------
-	$query="select * from orders order by id desc";
+	$query="SELECT * FROM orders ORDER BY id DESC";
 	$results=mysql_query($query);
 	while ($row=mysql_fetch_object($results)){
 		$id=$row->id;
@@ -156,7 +156,7 @@ while ($q=1) {
 				#--- a job is nearly finished (means the last chunk has been allocated) , so we declare it finished, to avoid other clients to render it
 				output("DECLARE FINISHED job $rem");
 				$heure=date('Y/d/m H:i:s');
-				$query="update jobs set status='finished at $heure' where id='$rem'";
+				$query="UPDATE jobs SET status='finished at $heure' WHERE id='$rem'";
 				mysql_unbuffered_query($query);
 				remove_order($id);
 			}
