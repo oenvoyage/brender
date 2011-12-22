@@ -24,6 +24,9 @@
 */
 
 date_default_timezone_set('Europe/Zurich'); # ----needed by php
+function play_sound($sound) {
+	exec("afplay sounds/$sound");
+}
 function test() {
 	global $qwer;
 	print "qwer=$qwer\n";
