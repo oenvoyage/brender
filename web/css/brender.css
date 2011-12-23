@@ -194,7 +194,32 @@ form {
 	border-radius: 0;
 }
 	
+a.tooltip {
+    
+    z-index:100;
+    position:relative; /*this is the key*/
+    text-decoration:none;
 }
+
+a.tooltip span {
+    display: none;
+}
+
+a.tooltip:hover span {
+         /*the span will display just on :hover state*/
+        z-index:100;
+        display:block;
+        position:absolute;
+        top:25px; right:10px; width:150px;
+        padding:2px;
+        margin:2px;
+        border:1px solid #aaa;
+        background-color:#ddd; color:#000;
+        opacity:.9;
+        text-align: center;
+        text-decoration:none;
+}
+
 
 .ordre {
 	font-weight: 100;

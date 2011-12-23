@@ -72,7 +72,7 @@
 	                                            if(obj.status == true) {
 	                                                    $("#dialog-form").dialog("close" );
 	                                                    //alert(obj.query);
-	                                                    window.location= 'index.php?view=settings';
+                                              window.location= 'index.php?view=settings';
 	                                            } else {
 	                                                    alert(obj.msg);
 	                                            }
@@ -321,7 +321,10 @@ if (isset($_GET['new_project'])) {
 		$test_path=get_path($name,"blend",$server_os);
 		$test_result= file_exists($test_path);
 		if ($test_result <>1) { 
-			$test_result_icon ="ERROR";
+			$test_result_icon ="<a href=\"#\" class=\"tooltip\"><img src=\"images/icons/error.png\"> ERROR
+						<span> The server can not find the path to blend files. Check .blend path for <b>$server_os</b></span>
+	
+					   </a>";
 		}
 		else {
 			$test_result_icon ="OK";
