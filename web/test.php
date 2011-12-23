@@ -1,15 +1,23 @@
 <h2>// <strong>TEST </strong> page</h2>
 <?php 
+include "../functions.php";
 if (isset($_GET['test1'])) {
 	print "doing TEST 1<br/>-----<br/>";
 	$client="macbook";
 	send_order("$client","execute_command","blender_up","99");
 }
+if (isset($_GET['path'])) {
+	$path = $_GET['path'];
+	print "original path : <b>$path</b><br/>";
+	$win_path=windowsify_paths($path);
+	print "windowsified path : <b>$win_path</b><br/>";
+}
 ?>
 
+<hr>
 <b>doing a test</b><br/>
 <form>
-<input >
+path : <input name="path" value="<?php echo $path?>">
 	<select onChange='test("ff");'>
 		<option>1</option>
 		<option>2</option>

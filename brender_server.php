@@ -150,12 +150,8 @@ while (1<>2) {
 						# sending the render order to the client. the render_order contains everything used after the commandline blender -b
 						set_info($client,$info_string);
 						send_order($client,"render","$render_order","20");
-<<<<<<< HEAD
 						#play_sound("woosh_crystal.wav");
-						$query="update jobs set current='$new_start',status='rendering' where id='$id'";
-=======
 						$query="UPDATE jobs SET current='$new_start',status='rendering' WHERE id='$id'";
->>>>>>> dfadf3b4a24993c762774387e309aad25730638d
 					}
 					else {
 						$heure = date('Y-m-d H:i:s');

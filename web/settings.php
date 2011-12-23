@@ -318,15 +318,21 @@ if (isset($_GET['new_project'])) {
 		else {
 			$default_button="<a href=\"index.php?view=settings&def=$id\"><img src=\"images/icons/close.png\"></a>";
 		}
-		$test_path=get_path($name,"output",$server_os);
+		$test_path=get_path($name,"blend",$server_os);
 		$test_result= file_exists($test_path);
+		if ($test_result <>1) { 
+			$test_result_icon ="ERROR";
+		}
+		else {
+			$test_result_icon ="OK";
+		}
 		print "<tr class=\"$status\">
 			<td>$id</td> 
 			<td>$default_button</td> 
 			<td> <a href=\"index.php?view=view_project&project=$name\">$name</a></td>
 			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
 			<td>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
-			<td>$test_result</td> 
+			<td>$test_result_icon</td> 
 			<td>$rem</td> 
 			<td>$status_link</td> 
 			<td>&nbsp;<a href=\"index.php?view=settings&del=$id\"><img src=\"images/icons/close.png\"></a></td>

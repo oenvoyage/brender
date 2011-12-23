@@ -220,11 +220,13 @@ function get_path($project,$what,$os="NONE") {
 	return $qq;
 }
 function windowsify_paths($path) {
-	if (DIRECTORY_SEPARATOR == "\/") {
-		$new_path = preg_replace('/', DIRECTORY_SEPARATOR, $path);
-	}
-	$new_path=preg_replace("/'/","",$new_path);
+	#print("dir sep = " +DIRECTORY_SEPARATOR);
+	#if (DIRECTORY_SEPARATOR == "\/") {
+	#	$new_path = preg_replace('/', DIRECTORY_SEPARATOR, $path);
+	#}
+	$new_path=preg_replace("/\//","\\",$path);
 	debug("\n ***** $path ****** \n ----becomes ----- \n ******* $new_path ****** ------\n");
+	print "\n ***** $path ****** \n ----becomes ----- \n ******* $new_path ****** ------\n";
 	return $new_path;
 }
 function get_blender_path() {
