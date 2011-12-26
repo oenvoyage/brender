@@ -113,7 +113,7 @@ while (1<>2) {
 
 					#output("SCENE = $scene CLIENT priority $client=$client_priority   ..... JOB priority=$job_priority ");
 				if ($scene && $client_priority<$job_priority) {
-					output("...found job for $client :: $scene/$shot start $start end $end current $current chunks $chunks config=$config");
+					output("...found job for $client ($client_os):: $scene/$shot start $start end $end current $current chunks $chunks config=$config");
 					$number_of_chunks=$chunks*$speed;
 					$where_to_start=$current;
 					$where_to_end=$current+$number_of_chunks-1;	// there used to be a -1 here, it must have been here for a reason, but i dont know it...so deleting for now

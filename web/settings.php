@@ -38,10 +38,10 @@
                                 rem = $('input#rem'),
                                 blend_mac = $('input#blend_mac'),
                                 blend_linux = $('input#blend_linux'),
-                                blend_win = $('input#blend_win'),
+                                blend_windows = $('input#blend_windows'),
                                 output_mac = $('input#output_mac'),
                                 output_linux = $('input#output_linux'),
-                                output_win = $('input#output_win');
+                                output_windows = $('input#output_windows');
                 
                         
 	    $("#new_project").dialog({
@@ -62,10 +62,10 @@
 	                                            rem: rem.val(), 
 	                                            blend_mac: blend_mac.val(), 
 	                                            blend_linux: blend_linux.val(), 
-	                                            blend_win: blend_win.val() ,
+	                                            blend_windows: blend_windows.val(),
 	                                            output_mac: output_mac.val(), 
 	                                            output_linux: output_linux.val(), 
-	                                            output_win: output_win.val() 
+	                                            output_windows: output_windows.val() 
 	                                    }, function(data) {
 	                                            var obj = jQuery.parseJSON(data);
 	                                            //alert(data);
@@ -265,7 +265,7 @@ if (isset($_GET['new_project'])) {
 	}
 	else {
 		print "new project $new_project created<br/>";
-		$queryqq="insert into projects values ('','$new_project','$_GET[blend_mac]','$_GET[blend_linux]','$_GET[blend_win]','$_GET[output_mac]','$_GET[output_win]','$_GET[output_linux]','$_GET[rem]','active','');";
+		$queryqq="insert into projects values ('','$new_project','$_GET[blend_mac]','$_GET[blend_linux]','$_GET[blend_windows]','$_GET[output_mac]','$_GET[output_windows]','$_GET[output_linux]','$_GET[rem]','active','');";
 		mysql_query($queryqq);
 	}
 }
@@ -297,10 +297,10 @@ if (isset($_GET['new_project'])) {
 		$name=$row->name;
 		$rem=$row->rem;
 		$blend_mac=shortify_string($row->blend_mac);
-		$blend_win=shortify_string($row->blend_win);
+		$blend_windows=shortify_string($row->blend_windows);
 		$blend_linux=shortify_string($row->blend_linux);
 		$output_mac=shortify_string($row->output_mac);
-		$output_win=shortify_string($row->output_win);
+		$output_windows=shortify_string($row->output_windows);
 		$output_linux=shortify_string($row->output_linux);
 		$status=get_css_class($row->status);
 		if ($status=="active") {
@@ -333,8 +333,8 @@ if (isset($_GET['new_project'])) {
 			<td>$id</td> 
 			<td>$default_button</td> 
 			<td> <a href=\"index.php?view=view_project&project=$name\">$name</a></td>
-			<td>mac: $blend_mac <br/>win: $blend_win<br/>linux: $blend_linux</td> 
-			<td>mac: $output_mac <br/>win: $output_win <br/>linux: $output_linux</td> 
+			<td>mac: $blend_mac <br/>windows: $blend_windows<br/>linux: $blend_linux</td> 
+			<td>mac: $output_mac <br/>windows: $output_windows <br/>linux: $output_linux</td> 
 			<td>$test_result_icon</td> 
 			<td>$rem</td> 
 			<td>$status_link</td> 
@@ -356,20 +356,20 @@ if (isset($_GET['new_project'])) {
  		<label for="rem">remarks</label>
  		<label for="blend_mac">blend files path on mac</label>
  		<label for="blend_linux">blend files path on linux</label>
- 		<label for="blend_win">blend files path on windows</label>
+ 		<label for="blend_windows">blend files path on windows</label>
  		<label for="output_mac">output path on mac</label>
  		<label for="output_linux">output path on linux</label>
- 		<label for="output_win">output path on win</label>
+ 		<label for="output_windows">output path on win</label>
  	</div>
 	<div class="col_2">
 		<input type="text" id="project_name" value="">
 		<input type="text" id="rem" value="">
 		<input type="text" id="blend_mac" value="../blend/">
 		<input type="text" id="blend_linux" value="../blend/">
-		<input type="text" id="blend_win" value="../blend">	
+		<input type="text" id="blend_windows" value="../blend">	
 		<input type="text" id="output_mac" value="../render">
 		<input type="text" id="output_linux" value="../render">
-		<input type="text" id="output_win" value="../render">
+		<input type="text" id="output_windows" value="../render">
 	</div>
 	<div class="clear"></div>
 	<small>Please notice paths are relative to brender_root/web folder.<br/>You should use Absolute paths if possible</small>

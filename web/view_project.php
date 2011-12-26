@@ -24,10 +24,10 @@
 			$uquery="UPDATE projects SET 
 				blend_mac='$_POST[blend_mac]',
 				blend_linux='$_POST[blend_linux]',
-				blend_win='$_POST[blend_win]',
+				blend_windows='$_POST[blend_windows]',
 				output_mac='$_POST[output_mac]',
 				output_linux='$_POST[output_linux]',
-				output_win='$_POST[output_win]',
+				output_windows='$_POST[output_windows]',
 				rem='$_POST[rem]' where name='$_POST[project]';
 				";
 			mysql_query($uquery);
@@ -47,11 +47,11 @@
 		$row=mysql_fetch_object($results);
 
 		$blend_mac=$row->blend_mac;
-		$blend_win=$row->blend_win;
+		$blend_windows=$row->blend_windows;
 		$blend_linux=$row->blend_linux;
 
 		$output_mac=$row->output_mac;
-		$output_win=$row->output_win;
+		$output_windows=$row->output_windows;
 		$output_linux=$row->output_linux;
 
 		$rem=$row->rem;
@@ -68,11 +68,11 @@
 		.blend files paths<br/>
 		blend_mac : <input type="text" name="blend_mac" size="120" value="<?php echo $blend_mac?>"><br/>
 		blend_linux : <input type="text" name="blend_linux" size="120" value="<?php echo $blend_linux?>"><br/>
-		blend_win : <input type="text" name="blend_win" size="120" value="<?php echo $blend_win?>"><br/>
+		blend_windows : <input type="text" name="blend_windows" size="120" value="<?php echo $blend_windows?>"><br/>
 		render outputs paths<br/>
 		output_mac : <input type="text" name="output_mac" size="120" value="<?php echo $output_mac?>"><br/>
 		output_linux : <input type="text" name="output_linux" size="120" value="<?php echo $output_linux?>"><br/>
-		output_win : <input type="text" name="output_win" size="120" value="<?php echo $output_win?>"><br/>
+		output_windows : <input type="text" name="output_windows" size="120" value="<?php echo $output_windows?>"><br/>
 
 		<input type="submit" value="update <?php print $project?>"><br/>&nbsp;<br/>
 	</form><br/>
