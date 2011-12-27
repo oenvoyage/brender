@@ -35,7 +35,9 @@ function output($msg,$type="info") {
 	# function used in the command line scripts (brender_server.php and brender_client.php) for outputing and logging things
 	# output can be customized in future for different types 
 	# currently used type = info, warning, error
-	brender_log($msg);
+	if ($type <> "nolog") {
+		brender_log($msg);
+	}
 	$when=date('Y/d/m H:i:s');
 	$msg= "$when : $type : $msg";
 	print "$msg\n";
@@ -224,9 +226,9 @@ function windowsify_paths($path) {
 	#if (DIRECTORY_SEPARATOR == "\/") {
 	#	$new_path = preg_replace('/', DIRECTORY_SEPARATOR, $path);
 	#}
-	$new_path=preg_replace("/\//","\\",$path);
+	$new_path=preg_replace("/\//","\\",$path); #change slash to backslash
+	$new_path=preg_replace("/\'/i","",$path);  # needed because windows
 	debug("\n ***** $path ****** \n ----becomes ----- \n ******* $new_path ****** ------\n");
-	print "\n ***** $path ****** \n ----becomes ----- \n ******* $new_path ****** ------\n";
 	return $new_path;
 }
 function get_blender_path() {
@@ -238,6 +240,7 @@ function get_blender_path() {
 	if ($local_path) {
 		if (file_exists($local_path)) {
 			# --- there is a local_path set in the client table, so we return it
+			output("blender local path found :: $local_path .... niiiice!");
 			return $local_path;
 		}
 		else {
