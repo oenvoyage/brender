@@ -119,15 +119,15 @@
 		<h3>machine description</h3>
 			<p>operating system <select name="machine_os">
 				<option>mac</option>
-				<option <?print $linux_selected?>>linux</option>
-				<option <?print $windows_selected?>>windows</option>
+				<option <?php print $linux_selected?>>linux</option>
+				<option <?php print $windows_selected?>>windows</option>
 			</select></p>
 			<p>blender local path including blender executable <br/>(leave empty to use the /blender folder in brender_root : <br/>
 				<input type="text" name="blender_local_path" size="80" value="<?php print $blender_local_path?>"></p>
 			<p>speed (number of processors = number of chunks multiplier) <input type="text" name="speed" size="2" value="<?php print $speed?>"></p>
 			<p>machine type <select name="machine_type" onchange="switch_working_hours(this.value)">
 				<option>workstation</option>
-				<option <?print $rendernode_selected?>>rendernode</option>
+				<option <?php print $rendernode_selected?>>rendernode</option>
 			</select></p>
 		<div id="working_hours" class="<?php ($machine_type=="workstation") ? print "visibleDiv": print "hiddenDiv"?>">
 				<h3>working hours / priority</h3>
