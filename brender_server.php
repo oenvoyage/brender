@@ -28,6 +28,7 @@
     $server_speed = 2; # server speed is the number of second that tha main loop will sleep(), check at the end of brender_server.php file
     $computer_name = "server";
     $GLOBALS['computer_name'] = "server";
+    $GLOBALS['os']=""; #Needs to be defined before functions.php to prevent warnings/errors
     $pid=getmypid();
     $imagemagick_root = ""; # keep empty if $IMAGEMAGICK_HOME is set 
 
