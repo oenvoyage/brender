@@ -59,6 +59,7 @@ else {
 set_status("$computer_name","idle",'');
 set_info($computer_name,'');
 $os=get_client_os($computer_name);
+$GLOBALS['os'] = $os;
 output("computer name=$computer_name os=$os");
 output("process id=".getmypid());
 brender_log("START $computer_name");

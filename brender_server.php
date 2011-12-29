@@ -53,8 +53,10 @@ if (isset($argv[1])) {
 	}
 }
 
+$os = get_server_settings("server_os");
+$GLOBALS['os'] = $os;
 
-output("process id=$pid");
+output("os = $os / process id=$pid");
 brender_log("SERVER STARTS $pid");
 server_start($pid);
 # ---things to do and check when starting server
