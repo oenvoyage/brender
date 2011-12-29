@@ -400,21 +400,25 @@ function brender_log($log){
 	$computer_name=$GLOBALS['computer_name'];
 	$log=preg_replace("/\n$/","",$log);  # we erase the trailing carriage return to avoid empty lines in the log file
 	$prefix=""; // initialize prefix variable
+	$slash="/"; //Normally use forward slash
 	if ($computer_name=="web_interface") {
 		$prefix="../";
 	}
-	if ($computer_name=="ajax") {
+	elseif ($computer_name=="ajax") { //adding else to ensure that backslashes are only used when not ajax and not web interface
 		$prefix="../../";
+	}
+	elseif ($GLOBALS['os']=="windows") { //Only if type is client and os is windows right?
+		$slash="\\";
 	}
 	$heure=date('Y/d/m H:i:s');
 	$log_koi = "$heure $computer_name: $log\n";
 	#print "\n---------------------- I AM LOGGING THIS ::: $log_koi-----end ----\n";
 	# --- we log 2 times, first time for the computer itself, and ....
-	$foo=fopen($prefix."logs/$computer_name.log","a");
+	$foo=fopen($prefix."logs".$slash.$computer_name.".log","a");
             fwrite($foo,"$log_koi");
         fclose($foo);
 	# .... second time for the brender.log that includes all logs
-	$foo=fopen($prefix."logs/brender.log","a");
+	$foo=fopen($prefix."logs".$slash."brender.log","a");
             fwrite($foo,"$log_koi");
         fclose($foo);
 	#print "$prefix/logs/brender.log";
