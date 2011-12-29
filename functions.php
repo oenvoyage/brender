@@ -256,7 +256,7 @@ function get_blender_path() {
 			$path="blender_bin/linux/blender";
 			break;
 		case "windows":
-			$path="blender_bin/windows/blender.exe";
+			$path="blender_bin\windows\blender.exe";
 			break;
 
 	}
