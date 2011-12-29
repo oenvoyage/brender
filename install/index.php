@@ -222,7 +222,7 @@ error_reporting(0);
 			<td>
 				<select name="host_os">
 					<option value="mac">Mac OS</option>
-					<option value="win">Windows</option>
+					<option value="windows">Windows</option>
 					<option value="linux">Linux</option>
 				</select>
 			</td>
