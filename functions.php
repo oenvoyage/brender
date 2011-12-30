@@ -794,7 +794,7 @@ function get_thumbnail_image($job_id,$image_number,$class = "") {
 	$thumbnail_location = "thumbnails/$project/$scene/$shot/small_$filename".str_pad($image_number,4,0,STR_PAD_LEFT).".$filetype";
 	#print "**** $thumbnail_location****";
 	if (file_exists("../$thumbnail_location")) {
-		return "<img src = \"/$thumbnail_location\" class = \"$class\">";
+		return "<img src = \"../$thumbnail_location\" class = \"$class\">";
 	}
 	else {
 		return false;
