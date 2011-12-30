@@ -181,7 +181,7 @@ while (1 <> 2) {
 	}
 	#----every 1200 cycle (about every 2 minutes we check if clients are still alive)
 	if($num_cycles++ == 120){
-		print ("... checking alive clients :");
+		print ("... checking alive clients :\n");
 		checking_alive_clients();
 		check_if_client_should_work();
 		$num_cycles = 0; #reset the cycle counter
