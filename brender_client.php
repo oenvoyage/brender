@@ -92,7 +92,8 @@ while ($q = 1) {
 					switch ($GLOBALS['os']) {
 						case "windows":
 							//SYNCH HERE!
-							
+							$ftpcommand= $winscp . " /script=winscpsynch.txt";
+							system($ftpcommand);
 							break;
 					}
 				}
