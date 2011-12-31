@@ -31,7 +31,7 @@ $ftpenabled = 0;
 	$winscp = "winscp.com"; #Set to path to winscp.com, use "winscp.com" when it is in the same folder or in PATH
 
 #Mac FTP
-	$ncftpput = ""; #Set to path of ncftpput, use "ncftpput" when it is in the same folder or you installed the package
+	$ncftpput = ""; #Set to path of ncftpput, use "ncftpput" when it is in the same folder or you installed the package, absolute path recommended.
 	$ftphost = "";
 	$ftpusername = "";
 	$ftppassword = "";
