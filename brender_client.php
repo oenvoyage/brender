@@ -25,6 +25,8 @@
 * ***** BEGIN GPL LICENSE BLOCK *****
 *
 */
+//Highly Experimental!
+$ftpenabled = 0;
 
 require "functions.php";
 require_once "connect.php";
@@ -98,7 +100,6 @@ while ($q = 1) {
 				system($render_query);
 				
 				############################################# Highly Experimental
-				$ftpenabled = 0;
 				if ($ftpenabled) {
 					switch ($GLOBALS['os']) {
 						case "windows":
