@@ -27,6 +27,9 @@
 */
 //Highly Experimental!
 $ftpenabled = 0;
+#Windows FTP
+$winscp = "winscp.com" #Set to path to winscp.com, use "winscp.com" when it is in the same folder or in PATH
+
 
 require "functions.php";
 require_once "connect.php";
@@ -82,6 +85,19 @@ while ($q = 1) {
 		if ($client == $computer_name || $client == "any") {
 			debug("wow its me...time to work! $orders ---");
 			if ($orders == "render") {
+				
+				#Download/synch blend folder
+				############################################# Highly Experimental
+				if ($ftpenabled) {
+					switch ($GLOBALS['os']) {
+						case "windows":
+							//SYNCH HERE!
+							
+							break;
+					}
+				}
+				############################################# Highly Experimental
+				
 				# ---- RENDER ---
 				debug("RENDER TIME");
 				change_order_owner($id,$computer_name);
@@ -99,11 +115,12 @@ while ($q = 1) {
 				output("-  I am rendering using this command = $render_query");
 				system($render_query);
 				
+				# Upload completed frames to remote server
 				############################################# Highly Experimental
 				if ($ftpenabled) {
 					switch ($GLOBALS['os']) {
 						case "windows":
-							$ftpcommand="winscp.com /script=winscp.txt";
+							$ftpcommand= $winscp . " /script=winscp.txt";
 							system($ftpcommand);
 							rrmdir("render/");
 							break;
