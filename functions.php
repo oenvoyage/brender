@@ -19,7 +19,7 @@
 * You should have received a copy of the GNU General Public License 
 * along with brender.  If not, see <http://www.gnu.org/licenses/>.
 *
-* ***** BEGIN GPL LICENSE BLOCK *****
+* ***** END GPL LICENSE BLOCK *****
 *
 */
 
