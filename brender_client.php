@@ -28,7 +28,7 @@
 //Highly Experimental!
 $ftpenabled = 0;
 #Windows FTP
-$winscp = "winscp.com" #Set to path to winscp.com, use "winscp.com" when it is in the same folder or in PATH
+$winscp = "winscp.com"; #Set to path to winscp.com, use "winscp.com" when it is in the same folder or in PATH
 
 
 require "functions.php";
