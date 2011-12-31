@@ -227,9 +227,9 @@ function windowsify_paths($path) {
 	#	$new_path = preg_replace('/', DIRECTORY_SEPARATOR, $path);
 	#}
 	$new_path = preg_replace("/\//","\\",$path); #change slash to backslash
-	$new_path = preg_replace("/\'/i","",$path);  # needed because windows
+	$newer_path = preg_replace("/\'/i","",$new_path);  # needed because windows
 	debug("\n ***** $path ****** \n ----becomes ----- \n ******* $new_path ****** ------\n");
-	return $new_path;
+	return $newer_path;
 }
 function get_blender_path() {
 	$query = "SELECT blender_local_path FROM clients WHERE client = '$GLOBALS[computer_name]'";
