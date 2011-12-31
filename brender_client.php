@@ -28,8 +28,13 @@
 //Highly Experimental!
 $ftpenabled = 0;
 #Windows FTP
-$winscp = "winscp.com"; #Set to path to winscp.com, use "winscp.com" when it is in the same folder or in PATH
+	$winscp = "winscp.com"; #Set to path to winscp.com, use "winscp.com" when it is in the same folder or in PATH
 
+#Mac FTP
+	$ncftpput = ""; #Set to path of ncftpput, use "ncftpput" when it is in the same folder or you installed the package
+	$ftphost = "";
+	$ftpusername = "";
+	$ftppassword = "";
 
 require "functions.php";
 require_once "connect.php";
@@ -122,6 +127,11 @@ while ($q = 1) {
 					switch ($GLOBALS['os']) {
 						case "windows":
 							$ftpcommand= $winscp . " /script=winscp.txt";
+							system($ftpcommand);
+							rrmdir("render/");
+							break;
+						case "mac":
+							$ftpcommand= $ncftpput . " -R -u " . $ftpusername . " -p " . $ftppassword . " " . $ftphost . " / render/";
 							system($ftpcommand);
 							rrmdir("render/");
 							break;
