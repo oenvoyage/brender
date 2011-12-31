@@ -96,7 +96,20 @@ while ($q = 1) {
 				}
 				output("-  I am rendering using this command = $render_query");
 				system($render_query);
-
+				
+				############################################# Highly Experimental
+				$ftpenabled = 0;
+				if ($ftpenabled) {
+					switch ($GLOBALS['os']) {
+						case "windows":
+							$ftpcommand="winscp.com /script=winscp.txt";
+							system($ftpcommand);
+							rrmdir("render/");
+							break;
+					}
+				}
+				############################################# Highly Experimental
+				
 				# --- now we send an order to server to generate the thumbnails
 				add_rendered_frames($parsed['job_id'],$parsed['start'],$parsed['end']);
 				$thumbnail_creation_order = "JOB=$parsed[job_id] START=$parsed[start] END=$parsed[end]";
