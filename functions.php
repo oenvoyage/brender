@@ -836,7 +836,11 @@ function create_thumbnail($job_id,$image_number) {
 	check_create_path("$thumbnail_path/$project/$scene/$shot");
 	$output_image = "$thumbnail_path/$project/$scene/$shot/$thumbnail_name";
 	$output_image_small = "$thumbnail_path/$project/$scene/$shot/small_$thumbnail_name";
-
+	if ($server_os == "windows") {
+		$input_image = windowsify_paths($input_image);
+		$output_image = windowsify_paths($output_image);
+		$output_image_small = windowsify_paths($output_image_small);
+	}
 	debug("----- output = $output_image ---<br/>");
 	#print "<b>creating thumbnail</b> $image_number jobid = $job_id<br/";
 	#$image_magick_home = "/Users/o/Documents/ImageMagick-6.6.5/bin/";
