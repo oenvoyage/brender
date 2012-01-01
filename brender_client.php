@@ -42,7 +42,7 @@ else {
 			}
 			else if (check_client_is_running($computer_name)) {
 				output("tried to start brender client with client name : $computer_name.... but a client with that name seems to be already running\n");
-		    	     	die("could not start client");
+				die("ERROR: could not start client\n");
 			}
 			if ($argv[2] == "debug") {
 				# -- we enable debug mode ------

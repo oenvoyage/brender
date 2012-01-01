@@ -47,10 +47,17 @@ if (!check_server_is_dead()) {  // this means the server is still running
 	die("could not start server");
 }
 if (isset($argv[1])) {
-	if ($argv[1] == "debug") {
+	foreach ($argv as $arg) {
+		if ($arg == "debug") {
                         # -- we enable debug mode ------
-       		$GLOBALS['debug_mode'] = 1;
-       		debug(" STARTED IN DEBUG MODE ");
+       			$GLOBALS['debug_mode'] = 1;
+       			debug(" STARTED IN DEBUG MODE ");
+		}
+		else if ($arg == "matrix") {
+                        # -- we enable matrix mode ------
+       			$GLOBALS['matrix_mode'] = 1;
+       			debug(" STARTED IN MATRIX MODE ");
+		}
 	}
 }
 
@@ -168,19 +175,24 @@ while (1 <> 2) {
 	}
 
 	#---matrix style useless stuff
-	$qq=chr(rand(48,122));
-	 print "$qq";
+	if (isset($matrix_mode)) {
+		$qq=chr(rand(48,122));
+		print "$qq";
+	}
+	else {
+		print ".";
+	}
 
 	#----we are sleeping 1 or 2 seconds beetween each cycle
 	sleep($server_speed);
 
 	#----every 3600 cycle (about every hour we delete old orders)
-	if($cycles_b++ == 3600){
+	if ($cycles_b++ == 3600){
 		check_and_delete_old_orders();
 		$cycles_b = 0; #reset the cycle_counter;
 	}
 	#----every 1200 cycle (about every 2 minutes we check if clients are still alive)
-	if($num_cycles++ == 120){
+	if ($num_cycles++ == 120){
 		print ("... checking alive clients :\n");
 		checking_alive_clients();
 		check_if_client_should_work();
