@@ -2,7 +2,7 @@
 session_start();
 include_once("../tpl/connect.php");
 include_once("../../functions.php");
-$GLOBALS['computer_name']="ajax";
+$GLOBALS['computer_name'] = "ajax";
 
 if(isset($_POST['action'])) {
 		$action = $_POST['action'];
@@ -15,27 +15,27 @@ if(isset($_POST['action'])) {
 		$working_hour_end = $_POST['working_hour_end'];
 		$client_priority = $_POST['client_priority'];
 	
-		if ($speed>8) {
-			$speed=8;
+		if ($speed > 8) {
+			$speed = 8;
 		}
 	}
 
 if ($action == "add_client") {
 		//$new_client_name=clean_name($_POST['name']);
 		if (check_client_exists($name)) {
-			$status="false";
-			$msg="error client already exists";
+			$status = "false";
+			$msg = "error client already exists";
 		}
 		else if ($name == "" ) {
-			$status="false";
-			$msg="error, please enter a client name";
+			$status = "false";
+			$msg = "error, please enter a client name";
 		}
 		else {
-			$add_query="insert into clients values('','$name','$speed','$machine_type','$machine_os','$blender_local_path','$client_priority','$working_hour_start','$working_hour_end','not running','','')";
+			$add_query = "INSERT INTO clients VALUES('','$name','$speed','$machine_type','$machine_os','$blender_local_path','$client_priority','$working_hour_start','$working_hour_end','not running','','')";
 			mysql_query($add_query);
 			//$msg="created new client $_POST[client] $add_query";
 			$msg = "creation of client : $name with success";
-			$status="true";
+			$status = "true";
 			brender_log("added new client : $name");
 		}
 		echo "{\"status\":$status, \"msg\":\"$msg\"}";

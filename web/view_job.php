@@ -142,30 +142,30 @@
 
 <?php
 #--------read---------
-	$id=$_GET['id'];
-	$query="select * from jobs where id='$id'";
-	$results=mysql_query($query);
-	$row=mysql_fetch_object($results);
-		$project=$row->project;
-		$id=$row->id;
-		$scene=$row->scene;
-		$shot=$row->shot;
-		#$jobtype=$row->jobtype;
-		$config=$row->config;
-		#$output=$row->output;
-		$start=$row->start;
-		$end=$row->end;
-		$current=$row->current;
-		$chunks=$row->chunks;
-		$rem=$row->rem;
-		$filetype=$row->filetype;
-		$progress_status=$row->progress_status;
-		$progress_remark=$row->progress_remark;
-		$last_edited_by=$row->last_edited_by;
-		$lastseen=$row->lastseen;
-		$status=$row->status;
-		$priority=$row->priority;
-		$total=$end-$start;
+	$id = $_GET['id'];
+	$query = "SELECT * FROM jobs WHERE id='$id'";
+	$results = mysql_query($query);
+	$row = mysql_fetch_object($results);
+		$project = $row->project;
+		$id = $row->id;
+		$scene = $row->scene;
+		$shot = $row->shot;
+		#$jobtype = $row->jobtype;
+		$config = $row->config;
+		#$output = $row->output;
+		$start = $row->start;
+		$end = $row->end;
+		$current = $row->current;
+		$chunks = $row->chunks;
+		$rem = $row->rem;
+		$filetype = $row->filetype;
+		$progress_status = $row->progress_status;
+		$progress_remark = $row->progress_remark;
+		$last_edited_by = $row->last_edited_by;
+		$lastseen = $row->lastseen;
+		$status = $row->status;
+		$priority = $row->priority;
+		$total = $end-$start;
 	#-------------------
 	print "<h2>job $id : $scene/<b>$shot</b> </h2>";	
 		if ($rem ) {
@@ -173,7 +173,7 @@
 		}	
 		#print " <p class=\"$status\">";
 		print "project: <a href=\"index.php?view=view_project&project=$project\" class=\"tooltip\">$project<span>go to project page</span></a> $total frames ($start-$end by $chunks) ";
-		$total_rendered=count_rendered_frames($id);
+		$total_rendered = count_rendered_frames($id);
 		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen "; ?>
 
 	<div class="table-controls">
@@ -186,38 +186,37 @@
 	<table border=0 class="thumbnails_table">
 	<tr>
 	<?php #-------------------------------les images ------------------------------
-	$a=$start;
-	$first_image=get_thumbnail_image($id,$start);
+	$a = $start;
+	$first_image = get_thumbnail_image($id,$start);
 
-	$img_chunks=round(($total)/20);
-	if ($img_chunks==0) {
-		$img_chunks=1;
+	$img_chunks = round(($total)/20);
+	if ($img_chunks == 0) {
+		$img_chunks = 1;
 	}
 	# print "a= $a --- start $start -- end $end -- totalframes $total img_chunks =$img_chunks </br>";
 	print "<td><a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$first_image<br/>$a<br/></a></td>";
-	$rows=1;
-	$b=0;
-	while ($a++<($total+$start)){
+	$rows = 1;
+	$b = 0;
+	while ($a++ < ($total+$start)){
 		$b++;
 		# print " a= $a ---- b=$b/$img_chunks <br/>";
-		if ($b==$img_chunks) {
+		if ($b == $img_chunks) {
 			/*if ($_GET[renderpreview]) {
-					$render_order="-b \'/brender/blend/$file\' -o \'/brender/render/$project/$name/$output\' -P conf/$config.py -F JPEG -f $a";
+					$render_order = "-b \'/brender/blend/$file\' -o \'/brender/render/$project/$name/$output\' -P conf/$config.py -F JPEG -f $a";
                                         # ---------------------------------
                                         print "job_render for $client :\n $render_order\n-----------\n";
                                         #send_order("any","render",$render_order,"20");
 			}
 			*/
-                        #$thumbnail_image="../thumbnails/$project/$scene/$shot/small_$shot".str_pad($a,4,0,STR_PAD_LEFT).".$ext";
-			$thumbnail_image=get_thumbnail_image($id,$a);
+            $thumbnail_image=get_thumbnail_image($id,$a);
 
 			print "<td>";
 				print "<a href=\"index.php?view=view_image&job_id=$id&frame=$a\">$thumbnail_image<p>$a</p></a>";
 			print "</td>";
-			$b=0;
+			$b = 0;
 			#  print "row = $rows";
-			if ($rows++>3) {
-				$rows=0;
+			if ($rows++ > 3) {
+				$rows = 0;
 				print "</tr><tr>";
 			}
 		}
@@ -225,19 +224,19 @@
 	print "</tr></table>";
 
 // Update job form
-		$select_multilayer=$select_exr=$select_tga=$select_png="";
+		$select_multilayer = $select_exr = $select_tga = $select_png = "";
 
-		if ($filetype=="TGA"){
-			$select_tga="selected";
+		if ($filetype == "TGA"){
+			$select_tga = "selected";
 		}
-		else if ($filetype=="EXR"){
-			$select_exr="selected";
+		else if ($filetype == "EXR"){
+			$select_exr = "selected";
 		}
-		else if ($filetype=="MULTILAYER"){
-			$select_multilayer="selected";
+		else if ($filetype == "MULTILAYER"){
+			$select_multilayer = "selected";
 		}
-		else if ($filetype=="PNG"){
-			$select_png="selected";
+		else if ($filetype == "PNG"){
+			$select_png = "selected";
 		}
 		?>
 		

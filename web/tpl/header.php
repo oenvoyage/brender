@@ -1,16 +1,16 @@
 <?php
 	header("Content-Type: text/html; charset=utf-8");
-	$sid=session_id();
+	$sid = session_id();
 	global $random_x;
-	$random_x=rand(0,9999);
+	$random_x = rand(0,9999);
 	include_once("connect.php");
 	include_once("../functions.php");
 	include_once("functions.php");
 	global $computer_name;
-	$computer_name="web_interface";
+	$computer_name = "web_interface";
 	
 	if (isset($_GET['theme'])) {
-	$_SESSION['theme']=$_GET['theme'];
+	$_SESSION['theme'] = $_GET['theme'];
 }
 ?>
 <!doctype html>

@@ -1,6 +1,6 @@
 <?php
 function check_login($user,$pass) {
-	if ($user==$pass) {
+	if ($user == $pass) {
 		return 1;
 	} else {
 		return 0;
@@ -8,13 +8,13 @@ function check_login($user,$pass) {
 }
 
 function init_user($user) {
-	$_SESSION['user']=$user;
-	$_SESSION['theme']="brender";
-	$_SESSION['orderby_client']="client";
-	$_SESSION['orderby_jobs']="shot";
-	$_SESSION['orderby_projects']="id";
-	$_SESSION['last_used_config']="";
-	$_SESSION['debug']= false;
+	$_SESSION['user'] = $user;
+	$_SESSION['theme'] = "brender";
+	$_SESSION['orderby_client'] = "client";
+	$_SESSION['orderby_jobs'] = "shot";
+	$_SESSION['orderby_projects'] = "id";
+	$_SESSION['last_used_config'] = "";
+	$_SESSION['debug'] = false;
 	return 1;
 }
 

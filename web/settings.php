@@ -112,11 +112,11 @@ if (isset($_GET['do_the_test'])) {
 if (isset($_GET['debug'])) {
 	if ($_SESSION['debug']) {
 		print "INFO : debug mode OFF";
-		$_SESSION['debug']=0;
+		$_SESSION['debug'] = 0;
 	}
 	else {
 		print "INFO : debug mode ON";
-		$_SESSION['debug']=1;
+		$_SESSION['debug'] = 1;
 	}
 }
 
@@ -155,21 +155,21 @@ if (isset($_GET['debug'])) {
 #print "sid = $sid <br/>";
 
 if (isset($_GET['enable_sound'])) {
-	$query="update server_settings set sound='yes'";
+	$query = "UPDATE server_settings SET sound='yes'";
 	mysql_unbuffered_query($query);
 	print "sound enabled<br/>";
 }
 if (isset($_GET['disable_sound'])) {
-	$query="update server_settings set sound='no'";
+	$query = "UPDATE server_settings SET sound='no'";
 	mysql_unbuffered_query($query);
 	print "sound disabled<br/>";
 }
 if (isset($_GET['order_by'])) {
-        if ($_SESSION['orderby_projects']==$_GET['order_by']) {
-                $_SESSION['orderby_projects']=$_GET['order_by']." desc";
+        if ($_SESSION['orderby_projects'] == $_GET['order_by']) {
+                $_SESSION['orderby_projects'] = $_GET['order_by']." desc";
         }   
         else {
-                $_SESSION['orderby_projects']=$_GET['order_by'];
+                $_SESSION['orderby_projects'] = $_GET['order_by'];
         }   
 }
 
@@ -232,25 +232,25 @@ function system_status() {
 print "<h2>// <b>projects</b></h2>";
 
 if (isset($_GET['del'])) {
-	$queryqq="delete from projects where id=$_GET[del];";
-	mysql_query($queryqq);
+	$query = "delete from projects where id=$_GET[del];";
+	mysql_query($query);
 	# sleep(1);
 }
 if (isset($_GET['deactivate'])) {
-	$queryqq="update projects set status='inactive' where id=$_GET[deactivate];";
-	mysql_query($queryqq);
+	$query = "UPDATE projects SET status='inactive' where id=$_GET[deactivate];";
+	mysql_query($query);
 }
 if (isset($_GET['activate'])) {
-	$queryqq="update projects set status='active' where id=$_GET[activate];";
-	mysql_query($queryqq);
+	$query = "UPDATE projects SET status='active' where id=$_GET[activate];";
+	mysql_query($query);
 }
 if (isset($_GET['def'])) {
-	$def=$_GET['def'];
+	$def = $_GET['def'];
 	if (check_project_is_active($def)) {
-		$queryqq="update projects set def=0";
-		mysql_query($queryqq);
-		$queryqq="update projects set def=1 where id=$def;";
-		mysql_query($queryqq);
+		$query = "UPDATE projects SET def=0";
+		mysql_query($query);
+		$query = "UPDATE projects SET def=1 where id=$def;";
+		mysql_query($query);
 		print "default project = $def";
 		# sleep(1);
 	}
@@ -259,18 +259,18 @@ if (isset($_GET['def'])) {
 	}
 }
 if (isset($_GET['new_project'])) {
-	$new_project=clean_name($_GET['new_project']);
+	$new_project = clean_name($_GET['new_project']);
 	if (check_project_exists($new_project)) {
 		print "<span class=error>project $project already exists, please choose other name</span>";
 	}
 	else {
 		print "new project $new_project created<br/>";
-		$queryqq="insert into projects values ('','$new_project','$_GET[blend_mac]','$_GET[blend_linux]','$_GET[blend_windows]','$_GET[output_mac]','$_GET[output_windows]','$_GET[output_linux]','$_GET[rem]','active','');";
-		mysql_query($queryqq);
+		$query = "INSERT INTO projects VALUES ('','$new_project','$_GET[blend_mac]','$_GET[blend_linux]','$_GET[blend_windows]','$_GET[output_mac]','$_GET[output_windows]','$_GET[output_linux]','$_GET[rem]','active','');";
+		mysql_query($query);
 	}
 }
-#if (!$orderby_projects=$_GET[orderby_projects]) {
-#        $orderby_projects="id";
+#if (!$orderby_projects = $_GET[orderby_projects]) {
+#        $orderby_projects = "id";
 #}
   ?>
 
@@ -289,45 +289,45 @@ if (isset($_GET['new_project'])) {
 	</tr>
 	<?php 
 
-	$server_os=get_server_settings("server_os");
-	$query="select * from projects order by $_SESSION[orderby_projects]";
-	$results=mysql_query($query);
-	while ($row=mysql_fetch_object($results)){
-		$id=$row->id;
-		$name=$row->name;
-		$rem=$row->rem;
-		$blend_mac=shortify_string($row->blend_mac);
-		$blend_windows=shortify_string($row->blend_windows);
-		$blend_linux=shortify_string($row->blend_linux);
-		$output_mac=shortify_string($row->output_mac);
-		$output_windows=shortify_string($row->output_windows);
-		$output_linux=shortify_string($row->output_linux);
-		$status=get_css_class($row->status);
-		if ($status=="active") {
-			$status_link='<a href="index.php?view=settings&deactivate=' . $id.'">active</a>';
+	$server_os = get_server_settings("server_os");
+	$query = "SELECT * FROM projects ORDER BY $_SESSION[orderby_projects]";
+	$results = mysql_query($query);
+	while ($row = mysql_fetch_object($results)){
+		$id = $row->id;
+		$name = $row->name;
+		$rem = $row->rem;
+		$blend_mac = shortify_string($row->blend_mac);
+		$blend_windows = shortify_string($row->blend_windows);
+		$blend_linux = shortify_string($row->blend_linux);
+		$output_mac = shortify_string($row->output_mac);
+		$output_windows = shortify_string($row->output_windows);
+		$output_linux = shortify_string($row->output_linux);
+		$status = get_css_class($row->status);
+		if ($status == "active") {
+			$status_link = '<a href="index.php?view=settings&deactivate=' . $id.'">active</a>';
 		}
 		else {
-			$status_link='<a href="index.php?view=settings&activate=' . $id.'">inactive</a>';
+			$status_link = '<a href="index.php?view=settings&activate=' . $id.'">inactive</a>';
 		}
-		$def=$row->def;
-		$bgcolor="ddddcc";
-		if ($def==1) {
+		$def = $row->def;
+		$bgcolor = "ddddcc";
+		if ($def == 1) {
 			#$is_default="<img src=\"images/icons/close.png\">";
-			$default_button="yes";
+			$default_button = "yes";
 		}
 		else {
-			$default_button="<a href=\"index.php?view=settings&def=$id\"><img src=\"images/icons/close.png\"></a>";
+			$default_button = "<a href=\"index.php?view=settings&def=$id\"><img src=\"images/icons/close.png\"></a>";
 		}
-		$test_path=get_path($name,"blend",$server_os);
-		$test_result= file_exists($test_path);
-		if ($test_result <>1) { 
-			$test_result_icon ="<a href=\"#\" class=\"tooltip\"><img src=\"images/icons/error.png\"> ERROR
+		$test_path = get_path($name,"blend",$server_os);
+		$test_result = file_exists($test_path);
+		if ($test_result <> 1) { 
+			$test_result_icon = "<a href=\"#\" class=\"tooltip\"><img src=\"images/icons/error.png\"> ERROR
 						<span> The server can not find the path to blend files. Check .blend path for <b>$server_os</b></span>
 	
 					   </a>";
 		}
 		else {
-			$test_result_icon ="OK";
+			$test_result_icon = "OK";
 		}
 		print "<tr class=\"$status\">
 			<td>$id</td> 
@@ -380,10 +380,10 @@ if (isset($_GET['new_project'])) {
 <div id="render_configs">
         <ul>
                 <?php    
-                $list= `ls ../conf/`;
-                $list=preg_split("/\n/",$list);
+                $list = `ls ../conf/`;
+                $list = preg_split("/\n/",$list);
                 foreach ($list as $item) {
-                        $item=preg_replace("/\.py/","",$item);
+                        $item = preg_replace("/\.py/","",$item);
                         if ($item <> "") {
                                 print "<li><a href=\"ajax/render_configs.php?edit=$item\">$item</a></li> ";
                         }   

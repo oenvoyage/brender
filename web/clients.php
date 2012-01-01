@@ -109,24 +109,24 @@
 </script>
 
 <?php	
-	$msg =""; // initalize message variable
+	$msg = ""; // initalize message variable
 
 	if (isset($_GET['orderby'])) {
-		if ($_SESSION[orderby_client]==$_GET[orderby]) {
-			$_SESSION[orderby_client]=$_GET['orderby']." desc";
+		if ($_SESSION[orderby_client] == $_GET[orderby]) {
+			$_SESSION[orderby_client] = $_GET['orderby']." DESC";
 		}
 		else {
-			$_SESSION[orderby_client]=$_GET['orderby'];
+			$_SESSION[orderby_client] = $_GET['orderby'];
 		}
 	}
 	if (isset($_GET['benchmark'])) {
-		$benchmark=$_GET['benchmark'];
-		if ($benchmark=="all") {
+		$benchmark = $_GET['benchmark'];
+		if ($benchmark == "all") {
 			print "benchmark ALL idle<br/>";
-			$query="select * from clients where status='idle'";
-			$results=mysql_query($query);
-			while ($row=mysql_fetch_object($results)){
-				$client=$row->client;
+			$query = "SELECT * FROM clients WHERE status='idle'";
+			$results = mysql_query($query);
+			while ($row = mysql_fetch_object($results)){
+				$client = $row->client;
 				send_order("$client","benchmark","","99");
 				print "benchmark $client<br/>";
 			}
@@ -138,13 +138,13 @@
 		sleep(1); #...we sleep 1 sec for letting time to client to start benchmarking
 	}
 	if (isset($_GET['disable'])) {
-		$disable=$_GET['disable'];
-		if ($disable=="all") {
+		$disable = $_GET['disable'];
+		if ($disable == "all") {
                         print "disable ALL<br/>";
-                        $query="select * from clients where status='idle' or status='rendering'";
-                        $results=mysql_query($query);
-                        while ($row=mysql_fetch_object($results)){
-                                $client=$row->client;
+                        $query = "SELECT * FROM clients WHERE status='idle' OR status='rendering'";
+                        $results = mysql_query($query);
+                        while ($row = mysql_fetch_object($results)){
+                                $client = $row->client;
                                 send_order("$client","disable","","5");
                                 $msg.= "... disabled $client<br/>";
                         }
@@ -157,23 +157,23 @@
 		sleep(1);
 	}
 	if (isset($_GET['enable'])) {
-		$enable=$_GET['enable'];
-		if ($enable=="all") {
+		$enable = $_GET['enable'];
+		if ($enable == "all") {
 			print "enable ALL<br/>";
-			$query="select * from clients where status='disabled'";
-        		$results=mysql_query($query);
-			while ($row=mysql_fetch_object($results)){
-				$client=$row->client;
+			$query = "SELECT * FROM clients WHERE status='disabled'";
+        		$results = mysql_query($query);
+			while ($row = mysql_fetch_object($results)){
+				$client = $row->client;
 				send_order($client,"enable","","5");
 				$msg.= "... enabled $client<br/>";
 			}
 		}
-		else if ($enable=="force_all"){
+		else if ($enable == "force_all"){
 			print "force enable ALL<br/>";
-			$query="select * from clients";
-        		$results=mysql_query($query);
-			while ($row=mysql_fetch_object($results)){
-				$client=$row->client;
+			$query = "SELECT * FROM clients";
+        		$results = mysql_query($query);
+			while ($row = mysql_fetch_object($results)){
+				$client = $row->client;
 				send_order($client,"enable","","5");
 				$msg.= "... enabled $client<br/>";
 			}
@@ -190,20 +190,20 @@
 		check_if_client_should_work();	
 	}
 	if (isset($_GET['delete'])) {
-		$client=$_GET['delete'];
+		$client = $_GET['delete'];
 		if (!check_client_exists($client)) {
-			$msg.="error : client $client not found<br/>";
+			$msg.= "error : client $client not found<br/>";
 		}
 		else {
 			delete_node($client);
-                	$msg.="client $client deleted :: ok <br/>";
+                	$msg.= "client $client deleted :: ok <br/>";
 			# print "query =$dquery";
 		}
         }
 	if (isset($_GET['stop'])) {
-		$stop=$_GET['stop'];
-		$msg= "stopped $stop<br/>";
-		$when=date('Y/d/m H:i:s');
+		$stop = $_GET['stop'];
+		$msg = "stopped $stop<br/>";
+		$when = date('Y/d/m H:i:s');
 		send_order($stop,"stop","stopped@$when","1");
 		sleep(2);
 	}
@@ -211,27 +211,27 @@
 		if ($_POST['action'] == "add client") {
 			$new_client_name=clean_name($_POST[new_client_name]);
 			if (check_client_exists($new_client_name)) {
-				$msg="<span class=\"error\">error client already exists</span>";
+				$msg = "<span class=\"error\">error client already exists</span>";
 			}
 			else if ($new_client_name == "" ) {
 				$msg="<span class=\"error\">error, please enter a client name</span>";
 			}
 			else {
-				$add_query="insert into clients values('','$new_client_name','$_POST[speed]','$_POST[machine_type]','$_POST[machine_os]','$_POST[blender_local_path]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
+				$add_query = "INSERT INTO clients VALUES('','$new_client_name','$_POST[speed]','$_POST[machine_type]','$_POST[machine_os]','$_POST[blender_local_path]','$_POST[client_priority]','$_POST[working_hour_start]','$_POST[working_hour_end]','not running','','')";
 				mysql_query($add_query);
-				$msg="created new client $_POST[client] $add_query";
+				$msg = "created new client $_POST[client] $add_query";
 			}
 		}
 	}
 
-if ($msg<>"") {
+if ($msg <> "") {
 	print "$msg <a href=\"index.php?view=clients\">reload</a><br/>";
 }
 
 #--------read---------
 #------ listing all the clients in the table, including the ones not running------- 
-	$query="select * from clients order by $_SESSION[orderby_client]";
-	$results=mysql_query($query);
+	$query = "SELECT * FROM clients ORDER BY $_SESSION[orderby_client]";
+	$results = mysql_query($query);
 	?>
 	<h2> // <b>clients</b> <?php output_refresh_button(); ?> </h2>
 	<?php debug($query); ?>
@@ -251,34 +251,34 @@ if ($msg<>"") {
 		</thead>
 		<tbody>
 <?php 
-	if (mysql_num_rows($results)==0) {
+	if (mysql_num_rows($results) == 0) {
 	 	echo '<tr><td class="header_row error" colspan=8>NO clients found <span class="normal">click the add new client button at bottom</span></td></tr>';
 	}
-	while ($row=mysql_fetch_object($results)){
-		$client=$row->client;
-		$status=$row->status;
-		$rem=$row->rem;
-		$info=$row->info;
-		$speed=$row->speed;
-		$machine_type=$row->machine_type;
-		$machine_os=$row->machine_os;
-		$client_priority=$row->client_priority;
-		$working_hour_start=$row->working_hour_start;
-		$working_hour_end=$row->working_hour_end;
-		$speed=$row->speed;
-		$status_class=get_css_class($status);
-		if ($status<>"disabled") {
-			$dis="<a href=\"index.php?view=clients&disable=$client\">disable</a>";
+	while ($row = mysql_fetch_object($results)){
+		$client = $row->client;
+		$status = $row->status;
+		$rem = $row->rem;
+		$info = $row->info;
+		$speed = $row->speed;
+		$machine_type = $row->machine_type;
+		$machine_os = $row->machine_os;
+		$client_priority = $row->client_priority;
+		$working_hour_start = $row->working_hour_start;
+		$working_hour_end = $row->working_hour_end;
+		$speed = $row->speed;
+		$status_class = get_css_class($status);
+		if ($status <> "disabled") {
+			$dis = "<a href=\"index.php?view=clients&disable=$client\">disable</a>";
 		}
-		else if ($status=="disabled") {
-			$dis="<a href=\"index.php?view=clients&enable=$client\">enable</a>";
+		else if ($status == "disabled") {
+			$dis = "<a href=\"index.php?view=clients&enable=$client\">enable</a>";
 		}
-		if ($status=="not running") {
-			$dis="";
-			$shutdown_button="";
+		if ($status == "not running") {
+			$dis = "";
+			$shutdown_button = "";
 		}
 		else {
-			$shutdown_button="<a href=\"index.php?view=clients&stop=$client\"><img src=\"images/icons/close.png\"></a>";
+			$shutdown_button = "<a href=\"index.php?view=clients&stop=$client\"><img src=\"images/icons/close.png\"></a>";
 		}
 		print "<tr class=$status_class>
 			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machine_type)</font></td> 

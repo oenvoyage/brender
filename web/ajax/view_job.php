@@ -23,7 +23,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		$session_user = $_SESSION['user'];
 		$scene = $_POST['scene'];
 		$shot = $_POST['shot'];
-		$dberror="";
+		$dberror = "";
 		
 		#print "DIRRR ---$start----";
 		#  do we still need this msg dialog?
@@ -45,12 +45,12 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 			$msg = "Job $jobid duplicated successfully and waiting to be started";
 		} else {
 			#----update UPDATE so we just update the job-------
-			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', rem='$rem', config='$config', chunks='$chunks', priority='$priority', progress_status='$progress_status', progress_remark='$progress_remark', lastseen=NOW(), last_edited_by='$_SESSION[user]' where id=$jobid;";
+			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', rem='$rem', config='$config', chunks='$chunks', priority='$priority', progress_status='$progress_status', progress_remark='$progress_remark', lastseen=NOW(), last_edited_by='$_SESSION[user]' WHERE id=$jobid;";
 			mysql_query($queryqq);
 			if ($directstart == "true"){
 				#print "DDDFSDFSD SD SDF SF";
 				# for directstart we set the current frame position to start and set to waiting
-				$querystart="UPDATE jobs set current='$start', status='waiting' where id='$jobid';";
+				$querystart = "UPDATE jobs SET current='$start', status='waiting' WHERE id='$jobid';";
 				mysql_query($querystart);
 			}	
 		}

@@ -2,7 +2,7 @@
 
 include_once("../tpl/connect.php");
 include_once("../../functions.php");
-$GLOBALS['computer_name']="ajax";
+$GLOBALS['computer_name'] = "ajax";
 
 
 if(isset($_GET['check_server_status'])) {

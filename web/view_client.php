@@ -6,11 +6,11 @@
 	}
 	else {
 		if (isset($_GET['client'])) {
-			$client=$_GET['client'];
+			$client = $_GET['client'];
 		}
 		else {
 			
-			$client=$_POST['client'];
+			$client = $_POST['client'];
 		}
 		if (!check_client_exists($client)) {
 			print "<span class=\"error\">error :: client <b>$client</b> not found</span><br/>";
@@ -22,7 +22,7 @@
 	
 	if (isset($_POST['execute_command'])) {
 		if ($_POST['command']) {
-			$cmd=$_POST['command'];
+			$cmd = $_POST['command'];
 			output("executing command $cmd on client $client");
 			send_order("$client","execute_command","$cmd","99");
 		}
@@ -31,80 +31,80 @@
 		}
 	}
 	if (isset($_GET['reset'])) {
-		$dquery="UPDATE clients set status='not running' WHERE client='$client'";
-		mysql_query($dquery);
-		$msg="client $client reset: $dquery";
+		$query = "UPDATE clients set status='not running' WHERE client='$client'";
+		mysql_query($query);
+		$msg="client $client reset: $query";
 	}
 	if (isset($_POST['action'])) {
-	   	if ($_POST['action']=="update") {
-			$uquery="UPDATE clients SET speed='$_POST[speed]',machine_os='$_POST[machine_os]',machine_type='$_POST[machine_type]',blender_local_path='$_POST[blender_local_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
+	   	if ($_POST['action'] == "update") {
+			$uquery = "UPDATE clients SET speed='$_POST[speed]',machine_os='$_POST[machine_os]',machine_type='$_POST[machine_type]',blender_local_path='$_POST[blender_local_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
 			mysql_query($uquery);
-			$msg="$client updated :: ok <br/>";
-			$msg.="<a href=\"index.php?view=clients\">back to clients list</a>";
+			$msg = "$client updated :: ok <br/>";
+			$msg.= "<a href=\"index.php?view=clients\">back to clients list</a>";
 		}
 	}
 	if (isset($_GET['stop'])) {
-		$stop=$_GET['stop'];
-		$msg= "stopped $stop <a href=\"clients.php\">reload clients list</a><br/>";
+		$stop = $_GET['stop'];
+		$msg = "stopped $stop <a href=\"clients.php\">reload clients list</a><br/>";
 		send_order($stop,"stop","","1");
 		sleep(2);
-		$refresh="0;URL=index.php?view=clients&msg=stopped $stop";
+		$refresh = "0;URL=index.php?view=clients&msg=stopped $stop";
 		}
 
 #--------read---------
-	$query="select * from clients where client='$client'";
-	$results=mysql_query($query);
+	$query = "select * from clients where client='$client'";
+	$results = mysql_query($query);
 	if (isset($msg)) {
 		print "$msg<br/>";
 	}
 	print "<h2>// view client <b>$client</b></h2>";
 	#print "$query<br/>";
-		$row=mysql_fetch_object($results);
-		$client=$row->client;
-		$status=$row->status;
-		$rem=$row->rem;
-		$speed=$row->speed;
-		$machine_type=$row->machine_type;
-		$machine_os=$row->machine_os;
-		$blender_local_path=$row->blender_local_path;
-		$client_priority=$row->client_priority;
-		$working_hour_start=$row->working_hour_start;
-		$working_hour_end=$row->working_hour_end;
-		$speed=$row->speed;
-		if ($status<>"disabled") {
-			$disable_enable_button="<a class=\"grey\" href=\"index.php?view=clients&disable=$client\">disable</a>";
-			$bgcolor="#bcffa6";
+		$row = mysql_fetch_object($results);
+		$client = $row->client;
+		$status = $row->status;
+		$rem = $row->rem;
+		$speed = $row->speed;
+		$machine_type = $row->machine_type;
+		$machine_os = $row->machine_os;
+		$blender_local_path = $row->blender_local_path;
+		$client_priority = $row->client_priority;
+		$working_hour_start = $row->working_hour_start;
+		$working_hour_end = $row->working_hour_end;
+		$speed = $row->speed;
+		if ($status <> "disabled") {
+			$disable_enable_button = "<a class=\"grey\" href=\"index.php?view=clients&disable=$client\">disable</a>";
+			$bgcolor = "#bcffa6";
 		}
-		if ($status=="disabled") {
-			$disable_enable_button="<a class=\"grey\" href=\"index.php?view=clients&enable=$client\">enable</a>";
-			$bgcolor="#ffaa99";
+		if ($status == "disabled") {
+			$disable_enable_button = "<a class=\"grey\" href=\"index.php?view=clients&enable=$client\">enable</a>";
+			$bgcolor = "#ffaa99";
 		}
-		if ($status=="rendering") {
-			$bgcolor="#99ccff";
+		if ($status == "rendering") {
+			$bgcolor = "#99ccff";
 		}
-		if ($status=="not running") {
-			$disable_enable_button="";
-			$benchmark_button= "";
-			$reset_button="";
-			$bgcolor="#ffcc99";
-		}
-		else {
-			$reset_button= " <a class=\"grey\" href=\"index.php?view=view_client&reset=1&client=$client\">x</a>";
-			$benchmark_button= " &nbsp;<a class=\"grey\" href=\"index.php?view=clients&benchmark=$client\">benchmark </a>";
-		}
-		if ($machine_type=='rendernode') {
-			$rendernode_selected="selected";
+		if ($status == "not running") {
+			$disable_enable_button = "";
+			$benchmark_button = "";
+			$reset_button = "";
+			$bgcolor = "#ffcc99";
 		}
 		else {
-			$rendernode_selected="";
+			$reset_button = " <a class=\"grey\" href=\"index.php?view=view_client&reset=1&client=$client\">x</a>";
+			$benchmark_button = " &nbsp;<a class=\"grey\" href=\"index.php?view=clients&benchmark=$client\">benchmark </a>";
+		}
+		if ($machine_type == 'rendernode') {
+			$rendernode_selected = "selected";
+		}
+		else {
+			$rendernode_selected = "";
 		}
 
 		$linux_selected = $windows_selected = "";
-		if ($machine_os=='linux') {
-			$linux_selected="selected";
+		if ($machine_os == 'linux') {
+			$linux_selected = "selected";
 		}
-		else if ($machine_os=='windows') {
-			$windows_selected="selected";
+		else if ($machine_os == 'windows') {
+			$windows_selected = "selected";
 		}
 		?>
 	<!--  ******** form ********  -->
@@ -158,14 +158,14 @@
 #------------------------------ functions -----------------
 function show_last_rendered_frame_by_client($client) {
 	print "<table><tr>";
-        $query="SELECT * FROM rendered_frames WHERE is_thumbnailed='1' AND rendered_by='$client'  ORDER BY finished_time DESC limit 5";
+        $query = "SELECT * FROM rendered_frames WHERE is_thumbnailed='1' AND rendered_by='$client'  ORDER BY finished_time DESC limit 5";
 	debug("RENDER FRAME LAST BY CLIENT $query");
-        $results=mysql_query($query);
-        while ($row=mysql_fetch_object($results)) {
-        	$job_id=$row->job_id;
-        	$rendered_by=$row->rendered_by;
-		$frame=$row->frame;
-        	$finished_time=$row->finished_time;
+        $results = mysql_query($query);
+        while ($row = mysql_fetch_object($results)) {
+        	$job_id = $row->job_id;
+        	$rendered_by= $ row->rendered_by;
+		$frame = $row->frame;
+        	$finished_time = $row->finished_time;
 		print "<td>";
 		print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">".get_thumbnail_image($job_id,$frame)."</a><br/>";
                 print "frame <b>$frame</b> <a href=\"index.php?view=view_job&id=$job_id\">job $job_id</a><br/>";

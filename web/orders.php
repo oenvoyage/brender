@@ -1,19 +1,19 @@
 <?php	
 
 if (isset($_GET['delete_all'])) {
-	$qquery="delete from orders";
-	mysql_unbuffered_query($qquery);
-	print "$qquery";
+	$qquery = "DELETE FROM orders";
+	mysql_unbuffered_query($query);
+	print "$query";
 }
 if (isset($_GET['delete_old'])) {
-	$qquery="delete from orders where time_format(TIMEDIFF(NOW(),created),'%k') >2";
-	mysql_unbuffered_query($qquery);
-	print "$qquery";
+	$query = "DELETE FROM orders WHERE time_format(TIMEDIFF(NOW(),created),'%k') >2";
+	mysql_unbuffered_query($query);
+	print "$query";
 }
 if (isset($_GET['del'])) {
-	$qquery="delete from orders where id='$_GET[del]'";
-	mysql_unbuffered_query($qquery);
-	print "$qquery";
+	$query = "DELETE FROM orders WHERE id='$_GET[del]'";
+	mysql_unbuffered_query($query);
+	print "$query";
 }
 ?>
 	
@@ -29,21 +29,21 @@ if (isset($_GET['del'])) {
 		<td width=10></td>
 	</tr>
 	<?php
-	$query="select *,time_format(TIMEDIFF(NOW(),created),'%k') as hours_idle from orders";
-	$results=mysql_query($query);
-	while ($row=mysql_fetch_object($results)){
-		$client=$row->client;
-		$priority=$row->priority;
-		$id=$row->id;
-		$created=$row->created;
-		$rem=$row->rem;
-		$orders=$row->orders;
-		$hours_idle=$row->hours_idle;
-		$bgcolor="#cccccc";
-		$created_class="";
-		if ($hours_idle>2) {   
+	$query = "SELECT *,TIME_FORMAT(TIMEDIFF(NOW(),created),'%k') AS hours_idle FROM orders";
+	$results = mysql_query($query);
+	while ($row = mysql_fetch_object($results)){
+		$client = $row->client;
+		$priority = $row->priority;
+		$id = $row->id;
+		$created = $row->created;
+		$rem = $row->rem;
+		$orders = $row->orders;
+		$hours_idle = $row->hours_idle;
+		$bgcolor = "#cccccc";
+		$created_class = "";
+		if ($hours_idle > 2) {   
 			# the orders that are older than 2 hours will be displayed in red
-			$created_class="error";
+			$created_class = "error";
 		}
 		print "<tr>
 			<td bgcolor=$bgcolor>$id</td>
