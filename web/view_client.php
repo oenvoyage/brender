@@ -163,7 +163,7 @@ function show_last_rendered_frame_by_client($client) {
         $results = mysql_query($query);
         while ($row = mysql_fetch_object($results)) {
         	$job_id = $row->job_id;
-        	$rendered_by= $ row->rendered_by;
+        	$rendered_by= $row->rendered_by;
 		$frame = $row->frame;
         	$finished_time = $row->finished_time;
 		print "<td>";
