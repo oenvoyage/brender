@@ -17,7 +17,7 @@ html, body {height: 100%;}
 	}
 
 #section {
-	overflow:auto;
+	/*overflow:auto;*/
 	padding-bottom: 15px; /* must be same height as the footer */
 	padding-top: 15px;	
 	}  
