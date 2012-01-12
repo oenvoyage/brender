@@ -364,6 +364,13 @@ function set_server_settings($key,$value){
 	mysql_unbuffered_query($query);
 	#	print "### $client status : $status $rem\n";
 }
+function update_lastseen($client="NONE"){
+	if ($client == "NONE") {
+		$client = $GLOBALS['computer_name'];
+	}
+	$query = "UPDATE clients SET lastseen=NOW() WHERE client = '$client'";
+	mysql_unbuffered_query($query);
+}
 function set_info($client,$info){
 	#$rem = str_replace("'","\'",$rem);
 	$query = "UPDATE clients SET info = '$info' WHERE client = '$client'";

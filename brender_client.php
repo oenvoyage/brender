@@ -60,6 +60,7 @@ set_status("$computer_name","idle",'');
 set_info($computer_name,'');
 $os = get_client_os($computer_name);
 $GLOBALS['os'] = $os;
+$GLOBALS['computer_name'] = $computer_name;
 output("computer name = $computer_name os = $os");
 output("process id=".getmypid());
 brender_log("START $computer_name");
@@ -190,6 +191,8 @@ while ($q = 1) {
 				output("order unknown : $orders" , "ERROR");
 				remove_order($id);
 			}
+			# we update the lastseen value in the client databse to NOW()
+			update_lastseen();
 		}
 	}
 	#  --- sleep(1) can be enabled to have the mysql not running too many queries per minute

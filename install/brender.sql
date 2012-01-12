@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS  `clients` (
   `status` varchar(128) NOT NULL DEFAULT 'not running',
   `rem` varchar(1024) NOT NULL,
   `info` varchar(255) NOT NULL,
+  `lastseen` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='les clients' AUTO_INCREMENT=29 ;
 

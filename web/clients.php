@@ -246,6 +246,7 @@ if ($msg <> "") {
 				<th width=120>cmd</th>
 				<th width=120>workhour start</th>
 				<th width=120>workhour end</th>
+				<th width=120>lastseen</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -263,9 +264,10 @@ if ($msg <> "") {
 		$machine_type = $row->machine_type;
 		$machine_os = $row->machine_os;
 		$client_priority = $row->client_priority;
-		$working_hour_start = $row->working_hour_start;
-		$working_hour_end = $row->working_hour_end;
+		$working_hour_start = substr($row->working_hour_start,0,-3);
+		$working_hour_end = substr($row->working_hour_end,0,-3);
 		$speed = $row->speed;
+		$lastseen = $row->lastseen;
 		$status_class = get_css_class($status);
 		if ($status <> "disabled") {
 			$dis = "<a href=\"index.php?view=clients&disable=$client\">disable</a>";
@@ -289,6 +291,7 @@ if ($msg <> "") {
 			<td>$dis</td>
 			<td>$working_hour_start</td>
 			<td>$working_hour_end</td>
+			<td>$lastseen</td>
 			<td>$shutdown_button</td>
 		</tr>";
 	}
