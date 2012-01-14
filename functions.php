@@ -649,6 +649,16 @@ function checking_alive_clients() {
 		brender_log("$client not responding (PING)");
                 remove_order($id);
         }
+	# .... now checking if there are inactive clients.... means if they are stuck rendering for instance....
+	#print "checking inactive\n";
+	$query = "SELECT client,time_format(TIMEDIFF(NOW(),lastseen),'%k') as timediff FROM clients WHERE time_format(TIMEDIFF(NOW(),lastseen),'%k') >2 AND status<>'not running'";
+	$results = mysql_query($query);
+	while ($row = mysql_fetch_object($results)){
+	        $client = $row->client;
+	        $timediff = $row->timediff;
+                set_status("$client","not running",'client not responding (inactive > '.$timediff.' hours)');
+                print "client $client not responding (inactive > $timediff hours)\n";
+	}
 }
 function seconds_to_hms($time_in_secs) {
 	# function to display time from seconds to hours:minutes:seconds
