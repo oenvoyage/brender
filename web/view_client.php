@@ -140,6 +140,7 @@
 	</form><br/>
 
 	<!--   ******** execute command form ********  -->
+	<?php if ($status<>"not running" ) { ?>
 	<form action="index.php" method="post">
 		<input type="hidden" name="view" value="view_client">
 		<input type="hidden" name="client" value="<?php print $client?>">
@@ -147,6 +148,7 @@
 		<p>enter a custom command to execute on this client : <input type="ext" name="command">
 		<input type="submit" name="execute_command" value="execute command"></p>
 	</form><br/>
+	<?php } ?>
 
 	<!--   ******** 5 last rendered frames ********  -->
 	<a href="index.php?view=clients&delete=<?php print $client?>"><img src="images/icons/close.png"> delete client <?php print $client ?></a>
