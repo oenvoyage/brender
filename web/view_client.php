@@ -33,7 +33,7 @@
 	if (isset($_GET['reset'])) {
 		$query = "UPDATE clients set status='not running' WHERE client='$client'";
 		mysql_query($query);
-		$msg="client $client reset: $query";
+		$msg = "client $client reset: $query";
 	}
 	if (isset($_POST['action'])) {
 	   	if ($_POST['action'] == "update") {
@@ -52,7 +52,7 @@
 		}
 
 #--------read---------
-	$query = "select * from clients where client='$client'";
+	$query = "SELECT * FROM clients WHERE client='$client'";
 	$results = mysql_query($query);
 	if (isset($msg)) {
 		print "$msg<br/>";
@@ -140,7 +140,7 @@
 	</form><br/>
 
 	<!--   ******** execute command form ********  -->
-	<?php if ($status<>"not running" ) { ?>
+	<?php if ($status <> "not running" ) { ?>
 	<form action="index.php" method="post">
 		<input type="hidden" name="view" value="view_client">
 		<input type="hidden" name="client" value="<?php print $client?>">
@@ -150,8 +150,10 @@
 	</form><br/>
 	<?php } ?>
 
-	<!--   ******** 5 last rendered frames ********  -->
+	<!--   ******** delete client ********  -->
 	<a href="index.php?view=clients&delete=<?php print $client?>"><img src="images/icons/close.png"> delete client <?php print $client ?></a>
+
+	<!--   ******** 5 last rendered frames ********  -->
 	<h2>// 5 last rendered frames </h2>
 	<?php show_last_rendered_frame_by_client($client); ?>
 	
@@ -160,7 +162,7 @@
 #------------------------------ functions -----------------
 function show_last_rendered_frame_by_client($client) {
 	print "<table><tr>";
-        $query = "SELECT * FROM rendered_frames WHERE is_thumbnailed='1' AND rendered_by='$client'  ORDER BY finished_time DESC limit 5";
+        $query = "SELECT * FROM rendered_frames WHERE is_thumbnailed='1' AND rendered_by='$client'  ORDER BY finished_time DESC LIMIT 5";
 	debug("RENDER FRAME LAST BY CLIENT $query");
         $results = mysql_query($query);
         while ($row = mysql_fetch_object($results)) {

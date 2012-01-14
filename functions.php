@@ -627,7 +627,7 @@ function output_config_select($default = "NONE") {
 function checking_alive_clients() {
 	# print "i am checking alive clients ";
 	# to check alive clients we first looks who is supposed to be active, and send them a png order ....
-	$query = "select * FROM clients WHERE status = 'idle' or status = 'disabled'";
+	$query = "SELECT * FROM clients WHERE status = 'idle' OR status = 'disabled'";
         $results = mysql_query($query);
         while ($row = mysql_fetch_object($results)){
                 $id = $row->id;
@@ -638,7 +638,7 @@ function checking_alive_clients() {
         }
 	#... then we sleep 2 second, time to let a client get the order and delete it....
         sleep(2);
-        $query = "select * FROM orders WHERE orders = 'ping'";
+        $query = "SELECT * FROM orders WHERE orders = 'ping'";
         $results = mysql_query($query);
 	#..... then we check which client did not reply to ping order, so we know its dead
         while ($row = mysql_fetch_object($results)){
@@ -651,7 +651,7 @@ function checking_alive_clients() {
         }
 	# .... now checking if there are inactive clients.... means if they are stuck rendering for instance....
 	#print "checking inactive\n";
-	$query = "SELECT client,time_format(TIMEDIFF(NOW(),lastseen),'%k') as timediff FROM clients WHERE time_format(TIMEDIFF(NOW(),lastseen),'%k') >2 AND status<>'not running'";
+	$query = "SELECT client,time_format(TIMEDIFF(NOW(),lastseen),'%k') AS timediff FROM clients WHERE time_format(TIMEDIFF(NOW(),lastseen),'%k') >2 AND status<>'not running'";
 	$results = mysql_query($query);
 	while ($row = mysql_fetch_object($results)){
 	        $client = $row->client;
@@ -697,7 +697,7 @@ function job_get($what,$id) {
 		# job doesnt exist or was deleted, we just return o
 		return 0;
 	}
-	$query = "select $what FROM jobs WHERE id = '$id'";
+	$query = "SELECT $what FROM jobs WHERE id = '$id'";
 	$results = mysql_query($query);
 	$qq = mysql_result($results,0);
 	#debug ("******************************************$query*****************************************");
@@ -780,7 +780,7 @@ function add_rendered_frames($job_id,$start,$end){
 	#will add a rendered frame to the table, usually it is a client that invoke this function just after finishing a render job
 	$client = $GLOBALS['computer_name'];
 	for ($i = $start;$i<$end+1;$i++) {
-		$query = "insert into rendered_frames values('','$job_id','$i','$client',now(),'0')";
+		$query = "INSERT INTO rendered_frames VALUES('','$job_id','$i','$client',NOW(),'0')";
 		debug("ADD RENDER FRAME QUERY = $query");
 		mysql_query($query);
 	}

@@ -35,7 +35,7 @@
 
         $thumbnail_location = "../thumbnails/$project/$scene/$shot/$file_name";
 
-        $query = "select rendered_by,finished_time from rendered_frames where job_id='$job_id' and frame='$frame'";
+        $query = "SELECT rendered_by,finished_time FROM rendered_frames WHERE job_id='$job_id' AND frame='$frame'";
         $results = mysql_query($query);
         $row = mysql_fetch_object($results);
         debug(" temp query = $query");
