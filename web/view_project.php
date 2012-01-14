@@ -98,7 +98,7 @@ function show_jobs_of_project($project) {
 		$end = $row->end;
 		$thumbnail_image = get_thumbnail_image($job_id,$start,"thumbnail small");;
 
-		print "<td><a href=\"index.php?view=view_job&id=$job_id\">$thumbnail_image</a><br/> $scene <b>$shot</b></td>";
+		print "<td><a href=\"index.php?view=view_job&id=$job_id\">$thumbnail_image<br/> $scene <b>$shot</b></a></td>";
 		$num_cells+= 1;
 		if ($num_cells > 4) {
 			$num_cells = 0;
