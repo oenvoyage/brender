@@ -901,8 +901,8 @@ function show_last_rendered_frame($mode = "simple") {
 		$thumbnail_image = get_thumbnail_image($job_id,$frame);
 		if ($thumbnail_image) {
 			if ($mode == "full") {
-        			print "<a href = \"index.php?view = view_image&job_id = $job_id&frame = $frame\">$thumbnail_image</a><br/>";
-				print "$frame by <a href = \"index.php?view = view_client&client = $rendered_by\">$rendered_by</a> @ $finished_time<br/>";
+        			print "<a href=\"index.php?view=view_image&job_id=$job_id&frame=$frame\">$thumbnail_image</a><br/>";
+				print "$frame by <a href=\"index.php?view=view_client&client=$rendered_by\">$rendered_by</a> @ $finished_time<br/>";
 			}
 			else {
        			  	print $thumbnail_image;
