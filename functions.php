@@ -914,6 +914,7 @@ function show_last_rendered_frame($mode = "simple") {
 	}
 }
 function count_rendered_frames($job_id) {
+		#return "00";
 		# counting the total number of rendered frames for a job.
 		# If a job is rerendered, the total might already be 100%
 

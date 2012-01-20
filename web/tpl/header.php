@@ -18,14 +18,14 @@
 	<head>
 		<title>brender 0.5</title>
 		
-		<link rel="stylesheet" href="css/jquery-ui-1.8.17.custom.css">
+		<link rel="stylesheet" href="css/jquery-ui-1.8.6.custom.css">
 		<link href="css/<?php if (!isset($_SESSION['user'])) { 
 			print "brender";
 			} else { print($_SESSION['theme']);
 			} ?>.css" rel="stylesheet" type="text/css">
 		<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
-		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
 		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="js/jquery.json-2.2.min.js"></script>
