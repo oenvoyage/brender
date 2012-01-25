@@ -118,12 +118,13 @@ while (1 <> 2) {
 					$end = $row_job->end;
 					$current = $row_job->current;
 					$status = $row_job->status;
-					$config = "conf/".$row_job->config.".py";
+					$config = $row_job->config;
+					$config_file = "conf/$config.py";
 					$chunks = $row_job->chunks;
 
 					#output("SCENE = $scene CLIENT priority $client=$client_priority   ..... JOB priority=$job_priority ");
 				if ($scene && $client_priority < $job_priority) {
-					output("...found job for $client ($client_os):: $scene/$shot start $start end $end current $current chunks $chunks config=$config");
+					output("...found job for $client ($client_os):: $scene/$shot start = $start end = $end current = $current chunks = $chunks config = $config");
 					$number_of_chunks=$chunks*$speed;
 					$where_to_start=$current;
 					$where_to_end=$current+$number_of_chunks-1;	// there used to be a -1 here, it must have been here for a reason, but i dont know it...so deleting for now
@@ -142,6 +143,14 @@ while (1 <> 2) {
 						# -----------------------------------------
 
 						$render_order = "-b \'$blend_path/$scene/$shot.blend\' -o \'$output_path/$scene/$shot/$output_filename\' -P $config -F $filetype ";
+						if ($config == "BLEND_DEFAULT") {
+                                                	$render_order = "-b \'$blend_path/$scene/$shot.blend\'";
+                                               	}
+                                               	else {
+                                                       $output_path=get_path($project,"output",$client_os);
+                                                       $output_filename=basename($shot); // we only take the filename from the shot (it gave problem with shot like sc02/03/my_file)
+                                                       $render_order = "-b \'$blend_path/$scene/$shot.blend\' -o \'$output_path/$scene/$shot/$output_filename\' -P $config_file -F $filetype ";
+                                               	}
 						$info_string = "job $id <b>$scene/$shot</b>";
 
 						if (($where_to_start+$number_of_chunks) > $end) {
