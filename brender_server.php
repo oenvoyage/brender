@@ -125,14 +125,14 @@ while (1 <> 2) {
 					#output("SCENE = $scene CLIENT priority $client=$client_priority   ..... JOB priority=$job_priority ");
 				if ($scene && $client_priority < $job_priority) {
 					output("...found job for $client ($client_os):: $scene/$shot start = $start end = $end current = $current chunks = $chunks config = $config");
-					$number_of_chunks=$chunks*$speed;
-					$where_to_start=$current;
-					$where_to_end=$current+$number_of_chunks-1;	// there used to be a -1 here, it must have been here for a reason, but i dont know it...so deleting for now
-					$blend_path=get_path($project,"blend",$client_os);
-					$output_path=get_path($project,"output",$client_os);
-					$output_filename=basename($shot); // we only take the filename from the shot (it gave problem with shot like sc02/03/my_file)
+					$number_of_chunks = $chunks * $speed;
+					$where_to_start = $current;
+					$where_to_end = $current + $number_of_chunks - 1;	// there used to be a -1 here, it must have been here for a reason, but i dont know it...so deleting for now
+					$blend_path = get_path($project,"blend",$client_os);
+					$output_path = get_path($project,"output",$client_os);
+					$output_filename = basename($shot); // we only take the filename from the shot (it gave problem with shot like sc02/03/my_file)
 
-					if ($where_to_end>$end) {   # we render more than needed, lets cut the end
+					if ($where_to_end > $end) {   # we render more than needed, lets cut the end
 						$where_to_end = $end;
 					}
 					$new_start = $current + $number_of_chunks; 
@@ -142,7 +142,6 @@ while (1 <> 2) {
 						# --------- MAIN RENDER ORDERS  -----------
 						# -----------------------------------------
 
-						$render_order = "-b \'$blend_path/$scene/$shot.blend\' -o \'$output_path/$scene/$shot/$output_filename\' -P $config -F $filetype ";
 						if ($config == "BLEND_DEFAULT") {
                                                 	$render_order = "-b \'$blend_path/$scene/$shot.blend\'";
                                                	}
@@ -153,7 +152,7 @@ while (1 <> 2) {
                                                	}
 						$info_string = "job $id <b>$scene/$shot</b>";
 
-						if (($where_to_start+$number_of_chunks) > $end) {
+						if (($where_to_start + $number_of_chunks) > $end) {
 							#---last chunk of job, its the end, we only need to render frames from CURRENT to END---
 							$render_order.= " -s $where_to_start -e $end -a -JOB $id"; 
 							$info_string.= " $where_to_start-$end (last chunk)";
@@ -185,7 +184,7 @@ while (1 <> 2) {
 
 	#---matrix style useless stuff
 	if (isset($matrix_mode)) {
-		$qq=chr(rand(48,122));
+		$qq = chr(rand(48,122));
 		print "$qq";
 	}
 	else {
