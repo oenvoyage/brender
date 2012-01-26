@@ -743,3 +743,44 @@ table tr {
 	padding:4px;
 	border-bottom:1px solid #ccc;
 }
+
+
+
+/***** stopmotion-lite css *******/
+
+#slides{
+        margin: 0 auto;
+}
+#slideImages{
+        opacity: .6;
+        background: url('images/ajax-loader.gif') 0 10px  no-repeat;
+        height: 415px;
+}
+        #slideImages img{
+                padding-top: 10px;
+                margin: 0 auto;
+                display: none;
+        }
+        #slideImages img:first-child{
+                display: block;
+	}
+#loading{
+        position: absolute;
+        top: 300px;
+        left: 49%;
+        z-index: 999;
+}
+#playPause{
+        position: absolute;
+        display: none;
+        padding: 0px;
+        margin: 20px 0 0 10px;
+        z-index: 999;
+        height: 20px;
+        width: 20px;
+        background: url('image/ajax-loader.gif') no-repeat;
+        opacity: .5;
+}
+	#playPause:hover, #playPause:active{
+                opacity: 1;
+	}

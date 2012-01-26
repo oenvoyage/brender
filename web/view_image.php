@@ -129,6 +129,7 @@
 	<span class="current_frame"><?php print "frame <b>$frame</b>" ?></span>
 	<a class="next btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $next_frame?>">next</a>
 	<a class="next_10 btn" href="index.php?view=view_image&job_id=<?php echo $job_id ?>&frame=<?php echo $next_10_frame?>">next 10</a>
+ 	<a class="play btn" href="index.php?view=preview_anim&id=<?php echo $job_id?>">preview anim</a>
 	<button class="switchbg_btn btn">dark background</button>
 	<a class="view_image btn" href="<?php echo $thumbnail_location ?>" target="blank"><?php echo $file_name ?></a>
 	

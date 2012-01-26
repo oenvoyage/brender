@@ -147,7 +147,7 @@ function switch_working_hours(what) {
 }
 
 function test(text) {
-	alert('fdff :'+text);
+	alert('test alert message :'+text);
 }
 
 // Displays a subset of a dropdown's options 

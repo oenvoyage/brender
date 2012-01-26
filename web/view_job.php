@@ -180,6 +180,7 @@
 		<a class="btn" href="index.php?view=jobs">back to job list</a>
 		<button class="switchbg_btn btn">dark background</button>
 		<a class="btn" id="edit_job_button" href="#">edit or duplicate job</a>
+		<a class="btn" href="index.php?view=preview_anim&id=<?php echo $id?>">preview anim</a>
 		<a class="btn" href="index.php?reset=<?php echo $id?>&start=<?php echo $id?>"><span class="<?php echo $status?>">&nbsp</span>&nbsp;<img src="images/icons/reload.png" /></a>
 	</div>
 		

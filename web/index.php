@@ -115,6 +115,10 @@
 				include "view_image.php";
 			}			
 	
+			if($view == "preview_anim") {
+				include "preview_anim.php";
+			}			
+	
 		}
 	?>
 	
