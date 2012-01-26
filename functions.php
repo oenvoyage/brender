@@ -610,6 +610,7 @@ function output_config_select($default = "NONE") {
 	#$list =  `ls ../conf/`;
 	#$list = preg_split("/\n/",$list);
 	$list = scandir("../conf/");	
+	array_push($list,"BLEND_DEFAULT.py");
 	foreach ($list as $item) {
 		# we do not want the "." and ".." folders, and we only want .py python files
 		if($item != "." && $item != ".." && preg_match("/^[^.](\w*)\.py/",$item)) {
