@@ -56,14 +56,14 @@
 							rem: rem.val(), 
 							directstart: $('#edit_directstart').is(':checked') 
 						}, function(data) {
-							var obj = jQuery.parseJSON(data);
+							//var obj = jQuery.parseJSON(data);
 							//alert(data);
-							if(obj.status == true) {
+							if(data.status == true) {
 								$("#edit_job").dialog("close" );
 								//alert(obj.query);
 								window.location= 'index.php?view=jobs';
 							} else {
-								alert(obj.msg);
+								alert(data.msg);
 							}
 						}, "Json");				
 						return false;					
@@ -86,14 +86,14 @@
 							rem: rem.val(), 
 							directstart: $('#edit_directstart').is(':checked') 
 						}, function(data) {
-							var obj = jQuery.parseJSON(data);
+							//var obj = jQuery.parseJSON(data);
 							//alert(data);
-							if(obj.status == true) {
+							if(data.status == true) {
 								$("#edit_job").dialog("close" );
-								alert(obj.msg);
+								alert(data.msg);
 								window.location= 'index.php?view=jobs';
 							} else {
-								alert(obj.msg);
+								alert(data.msg);
 							}
 						}, "Json");				
 						return false;					

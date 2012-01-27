@@ -32,15 +32,15 @@
 								client_priority: client_priority.val(),
 								action: "add_client"
 							}, function(data) {
-								var obj = jQuery.parseJSON(data);
+								// var obj = jQuery.parseJSON(data);
 								//alert(data);
-								if(obj.status == true) {
+								if(data.status == true) {
 									$("#dialog-form").dialog("close" );
 									//alert(obj.query);
-									alert(obj.msg);
+									alert(data.msg);
 									window.location= 'index.php?view=clients';
 								} else {
-									alert(obj.msg);
+									alert(data.msg);
 								}
 							}, "Json");				
 			    			return false;					

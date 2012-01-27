@@ -19,11 +19,11 @@
 							$.post("ajax/login.php", {username: username.val(), password: password.val(), do_login: do_login.val() }, function(data) {
 								var obj = jQuery.parseJSON(data);
 								//alert(data);
-								if(obj.status == true) {
+								if(data.status == true) {
 									//$("#dialog-form").dialog("close" );
 									window.location= 'index.php';
 								} else {
-									alert(obj.msg);
+									alert(data.msg);
 								}
 							}, "Json");				
 			    			return false;

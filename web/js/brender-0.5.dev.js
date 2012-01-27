@@ -92,14 +92,14 @@ $(function() {
 						rem: rem.val(), 
 						directstart: $('#directstart').is(':checked') 
 					}, function(data) {
-						var obj = jQuery.parseJSON(data);
+						// var obj = jQuery.parseJSON(data);
 						//alert(data);
-						if(obj.status == true) {
+						if(data.status == true) {
 							$("#dialog-form").dialog("close" );
 							//alert(obj.query);
 							window.location= 'index.php';
 						} else {
-							alert(obj.msg);
+							alert(data.msg);
 						}
 					}, "Json");				
 					return false;					

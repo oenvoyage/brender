@@ -24,7 +24,7 @@ if ($action == "add_client") {
 		//$new_client_name=clean_name($_POST['name']);
 		if (check_client_exists($name)) {
 			$status = "false";
-			$msg = "error client already exists";
+			$msg = "error client $name already exists";
 		}
 		else if ($name == "" ) {
 			$status = "false";
