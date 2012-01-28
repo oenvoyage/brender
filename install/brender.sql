@@ -121,8 +121,6 @@ CREATE TABLE IF NOT EXISTS `projects` (
 -- Dumping data for table `projects`
 --
 
--- INSERT INTO `projects` VALUES(21, 'test', '/Users/o/brender/brender/blend', '/Users/o/brender/brender/blend', '/Users/o/brender/brender/blend', '/Users/o/brender/brender/render', '/Users/o/brender/brender/render', '/Users/o/brender/brender/render', 'grand prix d-horlogerie version 2010', 'active', 0);
-
 -- --------------------------------------------------------
 
 --

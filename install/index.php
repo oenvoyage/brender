@@ -199,7 +199,7 @@
     if(isset($_SERVER['REQUEST_URI'])){$uploadPath = $_SERVER['REQUEST_URI'];}
     $uploadPath = str_replace("install/index.php","upload.pl?test",$uploadPath);
 	$uploadPath = "http://$_SERVER[SERVER_NAME]$uploadPath";
-    echo $uploadPath . " ...";
+    // echo $uploadPath . " ...";
     
     
     echo "</div>";
