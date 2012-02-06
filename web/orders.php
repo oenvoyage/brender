@@ -1,7 +1,7 @@
 <?php	
 
 if (isset($_GET['delete_all'])) {
-	$qquery = "DELETE FROM orders";
+	$query = "DELETE FROM orders";
 	mysql_unbuffered_query($query);
 	print "$query";
 }

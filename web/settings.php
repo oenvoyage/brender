@@ -66,14 +66,13 @@
 	                                            output_linux: output_linux.val(), 
 	                                            output_windows: output_windows.val() 
 	                                    }, function(data) {
-	                                            var obj = jQuery.parseJSON(data);
 	                                            //alert(data);
-	                                            if(obj.status == true) {
+	                                            if(data.status == true) {
 	                                                    $("#dialog-form").dialog("close" );
 	                                                    //alert(obj.query);
                                               window.location= 'index.php?view=settings';
 	                                            } else {
-	                                                    alert(obj.msg);
+	                                                    alert(data.msg);
 	                                            }
 	                                    }, "Json");                             
 	                            return false;                                   
