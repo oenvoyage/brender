@@ -9,7 +9,7 @@ $msg = "";
 $query = "";
 if (isset($_GET['order_by'])) {
 	if ($_SESSION['orderby_jobs'] == $_GET['order_by']) {
-		$_SESSION['orderby_jobs'] = $_GET['order_by']." desc";
+		$_SESSION['orderby_jobs'] = $_GET['order_by']." DESC";
 	}
 	else {
 		$_SESSION['orderby_jobs'] = $_GET['order_by'];
@@ -52,15 +52,15 @@ if (isset($_GET['pause'])) {
 	mysql_query($query);
 }
 if (isset($_GET['finish'])) {
-	$query="UPDATE JOBS SET status='finished +' WHERE id=$_GET[finish]";
+	$query = "UPDATE jobs SET status='finished +' WHERE id=$_GET[finish]";
 	mysql_query($query);
 }
 if (isset($_GET['reset'])) {
-	$query="UPDATE JOBS SET current=start WHERE id=$_GET[reset];";
+	$query = "UPDATE jobs SET current=start WHERE id=$_GET[reset];";
 	mysql_query($query);
 }
 if (isset($_GET['start'])) {
-	$query="UPDATE JOBS SET status='waiting' WHERE id=$_GET[start];";
+	$query = "UPDATE jobs SET status='waiting' WHERE id=$_GET[start];";
 	mysql_query($query);
 }
 if (isset($_GET['del'])) {

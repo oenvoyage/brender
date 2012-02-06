@@ -1,18 +1,18 @@
 <?php
 if (isset($_GET['orderby_job'])) {
-	if ($_SESSION['orderby_jobs']==$_GET['orderby_job']) {
-		$_SESSION['orderby_jobs']=$_GET['orderby_job']." desc";
+	if ($_SESSION['orderby_jobs'] == $_GET['orderby_job']) {
+		$_SESSION['orderby_jobs'] = $_GET['orderby_job']." DESC";
 	}
 	else {
-		$_SESSION['orderby_jobs']=$_GET['orderby_job'];
+		$_SESSION['orderby_jobs'] = $_GET['orderby_job'];
 	}
 }
 if (isset($_GET['orderby_client'])) {
-	if ($_SESSION['orderby_client']==$_GET['orderby_client']) {
-		$_SESSION['orderby_client']=$_GET['orderby_client']." desc";
+	if ($_SESSION['orderby_client'] == $_GET['orderby_client']) {
+		$_SESSION['orderby_client'] = $_GET['orderby_client']." DESC";
 	}
 	else {
-		$_SESSION['orderby_client']=$_GET['orderby_client'];
+		$_SESSION['orderby_client'] = $_GET['orderby_client'];
 	}
 }
 
@@ -52,11 +52,11 @@ $(document).ready(function() {
 <?php
 function show_last_log() {
 	#print "<h2>// last logs</h2>";
-	$a=0;
+	$a = 0;
 	$lok = file("../logs/brender.log");
-        $lok=array_reverse($lok);
+        $lok = array_reverse($lok);
         foreach ($lok as $line){
-                if ($a++>5 ) {
+                if ($a++ > 5 ) {
                         break;
                 }
                 print "$line<br/>";
@@ -67,8 +67,8 @@ function show_client_list() {
 #---------------------------------------
 #------------ CLIENTS LIST -------------
 #---------------------------------------
-	$query="select * from clients where status<>'not running' order by $_SESSION[orderby_client]";
-	$results=mysql_query($query);
+	$query = "SELECT * FROM clients WHERE status<>'not running' ORDER BY $_SESSION[orderby_client]";
+	$results = mysql_query($query);
 		?>
 	<table border=0>
 	<tr class="header_row">
@@ -78,31 +78,31 @@ function show_client_list() {
 		<td width=120><b> &nbsp; &nbsp; </td>
 	</tr>
 	<?php
-	 if (mysql_num_rows($results)==0) {
+	 if (mysql_num_rows($results) == 0) {
 		echo '<tr><td class="header_row error" colspan=8> NO clients running (<a href="index.php?view=clients">click here to add/manage</a>)</td></tr>';
         } 
-	while ($row=mysql_fetch_object($results)){
-		$client=$row->client;
-		$status=$row->status;
-		$info=$row->info;
-		$speed=$row->speed;
-		$machine_type=$row->machine_type;
-		$speed=$row->speed;
-		$status_class=get_css_class($status);
-		if ($status<>"disabled") {
-			$dis="<a href=\"index.php?view=clients&disable=$client\">disable</a>";
+	while ($row = mysql_fetch_object($results)){
+		$client = $row->client;
+		$status = $row->status;
+		$info = $row->info;
+		$speed = $row->speed;
+		$machine_type = $row->machine_type;
+		$speed = $row->speed;
+		$status_class = get_css_class($status);
+		if ($status <> "disabled") {
+			$disable_link = "<a href=\"index.php?view=clients&disable=$client\">disable</a>";
 		}
-		if ($status=="disabled") {
-			$dis="<a href=\"index.php?view=clients&enable=$client\">enable</a>";
+		if ($status == "disabled") {
+			$disable_link = "<a href=\"index.php?view=clients&enable=$client\">enable</a>";
 		}
-		else if ($status=="notrunning") {
-			$dis="";
+		else if ($status == "notrunning") {
+			$disable_link = "";
 		}
 		print "<tr class=$status_class>
 			<td class=neutral><a href=\"index.php?view=view_client&client=$client\"><font size=3>$client</font></a> <font size=1>($machine_type)</font></td> 
 			<td>$status</td>
 			<td>$info</td>
-			<td>$dis</td>
+			<td>$disable_link</td>
 
 		</tr>";
 	}
