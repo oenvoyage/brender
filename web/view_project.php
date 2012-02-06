@@ -40,7 +40,7 @@
 	$query = "SELECT * FROM projects WHERE name='$project'";
 	$results = mysql_query($query);
 	if (isset($msg)) {
-		print "$msg<br/>";
+		print "<p class=\"infobox\">$msg</p>";
 	}
 	print "<h2>// view project <b>$project</b></h2>";
 	#print "$query<br/>";

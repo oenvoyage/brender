@@ -409,6 +409,7 @@ function brender_log($log){
 	$prefix = ""; // initialize prefix variable
 	$slash = "/"; //Normally use forward slash
 	if ($computer_name == "web_interface") {
+		$who = "(".$_SESSION['user'].")";
 		$prefix = "../";
 	}
 	elseif ($computer_name == "ajax") { //adding else to ensure that backslashes are only used when not ajax and not web interface
@@ -418,7 +419,7 @@ function brender_log($log){
 		$slash = "\\";
 	}
 	$heure = date('Y/d/m H:i:s');
-	$log_what = "$heure $computer_name: $log\n";
+	$log_what = "$heure $computer_name: $log $who\n";
 	#print "\n---------------------- I AM LOGGING THIS ::: $log_what-----end ----\n";
 	# --- we log 2 times, first time for the computer itself, and ....
 	$foo = fopen($prefix."logs".$slash.$computer_name.".log","a");

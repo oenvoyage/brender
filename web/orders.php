@@ -1,19 +1,19 @@
 <?php	
-
 if (isset($_GET['delete_all'])) {
 	$query = "DELETE FROM orders";
 	mysql_unbuffered_query($query);
-	print "$query";
+	infobox("DELETED ALL ORDERS");
 }
 if (isset($_GET['delete_old'])) {
 	$query = "DELETE FROM orders WHERE time_format(TIMEDIFF(NOW(),created),'%k') >2";
 	mysql_unbuffered_query($query);
-	print "$query";
+	infobox("Deleted all orders older than 2 hours");
+	//infobox("$query");
 }
 if (isset($_GET['del'])) {
 	$query = "DELETE FROM orders WHERE id='$_GET[del]'";
 	mysql_unbuffered_query($query);
-	print "$query";
+	infobox("Deleted order $_GET[del]");
 }
 ?>
 	

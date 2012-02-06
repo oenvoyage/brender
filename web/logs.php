@@ -20,6 +20,7 @@
 	<ul>
 		<li><a href="ajax/logs.php?log=server">server</a></li>
 		<li><a href="ajax/logs.php?log=brender">brender</a></li>
+		<li><a href="ajax/logs.php?log=web_interface">web_interface</a></li>
 		<?php 
 			$query = "select * from clients order by status";
 			$results = mysql_query($query);

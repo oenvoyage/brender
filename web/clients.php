@@ -122,17 +122,17 @@
 	if (isset($_GET['benchmark'])) {
 		$benchmark = $_GET['benchmark'];
 		if ($benchmark == "all") {
-			print "benchmark ALL idle<br/>";
+			infobox("benchmark ALL idle");
 			$query = "SELECT * FROM clients WHERE status='idle'";
 			$results = mysql_query($query);
 			while ($row = mysql_fetch_object($results)){
 				$client = $row->client;
 				send_order("$client","benchmark","","99");
-				print "benchmark $client<br/>";
+				infobox("benchmark $client");
 			}
 		}
 		else {
-			print "benchmark $benchmark<br/>";
+			infobox("benchmark $benchmark");
 			send_order($benchmark,"benchmark","","99");
 		}
 		sleep(1); #...we sleep 1 sec for letting time to client to start benchmarking
@@ -140,26 +140,26 @@
 	if (isset($_GET['disable'])) {
 		$disable = $_GET['disable'];
 		if ($disable == "all") {
-                        print "disable ALL<br/>";
+                        infobox("disable ALL");
                         $query = "SELECT * FROM clients WHERE status='idle' OR status='rendering'";
                         $results = mysql_query($query);
                         while ($row = mysql_fetch_object($results)){
                                 $client = $row->client;
                                 send_order("$client","disable","","5");
-                                $msg.= "... disabled $client<br/>";
+                                infobox("... disabled $client");
                         }
         	}
         	else {
 			send_order($disable,"disable","","5");
-        		print "... disable client : $disable<br/>";
+        		infobox("... disable client : $disable");
 		}
-		$msg.= "disabled $disable <br/>";
+		infobox("disabled $disable");
 		sleep(1);
 	}
 	if (isset($_GET['enable'])) {
 		$enable = $_GET['enable'];
 		if ($enable == "all") {
-			print "enable ALL<br/>";
+			infobox("enable ALL");
 			$query = "SELECT * FROM clients WHERE status='disabled'";
         		$results = mysql_query($query);
 			while ($row = mysql_fetch_object($results)){
@@ -169,7 +169,7 @@
 			}
 		}
 		else if ($enable == "force_all"){
-			print "force enable ALL<br/>";
+			infobox("force enable ALL");
 			$query = "SELECT * FROM clients";
         		$results = mysql_query($query);
 			while ($row = mysql_fetch_object($results)){
@@ -202,7 +202,7 @@
         }
 	if (isset($_GET['stop'])) {
 		$stop = $_GET['stop'];
-		$msg = "stopped $stop<br/>";
+		infobox("stopped $stop");
 		$when = date('Y/d/m H:i:s');
 		send_order($stop,"stop","stopped@$when","1");
 		sleep(2);
@@ -225,7 +225,8 @@
 	}
 
 if ($msg <> "") {
-	print "$msg <a href=\"index.php?view=clients\">reload</a><br/>";
+	print "<p class=\"fadeout infobox\">$msg</p>";
+	print "<p class=\"fadeout infobox\"><a href=\"index.php?view=clients\">reload</a><br/></p>";
 }
 
 #--------read---------

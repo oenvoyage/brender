@@ -37,7 +37,8 @@ $(function() {
            
     	});
     
-    
+ 	// set a fadeout effect on all 'fadeout' class elements, diseapper after 6 seconds
+        setTimeout('$(".fadeout").fadeOut(2600)',6000);  
 
 	//Spinner next to brender logo (visible during AJAX calls)
 	$('#loadingSpinner')

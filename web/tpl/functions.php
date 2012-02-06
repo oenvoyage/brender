@@ -18,6 +18,9 @@ function init_user($user) {
 	return 1;
 }
 
+function infobox($info) {
+	print"<p class=\"infobox fadeout\">$info</p>";
+}
 function output_refresh_button() {
 	print "<a href=\"index.php?view=".$GLOBALS['view']."\"><img src=\"images/icons/reload.png\"></a>";
 }

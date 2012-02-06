@@ -40,7 +40,6 @@
 			$uquery = "UPDATE clients SET speed='$_POST[speed]',machine_os='$_POST[machine_os]',machine_type='$_POST[machine_type]',blender_local_path='$_POST[blender_local_path]',client_priority='$_POST[client_priority]',working_hour_start='$_POST[working_hour_start]',working_hour_end='$_POST[working_hour_end]' where client='$client'";
 			mysql_query($uquery);
 			$msg = "$client updated :: ok <br/>";
-			$msg.= "<a href=\"index.php?view=clients\">back to clients list</a>";
 		}
 	}
 	if (isset($_GET['stop'])) {
@@ -55,7 +54,8 @@
 	$query = "SELECT * FROM clients WHERE client='$client'";
 	$results = mysql_query($query);
 	if (isset($msg)) {
-		print "$msg<br/>";
+		infobox("$msg");
+		print "<a href=\"index.php?view=clients\">back to clients list</a>";
 	}
 	print "<h2>// view client <b>$client</b></h2>";
 	#print "$query<br/>";

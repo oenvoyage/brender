@@ -230,16 +230,20 @@ function system_status() {
 print "<h2>// <b>projects</b></h2>";
 
 if (isset($_GET['del'])) {
-	$query = "delete from projects where id=$_GET[del];";
+	$id = $_GET['del'];
+	$query = "DELETE FROM projects WHERE id=$id;";
+	infobox("deleted project $id");
 	mysql_query($query);
 	# sleep(1);
 }
 if (isset($_GET['deactivate'])) {
 	$query = "UPDATE projects SET status='inactive' where id=$_GET[deactivate];";
+	infobox("project $_GET[deactivate] was deactivated");
 	mysql_query($query);
 }
 if (isset($_GET['activate'])) {
 	$query = "UPDATE projects SET status='active' where id=$_GET[activate];";
+	infobox("project $_GET[activate] was activated");
 	mysql_query($query);
 }
 if (isset($_GET['def'])) {
@@ -249,7 +253,7 @@ if (isset($_GET['def'])) {
 		mysql_query($query);
 		$query = "UPDATE projects SET def=1 where id=$def;";
 		mysql_query($query);
-		print "default project = $def";
+		infobox("default project = $def");
 		# sleep(1);
 	}
 	else {
