@@ -31,10 +31,10 @@ if ($action == "add_client") {
 			$msg = "error, please enter a client name";
 		}
 		else {
-			$add_query = "INSERT INTO clients VALUES('','$name','$speed','$machine_type','$machine_os','$blender_local_path','$client_priority','$working_hour_start','$working_hour_end','not running','','')";
+			$add_query = "INSERT INTO clients (client,speed,machine_type,machine_os,blender_local_path,client_priority,working_hour_start,working_hour_end,status) VALUES('$name','$speed','$machine_type','$machine_os','$blender_local_path','$client_priority','$working_hour_start','$working_hour_end','not running (NEW)')";
 			mysql_query($add_query);
 			//$msg="created new client $_POST[client] $add_query";
-			$msg = "creation of client : $name with success";
+			$msg = "creation of client : $name with success $add_query";
 			$status = "true";
 			brender_log("added new client : $name");
 		}

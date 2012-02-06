@@ -15,12 +15,11 @@
 			.button()
 			.click(function() {
 				$.get("ajax/settings.php", {check_server_status: "1"}, function(data) {
-					var obj = jQuery.parseJSON(data);				
-					if(obj.status == true) {
+					if(data.status == true) {
 						//$("#dialog-form").dialog("close" );
-						alert(obj.msg);
+						alert(data.msg);
 					} else {
-						alert(obj.msg);
+						alert(data.msg);
 					}
 				}, "Json");				
     			return false;});
