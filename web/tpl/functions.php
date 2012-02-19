@@ -15,6 +15,7 @@ function init_user($user) {
 	$_SESSION['orderby_projects'] = "id";
 	$_SESSION['last_used_config'] = "";
 	$_SESSION['debug'] = false;
+	$_SESSION['autorefresh'] = "300";
 	return 1;
 }
 

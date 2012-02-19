@@ -99,7 +99,7 @@ while (1 <> 2) {
 			}
 			# print "$client is idle .... checking for a job\n";
 			#$query="select * from jobs where status='waiting' or status='rendering' order by priority limit 1;";
-			$query = "SELECT * FROM jobs WHERE status='waiting' OR status='rendering' AND (project IN  (SELECT name FROM projects WHERE status='active')) ORDER BY priority LIMIT 1;";
+			$query = "SELECT * FROM jobs WHERE status='waiting' OR status='rendering' AND (project IN  (SELECT name FROM projects WHERE status='active')) ORDER BY priority,shot LIMIT 1;";
 			$results_job=mysql_query($query);
 			if (mysql_num_rows($results_job) == 0) {
 				#print "no jobs found";

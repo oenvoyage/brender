@@ -408,6 +408,7 @@ function brender_log($log){
 	$log = preg_replace("/\n$/","",$log);  # we erase the trailing carriage return to avoid empty lines in the log file
 	$prefix = ""; // initialize prefix variable
 	$slash = "/"; //Normally use forward slash
+	$who ="";
 	if ($computer_name == "web_interface") {
 		$who = "(".$_SESSION['user'].")";
 		$prefix = "../";

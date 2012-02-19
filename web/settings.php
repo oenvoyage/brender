@@ -29,6 +29,11 @@
 			var theme_name = $("#theme_selector option:selected").val();
 			window.location = 'index.php?view=settings&theme=' + theme_name;
 		});
+
+		$("#autorefresh_selector").change(function() {
+			var autorefresh_value = $("#autorefresh_selector option:selected").val();
+			window.location = 'index.php?view=settings&autorefresh=' + autorefresh_value;
+		});
 		
 		//$(".header_row td:first").addClass("thead_l");
 		//$(".header_row td:last").addClass("thead_r"); 
@@ -144,6 +149,13 @@ if (isset($_GET['debug'])) {
 			<option value="brender">brender</option>
 			<option value="brender_dark">brender dark</option>
 			<option value="brender_mobile">brender mobile</option>
+		</select>
+	</div>
+	<div class="item">	
+		Autorefresh :<select id="autorefresh_selector">
+			<option value="60" <?php if ($_SESSION['autorefresh'] == 60) { print "selected"; } ?> >60 sec</option>
+			<option value="300" <?php if ($_SESSION['autorefresh'] == 300) { print "selected"; } ?> >5 min</option>
+			<option value="9999" <?php if ($_SESSION['autorefresh'] == 9999) { print "selected"; } ?> >off</option>
 		</select>
 	</div>
 	<div class="clear"></div>
@@ -321,10 +333,10 @@ if (isset($_GET['new_project'])) {
 			$default_button = "<a href=\"index.php?view=settings&def=$id\"><img src=\"images/icons/close.png\"></a>";
 		}
 		$test_path = get_path($name,"blend",$server_os);
-		$test_result = file_exists($test_path);
+		$test_result = is_dir($test_path);
 		if ($test_result <> 1) { 
 			$test_result_icon = "<a href=\"#\" class=\"tooltip\"><img src=\"images/icons/error.png\"> ERROR
-						<span> The server can not find the path to blend files. Check .blend path for <b>$server_os</b></span>
+						<span>The server can not find the path ($test_result) to blend files. Check .blend path for <b>$server_os</b> and check permissions</span>
 	
 					   </a>";
 		}

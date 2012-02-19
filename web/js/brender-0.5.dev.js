@@ -68,7 +68,6 @@ $(function() {
 		priority = $('input#priority'),
 		rem = $('input#rem')
 
-	
 	$("#new_job").dialog({
 		autoOpen: false,
 		height: 400,
