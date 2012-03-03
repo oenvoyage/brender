@@ -54,6 +54,17 @@ function debug($msg) {
 		print "**** DEBUG ***** :: $msg\n";
 	}
 }
+function notification($message,$type = "email") {
+	$when = date('Y/d/m H:i:s');
+	$message = "$when : $message";
+	print "NOTIFICATION : $message";
+	if ($type == "email") {
+		#mail('oenvoyage@gmail.com', 'Brender Notification', $message);
+	}
+	else {
+		#sms('oenvoyage@gmail.com', 'Brender Notification', $message);
+	}
+}
 function check_job_exists($job_id) {
 	$query = "SELECT COUNT(scene) FROM jobs WHERE id = '$job_id'";
 	$results = mysql_query($query);

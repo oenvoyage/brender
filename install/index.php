@@ -104,10 +104,10 @@
 	
 	
 	// Optionally drop prvious tables
-	if ($_POST['database_overwrite']) {
+	if (isset($_POST['database_overwrite'])) {
 		$query="DROP TABLE `clients`, `jobs`, `orders`, `projects`, `rendered_frames`, `server_settings`";
 		mysql_query($query) or print(mysql_error());
-		echo("Dropping previous tables called `clients`, `jobs`, `orders`, `projects`, `rendered_frames`, `server_settings`");
+		echo("Dropping previous tables called `clients`, `jobs`, `orders`, `projects`, `rendered_frames`, `server_settings`<br/>");
 	}
 	
 	
@@ -134,7 +134,7 @@
 	// Add a server_settings line with host operating system (to generate proper paths when creating projects)
 	mysql_query("DELETE FROM server_settings") or display_error_and_die("Error performing server_settings delete query : " . mysql_error());
 
-	$set_server_os="INSERT INTO `server_settings` VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', '$mysql_host_os', '')";
+	$set_server_os="INSERT INTO `server_settings` (server,status,pid,started,sound,server_os) VALUES('server', 'not started ', 0, '1972-01-07 22:39:49', 'no', '$mysql_host_os')";
 	mysql_query($set_server_os) or display_error_and_die("Error performing query : " . mysql_error());
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
