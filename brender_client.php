@@ -157,6 +157,7 @@ while ($q = 1) {
 			else if ($orders == "declare_finished") { 
 				#--- a job is nearly finished (means the last chunk has been allocated) , so we declare it finished, to avoid other clients to render it
 				output("DECLARE FINISHED job $rem");
+				send_order("server","execute_post_render","$rem");
 				$heure = date('Y/d/m H:i:s');
 				$query = "UPDATE jobs SET status='finished at $heure' WHERE id='$rem'";
 				mysql_unbuffered_query($query);

@@ -15,6 +15,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		$filetype = $_POST['filetype'];
 		$rem = $_POST['rem'];
 		$config = $_POST['config'];
+		$post_render_action = $_POST['post_render_action'];
 		$chunks = $_POST['chunks'];
 		$priority = $_POST['priority'];
 		$directstart = $_POST['directstart'];
@@ -40,12 +41,12 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 
 		if ($_POST['action'] == "duplicate") {
 			#----update COPY so we create a new job-------
-			$query="INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','active','$progress_status','$progress_remark','$priority',now(),'$session_user')";
+			$query="INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$post_render_action','active','$progress_status','$progress_remark','$priority',now(),'$session_user')";
             		mysql_query($query);
 			$msg = "Job $jobid duplicated successfully and waiting to be started";
 		} else {
 			#----update UPDATE so we just update the job-------
-			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', rem='$rem', config='$config', chunks='$chunks', priority='$priority', progress_status='$progress_status', progress_remark='$progress_remark', lastseen=NOW(), last_edited_by='$_SESSION[user]' WHERE id=$jobid;";
+			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', rem='$rem', config='$config', post_render_action='$post_render_action', chunks='$chunks', priority='$priority', progress_status='$progress_status', progress_remark='$progress_remark', lastseen=NOW(), last_edited_by='$_SESSION[user]' WHERE id=$jobid;";
 			mysql_query($queryqq);
 			if ($directstart == "true"){
 				#print "DDDFSDFSD SD SDF SF";

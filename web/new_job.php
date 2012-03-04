@@ -10,6 +10,7 @@
 		<label for="shot_manual">shot manual *</label>
 		<label for="fileformat">file format</label>
 		<label for="config">config</label>
+		<label for="post_render_action">post-render action</label>
 		<label for="start">start</label>
 		<label for="end">end</label>
 		<label for="chunks">chunks</label>
@@ -29,6 +30,9 @@
 		</select>
 		<select id="config" name="config">
 				<?php output_config_select() ?>
+		</select>
+		<select id="post_render_action" name="post_render_action">
+				<?php output_post_render_action_select() ?>
 		</select>
 		<input id="start" type="text" name="start" size="3" value="1" />
 		<input id="end" type="text" name="end" size="3" value="100" />

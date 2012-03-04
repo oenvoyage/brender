@@ -244,8 +244,23 @@ function check_and_execute_server_orders() {
 			output("...ping reply from $id...");
 			remove_order($id);
 		}
+		elseif ($orders == 'execute'){
+			output("... executing command : $rem...");
+			system("$rem &");
+			remove_order($id);
+		}
+		elseif ($orders == 'execute_post_render'){
+			$job_id = $rem;
+			$action = job_get("post_render_action",$job_id);
+			if ($action <> "NONE" ) {
+				output("... executing post render action for job $job_id :: $action");
+				$cmd = "conf/postrender/$action $job_id";
+				system("$cmd &");
+			}
+			remove_order($id);
+		}
 		elseif ($orders == 'stop'){
-			output("i shutdown server","warning");
+			output("I will now shutdown the server","warning");
 			remove_order($id);
 			server_stop();
 		}

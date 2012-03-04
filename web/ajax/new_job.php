@@ -15,6 +15,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {
 		$fileformat = $_POST['fileformat'];
 		$rem = $_POST['rem'];
 		$config = $_POST['config'];
+		$post_render_action = $_POST['post_render_action'];
 		$chunks = $_POST['chunks'];
 		$priority = $_POST['priority'];
 		$dberror = "";
@@ -36,10 +37,21 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {
 			$msg = "New job submitted --$rem-- and waiting to be started.";
 			
 		}
-		$_SESSION['last_used_config']=$config;
+		$_SESSION['last_used_config'] = $config;
 		
-		$query = "INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$fileformat','$rem','$config','$status','new','','$priority',now(),'$_SESSION[user]')";
+		$query = "INSERT INTO jobs (
+				scene,shot,start,end,project,
+				current,chunks,filetype,rem,config,
+				post_render_action,status,progress_status,priority,lastseen,
+				last_edited_by) 
+			VALUES(
+				'$scene','$shot','$start','$end','$project',
+				'$start','$chunks','$fileformat','$rem','$config',
+				'$post_render_action','$status','new','$priority',now(),
+				'$_SESSION[user]'
+			)";
 				
+		// print "$query";
 		mysql_query($query) or die ($dberror = mysql_error());
 		//session_destroy();
 		//$_SESSION['last_used_config']=$config;

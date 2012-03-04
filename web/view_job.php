@@ -19,6 +19,7 @@
 			shot = $('input#edit_shot'),
 			filetype = $('select#edit_filetype'),
 			config = $('select#edit_config'),
+			post_render_action = $('select#edit_post_render_action'),
 			progress_status = $('select#progress_status'),
 			progress_remark = $('input#edit_progress_remark'),
 			start = $('input#edit_start'),
@@ -49,6 +50,7 @@
 							progress_status: progress_status.val(), 
 							progress_remark: progress_remark.val(), 
 							config: config.val(), 
+							post_render_action: post_render_action.val(), 
 							start: start.val(), 
 							end: end.val(), 
 							chunks: chunks.val(), 
@@ -79,6 +81,7 @@
 							progress_status: progress_status.val(), 
 							progress_remark: progress_remark.val(), 
 							config: config.val(), 
+							post_render_action: post_render_action.val(), 
 							start: start.val(), 
 							end: end.val(), 
 							chunks: chunks.val(), 
@@ -152,6 +155,7 @@
 		$shot = $row->shot;
 		#$jobtype = $row->jobtype;
 		$config = $row->config;
+		$post_render_action = $row->post_render_action;
 		#$output = $row->output;
 		$start = $row->start;
 		$end = $row->end;
@@ -172,9 +176,10 @@
 			print "remark :: $rem<br/>";
 		}	
 		#print " <p class=\"$status\">";
-		print "project: <a href=\"index.php?view=view_project&project=$project\" class=\"tooltip\">$project<span>go to project page</span></a> $total frames ($start-$end by $chunks) ";
+		print "project: <a href=\"index.php?view=view_project&project=$project\" class=\"tooltip\">$project<span>go to project page</span></a> $total frames ($start-$end by $chunks) <br/>";
 		$total_rendered = count_rendered_frames($id);
-		print "$total_rendered rendered frames last changes made by  :: $last_edited_by $lastseen "; ?>
+		print "$total_rendered rendered frames // post = $post_render_action<br/>";
+		print "last changes made by  :: $last_edited_by $lastseen "; ?>
 
 	<div class="table-controls">
 		<a class="btn" href="index.php?view=jobs">back to job list</a>
@@ -241,10 +246,11 @@
 		}
 		?>
 		
-		<div id="edit_job" title="// edit or duplicate job">
+		<div id="edit_job" title="// edit or duplicate job <?php print $id ?>">
 			<div class="col_1">
 				<label for="filetype">type</label>
 				<label for="config">config</label>
+				<label for="post_render_action">post-render action</label>
 				<label for="progress_status">progress status</label>
 				<label for="progress_remark">progress remark</label>
 				<label for="start">start</label>
@@ -257,14 +263,17 @@
 			
 			<div class="col_2">
 				<select id="edit_filetype" name="filetype">
-	                 	<option value="JPEG">JPEG</option>
-	                    <option value="PNG" <?php print($select_png); ?>>PNG</option>
-						<option value="TGA" <?php print($select_tga); ?>>TGA</option>
-						<option value="EXR" <?php print($select_exr); ?>>OPEN_EXR</option>
-						<option value="MULTILAYER" <?php print($select_multilayer); ?>>MULTILAYER</option>
-                </select>
-                <select id="edit_config" name="config">
+	                 		<option value="JPEG">JPEG</option>
+	                    		<option value="PNG" <?php print($select_png); ?>>PNG</option>
+					<option value="TGA" <?php print($select_tga); ?>>TGA</option>
+					<option value="EXR" <?php print($select_exr); ?>>OPEN_EXR</option>
+					<option value="MULTILAYER" <?php print($select_multilayer); ?>>MULTILAYER</option>
+                		</select>
+                		<select id="edit_config" name="config">
 						<?php output_config_select($config); ?>
+				</select>
+                		<select id="edit_post_render_action" name="post_render_action">
+						<?php output_post_render_action_select($post_render_action); ?>
 				</select>
 				<select id="progress_status" name="progress_status"> 
 					<?php output_progress_status_select($progress_status); ?>

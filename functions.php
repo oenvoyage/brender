@@ -408,7 +408,7 @@ function get_status($client) {
 	$qq = mysql_result($results,0);
 	return $qq;
 }
-function send_order($client,$orders,$rem,$priority){
+function send_order($client,$orders,$rem="",$priority=30){
 	#print "------send_order var = $client, $orders, $rem, $priority----\n";
 	$query = "insert into orders values('','$client',NOW(),'$orders','$priority','$rem')";
 	 #print "order query = $query\n";
@@ -617,6 +617,24 @@ function output_shot_selector($project,$selected_scene = "") {
 			}
 		}
 	print "</select>";
+}
+function output_post_render_action_select($default = "NONE") {
+	if ($default == "NONE") {$default = $_SESSION['last_used_post_render_action'];};
+	$list = scandir("../conf/postrender");	
+	array_push($list,"NONE");
+	foreach ($list as $item) {
+		# we do not want the "." and ".." folders
+		if($item != "." && $item != "..") {
+			# $item = preg_replace("/\.py/","",$item);
+			#print("check default = $default and item = $item");
+			if ($default == $item) {
+				print " <option value = \"$item\" selected>$item</option>";
+			}	
+			else if ($item<>""){
+				print " <option value = \"$item\">$item</option>";
+			}
+		}
+	}
 }
 function output_config_select($default = "NONE") {
 	if ($default == "NONE") {$default = $_SESSION['last_used_config'];};
