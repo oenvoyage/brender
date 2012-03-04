@@ -43,12 +43,12 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {
 				scene,shot,start,end,project,
 				current,chunks,filetype,rem,config,
 				post_render_action,status,progress_status,priority,lastseen,
-				last_edited_by) 
+				created_by,last_edited_by) 
 			VALUES(
 				'$scene','$shot','$start','$end','$project',
 				'$start','$chunks','$fileformat','$rem','$config',
 				'$post_render_action','$status','new','$priority',now(),
-				'$_SESSION[user]'
+				'$_SESSION[user]','$_SESSION[user]'
 			)";
 				
 		// print "$query";

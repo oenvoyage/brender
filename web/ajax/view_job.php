@@ -20,7 +20,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		$priority = $_POST['priority'];
 		$directstart = $_POST['directstart'];
 		
-		$jobid = $_POST['updateid'];
+		$job_id = $_POST['updateid'];
 		$session_user = $_SESSION['user'];
 		$scene = $_POST['scene'];
 		$shot = $_POST['shot'];
@@ -30,28 +30,37 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['updateid']) {
 		#  do we still need this msg dialog?
 		if ($directstart == "true"){
 			#$status="waiting";
-			$msg = "Successfully edited job $jobid + RESTART"; # TODO
+			$msg = "Successfully edited job $job_id + RESTART"; # TODO
 		}
 		else {
 			#$status="pause";
-			$msg = "Successfully edited job $jobid. ";
+			$msg = "Successfully edited job $job_id. ";
 			
 		}
 
 
 		if ($_POST['action'] == "duplicate") {
 			#----update COPY so we create a new job-------
-			$query="INSERT INTO jobs VALUES('','$scene','$shot','$start','$end','$project','$start','$chunks','$filetype','$rem','$config','$post_render_action','active','$progress_status','$progress_remark','$priority',now(),'$session_user')";
+			$query="INSERT INTO jobs (
+					scene,shot,start,end,project,
+					current,chunks,filetype,rem,config,
+					post_render_action,status,progress_status,progress_remark,priority,
+					lastseen,created_by,last_edited_by
+				) VALUES (
+					'$scene','$shot','$start','$end','$project',
+					'$start','$chunks','$filetype','$rem','$config',
+					'$post_render_action','active','$progress_status','$progress_remark','$priority',
+					now(),'$session_user','$session_user'
+				)";
             		mysql_query($query);
-			$msg = "Job $jobid duplicated successfully and waiting to be started";
+			$msg = "Job $job_id duplicated successfully and waiting to be started";
 		} else {
 			#----update UPDATE so we just update the job-------
-			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', rem='$rem', config='$config', post_render_action='$post_render_action', chunks='$chunks', priority='$priority', progress_status='$progress_status', progress_remark='$progress_remark', lastseen=NOW(), last_edited_by='$_SESSION[user]' WHERE id=$jobid;";
+			$queryqq="UPDATE jobs SET start='$start', end='$end', filetype='$filetype', rem='$rem', config='$config', post_render_action='$post_render_action', chunks='$chunks', priority='$priority', progress_status='$progress_status', progress_remark='$progress_remark', lastseen=NOW(), last_edited_by='$_SESSION[user]' WHERE id=$job_id;";
 			mysql_query($queryqq);
 			if ($directstart == "true"){
-				#print "DDDFSDFSD SD SDF SF";
 				# for directstart we set the current frame position to start and set to waiting
-				$querystart = "UPDATE jobs SET current='$start', status='waiting' WHERE id='$jobid';";
+				$querystart = "UPDATE jobs SET current='$start', status='waiting' WHERE id='$job_id';";
 				mysql_query($querystart);
 			}	
 		}
