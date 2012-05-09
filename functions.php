@@ -409,9 +409,9 @@ function get_status($client) {
 	return $qq;
 }
 function send_order($client,$orders,$rem="",$priority=30){
-	#print "------send_order var = $client, $orders, $rem, $priority----\n";
-	$query = "insert into orders values('','$client',NOW(),'$orders','$priority','$rem')";
-	 #print "order query = $query\n";
+	#print  "------send_order var = $client, $orders, $rem, $priority----\n";
+	$query = "INSERT INTO orders (client, created, orders, priority, rem) VALUES('$client',NOW(),'$orders','$priority','$rem')";
+	# print "**********************   order query = $query\n";
 	mysql_unbuffered_query($query);
 }
 function brender_log($log){

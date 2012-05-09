@@ -123,6 +123,18 @@ while (1 <> 2) {
 					$chunks = $row_job->chunks;
 
 					#output("SCENE = $scene CLIENT priority $client=$client_priority   ..... JOB priority=$job_priority ");
+				if ($status == "waiting" ) {
+					# this is a new job, execute pre_render_action
+					output("JOB $id STARTED, execute pre render action");
+					$action = job_get("pre_render_action",$id);
+                        		output("... LETS execute render action = $action");
+                        		if ($action <> "-" ) {
+                                		output("... executing pre render action for job $id :: $action");
+                                		$cmd = "conf/prerender/$action $id";
+                                		system("$cmd &");
+						sleep(2);
+					}
+				}
 				if ($scene && $client_priority < $job_priority) {
 					output("...found job for $client ($client_os):: $scene/$shot start = $start end = $end current = $current chunks = $chunks config = $config");
 					$number_of_chunks = $chunks * $speed;
@@ -249,12 +261,14 @@ function check_and_execute_server_orders() {
 			system("$rem &");
 			remove_order($id);
 		}
+		# this part is not used for the moment, it is better to execute prerender actions at the very beginning, to be sure no client starts rendering before preaction is finished
 		elseif ($orders == 'execute_pre_render'){
 			$job_id = $rem;
 			$action = job_get("pre_render_action",$job_id);
-			if ($action <> "NONE" ) {
+			output("... LETS execute render action = $action");
+			if ($action <> "-" ) {
 				output("... executing pre render action for job $job_id :: $action");
-				$cmd = "conf/pre_render/$action $job_id";
+				$cmd = "conf/prerender/$action $job_id";
 				system("$cmd &");
 			}
 			remove_order($id);
@@ -262,7 +276,7 @@ function check_and_execute_server_orders() {
 		elseif ($orders == 'execute_post_render'){
 			$job_id = $rem;
 			$action = job_get("post_render_action",$job_id);
-			if ($action <> "NONE" ) {
+			if ($action <> "-" ) {
 				output("... executing post render action for job $job_id :: $action");
 				$cmd = "conf/postrender/$action $job_id";
 				system("$cmd &");
