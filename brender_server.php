@@ -249,6 +249,16 @@ function check_and_execute_server_orders() {
 			system("$rem &");
 			remove_order($id);
 		}
+		elseif ($orders == 'execute_pre_render'){
+			$job_id = $rem;
+			$action = job_get("pre_render_action",$job_id);
+			if ($action <> "NONE" ) {
+				output("... executing pre render action for job $job_id :: $action");
+				$cmd = "conf/pre_render/$action $job_id";
+				system("$cmd &");
+			}
+			remove_order($id);
+		}
 		elseif ($orders == 'execute_post_render'){
 			$job_id = $rem;
 			$action = job_get("post_render_action",$job_id);

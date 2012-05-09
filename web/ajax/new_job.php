@@ -16,6 +16,7 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {
 		$rem = $_POST['rem'];
 		$config = $_POST['config'];
 		$post_render_action = $_POST['post_render_action'];
+		$pre_render_action = $_POST['pre_render_action'];
 		$chunks = $_POST['chunks'];
 		$priority = $_POST['priority'];
 		$dberror = "";
@@ -42,16 +43,16 @@ if ($_POST['scene'] && $_POST['shot'] && $_POST['config']) {
 		$query = "INSERT INTO jobs (
 				scene,shot,start,end,project,
 				current,chunks,filetype,rem,config,
-				post_render_action,status,progress_status,priority,lastseen,
+				pre_render_action,post_render_action,status,progress_status,priority,lastseen,
 				created_by,last_edited_by) 
 			VALUES(
 				'$scene','$shot','$start','$end','$project',
 				'$start','$chunks','$fileformat','$rem','$config',
-				'$post_render_action','$status','new','$priority',now(),
+				'$pre_render_action','$post_render_action','$status','new','$priority',now(),
 				'$_SESSION[user]','$_SESSION[user]'
 			)";
 				
-		// print "$query";
+		#print "$query";
 		mysql_query($query) or die ($dberror = mysql_error());
 		//session_destroy();
 		//$_SESSION['last_used_config']=$config;

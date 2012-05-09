@@ -14,7 +14,8 @@ function init_user($user) {
 	$_SESSION['orderby_jobs'] = "shot";
 	$_SESSION['orderby_projects'] = "id";
 	$_SESSION['last_used_config'] = "";
-	$_SESSION['last_used_post_render_action'] = "";
+	$_SESSION['last_used_pre_render_action'] = "-";
+	$_SESSION['last_used_post_render_action'] = "-";
 	$_SESSION['debug'] = false;
 	$_SESSION['autorefresh'] = "300";
 	return 1;

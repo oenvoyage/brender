@@ -618,15 +618,13 @@ function output_shot_selector($project,$selected_scene = "") {
 		}
 	print "</select>";
 }
-function output_post_render_action_select($default = "NONE") {
-	if ($default == "NONE") {$default = $_SESSION['last_used_post_render_action'];};
-	$list = scandir("../conf/postrender");	
-	array_push($list,"NONE");
+function output_render_action_select($what, $default = "-") {
+	#if ($default == "-") {$default = $_SESSION['last_used_pre_render_action'];};
+	$list = scandir("../conf/$what");	
+	array_push($list,"-");
 	foreach ($list as $item) {
 		# we do not want the "." and ".." folders
 		if($item != "." && $item != "..") {
-			# $item = preg_replace("/\.py/","",$item);
-			#print("check default = $default and item = $item");
 			if ($default == $item) {
 				print " <option value = \"$item\" selected>$item</option>";
 			}	

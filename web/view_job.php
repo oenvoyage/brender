@@ -20,6 +20,7 @@
 			filetype = $('select#edit_filetype'),
 			config = $('select#edit_config'),
 			post_render_action = $('select#edit_post_render_action'),
+			pre_render_action = $('select#edit_pre_render_action'),
 			progress_status = $('select#progress_status'),
 			progress_remark = $('input#edit_progress_remark'),
 			start = $('input#edit_start'),
@@ -51,6 +52,7 @@
 							progress_remark: progress_remark.val(), 
 							config: config.val(), 
 							post_render_action: post_render_action.val(), 
+							pre_render_action: pre_render_action.val(), 
 							start: start.val(), 
 							end: end.val(), 
 							chunks: chunks.val(), 
@@ -82,6 +84,7 @@
 							progress_remark: progress_remark.val(), 
 							config: config.val(), 
 							post_render_action: post_render_action.val(), 
+							pre_render_action: pre_render_action.val(), 
 							start: start.val(), 
 							end: end.val(), 
 							chunks: chunks.val(), 
@@ -156,6 +159,7 @@
 		#$jobtype = $row->jobtype;
 		$config = $row->config;
 		$post_render_action = $row->post_render_action;
+		$pre_render_action = $row->pre_render_action;
 		#$output = $row->output;
 		$start = $row->start;
 		$end = $row->end;
@@ -178,7 +182,7 @@
 		#print " <p class=\"$status\">";
 		print "project: <a href=\"index.php?view=view_project&project=$project\" class=\"tooltip\">$project<span>go to project page</span></a> $total frames ($start-$end by $chunks) <br/>";
 		$total_rendered = count_rendered_frames($id);
-		print "$total_rendered rendered frames // post = $post_render_action<br/>";
+		print "$total_rendered rendered frames // pre : $pre_render_action // post : $post_render_action<br/>";
 		print "last changes made by  :: $last_edited_by $lastseen "; ?>
 
 	<div class="table-controls">
@@ -250,6 +254,7 @@
 			<div class="col_1">
 				<label for="filetype">type</label>
 				<label for="config">config</label>
+				<label for="pre_render_action">pre-render action</label>
 				<label for="post_render_action">post-render action</label>
 				<label for="progress_status">progress status</label>
 				<label for="progress_remark">progress remark</label>
@@ -272,8 +277,11 @@
                 		<select id="edit_config" name="config">
 						<?php output_config_select($config); ?>
 				</select>
+                		<select id="edit_pre_render_action" name="pre_render_action">
+						<?php output_render_action_select("prerender",$pre_render_action); ?>
+				</select>
                 		<select id="edit_post_render_action" name="post_render_action">
-						<?php output_post_render_action_select($post_render_action); ?>
+						<?php output_render_action_select("postrender",$post_render_action); ?>
 				</select>
 				<select id="progress_status" name="progress_status"> 
 					<?php output_progress_status_select($progress_status); ?>
