@@ -137,6 +137,22 @@
 		}
 		sleep(1); #...we sleep 1 sec for letting time to client to start benchmarking
 	}
+	if (isset($_POST['execute_command_on_all_clients'])) {
+                if ($_POST['command']) {
+                        $cmd = $_POST['command'];
+                        output("executing command $cmd on ALL clients");
+			$query = "SELECT * FROM clients WHERE status='idle' OR status='disabled' OR status='rendering'";
+ 	                $results = mysql_query($query);
+                        while ($row = mysql_fetch_object($results)){
+                                $client = $row->client;
+                        	send_order("$client","execute_command","$cmd","99");
+			}
+                }   
+                else {
+                        print "<span class=\"error\">please enter a <b>command</b> to execute</span>";
+                }   
+        }
+
 	if (isset($_GET['disable'])) {
 		$disable = $_GET['disable'];
 		if ($disable == "all") {
@@ -306,8 +322,14 @@ if ($msg <> "") {
 	<a class="btn" href="index.php?view=clients&enable=force_all">force_all_enable</a>
 	<a id="new_client" class="btn" href="#">add new client</a>
 </div>
-
-
+<div>
+	<form action="index.php" method="post">
+                 <input type="hidden" name="view" value="clients">
+                 <h3>custom command</h3>
+                 <p>enter a custom command to execute on all clients : <input type="ext" name="command">
+                 <input type="submit" name="execute_command_on_all_clients" value="execute command"></p>
+         </form><br/>
+</div>
 	<div id="new_client_form" title="// add new client">
 
 			client name (must be unique): <input id="name" type="text" name="new_client_name" size="20"> <br>
