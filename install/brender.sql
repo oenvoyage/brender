@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `filetype` varchar(16) NOT NULL DEFAULT 'PNG',
   `rem` varchar(255) NOT NULL,
   `config` varchar(64) NOT NULL,
-  `post_render_actions` varchar(255) NOT NULL,
+  `post_render_action` varchar(255) NOT NULL,
   `status` varchar(65) NOT NULL,
   `progress_status` varchar(128) NOT NULL,
   `progress_remark` varchar(255) NOT NULL,

@@ -71,8 +71,8 @@ $(function() {
 
 	$("#new_job").dialog({
 		autoOpen: false,
-		height: 400,
-		width: 450,
+		height: 460,
+		width: 520,
 		modal: true,
 		resizable: false,
 		buttons: {
