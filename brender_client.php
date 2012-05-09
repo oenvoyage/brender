@@ -78,7 +78,7 @@ while ($q = 1) {
 		$rem = $row->rem;
 		#print "----------- rem Â£=$rem \n";
 		# --- we are checking if there is an order for this client name, or for any client.
-		if ($client == $computer_name || $client == "ANY") {
+		if ($client == $computer_name || $client == "any") {
 			debug("wow its me...time to work! $orders ---");
 			if ($orders == "render") {
 				# ---- RENDER ---
