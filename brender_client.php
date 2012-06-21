@@ -28,14 +28,24 @@
 
 require "functions.php";
 require_once "connect.php";
-print "---- brender client 0.2 ----\n";
+print "\n   ---- brender client 0.5 ----\n";
 if (isset($argv[1]) == false) {
-	die("ERROR :: no computer_name, please use \n ./brender_client.php node <COMPUTER_NAME>\n");
+	die("\n   ERROR: no computer_name specified, please use \n   ./brender_client.php node <COMPUTER_NAME>\n \n");
 }
 else {
 	if (check_client_exists($argv[1])) {
 		$computer_name = $argv[1];
 		#$GLOBALS['computer_name'] = $computer_name;
+output("
+ _                        _           
+| |__  _ __ ___ _ __   __| | ___ _ __ 
+| '_ \| '__/ _ \ '_ \ / _` |/ _ \ '__|
+| |_) | | |  __/ | | | (_| |  __/ |   
+|_.__/|_|  \___|_| |_|\__,_|\___|_|   
+
+   ---- brender client 0.5 ----
+   
+");		
 		if (isset($argv[2])) {
 			if ($argv[2] == "force") {
 				debug("force start");

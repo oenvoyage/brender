@@ -37,7 +37,16 @@
 require "functions.php";
 require "connect.php";
 
-output("---- brender server 0.5 ----");
+output("
+ _                        _           
+| |__  _ __ ___ _ __   __| | ___ _ __ 
+| '_ \| '__/ _ \ '_ \ / _` |/ _ \ '__|
+| |_) | | |  __/ | | | (_| |  __/ |   
+|_.__/|_|  \___|_| |_|\__,_|\___|_|   
+
+   ---- brender server 0.5 ----
+   
+");
 
 #-----some server settings------
 
