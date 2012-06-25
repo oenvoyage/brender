@@ -10,6 +10,11 @@ if (isset($_GET['delete_old'])) {
 	infobox("Deleted all orders older than 2 hours");
 	//infobox("$query");
 }
+if (isset($_GET['reassign_to_any'])) {
+	$query = "UPDATE orders SET client='any' WHERE id='$_GET[reassign_to_any]'";
+	mysql_unbuffered_query($query);
+	infobox("Reassigned order $_GET[reassign_to_any] to any client");
+}
 if (isset($_GET['del'])) {
 	$query = "DELETE FROM orders WHERE id='$_GET[del]'";
 	mysql_unbuffered_query($query);
@@ -26,6 +31,7 @@ if (isset($_GET['del'])) {
 		<td width=500 align=center><b> &nbsp; rem &nbsp; </b></td>
 		<td width=120 align=center><b> &nbsp; priority &nbsp; </td>
 		<td width=120><b>created</b></td>
+		<td width=10></td>
 		<td width=10></td>
 	</tr>
 	<?php
@@ -52,7 +58,9 @@ if (isset($_GET['del'])) {
 			<td bgcolor=$bgcolor>$rem</td>
 			<td bgcolor=$bgcolor>$priority</td>
 			<td class=$created_class>$created</td> 
-			<td bgcolor=$bgcolor><a href=\"index.php?view=orders&del=$id\">x</a></td>
+			<td bgcolor=$bgcolor><a href=\"index.php?view=orders&reassign_to_any=$id\">reassign</a>
+			<td bgcolor=$bgcolor><a href=\"index.php?view=orders&del=$id\"><img src=\"images/icons/close.png\"></a></td>
+			</td>
 		</tr>";
 	}
 	?>

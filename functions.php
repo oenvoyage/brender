@@ -276,8 +276,8 @@ function get_blender_path() {
 function change_order_owner($id,$client) {
 	#function allowing a client to self-assign himself to an order
 	# used in case an order's client value is set to ANY, so this value becomes CLIENT and no other client will execute the order
-	$query = "UPDATE orders SET client = $client WHERE id = '$id'";
-	# mysql_unbuffered_query($query);
+	$query = "UPDATE orders SET client = '$client' WHERE id = '$id'";
+	mysql_unbuffered_query($query);
 	print "become order query $query\n";
 	# print "### $client deleted order $id\n";
 }
