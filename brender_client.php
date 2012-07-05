@@ -28,15 +28,9 @@
 
 require "functions.php";
 require_once "connect.php";
-print "\n   ---- brender client 0.5 ----\n";
-if (isset($argv[1]) == false) {
-	die("\n   ERROR: no computer_name specified, please use \n   ./brender_client.php node <COMPUTER_NAME>\n \n");
-}
-else {
-	if (check_client_exists($argv[1])) {
-		$computer_name = $argv[1];
-		#$GLOBALS['computer_name'] = $computer_name;
 output("
+
+   ---- brender client 0.5 ----
  _                        _           
 | |__  _ __ ___ _ __   __| | ___ _ __ 
 | '_ \| '__/ _ \ '_ \ / _` |/ _ \ '__|
@@ -46,24 +40,34 @@ output("
    ---- brender client 0.5 ----
    
 ");		
-		if (isset($argv[2])) {
-			if ($argv[2] == "force") {
-				debug("force start");
-			}
-			else if (check_client_is_running($computer_name)) {
-				output("tried to start brender client with client name : $computer_name.... but a client with that name seems to be already running\n");
-				die("ERROR: could not start client\n");
-			}
-			if ($argv[2] == "debug") {
-				# -- we enable debug mode ------
-				$GLOBALS['debug_mode']=1;
-				debug(" STARTED IN DEBUG MODE ");
-			}
+
+if (isset($argv[1]) == false) {
+	print "WARNING : no computer_name specified, let's try to use hostname instead ($hostname) \n";
+	$computer_name = gethostname();
+	#die("\n   ERROR: no computer_name specified, please use \n   ./brender_client.php node <COMPUTER_NAME>\n \n");
+}
+else {
+	$computer_name = $argv[1];
+}
+if (check_client_exists($computer_name)) {
+	#$GLOBALS['computer_name'] = $computer_name;
+	if (isset($argv[2])) {
+		if ($argv[2] == "force") {
+			debug("force start");
+		}
+		else if (check_client_is_running($computer_name)) {
+			output("tried to start brender client with client name : $computer_name.... but a client with that name seems to be already running\n");
+			die("ERROR: could not start client\n");
+		}
+		if ($argv[2] == "debug") {
+			# -- we enable debug mode ------
+			$GLOBALS['debug_mode']=1;
+			debug(" STARTED IN DEBUG MODE ");
 		}
 	}
-	else {
-		die("ERROR :: computer not found in client list, please check name again or add it to the list\n");
-	}
+}
+else {
+	die("ERROR :: computer not found in client list, please check name again or add it to the list\n");
 }
 
 set_status("$computer_name","idle",'');
