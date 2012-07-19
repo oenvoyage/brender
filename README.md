@@ -4,6 +4,10 @@ Brender README
 Todo
 ----
 
+Brender's future at blender conference 2012? 
+----
+There will be a meeting during the blender conference (12-14oct 2012) to discuss and share ideas about the future of brender. Everyone invited.
+
 * web interface (in progress)
 * documentation (in progress)
 
