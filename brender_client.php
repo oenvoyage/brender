@@ -25,6 +25,16 @@
 * ***** BEGIN GPL LICENSE BLOCK *****
 *
 */
+//Highly Experimental!
+$ftpenabled = 0;
+#Windows FTP
+	$winscp = "winscp.com"; #Set to path to winscp.com, use "winscp.com" when it is in the same folder or in PATH
+
+#Mac FTP
+	$ncftpput = ""; #Set to path of ncftpput, use "ncftpput" when it is in the same folder or you installed the package, absolute path recommended.
+	$ftphost = "";
+	$ftpusername = "";
+	$ftppassword = "";
 
 require "functions.php";
 require_once "connect.php";
@@ -95,6 +105,20 @@ while ($q = 1) {
 		if ($client == $computer_name || $client == "any") {
 			debug("wow its me...time to work! $orders ---");
 			if ($orders == "render") {
+				
+				#Download/synch blend folder
+				############################################# Highly Experimental
+				if ($ftpenabled) {
+					switch ($GLOBALS['os']) {
+						case "windows":
+							//SYNCH HERE!
+							$ftpcommand= $winscp . " /script=winscpsynch.txt";
+							system($ftpcommand);
+							break;
+					}
+				}
+				############################################# Highly Experimental
+				
 				# ---- RENDER ---
 				debug("RENDER TIME");
 				change_order_owner($id,$computer_name);
@@ -111,7 +135,25 @@ while ($q = 1) {
 				}
 				output("-  I am rendering using this command = $render_query");
 				system($render_query);
-
+				
+				# Upload completed frames to remote server
+				############################################# Highly Experimental
+				if ($ftpenabled) {
+					switch ($GLOBALS['os']) {
+						case "windows":
+							$ftpcommand= $winscp . " /script=winscp.txt";
+							system($ftpcommand);
+							rrmdir("render/");
+							break;
+						case "mac":
+							$ftpcommand= $ncftpput . " -R -u " . $ftpusername . " -p " . $ftppassword . " " . $ftphost . " / render/";
+							system($ftpcommand);
+							rrmdir("render/");
+							break;
+					}
+				}
+				############################################# Highly Experimental
+				
 				# --- now we send an order to server to generate the thumbnails
 				add_rendered_frames($parsed['job_id'],$parsed['start'],$parsed['end']);
 				$thumbnail_creation_order = "JOB=$parsed[job_id] START=$parsed[start] END=$parsed[end]";
